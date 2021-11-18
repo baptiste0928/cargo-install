@@ -1,0 +1,24 @@
+name: "Cargo install"
+description: "GitHub action for cache-efficient Rust crates installation"
+inputs:
+  crate:
+    description: "Name of the crate to install"
+    required: true
+  version:
+    description: "Version range to install."
+    required: true
+    default: "*"
+  features:
+    description: "Features of the crate to enable."
+    required: false
+outputs:
+  version:
+    description: "The version of the crate that has been installed."
+  cache-hit:
+    description: "A boolean indicating whether the crate was restored from cache."
+runs:
+  using: "node12"
+  main: "dist/index.js"
+branding:
+  color: "orange"
+  icon: "download"

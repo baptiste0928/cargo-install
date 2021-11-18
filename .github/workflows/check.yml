@@ -1,0 +1,73 @@
+name: Check
+
+on: [push, pull_request]
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6
+          run_install: true
+
+      - name: Check TypeScript files
+        run: pnpm run check
+
+  check-dist:
+    name: Package
+    runs-on: ubuntu-latest
+    needs: [check]
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6
+          run_install: true
+
+      - name: Package action
+        run: pnpm run package
+
+      - name: Compare output
+        run: |
+          if [ "$(git diff --text --ignore-space-at-eol --ignore-cr-at-eol dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build.  See status below:"
+            git diff --text --ignore-space-at-eol --ignore-cr-at-eol
+            exit 1
+          fi

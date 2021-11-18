@@ -1,0 +1,23 @@
+{
+  "name": "cargo-install",
+  "version": "1.0.0",
+  "description": "GitHub action for cache-efficient Rust crates installation",
+  "main": "lib/index.js",
+  "author": "baptiste0928",
+  "license": "ISC",
+  "scripts": {
+    "check": "tsc",
+    "package": "tsc && ncc build -o dist"
+  },
+  "dependencies": {
+    "@actions/cache": "^1.0.8",
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.0",
+    "@actions/io": "^1.1.1",
+    "@actions/tool-cache": "^1.7.1"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.32.0",
+    "typescript": "^4.5.2"
+  }
+}
