@@ -1,4 +1,4 @@
-name: "Cargo install"
+name: "cargo-install"
 description: "GitHub action for cache-efficient Rust crates installation"
 inputs:
   crate:
@@ -20,5 +20,5 @@ runs:
   using: "node12"
   main: "dist/index.js"
 branding:
-  color: "orange"
-  icon: "download"
+  color: "yellow"
+  icon: "package"
