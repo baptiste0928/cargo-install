@@ -1,6 +1,7 @@
 import * as core from "@actions/core"
 import * as exec from "@actions/exec"
-import * as tc from "@actions/tool-cache"
+import crypto from "crypto"
+import { validate } from "compare-versions"
 
 export interface ActionInput {
   crate: string,
@@ -10,11 +11,20 @@ export interface ActionInput {
 
 /** Parse action input */
 export function parseInput(): ActionInput {
+  const crate = core.getInput("crate", { required: true })
+  const version = core.getInput("version", { required: true })
+  const features = core.getInput("features", { required: false })
+
+  if (version !== "latest" && validate(version) === false) {
+    core.setFailed("Invalid version format")
+    process.exit(1)
+  }
+
   return {
-    crate: core.getInput("crate", { required: true }),
-    version: core.getInput("version", { required: true }),
+    crate: crate,
+    version: version,
     // Split on comma or space and remove empty results
-    features: core.getInput("features").split(/[ ,]+/).filter(Boolean),
+    features: features.split(/[ ,]+/).filter(Boolean),
   }
 }
 
@@ -23,71 +33,18 @@ export function getHomePath(): string  {
   return process.env.HOME || process.env.USERPROFILE as string
 }
 
-/** Install cargo-search2 */
-export async function installCargoSearch2(): Promise<void> {
-  const homePath = getHomePath()
-
-  if (process.platform === "win32") {
-    const downloadPath = await tc.downloadTool("https://github.com/sunshowers/cargo-search2/releases/latest/download/cargo-search2-x86_64-pc-windows-msvc.zip")
-    await tc.extractZip(downloadPath, `${homePath}/.cargo/bin`)
-  } else if (process.platform === "darwin") {
-    const downloadPath = await tc.downloadTool("https://github.com/sunshowers/cargo-search2/releases/latest/download/cargo-search2-x86_64-apple-darwin.tar.gz")
-    await tc.extractTar(downloadPath, `${homePath}/.cargo/bin`)
-  } else {
-    const downloadPath = await tc.downloadTool("https://github.com/sunshowers/cargo-search2/releases/latest/download/cargo-search2-x86_64-unknown-linux-gnu.tar.gz")
-    await tc.extractTar(downloadPath, `${homePath}/.cargo/bin`)
-  }
-
-  core.info(`Installed cargo-search2 in ${homePath}/.cargo/bin`)
-}
-
-export interface CargoSearch2Output {
-  "crate-name": string,
-  version: string,
-  hash: string,
-}
-
-/** Query cargo-search2 */
-export async function queryCargoSearch2(name: string, version: string): Promise<CargoSearch2Output> {
-  let stdout = ""
-  let stderr = ""
-
-  const options = {
-    silent: true,
-    ignoreReturnCode: true,
-    listeners: {
-      stdout: (data: Buffer) => {
-        stdout += data.toString()
-      },
-      stderr: (data: Buffer) => {
-        stderr += data.toString()
-      }
-    }
-  }
-
-  let returnCode = await exec.exec("cargo-search2", [name, "--req", version, "--message-format", "json"], options)
-
-  if (returnCode !== 0) {
-    core.setFailed(`cargo-search2 failed with code ${returnCode}`)
-    core.error(stderr)
-    process.exit(returnCode)
-  }
-
-  if (stderr) {
-    core.warning(`Error running cargo-search2: ${stderr}`)
-  }
-  return JSON.parse(stdout)
-}
-
 /** Get cache key */
 export function getCacheKey(name: string, version: string, features: string[]): string {
   const runnerOs = process.env.RUNNER_OS;
+  const jobId = process.env.GITHUB_JOB;
+  let key = `${name}-${version}--${jobId}-${runnerOs}`
 
-  if (features.length === 0) {
-    return `cargo-install-${name}-${version}-${runnerOs}`
-  } else {
-    return `cargo-install-${name}-${version}-${runnerOs}-features-${features.join("-")}`
+  if (features.length > 0) {
+    key += `-${features.join("-")}`
   }
+
+  const hash = crypto.createHash("sha256").update(key).digest("hex")
+  return `cargo-install-${hash}`
 }
 
 /** Run cargo install */

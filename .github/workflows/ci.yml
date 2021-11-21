@@ -1,4 +1,4 @@
-name: Check
+name: CI
 
 on: [push, pull_request]
 
@@ -71,3 +71,25 @@ jobs:
             git diff --text --ignore-space-at-eol --ignore-cr-at-eol
             exit 1
           fi
+
+  test-action:
+    name: Test on ${{ matrix.runner }}
+    runs-on: ${{ matrix.runner }}
+    needs: [check-dist]
+
+    strategy:
+      matrix:
+        runner: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v2
+
+    - name: Install ripgrep
+      uses: ./
+      with:
+        crate: ripgrep
+        version: 13
+
+    - name: Run ripgrep
+      run: rg -V
