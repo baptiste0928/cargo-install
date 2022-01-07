@@ -7,8 +7,8 @@ specifiers:
   '@actions/io': ^1.1.1
   '@vercel/ncc': ^0.32.0
   axios: ^0.24.0
-  compare-versions: ^4.1.1
-  typescript: ^4.5.2
+  compare-versions: ^4.1.2
+  typescript: ^4.5.4
 
 dependencies:
   '@actions/cache': 1.0.8
@@ -16,11 +16,11 @@ dependencies:
   '@actions/exec': 1.1.0
   '@actions/io': 1.1.1
   axios: 0.24.0
-  compare-versions: 4.1.1
+  compare-versions: 4.1.2
 
 devDependencies:
   '@vercel/ncc': 0.32.0
-  typescript: 4.5.2
+  typescript: 4.5.4
 
 packages:
 
@@ -86,8 +86,8 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@azure/core-http/2.2.2:
-    resolution: {integrity: sha512-V1DdoO9V/sFimKpdWoNBgsE+QUjQgpXYnxrTdUp5RyhsTJjvEVn/HKmTQXIHuLUUo6IyIWj+B+Dg4VaXse9dIA==}
+  /@azure/core-http/2.2.3:
+    resolution: {integrity: sha512-xr8AeszxP418rI//W38NfJDDr0kbVAPZkURZnZ+Fle+lLWeURjDE5zNIuocA1wUPoKSP8iXc0ApW6nPtbLGswA==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/abort-controller': 1.0.4
@@ -107,8 +107,8 @@ packages:
       xml2js: 0.4.23
     dev: false
 
-  /@azure/core-lro/2.2.1:
-    resolution: {integrity: sha512-HE6PBl+mlKa0eBsLwusHqAqjLc5n9ByxeDo3Hz4kF3B1hqHvRkBr4oMgoT6tX7Hc3q97KfDctDUon7EhvoeHPA==}
+  /@azure/core-lro/2.2.3:
+    resolution: {integrity: sha512-UMdlR9NsqDCLTba3EUbRjfMF4gDmWvld196JmUjbz9WWhJ2XT00OR5MXeWiR+vmGT+ETiO4hHFCi2/eGO5YVtg==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/abort-controller': 1.0.4
@@ -117,8 +117,8 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@azure/core-paging/1.2.0:
-    resolution: {integrity: sha512-ZX1bCjm/MjKPCN6kQD/9GJErYSoKA8YWp6YWoo5EIzcTWlSBLXu3gNaBTUl8usGl+UShiKo7b4Gdy1NSTIlpZg==}
+  /@azure/core-paging/1.2.1:
+    resolution: {integrity: sha512-UtH5iMlYsvg+nQYIl4UHlvvSrsBjOlRF4fs0j7mxd3rWdAStrKYrh2durOpHs5C9yZbVhsVDaisoyaf/lL1EVA==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/core-asynciterator-polyfill': 1.0.0
@@ -129,7 +129,7 @@ packages:
     resolution: {integrity: sha512-KxDlhXyMlh2Jhj2ykX6vNEU0Vou4nHr025KoSEiz7cS3BNiHNaZcdECk/DmLkEB0as5T7b/TpRcehJ5yV6NeXQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@opentelemetry/api': 1.0.3
+      '@opentelemetry/api': 1.0.4
       tslib: 2.3.1
     dev: false
 
@@ -159,35 +159,35 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/abort-controller': 1.0.4
-      '@azure/core-http': 2.2.2
-      '@azure/core-lro': 2.2.1
-      '@azure/core-paging': 1.2.0
+      '@azure/core-http': 2.2.3
+      '@azure/core-lro': 2.2.3
+      '@azure/core-paging': 1.2.1
       '@azure/core-tracing': 1.0.0-preview.13
       '@azure/logger': 1.0.3
       events: 3.3.0
       tslib: 2.3.1
     dev: false
 
-  /@opentelemetry/api/1.0.3:
-    resolution: {integrity: sha512-puWxACExDe9nxbBB3lOymQFrLYml2dVOrd7USiVRnSbgXE+KwBu+HxFvxrzfqsiSda9IWsXJG1ef7C1O2/GmKQ==}
+  /@opentelemetry/api/1.0.4:
+    resolution: {integrity: sha512-BuJuXRSJNQ3QoKA6GWWDyuLpOUck+9hAXNMCnrloc1aWVoy6Xq6t9PUV08aBZ4Lutqq2LEHM486bpZqoViScog==}
     engines: {node: '>=8.0.0'}
     dev: false
 
   /@types/node-fetch/2.5.12:
     resolution: {integrity: sha512-MKgC4dlq4kKNa/mYrwpKfzQMB5X3ee5U6fSprkKpToBqBmX4nFZL9cW5jl6sWn+xpRJ7ypWh2yyqqr8UUCstSw==}
     dependencies:
-      '@types/node': 16.11.9
+      '@types/node': 17.0.8
       form-data: 3.0.1
     dev: false
 
-  /@types/node/16.11.9:
-    resolution: {integrity: sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==}
+  /@types/node/17.0.8:
+    resolution: {integrity: sha512-YofkM6fGv4gDJq78g4j0mMuGMkZVxZDgtU0JRdx6FgiJDG+0fY0GKVolOV8WqVmEhLCXkQRjwDdKyPxJp/uucg==}
     dev: false
 
   /@types/tunnel/0.0.3:
     resolution: {integrity: sha512-sOUTGn6h1SfQ+gbgqC364jLFBw2lnFqkgF3q0WovEHRLMrVD1sd5aufqi/aJObLekJO+Aq5z646U4Oxy6shXMA==}
     dependencies:
-      '@types/node': 16.11.9
+      '@types/node': 17.0.8
     dev: false
 
   /@vercel/ncc/0.32.0:
@@ -209,7 +209,7 @@ packages:
   /axios/0.24.0:
     resolution: {integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==}
     dependencies:
-      follow-redirects: 1.14.5
+      follow-redirects: 1.14.6
     transitivePeerDependencies:
       - debug
     dev: false
@@ -232,8 +232,8 @@ packages:
       delayed-stream: 1.0.0
     dev: false
 
-  /compare-versions/4.1.1:
-    resolution: {integrity: sha512-jHQA7zMUpbO+FhPz/kADChZVSk3edtD7c3WkEAjleBtwgAl0ji6wGrYxryaBhViGgq0A+Pb6JPhjhg9jpth4mQ==}
+  /compare-versions/4.1.2:
+    resolution: {integrity: sha512-LAfbAbAgjnIwPsr2fvJLfrSyqAhK5nj/ffIg7a5aigry9RXJfNzVnOu0Egw8Z+G8LMDu1Qig2q48bpBzjyjZoQ==}
     dev: false
 
   /concat-map/0.0.1:
@@ -255,8 +255,8 @@ packages:
     engines: {node: '>=0.8.x'}
     dev: false
 
-  /follow-redirects/1.14.5:
-    resolution: {integrity: sha512-wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==}
+  /follow-redirects/1.14.6:
+    resolution: {integrity: sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -380,8 +380,8 @@ packages:
     engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
     dev: false
 
-  /typescript/4.5.2:
-    resolution: {integrity: sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==}
+  /typescript/4.5.4:
+    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

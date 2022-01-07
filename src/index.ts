@@ -36,13 +36,18 @@ async function run(): Promise<void> {
   else {
     await core.group("No cached version found, installing crate ...", async () => {
       await runCargoInstall(input.crate, resolvedVersion, input.features, installPath)
-      await cache.saveCache([installPath], cacheKey)
+
+      try {
+        await cache.saveCache([installPath], cacheKey)
+      } catch (e) {
+        core.warning((e as any).message)
+      }
     })
   }
 
   core.addPath(`${installPath}/bin`)
   core.info(`Added ${installPath}/bin to PATH.`)
-  core.info(`Installed ${input.crate} ${resolvedVersion}!`)
+  core.info(`Installed ${input.crate} ${resolvedVersion}.`)
 
   core.setOutput("version", resolvedVersion)
   core.setOutput("cache-hit", cacheHit)

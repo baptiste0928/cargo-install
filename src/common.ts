@@ -43,7 +43,7 @@ export function getCacheKey(name: string, version: string, features: string[]): 
     key += `-${features.join("-")}`
   }
 
-  const hash = crypto.createHash("sha256").update(key).digest("hex")
+  const hash = crypto.createHash("sha256").update(key).digest("hex").slice(0, 20)
   return `cargo-install-${hash}`
 }
 
