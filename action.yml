@@ -11,6 +11,9 @@ inputs:
   features:
     description: "Features of the crate to enable."
     required: false
+  cache-key:
+    description: "Additional key added to the automatic cache key."
+    required: false
 outputs:
   version:
     description: "The version of the crate that has been installed."

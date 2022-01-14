@@ -39,6 +39,7 @@ function parseInput() {
     const crate = core.getInput("crate", { required: true });
     const version = core.getInput("version", { required: true });
     const features = core.getInput("features", { required: false });
+    const cacheKey = core.getInput("cache-key", { required: false });
     if (version !== "latest" && (0, compare_versions_1.validate)(version) === false) {
         core.setFailed("Invalid version format");
         process.exit(1);
@@ -48,6 +49,7 @@ function parseInput() {
         version: version,
         // Split on comma or space and remove empty results
         features: features.split(/[ ,]+/).filter(Boolean),
+        cacheKey: cacheKey,
     };
 }
 exports.parseInput = parseInput;
@@ -57,12 +59,15 @@ function getHomePath() {
 }
 exports.getHomePath = getHomePath;
 /** Get cache key */
-function getCacheKey(name, version, features) {
+function getCacheKey(input, version) {
     const runnerOs = process.env.RUNNER_OS;
     const jobId = process.env.GITHUB_JOB;
-    let key = `${name}-${version}--${jobId}-${runnerOs}`;
-    if (features.length > 0) {
-        key += `-${features.join("-")}`;
+    let key = `${input.crate}-${version}--${jobId}-${runnerOs}`;
+    if (input.features.length > 0) {
+        key += `-${input.features.join("-")}`;
+    }
+    if (input.cacheKey) {
+        key += `-${input.cacheKey}`;
     }
     const hash = crypto_1.default.createHash("sha256").update(key).digest("hex").slice(0, 20);
     return `cargo-install-${hash}`;
@@ -205,7 +210,7 @@ async function run() {
     const crateInfo = await (0, cratesIo_1.fetchCrate)(input.crate);
     const resolvedVersion = (0, cratesIo_1.resolveCrateVersion)(crateInfo, input.version);
     const installPath = `${(0, common_1.getHomePath)()}/.cargo-install/${input.crate}`;
-    const cacheKey = (0, common_1.getCacheKey)(input.crate, resolvedVersion, input.features);
+    const cacheKey = (0, common_1.getCacheKey)(input, resolvedVersion);
     core.info("Installation settings:");
     core.info(`   version: ${resolvedVersion}`);
     core.info(`   path: ${installPath}`);

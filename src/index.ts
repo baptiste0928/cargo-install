@@ -15,7 +15,7 @@ async function run(): Promise<void> {
   const resolvedVersion = resolveCrateVersion(crateInfo, input.version)
 
   const installPath = `${getHomePath()}/.cargo-install/${input.crate}`
-  const cacheKey = getCacheKey(input.crate, resolvedVersion, input.features)
+  const cacheKey = getCacheKey(input, resolvedVersion)
 
   core.info("Installation settings:")
   core.info(`   version: ${resolvedVersion}`)

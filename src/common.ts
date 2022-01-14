@@ -7,6 +7,7 @@ export interface ActionInput {
   crate: string,
   version: string,
   features: string[],
+  cacheKey: string,
 }
 
 /** Parse action input */
@@ -14,6 +15,7 @@ export function parseInput(): ActionInput {
   const crate = core.getInput("crate", { required: true })
   const version = core.getInput("version", { required: true })
   const features = core.getInput("features", { required: false })
+  const cacheKey = core.getInput("cache-key", { required: false })
 
   if (version !== "latest" && validate(version) === false) {
     core.setFailed("Invalid version format")
@@ -25,6 +27,7 @@ export function parseInput(): ActionInput {
     version: version,
     // Split on comma or space and remove empty results
     features: features.split(/[ ,]+/).filter(Boolean),
+    cacheKey: cacheKey,
   }
 }
 
@@ -34,13 +37,17 @@ export function getHomePath(): string  {
 }
 
 /** Get cache key */
-export function getCacheKey(name: string, version: string, features: string[]): string {
-  const runnerOs = process.env.RUNNER_OS;
-  const jobId = process.env.GITHUB_JOB;
-  let key = `${name}-${version}--${jobId}-${runnerOs}`
+export function getCacheKey(input: ActionInput, version: string): string {
+  const runnerOs = process.env.RUNNER_OS
+  const jobId = process.env.GITHUB_JOB
+  let key = `${input.crate}-${version}--${jobId}-${runnerOs}`
 
-  if (features.length > 0) {
-    key += `-${features.join("-")}`
+  if (input.features.length > 0) {
+    key += `-${input.features.join("-")}`
+  }
+
+  if (input.cacheKey) {
+    key += `-${input.cacheKey}`
   }
 
   const hash = crypto.createHash("sha256").update(key).digest("hex").slice(0, 20)
