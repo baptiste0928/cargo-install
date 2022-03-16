@@ -1,41 +1,43 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@actions/cache': ^1.0.8
+  '@actions/cache': ^1.0.9
   '@actions/core': ^1.6.0
   '@actions/exec': ^1.1.0
   '@actions/io': ^1.1.1
   '@vercel/ncc': ^0.32.0
   axios: ^0.24.0
-  compare-versions: ^4.1.2
-  typescript: ^4.5.4
+  compare-versions: ^4.1.3
+  typescript: ^4.6.2
 
 dependencies:
-  '@actions/cache': 1.0.8
+  '@actions/cache': 1.0.9
   '@actions/core': 1.6.0
   '@actions/exec': 1.1.0
   '@actions/io': 1.1.1
   axios: 0.24.0
-  compare-versions: 4.1.2
+  compare-versions: 4.1.3
 
 devDependencies:
   '@vercel/ncc': 0.32.0
-  typescript: 4.5.4
+  typescript: 4.6.2
 
 packages:
 
-  /@actions/cache/1.0.8:
-    resolution: {integrity: sha512-GWNNB67w93HGJRQXlsV56YqrdAuDoP3esK/mo5mzU8WoDCVjtQgJGsTdkYUX7brswtT7xnI30bWNo1WLKQ8FZQ==}
+  /@actions/cache/1.0.9:
+    resolution: {integrity: sha512-VzqeDyW3kIDdARNQphd1FrzZCiJRuv98aXwM3R+BLe2UvdZXdRqjC/rrytSm4Nv4OJuI8NA1pbhkXIf+a4LFtw==}
     dependencies:
       '@actions/core': 1.6.0
       '@actions/exec': 1.1.0
       '@actions/glob': 0.1.2
       '@actions/http-client': 1.0.11
       '@actions/io': 1.1.1
-      '@azure/ms-rest-js': 2.6.0
-      '@azure/storage-blob': 12.8.0
+      '@azure/ms-rest-js': 2.6.1
+      '@azure/storage-blob': 12.9.0
       semver: 6.3.0
       uuid: 3.4.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /@actions/core/1.6.0:
@@ -54,7 +56,7 @@ packages:
     resolution: {integrity: sha512-SclLR7Ia5sEqjkJTPs7Sd86maMDw43p769YxBOxvPvEWuPEhpAnBsQfENOpXjFYMmhCqd127bmf+YdvJqVqR4A==}
     dependencies:
       '@actions/core': 1.6.0
-      minimatch: 3.0.4
+      minimatch: 3.1.2
     dev: false
 
   /@actions/http-client/1.0.11:
@@ -74,8 +76,9 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@azure/core-asynciterator-polyfill/1.0.0:
-    resolution: {integrity: sha512-kmv8CGrPfN9SwMwrkiBK9VTQYxdFQEGe0BmQk+M8io56P9KNzpAxcWE/1fxJj7uouwN4kXF0BHW8DNlgx+wtCg==}
+  /@azure/core-asynciterator-polyfill/1.0.2:
+    resolution: {integrity: sha512-3rkP4LnnlWawl0LZptJOdXNrT/fHp2eQMadoasa6afspXdpGrtPZuAQc2PD0cpgyuoXtUWyC3tv7xfntjGS5Dw==}
+    engines: {node: '>=12.0.0'}
     dev: false
 
   /@azure/core-auth/1.3.2:
@@ -86,29 +89,31 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@azure/core-http/2.2.3:
-    resolution: {integrity: sha512-xr8AeszxP418rI//W38NfJDDr0kbVAPZkURZnZ+Fle+lLWeURjDE5zNIuocA1wUPoKSP8iXc0ApW6nPtbLGswA==}
+  /@azure/core-http/2.2.4:
+    resolution: {integrity: sha512-QmmJmexXKtPyc3/rsZR/YTLDvMatzbzAypJmLzvlfxgz/SkgnqV/D4f6F2LsK6tBj1qhyp8BoXiOebiej0zz3A==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/abort-controller': 1.0.4
-      '@azure/core-asynciterator-polyfill': 1.0.0
+      '@azure/core-asynciterator-polyfill': 1.0.2
       '@azure/core-auth': 1.3.2
       '@azure/core-tracing': 1.0.0-preview.13
       '@azure/logger': 1.0.3
-      '@types/node-fetch': 2.5.12
+      '@types/node-fetch': 2.6.1
       '@types/tunnel': 0.0.3
       form-data: 4.0.0
-      node-fetch: 2.6.6
+      node-fetch: 2.6.7
       process: 0.11.10
       tough-cookie: 4.0.0
       tslib: 2.3.1
       tunnel: 0.0.6
       uuid: 8.3.2
       xml2js: 0.4.23
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
-  /@azure/core-lro/2.2.3:
-    resolution: {integrity: sha512-UMdlR9NsqDCLTba3EUbRjfMF4gDmWvld196JmUjbz9WWhJ2XT00OR5MXeWiR+vmGT+ETiO4hHFCi2/eGO5YVtg==}
+  /@azure/core-lro/2.2.4:
+    resolution: {integrity: sha512-e1I2v2CZM0mQo8+RSix0x091Av493e4bnT22ds2fcQGslTHzM2oTbswkB65nP4iEpCxBrFxOSDPKExmTmjCVtQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/abort-controller': 1.0.4
@@ -121,7 +126,7 @@ packages:
     resolution: {integrity: sha512-UtH5iMlYsvg+nQYIl4UHlvvSrsBjOlRF4fs0j7mxd3rWdAStrKYrh2durOpHs5C9yZbVhsVDaisoyaf/lL1EVA==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@azure/core-asynciterator-polyfill': 1.0.0
+      '@azure/core-asynciterator-polyfill': 1.0.2
       tslib: 2.3.1
     dev: false
 
@@ -140,32 +145,36 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@azure/ms-rest-js/2.6.0:
-    resolution: {integrity: sha512-4C5FCtvEzWudblB+h92/TYYPiq7tuElX8icVYToxOdggnYqeec4Se14mjse5miInKtZahiFHdl8lZA/jziEc5g==}
+  /@azure/ms-rest-js/2.6.1:
+    resolution: {integrity: sha512-LLi4jRe/qy5IM8U2CkoDgSZp2OH+MgDe2wePmhz8uY84Svc53EhHaamVyoU6BjjHBxvCRh1vcD1urJDccrxqIw==}
     dependencies:
       '@azure/core-auth': 1.3.2
       abort-controller: 3.0.0
       form-data: 2.5.1
-      node-fetch: 2.6.6
+      node-fetch: 2.6.7
       tough-cookie: 3.0.1
       tslib: 1.14.1
       tunnel: 0.0.6
       uuid: 8.3.2
       xml2js: 0.4.23
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
-  /@azure/storage-blob/12.8.0:
-    resolution: {integrity: sha512-c8+Wz19xauW0bGkTCoqZH4dYfbtBniPiGiRQOn1ca6G5jsjr4azwaTk9gwjVY8r3vY2Taf95eivLzipfIfiS4A==}
+  /@azure/storage-blob/12.9.0:
+    resolution: {integrity: sha512-ank38FdCLfJ+EoeMzCz3hkYJuZAd63ARvDKkxZYRDb+beBYf+/+gx8jNTqkq/hfyUl4dJQ/a7tECU0Y0F98CHg==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@azure/abort-controller': 1.0.4
-      '@azure/core-http': 2.2.3
-      '@azure/core-lro': 2.2.3
+      '@azure/core-http': 2.2.4
+      '@azure/core-lro': 2.2.4
       '@azure/core-paging': 1.2.1
       '@azure/core-tracing': 1.0.0-preview.13
       '@azure/logger': 1.0.3
       events: 3.3.0
       tslib: 2.3.1
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /@opentelemetry/api/1.0.4:
@@ -173,21 +182,21 @@ packages:
     engines: {node: '>=8.0.0'}
     dev: false
 
-  /@types/node-fetch/2.5.12:
-    resolution: {integrity: sha512-MKgC4dlq4kKNa/mYrwpKfzQMB5X3ee5U6fSprkKpToBqBmX4nFZL9cW5jl6sWn+xpRJ7ypWh2yyqqr8UUCstSw==}
+  /@types/node-fetch/2.6.1:
+    resolution: {integrity: sha512-oMqjURCaxoSIsHSr1E47QHzbmzNR5rK8McHuNb11BOM9cHcIK3Avy0s/b2JlXHoQGTYS3NsvWzV1M0iK7l0wbA==}
     dependencies:
-      '@types/node': 17.0.8
+      '@types/node': 17.0.21
       form-data: 3.0.1
     dev: false
 
-  /@types/node/17.0.8:
-    resolution: {integrity: sha512-YofkM6fGv4gDJq78g4j0mMuGMkZVxZDgtU0JRdx6FgiJDG+0fY0GKVolOV8WqVmEhLCXkQRjwDdKyPxJp/uucg==}
+  /@types/node/17.0.21:
+    resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
     dev: false
 
   /@types/tunnel/0.0.3:
     resolution: {integrity: sha512-sOUTGn6h1SfQ+gbgqC364jLFBw2lnFqkgF3q0WovEHRLMrVD1sd5aufqi/aJObLekJO+Aq5z646U4Oxy6shXMA==}
     dependencies:
-      '@types/node': 17.0.8
+      '@types/node': 17.0.21
     dev: false
 
   /@vercel/ncc/0.32.0:
@@ -209,7 +218,7 @@ packages:
   /axios/0.24.0:
     resolution: {integrity: sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==}
     dependencies:
-      follow-redirects: 1.14.6
+      follow-redirects: 1.14.9
     transitivePeerDependencies:
       - debug
     dev: false
@@ -232,8 +241,8 @@ packages:
       delayed-stream: 1.0.0
     dev: false
 
-  /compare-versions/4.1.2:
-    resolution: {integrity: sha512-LAfbAbAgjnIwPsr2fvJLfrSyqAhK5nj/ffIg7a5aigry9RXJfNzVnOu0Egw8Z+G8LMDu1Qig2q48bpBzjyjZoQ==}
+  /compare-versions/4.1.3:
+    resolution: {integrity: sha512-WQfnbDcrYnGr55UwbxKiQKASnTtNnaAWVi8jZyy8NTpVAXWACSne8lMD1iaIo9AiU6mnuLvSVshCzewVuWxHUg==}
     dev: false
 
   /concat-map/0.0.1:
@@ -255,8 +264,8 @@ packages:
     engines: {node: '>=0.8.x'}
     dev: false
 
-  /follow-redirects/1.14.6:
-    resolution: {integrity: sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==}
+  /follow-redirects/1.14.9:
+    resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -271,7 +280,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.34
+      mime-types: 2.1.35
     dev: false
 
   /form-data/3.0.1:
@@ -280,7 +289,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.34
+      mime-types: 2.1.35
     dev: false
 
   /form-data/4.0.0:
@@ -289,7 +298,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.34
+      mime-types: 2.1.35
     dev: false
 
   /ip-regex/2.1.0:
@@ -297,27 +306,32 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /mime-db/1.51.0:
-    resolution: {integrity: sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==}
+  /mime-db/1.52.0:
+    resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
     dev: false
 
-  /mime-types/2.1.34:
-    resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==}
+  /mime-types/2.1.35:
+    resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
     dependencies:
-      mime-db: 1.51.0
+      mime-db: 1.52.0
     dev: false
 
-  /minimatch/3.0.4:
-    resolution: {integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==}
+  /minimatch/3.1.2:
+    resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
     dependencies:
       brace-expansion: 1.1.11
     dev: false
 
-  /node-fetch/2.6.6:
-    resolution: {integrity: sha512-Z8/6vRlTUChSdIgMa51jxQ4lrw/Jy5SOW10ObaA47/RElsAN2c5Pn8bTgFGWn/ibwzXTE8qwr1Yzx28vsecXEA==}
+  /node-fetch/2.6.7:
+    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
     engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
     dependencies:
       whatwg-url: 5.0.0
     dev: false
@@ -380,8 +394,8 @@ packages:
     engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
     dev: false
 
-  /typescript/4.5.4:
-    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
+  /typescript/4.6.2:
+    resolution: {integrity: sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

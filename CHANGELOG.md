@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Dependencies have been updated.
+
 ## [1.1.0] - 2022-01-14
 ### Added
 - Add `cache-key` input to add a custom key to the automatic cache key. 
