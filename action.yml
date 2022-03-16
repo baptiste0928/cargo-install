@@ -11,6 +11,10 @@ inputs:
   features:
     description: "Features of the crate to enable."
     required: false
+  locked:
+    description: "Use the crate Cargo.lock if available."
+    required: false
+    default: "false"
   cache-key:
     description: "Additional key added to the automatic cache key."
     required: false

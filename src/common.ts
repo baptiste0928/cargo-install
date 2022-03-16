@@ -7,6 +7,7 @@ export interface ActionInput {
   crate: string,
   version: string,
   features: string[],
+  locked: boolean,
   cacheKey: string,
 }
 
@@ -15,6 +16,7 @@ export function parseInput(): ActionInput {
   const crate = core.getInput("crate", { required: true })
   const version = core.getInput("version", { required: true })
   const features = core.getInput("features", { required: false })
+  const locked = core.getBooleanInput("locked", { required: false })
   const cacheKey = core.getInput("cache-key", { required: false })
 
   if (version !== "latest" && validate(version) === false) {
@@ -27,6 +29,7 @@ export function parseInput(): ActionInput {
     version: version,
     // Split on comma or space and remove empty results
     features: features.split(/[ ,]+/).filter(Boolean),
+    locked: locked,
     cacheKey: cacheKey,
   }
 }
@@ -46,6 +49,10 @@ export function getCacheKey(input: ActionInput, version: string): string {
     key += `-${input.features.join("-")}`
   }
 
+  if (input.locked) {
+    key += "-locked"
+  }
+
   if (input.cacheKey) {
     key += `-${input.cacheKey}`
   }
@@ -55,10 +62,16 @@ export function getCacheKey(input: ActionInput, version: string): string {
 }
 
 /** Run cargo install */
-export async function runCargoInstall(name: string, version: string, features: string[], installPath: string): Promise<void> {
+export async function runCargoInstall(name: string, version: string, features: string[], locked: boolean, installPath: string): Promise<void> {
   const args = ["install", name, "--force", "--root", installPath, "--version", version]
+
+  if (locked) {
+    args.push("--locked")
+  }
+
   if (features.length > 0) {
     args.push("--features", features.join(","))
   }
+
   await exec.exec("cargo", args)
 }

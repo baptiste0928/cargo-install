@@ -43,6 +43,7 @@ function parseInput() {
     const crate = core.getInput("crate", { required: true });
     const version = core.getInput("version", { required: true });
     const features = core.getInput("features", { required: false });
+    const locked = core.getBooleanInput("locked", { required: false });
     const cacheKey = core.getInput("cache-key", { required: false });
     if (version !== "latest" && (0, compare_versions_1.validate)(version) === false) {
         core.setFailed("Invalid version format");
@@ -53,6 +54,7 @@ function parseInput() {
         version: version,
         // Split on comma or space and remove empty results
         features: features.split(/[ ,]+/).filter(Boolean),
+        locked: locked,
         cacheKey: cacheKey,
     };
 }
@@ -70,6 +72,9 @@ function getCacheKey(input, version) {
     if (input.features.length > 0) {
         key += `-${input.features.join("-")}`;
     }
+    if (input.locked) {
+        key += "-locked";
+    }
     if (input.cacheKey) {
         key += `-${input.cacheKey}`;
     }
@@ -78,8 +83,11 @@ function getCacheKey(input, version) {
 }
 exports.getCacheKey = getCacheKey;
 /** Run cargo install */
-async function runCargoInstall(name, version, features, installPath) {
+async function runCargoInstall(name, version, features, locked, installPath) {
     const args = ["install", name, "--force", "--root", installPath, "--version", version];
+    if (locked) {
+        args.push("--locked");
+    }
     if (features.length > 0) {
         args.push("--features", features.join(","));
     }
@@ -239,7 +247,7 @@ async function run() {
     }
     else {
         await core.group("No cached version found, installing crate ...", async () => {
-            await (0, common_1.runCargoInstall)(input.crate, resolvedVersion, input.features, installPath);
+            await (0, common_1.runCargoInstall)(input.crate, resolvedVersion, input.features, input.locked, installPath);
             try {
                 await cache.saveCache([installPath], cacheKey);
             }

@@ -35,7 +35,7 @@ async function run(): Promise<void> {
   }
   else {
     await core.group("No cached version found, installing crate ...", async () => {
-      await runCargoInstall(input.crate, resolvedVersion, input.features, installPath)
+      await runCargoInstall(input.crate, resolvedVersion, input.features, input.locked, installPath)
 
       try {
         await cache.saveCache([installPath], cacheKey)

@@ -32,6 +32,8 @@ The following example workflow install the [`cargo-hakari`] crate. Read
 operator is provided, it is interpreted like a caret (`^`) operator. The latest
 semver compatible version will be installed.
 - `features`: Space or comma-separated list of crate features to enable.
+- `locked`: Use the crate `Cargo.lock` if available. This adds `--locked` to
+the install command arguments.
 - `cache-key`: Additional key added to the automatic cache key used to manually
 invalidate the cache.
 
