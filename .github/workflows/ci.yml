@@ -90,6 +90,8 @@ jobs:
       with:
         crate: ripgrep
         version: 13
+        args: --locked
+        cache-key: test
 
     - name: Run ripgrep
       run: rg -V

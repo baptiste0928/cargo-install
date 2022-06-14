@@ -2,12 +2,13 @@ import * as core from "@actions/core"
 import * as exec from "@actions/exec"
 import crypto from "crypto"
 import { validate } from "compare-versions"
+import stringArgv from "string-argv"
 
 export interface ActionInput {
   crate: string,
   version: string,
   features: string[],
-  locked: boolean,
+  args: string[],
   cacheKey: string,
 }
 
@@ -17,6 +18,7 @@ export function parseInput(): ActionInput {
   const version = core.getInput("version", { required: true })
   const features = core.getInput("features", { required: false })
   const locked = core.getBooleanInput("locked", { required: false })
+  const args = stringArgv(core.getInput("args", { required: false }))
   const cacheKey = core.getInput("cache-key", { required: false })
 
   if (version !== "latest" && validate(version) === false) {
@@ -24,12 +26,17 @@ export function parseInput(): ActionInput {
     process.exit(1)
   }
 
+  // Note: locked is deprecated and will be removed in the future.
+  if (locked) {
+    args.push("--locked")
+  }
+
   return {
     crate: crate,
     version: version,
     // Split on comma or space and remove empty results
     features: features.split(/[ ,]+/).filter(Boolean),
-    locked: locked,
+    args: args,
     cacheKey: cacheKey,
   }
 }
@@ -49,8 +56,8 @@ export function getCacheKey(input: ActionInput, version: string): string {
     key += `-${input.features.join("-")}`
   }
 
-  if (input.locked) {
-    key += "-locked"
+  if (input.args) {
+    key += `-${input.args.join("-")}`
   }
 
   if (input.cacheKey) {
@@ -62,16 +69,16 @@ export function getCacheKey(input: ActionInput, version: string): string {
 }
 
 /** Run cargo install */
-export async function runCargoInstall(name: string, version: string, features: string[], locked: boolean, installPath: string): Promise<void> {
-  const args = ["install", name, "--force", "--root", installPath, "--version", version]
-
-  if (locked) {
-    args.push("--locked")
-  }
+export async function runCargoInstall(name: string, version: string, features: string[], args: string[], installPath: string): Promise<void> {
+  let commandArgs = ["install", name, "--force", "--root", installPath, "--version", version]
 
   if (features.length > 0) {
-    args.push("--features", features.join(","))
+    commandArgs.push("--features", features.join(","))
   }
 
-  await exec.exec("cargo", args)
+  if (args) {
+    commandArgs = commandArgs.concat(args)
+  }
+
+  await exec.exec("cargo", commandArgs)
 }
