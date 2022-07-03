@@ -7,6 +7,8 @@
   "license": "ISC",
   "scripts": {
     "check": "tsc",
+    "lint": "ts-standard src",
+    "fix": "ts-standard src --fix",
     "package": "tsc && ncc build -o dist"
   },
   "dependencies": {
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.34.0",
+    "ts-standard": "^11.0.0",
     "typescript": "^4.7.3"
   }
 }

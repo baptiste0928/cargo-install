@@ -1,29 +1,29 @@
-import * as core from "@actions/core"
-import * as cache from "@actions/cache"
-import * as io from "@actions/io"
+import * as core from '@actions/core'
+import * as cache from '@actions/cache'
+import * as io from '@actions/io'
 
-import { getCacheKey, getHomePath, parseInput, runCargoInstall } from "./common";
-import { fetchCrate, resolveCrateVersion } from "./cratesIo";
+import { getCacheKey, getHomePath, parseInput, runCargoInstall } from './common'
+import { fetchCrate, resolveCrateVersion } from './cratesIo'
 
-async function run(): Promise<void> {
+async function run (): Promise<void> {
   const input = parseInput()
 
   core.startGroup(`Installing ${input.crate} ...`)
 
-  core.info("Fetching crate information on crates.io ...")
+  core.info('Fetching crate information on crates.io ...')
   const crateInfo = await fetchCrate(input.crate)
   const resolvedVersion = resolveCrateVersion(crateInfo, input.version)
 
   const installPath = `${getHomePath()}/.cargo-install/${input.crate}`
   const cacheKey = getCacheKey(input, resolvedVersion)
 
-  core.info("Installation settings:")
+  core.info('Installation settings:')
   core.info(`   version: ${resolvedVersion}`)
   core.info(`   path: ${installPath}`)
   core.info(`   key: ${cacheKey}`)
   core.endGroup()
 
-  const restored = await core.group("Attempt to load from cache ...", async () => {
+  const restored = await core.group('Attempt to load from cache ...', async () => {
     await io.mkdirP(installPath)
     return await cache.restoreCache([installPath], cacheKey)
   })
@@ -31,10 +31,9 @@ async function run(): Promise<void> {
 
   if (restored !== undefined) {
     cacheHit = true
-    core.info("Restored crate from cache.")
-  }
-  else {
-    await core.group("No cached version found, installing crate ...", async () => {
+    core.info('Restored crate from cache.')
+  } else {
+    await core.group('No cached version found, installing crate ...', async () => {
       await runCargoInstall(input.crate, resolvedVersion, input.features, input.args, installPath)
 
       try {
@@ -49,13 +48,13 @@ async function run(): Promise<void> {
   core.info(`Added ${installPath}/bin to PATH.`)
   core.info(`Installed ${input.crate} ${resolvedVersion}.`)
 
-  core.setOutput("version", resolvedVersion)
-  core.setOutput("cache-hit", cacheHit)
+  core.setOutput('version', resolvedVersion)
+  core.setOutput('cache-hit', cacheHit)
 }
 
 run()
   .then(() => {})
   .catch((error) => {
-    core.setFailed(error.message);
-    core.info(error.stack);
+    core.setFailed(error.message)
+    core.info(error.stack)
   })

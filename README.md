@@ -1,6 +1,7 @@
 # Cargo install action
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/baptiste0928/cargo-install)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![CI](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml/badge.svg)](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml)
 
 GitHub action for cache-efficient Rust crates installation.
