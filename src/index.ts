@@ -3,7 +3,7 @@ import * as cache from '@actions/cache'
 import * as io from '@actions/io'
 
 import { getCacheKey, getHomePath, parseInput, runCargoInstall } from './common'
-import { fetchCrate, resolveCrateVersion } from './cratesIo'
+import { fetchCrate, resolveCrateVersion } from './crateInfo'
 
 async function run (): Promise<void> {
   const input = parseInput()

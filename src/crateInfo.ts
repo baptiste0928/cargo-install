@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import axios from 'axios'
-import compareVersions, { satisfies } from 'compare-versions'
+import * as semver from 'semver'
 
 /** Fetch a crate information */
 export async function fetchCrate (name: string): Promise<CrateInfo> {
@@ -31,8 +31,8 @@ export function resolveCrateVersion (crate: CrateInfo, range: string): string {
       .versions
       .filter(v => !v.yanked)
       .map(v => v.num)
-      .filter(v => satisfies(v, normalizedRange))
-      .sort(compareVersions)
+      .filter(v => semver.satisfies(v, normalizedRange))
+      .sort(semver.compare)
       .reverse()[0]
 
     if (resolvedVersion === undefined) {

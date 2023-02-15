@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import crypto from 'crypto'
-import { validate } from 'compare-versions'
+import * as semver from 'semver'
 import stringArgv from 'string-argv'
 
 export interface ActionInput {
@@ -21,7 +21,7 @@ export function parseInput (): ActionInput {
   const args = stringArgv(core.getInput('args', { required: false }))
   const cacheKey = core.getInput('cache-key', { required: false })
 
-  if (version !== 'latest' && !validate(version)) {
+  if (semver.validRange(version) === null && version !== 'latest') {
     core.setFailed('Invalid version format')
     process.exit(1)
   }
@@ -32,12 +32,12 @@ export function parseInput (): ActionInput {
   }
 
   return {
-    crate: crate,
-    version: version,
+    crate,
+    version,
     // Split on comma or space and remove empty results
     features: features.split(/[ ,]+/).filter(Boolean),
-    args: args,
-    cacheKey: cacheKey
+    args,
+    cacheKey
   }
 }
 
