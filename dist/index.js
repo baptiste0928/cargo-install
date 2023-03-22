@@ -29,10 +29,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(7733));
 const io = __importStar(__nccwpck_require__(8629));
 const cache = __importStar(__nccwpck_require__(6251));
+const node_path_1 = __importDefault(__nccwpck_require__(9411));
 const install_1 = __nccwpck_require__(8117);
 const parse_1 = __nccwpck_require__(2534);
 const resolve_1 = __nccwpck_require__(8471);
@@ -65,8 +69,8 @@ async function run() {
         }
         core.endGroup();
     }
-    core.addPath(install.path);
-    core.info(`Added ${install.path} to PATH.`);
+    core.addPath(node_path_1.default.join(install.path, 'bin'));
+    core.info(`Added ${install.path}/bin to PATH.`);
     core.info(`Installed ${input.crate} ${version}.`);
     core.setOutput('version', version);
     core.setOutput('cache-hit', cacheHit);

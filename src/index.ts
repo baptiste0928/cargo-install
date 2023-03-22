@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import * as io from '@actions/io'
 import * as cache from '@actions/cache'
+import path from 'node:path'
 import { getInstallSettings, runCargoInstall } from './install'
 
 import { parseInput } from './parse'
@@ -41,8 +42,8 @@ async function run (): Promise<void> {
     core.endGroup()
   }
 
-  core.addPath(install.path)
-  core.info(`Added ${install.path} to PATH.`)
+  core.addPath(path.join(install.path, 'bin'))
+  core.info(`Added ${install.path}/bin to PATH.`)
   core.info(`Installed ${input.crate} ${version}.`)
 
   core.setOutput('version', version)
