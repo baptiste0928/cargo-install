@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Use Node.js 16
+- **Breaking:** The action now runs on Node.js 16.
+- **Breaking:** Versions without semver range (e.g. `1.2.3`) are now considered
+  as exact versions.
 - Name and version are no longer hashed in the cache key. This allow to identify
   cache entries in the cache management UI more easily.
-- Code has been refactored to make it easier to maintain.
+- Various code improvements and refactoring.
 
 ## [1.3.1] - 2023-02-15
 ### Fixed
