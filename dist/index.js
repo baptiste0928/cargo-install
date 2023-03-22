@@ -268,15 +268,18 @@ const http = __importStar(__nccwpck_require__(7794));
 const core = __importStar(__nccwpck_require__(7733));
 const arktype_1 = __nccwpck_require__(9630);
 const semver = __importStar(__nccwpck_require__(9290));
-const crateData = (0, arktype_1.type)({
-    crate: {
-        max_stable_version: 'string'
+const types = (0, arktype_1.scope)({
+    response: {
+        crate: {
+            max_stable_version: 'semver'
+        },
+        versions: 'version[]'
     },
-    versions: [{
-            num: 'string',
-            yanked: 'boolean'
-        }]
-});
+    version: {
+        num: 'semver',
+        yanked: 'boolean'
+    }
+}).compile();
 // Resolve latest compatible crate version
 async function resolveVersion(input) {
     var _a;
@@ -315,7 +318,7 @@ async function fetchCrate(name) {
         core.info(`Error code: ${response.statusCode}`);
         process.exit(1);
     }
-    const { data, problems } = crateData(response.result);
+    const { data, problems } = types.response(response.result);
     if (data === null || data === undefined) {
         core.setFailed(`Failed to parse crates.io API response for ${name}`);
         core.info(`Errors: ${problems}`); // eslint-disable-line @typescript-eslint/restrict-template-expressions

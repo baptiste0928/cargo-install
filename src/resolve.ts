@@ -1,22 +1,25 @@
 import * as http from '@actions/http-client'
 import * as core from '@actions/core'
-import { type } from 'arktype'
+import { scope } from 'arktype'
 import * as semver from 'semver'
 
 import { ActionInput } from './parse'
 
 // Partial data from crates.io API
-type CrateData = typeof crateData.infer
+type CrateResponse = typeof types.response.infer
 
-const crateData = type({
-  crate: {
-    max_stable_version: 'string'
+const types = scope({
+  response: {
+    crate: {
+      max_stable_version: 'semver'
+    },
+    versions: 'version[]'
   },
-  versions: [{
-    num: 'string',
+  version: {
+    num: 'semver',
     yanked: 'boolean'
-  }]
-})
+  }
+}).compile()
 
 // Resolve latest compatible crate version
 export async function resolveVersion (input: ActionInput): Promise<string> {
@@ -46,7 +49,7 @@ export async function resolveVersion (input: ActionInput): Promise<string> {
   return version.num
 }
 
-async function fetchCrate (name: string): Promise<CrateData> {
+async function fetchCrate (name: string): Promise<CrateResponse> {
   const client = new http.HttpClient('cargo-install-action')
   const response = await client.getJson(`https://crates.io/api/v1/crates/${name}`)
 
@@ -59,7 +62,7 @@ async function fetchCrate (name: string): Promise<CrateData> {
     process.exit(1)
   }
 
-  const { data, problems } = crateData(response.result)
+  const { data, problems } = types.response(response.result)
 
   if (data === null || data === undefined) {
     core.setFailed(`Failed to parse crates.io API response for ${name}`)
