@@ -28,7 +28,7 @@ outputs:
   cache-hit:
     description: "A boolean indicating whether the crate was restored from cache."
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
 branding:
   color: "yellow"

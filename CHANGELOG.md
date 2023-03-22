@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Use Node.js 16
 - Name and version are no longer hashed in the cache key. This allow to identify
   cache entries in the cache management UI more easily.
 - Code has been refactored to make it easier to maintain.
