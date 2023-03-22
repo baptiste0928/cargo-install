@@ -2,11 +2,13 @@ import * as core from '@actions/core'
 import * as io from '@actions/io'
 import * as cache from '@actions/cache'
 import path from 'node:path'
-import chalk from 'chalk'
+import { Chalk } from 'chalk'
 
 import { getInstallSettings, runCargoInstall } from './install'
 import { parseInput } from './parse'
 import { resolveVersion } from './resolve'
+
+const chalk = new Chalk({ level: 3 })
 
 async function run (): Promise<void> {
   const input = parseInput()

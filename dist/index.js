@@ -37,13 +37,14 @@ const core = __importStar(__nccwpck_require__(7733));
 const io = __importStar(__nccwpck_require__(8629));
 const cache = __importStar(__nccwpck_require__(6251));
 const node_path_1 = __importDefault(__nccwpck_require__(9411));
-const chalk_1 = __importDefault(__nccwpck_require__(3586));
+const chalk_1 = __nccwpck_require__(3586);
 const install_1 = __nccwpck_require__(8117);
 const parse_1 = __nccwpck_require__(2534);
 const resolve_1 = __nccwpck_require__(8471);
+const chalk = new chalk_1.Chalk({ level: 3 });
 async function run() {
     const input = (0, parse_1.parseInput)();
-    core.startGroup(chalk_1.default.bold(`Installing ${input.crate} ...`));
+    core.startGroup(chalk.bold(`Installing ${input.crate} ...`));
     core.info('Fetching crate information on crates.io ...');
     const version = await (0, resolve_1.resolveVersion)(input);
     const install = (0, install_1.getInstallSettings)(input, version);
@@ -72,7 +73,7 @@ async function run() {
     }
     core.addPath(node_path_1.default.join(install.path, 'bin'));
     core.info(`Added ${install.path}/bin to PATH.`);
-    core.info(chalk_1.default.green(`Installed ${input.crate} ${version}.`));
+    core.info(chalk.green(`Installed ${input.crate} ${version}.`));
     core.setOutput('version', version);
     core.setOutput('cache-hit', cacheHit);
 }
