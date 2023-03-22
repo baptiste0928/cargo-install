@@ -1,10 +1,10 @@
-import core from '@actions/core'
-import io from '@actions/io'
-import cache from '@actions/cache'
+import * as core from '@actions/core'
+import * as io from '@actions/io'
+import * as cache from '@actions/cache'
 import path from 'node:path'
 import chalk from 'chalk'
-import { getInstallSettings, runCargoInstall } from './install'
 
+import { getInstallSettings, runCargoInstall } from './install'
 import { parseInput } from './parse'
 import { resolveVersion } from './resolve'
 

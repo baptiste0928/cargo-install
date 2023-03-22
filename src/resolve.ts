@@ -1,5 +1,5 @@
-import http from '@actions/http-client'
-import core from '@actions/core'
+import * as http from '@actions/http-client'
+import * as core from '@actions/core'
 import { scope } from 'arktype'
 import semver from 'semver'
 

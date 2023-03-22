@@ -1,5 +1,5 @@
-import core from '@actions/core'
-import semver from 'semver'
+import * as core from '@actions/core'
+import * as semver from 'semver'
 import stringArgv from 'string-argv'
 
 export interface ActionInput {
