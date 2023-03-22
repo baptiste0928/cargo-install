@@ -6,13 +6,36 @@
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __importDefault(__nccwpck_require__(7733));
-const io_1 = __importDefault(__nccwpck_require__(8629));
-const cache_1 = __importDefault(__nccwpck_require__(6251));
+const core = __importStar(__nccwpck_require__(7733));
+const io = __importStar(__nccwpck_require__(8629));
+const cache = __importStar(__nccwpck_require__(6251));
 const node_path_1 = __importDefault(__nccwpck_require__(9411));
 const chalk_1 = __importDefault(__nccwpck_require__(3586));
 const install_1 = __nccwpck_require__(8117);
@@ -20,43 +43,43 @@ const parse_1 = __nccwpck_require__(2534);
 const resolve_1 = __nccwpck_require__(8471);
 async function run() {
     const input = (0, parse_1.parseInput)();
-    core_1.default.startGroup(chalk_1.default.bold(`Installing ${input.crate} ...`));
-    core_1.default.info('Fetching crate information on crates.io ...');
+    core.startGroup(chalk_1.default.bold(`Installing ${input.crate} ...`));
+    core.info('Fetching crate information on crates.io ...');
     const version = await (0, resolve_1.resolveVersion)(input);
     const install = (0, install_1.getInstallSettings)(input, version);
-    core_1.default.info('Installation settings:');
-    core_1.default.info(`   version: ${version}`);
-    core_1.default.info(`   path: ${install.path}`);
-    core_1.default.info(`   key: ${install.cacheKey}`);
-    await io_1.default.mkdirP(install.path);
-    const restored = await cache_1.default.restoreCache([install.path], install.cacheKey);
-    core_1.default.endGroup();
+    core.info('Installation settings:');
+    core.info(`   version: ${version}`);
+    core.info(`   path: ${install.path}`);
+    core.info(`   key: ${install.cacheKey}`);
+    await io.mkdirP(install.path);
+    const restored = await cache.restoreCache([install.path], install.cacheKey);
+    core.endGroup();
     let cacheHit = false;
     if (restored !== undefined) {
-        core_1.default.info(`Restored ${input.crate} from cache.`);
+        core.info(`Restored ${input.crate} from cache.`);
         cacheHit = true;
     }
     else {
-        core_1.default.startGroup(`No cached version found, installing ${input.crate} using cargo ...`);
+        core.startGroup(`No cached version found, installing ${input.crate} using cargo ...`);
         await (0, install_1.runCargoInstall)(input, version, install);
         try {
-            await cache_1.default.saveCache([install.path], install.cacheKey);
+            await cache.saveCache([install.path], install.cacheKey);
         }
         catch (e) {
-            core_1.default.warning(e.message);
+            core.warning(e.message);
         }
-        core_1.default.endGroup();
+        core.endGroup();
     }
-    core_1.default.addPath(node_path_1.default.join(install.path, 'bin'));
-    core_1.default.info(`Added ${install.path}/bin to PATH.`);
-    core_1.default.info(chalk_1.default.green(`Installed ${input.crate} ${version}.`));
-    core_1.default.setOutput('version', version);
-    core_1.default.setOutput('cache-hit', cacheHit);
+    core.addPath(node_path_1.default.join(install.path, 'bin'));
+    core.info(`Added ${install.path}/bin to PATH.`);
+    core.info(chalk_1.default.green(`Installed ${input.crate} ${version}.`));
+    core.setOutput('version', version);
+    core.setOutput('cache-hit', cacheHit);
 }
 run()
     .catch((error) => {
-    core_1.default.setFailed(error.message);
-    core_1.default.info(error.stack);
+    core.setFailed(error.message);
+    core.info(error.stack);
 });
 
 
@@ -67,20 +90,43 @@ run()
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.runCargoInstall = exports.getInstallSettings = void 0;
-const core_1 = __importDefault(__nccwpck_require__(7733));
+const core = __importStar(__nccwpck_require__(7733));
+const exec = __importStar(__nccwpck_require__(1757));
 const node_path_1 = __importDefault(__nccwpck_require__(9411));
 const node_crypto_1 = __importDefault(__nccwpck_require__(6005));
-const exec_1 = __importDefault(__nccwpck_require__(1757));
 function getInstallSettings(input, version) {
     var _a;
     const homePath = (_a = process.env.HOME) !== null && _a !== void 0 ? _a : process.env.USERPROFILE;
     if (homePath === undefined || homePath === '') {
-        core_1.default.setFailed('Could not determine home directory (missing HOME and USERPROFILE environement variables)');
+        core.setFailed('Could not determine home directory (missing HOME and USERPROFILE environement variables)');
         process.exit(1);
     }
     const installPath = node_path_1.default.join(homePath, '.cargo-install', input.crate);
@@ -96,7 +142,7 @@ function getCacheKey(input, version) {
     const runnerOs = process.env.RUNNER_OS;
     const jobId = process.env.GITHUB_JOB;
     if (runnerOs === undefined || jobId === undefined) {
-        core_1.default.setFailed('Could not determine runner OS or job ID');
+        core.setFailed('Could not determine runner OS or job ID');
         process.exit(1);
     }
     let hashKey = jobId + runnerOs;
@@ -120,7 +166,7 @@ async function runCargoInstall(input, version, install) {
     if (input.args.length > 0) {
         commandArgs = commandArgs.concat(input.args);
     }
-    await exec_1.default.exec('cargo', commandArgs);
+    await exec.exec('cargo', commandArgs);
 }
 exports.runCargoInstall = runCargoInstall;
 
@@ -132,24 +178,47 @@ exports.runCargoInstall = runCargoInstall;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseInput = void 0;
-const core_1 = __importDefault(__nccwpck_require__(7733));
-const semver_1 = __importDefault(__nccwpck_require__(9290));
+const core = __importStar(__nccwpck_require__(7733));
+const semver = __importStar(__nccwpck_require__(9290));
 const string_argv_1 = __importDefault(__nccwpck_require__(1385));
 // Parse and validate action input
 function parseInput() {
-    const crate = core_1.default.getInput('crate', { required: true });
-    const version = core_1.default.getInput('version', { required: true });
-    const features = core_1.default.getInput('features', { required: false });
-    const locked = core_1.default.getBooleanInput('locked', { required: false });
-    const args = core_1.default.getInput('args', { required: false });
-    const cacheKey = core_1.default.getInput('cache-key', { required: false });
-    if (version !== 'latest' && semver_1.default.validRange(version) === null) {
-        core_1.default.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
+    const crate = core.getInput('crate', { required: true });
+    const version = core.getInput('version', { required: true });
+    const features = core.getInput('features', { required: false });
+    const locked = core.getBooleanInput('locked', { required: false });
+    const args = core.getInput('args', { required: false });
+    const cacheKey = core.getInput('cache-key', { required: false });
+    if (version !== 'latest' && semver.validRange(version) === null) {
+        core.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
         process.exit(1);
     }
     const parsedArgs = (0, string_argv_1.default)(args);
@@ -175,13 +244,36 @@ exports.parseInput = parseInput;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.resolveVersion = void 0;
-const http_client_1 = __importDefault(__nccwpck_require__(7794));
-const core_1 = __importDefault(__nccwpck_require__(7733));
+const http = __importStar(__nccwpck_require__(7794));
+const core = __importStar(__nccwpck_require__(7733));
 const arktype_1 = __nccwpck_require__(9630);
 const semver_1 = __importDefault(__nccwpck_require__(9290));
 const types = (0, arktype_1.scope)({
@@ -209,35 +301,35 @@ async function resolveVersion(input) {
         .sort((a, b) => semver_1.default.compare(a.num, b.num))
         .reverse();
     if (resolved.length === 0) {
-        core_1.default.setFailed(`No version found for ${input.crate} that satisfies ${input.version}`);
+        core.setFailed(`No version found for ${input.crate} that satisfies ${input.version}`);
         process.exit(1);
     }
     const version = (_a = resolved.find(ver => !ver.yanked)) !== null && _a !== void 0 ? _a : resolved[0];
     if (version.yanked) {
-        core_1.default.warning(`Using yanked version ${version.num} for ${input.crate}`);
+        core.warning(`Using yanked version ${version.num} for ${input.crate}`);
     }
     else if (version.num !== latest) {
-        core_1.default.warning(`New version for ${input.crate} available: ${latest}`);
+        core.warning(`New version for ${input.crate} available: ${latest}`);
     }
     return version.num;
 }
 exports.resolveVersion = resolveVersion;
 async function fetchCrate(name) {
-    const client = new http_client_1.default.HttpClient('cargo-install-action');
+    const client = new http.HttpClient('cargo-install-action');
     const response = await client.getJson(`https://crates.io/api/v1/crates/${name}`);
     if (response.statusCode === 404 || response.result === null) {
-        core_1.default.setFailed(`Crate ${name} not found on crates.io`);
+        core.setFailed(`Crate ${name} not found on crates.io`);
         process.exit(1);
     }
     else if (response.statusCode !== 200) {
-        core_1.default.setFailed(`Failed to fetch crate ${name} on crates.io`);
-        core_1.default.info(`Error code: ${response.statusCode}`);
+        core.setFailed(`Failed to fetch crate ${name} on crates.io`);
+        core.info(`Error code: ${response.statusCode}`);
         process.exit(1);
     }
     const { data, problems } = types.response(response.result);
     if (data === null || data === undefined) {
-        core_1.default.setFailed(`Failed to parse crates.io API response for ${name}`);
-        core_1.default.info(`Errors: ${problems}`); // eslint-disable-line @typescript-eslint/restrict-template-expressions
+        core.setFailed(`Failed to parse crates.io API response for ${name}`);
+        core.info(`Errors: ${problems}`); // eslint-disable-line @typescript-eslint/restrict-template-expressions
         process.exit(1);
     }
     return data;
