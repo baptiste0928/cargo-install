@@ -1,7 +1,7 @@
-import * as core from '@actions/core'
+import core from '@actions/core'
 import path from 'node:path'
 import crypto from 'node:crypto'
-import * as exec from '@actions/exec'
+import exec from '@actions/exec'
 
 import { ActionInput } from './parse'
 

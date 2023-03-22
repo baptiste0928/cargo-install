@@ -1,7 +1,7 @@
-import * as http from '@actions/http-client'
-import * as core from '@actions/core'
+import http from '@actions/http-client'
+import core from '@actions/core'
 import { scope } from 'arktype'
-import * as semver from 'semver'
+import semver from 'semver'
 
 import { ActionInput } from './parse'
 
@@ -43,7 +43,7 @@ export async function resolveVersion (input: ActionInput): Promise<string> {
   if (version.yanked) {
     core.warning(`Using yanked version ${version.num} for ${input.crate}`)
   } else if (version.num !== latest) {
-    core.warning(`Newest version for ${input.crate} available: ${latest}`)
+    core.warning(`New version for ${input.crate} available: ${latest}`)
   }
 
   return version.num

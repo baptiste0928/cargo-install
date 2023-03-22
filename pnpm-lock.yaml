@@ -9,6 +9,7 @@ specifiers:
   '@types/semver': ^7.3.13
   '@vercel/ncc': ^0.36.1
   arktype: 1.0.10-alpha
+  chalk: ^5.2.0
   semver: ^7.3.8
   string-argv: ^0.3.1
   ts-standard: ^12.0.2
@@ -21,6 +22,7 @@ dependencies:
   '@actions/http-client': 2.1.0
   '@actions/io': 1.1.3
   arktype: 1.0.10-alpha
+  chalk: 5.2.0
   semver: 7.3.8
   string-argv: 0.3.1
 
@@ -588,6 +590,11 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
     dev: true
+
+  /chalk/5.2.0:
+    resolution: {integrity: sha512-ree3Gqw/nazQAPuJJEy+avdl7QfZMcUvmHIKgEZkGL+xOBzRvup5Hxo6LHuMceSxOabuJLJm5Yp/92R9eMmMvA==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: false
 
   /color-convert/2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}

@@ -1,7 +1,8 @@
-import * as core from '@actions/core'
-import * as io from '@actions/io'
-import * as cache from '@actions/cache'
+import core from '@actions/core'
+import io from '@actions/io'
+import cache from '@actions/cache'
 import path from 'node:path'
+import chalk from 'chalk'
 import { getInstallSettings, runCargoInstall } from './install'
 
 import { parseInput } from './parse'
@@ -10,7 +11,7 @@ import { resolveVersion } from './resolve'
 async function run (): Promise<void> {
   const input = parseInput()
 
-  core.startGroup(`Installing ${input.crate} ...`)
+  core.startGroup(chalk.bold(`Installing ${input.crate} ...`))
   core.info('Fetching crate information on crates.io ...')
   const version = await resolveVersion(input)
   const install = getInstallSettings(input, version)
@@ -44,7 +45,7 @@ async function run (): Promise<void> {
 
   core.addPath(path.join(install.path, 'bin'))
   core.info(`Added ${install.path}/bin to PATH.`)
-  core.info(`Installed ${input.crate} ${version}.`)
+  core.info(chalk.green(`Installed ${input.crate} ${version}.`))
 
   core.setOutput('version', version)
   core.setOutput('cache-hit', cacheHit)
