@@ -88,13 +88,12 @@ jobs:
     - name: Checkout sources
       uses: actions/checkout@v3
 
-    - name: Install next-rust-release-date
+    - name: Install cargo-hack
       uses: ./
       with:
-        crate: next-rust-release-date
-        version: 0.1
-        args: --locked
+        crate: cargo-hack
+        version: ^4.4
         cache-key: test
 
-    - name: Run next-rust-release-date
-      run: next-rust-release-date
+    - name: Print cargo hack version
+      run: cargo hack --version
