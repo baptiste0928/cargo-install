@@ -1,59 +1,59 @@
 import * as core from '@actions/core'
-import * as cache from '@actions/cache'
 import * as io from '@actions/io'
+import * as cache from '@actions/cache'
+import path from 'node:path'
+import { Chalk } from 'chalk'
 
-import { getCacheKey, getHomePath, parseInput, runCargoInstall } from './common'
-import { fetchCrate, resolveCrateVersion } from './crateInfo'
+import { getInstallSettings, runCargoInstall } from './install'
+import { parseInput } from './parse'
+import { resolveVersion } from './resolve'
+
+const chalk = new Chalk({ level: 3 })
 
 async function run (): Promise<void> {
   const input = parseInput()
 
-  core.startGroup(`Installing ${input.crate} ...`)
-
+  core.startGroup(chalk.bold(`Installing ${input.crate} ...`))
   core.info('Fetching crate information on crates.io ...')
-  const crateInfo = await fetchCrate(input.crate)
-  const resolvedVersion = resolveCrateVersion(crateInfo, input.version)
-
-  const installPath = `${getHomePath()}/.cargo-install/${input.crate}`
-  const cacheKey = getCacheKey(input, resolvedVersion)
+  const version = await resolveVersion(input)
+  const install = getInstallSettings(input, version)
 
   core.info('Installation settings:')
-  core.info(`   version: ${resolvedVersion}`)
-  core.info(`   path: ${installPath}`)
-  core.info(`   key: ${cacheKey}`)
+  core.info(`   version: ${version}`)
+  core.info(`   path: ${install.path}`)
+  core.info(`   key: ${install.cacheKey}`)
+
+  await io.mkdirP(install.path)
+  const restored = await cache.restoreCache([install.path], install.cacheKey)
+
   core.endGroup()
 
-  const restored = await core.group('Attempt to load from cache ...', async () => {
-    await io.mkdirP(installPath)
-    return await cache.restoreCache([installPath], cacheKey)
-  })
   let cacheHit = false
-
   if (restored !== undefined) {
+    core.info(`Restored ${input.crate} from cache.`)
     cacheHit = true
-    core.info('Restored crate from cache.')
   } else {
-    await core.group('No cached version found, installing crate ...', async () => {
-      await runCargoInstall(input.crate, resolvedVersion, input.features, input.args, installPath)
+    core.startGroup(`No cached version found, installing ${input.crate} using cargo ...`)
+    await runCargoInstall(input, version, install)
 
-      try {
-        await cache.saveCache([installPath], cacheKey)
-      } catch (e) {
-        core.warning((e as any).message)
-      }
-    })
+    try {
+      await cache.saveCache([install.path], install.cacheKey)
+    } catch (e) {
+      core.warning((e as any).message)
+    }
+
+    core.endGroup()
   }
 
-  core.addPath(`${installPath}/bin`)
-  core.info(`Added ${installPath}/bin to PATH.`)
-  core.info(`Installed ${input.crate} ${resolvedVersion}.`)
+  core.addPath(path.join(install.path, 'bin'))
+  core.info(`Added ${install.path}/bin to PATH.`)
+  core.info(chalk.green(`Installed ${input.crate} ${version}.`))
 
-  core.setOutput('version', resolvedVersion)
+  core.setOutput('version', version)
   core.setOutput('cache-hit', cacheHit)
 }
 
 run()
-  .then(() => {})
   .catch((error) => {
     core.setFailed(error.message)
     core.info(error.stack)
