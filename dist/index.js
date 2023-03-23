@@ -328,7 +328,7 @@ async function fetchCrate(name) {
         process.exit(1);
     }
     const { data, problems } = types.response(response.result);
-    if (data === null || data === undefined) {
+    if (data === undefined) {
         core.setFailed(`Failed to parse crates.io API response for ${name}`);
         core.info(`Errors: ${problems}`); // eslint-disable-line @typescript-eslint/restrict-template-expressions
         process.exit(1);
