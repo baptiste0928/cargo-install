@@ -5,7 +5,7 @@ import semver from 'semver'
 
 import { ActionInput } from './parse'
 
-// Partial data from crates.io API
+// Partial response model from crates.io API
 type CrateResponse = typeof types.response.infer
 
 const types = scope({
@@ -64,7 +64,7 @@ async function fetchCrate (name: string): Promise<CrateResponse> {
 
   const { data, problems } = types.response(response.result)
 
-  if (data === null || data === undefined) {
+  if (data === undefined) {
     core.setFailed(`Failed to parse crates.io API response for ${name}`)
     core.info(`Errors: ${problems}`) // eslint-disable-line @typescript-eslint/restrict-template-expressions
     process.exit(1)
