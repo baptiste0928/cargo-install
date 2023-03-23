@@ -14,8 +14,7 @@ inputs:
   locked:
     description: "Use the crate Cargo.lock if available."
     required: false
-    default: "false"
-    deprecationMessage: "Use the `args` input with `--locked` instead."
+    default: "true"
   args:
     description: "Arguments added to the `cargo install` command."
     required: false

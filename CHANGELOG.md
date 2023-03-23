@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** The action now runs on Node.js 16.
 - **Breaking:** Versions without semver range (e.g. `1.2.3`) are now considered
   as exact versions.
+- **Breaking:** Set `--locked` by default. `locked` input is no longer deprecated.
 - Name and version are no longer hashed in the cache key. This allow to identify
   cache entries in the cache management UI more easily.
 - Various code improvements and refactoring.
