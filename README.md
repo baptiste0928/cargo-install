@@ -84,7 +84,7 @@ There is no particular contribution guidelines, feel free to open a new PR to
 improve the code. If you want to introduce a new feature, please create an
 issue before.
 
-[changelog]: https://github.com/baptiste0928/cargo-install/blob/next/CHANGELOG.md
+[changelog]: https://github.com/baptiste0928/cargo-install/releases/tag/v2.0.0
 [crates.io]: https://crates.io
 [`cargo-hack`]: https://crates.io/crates/cargo-hack
 [Quickstart for GitHub Actions]: https://docs.github.com/en/actions/quickstart
