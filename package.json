@@ -9,7 +9,7 @@
     "check": "tsc",
     "lint": "ts-standard src",
     "fix": "ts-standard src --fix",
-    "package": "tsc && ncc build -o dist"
+    "package": "esbuild src/index.ts --bundle --platform=node --target=node16 --outfile=dist/index.js"
   },
   "dependencies": {
     "@actions/cache": "^3.2.1",
@@ -24,8 +24,8 @@
   },
   "devDependencies": {
     "@types/semver": "^7.3.13",
-    "@vercel/ncc": "^0.36.1",
+    "esbuild": "^0.17.12",
     "ts-standard": "^12.0.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   }
 }
