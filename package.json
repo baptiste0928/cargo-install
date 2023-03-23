@@ -1,6 +1,6 @@
 {
   "name": "cargo-install",
-  "version": "1.3.1",
+  "version": "2.0.0",
   "description": "GitHub action for cache-efficient Rust crates installation",
   "main": "lib/index.js",
   "author": "baptiste0928",
