@@ -6538,7 +6538,7 @@ var require_cacheUtils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/tslib.es6.js
+// node_modules/.pnpm/tslib@2.5.2/node_modules/tslib/tslib.es6.js
 var tslib_es6_exports = {};
 __export(tslib_es6_exports, {
   __assign: () => __assign,
@@ -6569,7 +6569,8 @@ __export(tslib_es6_exports, {
   __spread: () => __spread,
   __spreadArray: () => __spreadArray,
   __spreadArrays: () => __spreadArrays,
-  __values: () => __values2
+  __values: () => __values2,
+  default: () => tslib_es6_default
 });
 function __extends(d, b) {
   if (typeof b !== "function" && b !== null)
@@ -6639,10 +6640,10 @@ function __esDecorate(ctor, descriptorIn, decorators, contextIn, initializers, e
       if (_ = accept(result.set))
         descriptor.set = _;
       if (_ = accept(result.init))
-        initializers.push(_);
+        initializers.unshift(_);
     } else if (_ = accept(result)) {
       if (kind === "field")
-        initializers.push(_);
+        initializers.unshift(_);
       else
         descriptor[key] = _;
     }
@@ -6953,9 +6954,9 @@ function __classPrivateFieldIn(state, receiver) {
     throw new TypeError("Cannot use 'in' operator on non-object");
   return typeof state === "function" ? receiver === state : state.has(receiver);
 }
-var extendStatics, __assign, __createBinding, __setModuleDefault;
+var extendStatics, __assign, __createBinding, __setModuleDefault, tslib_es6_default;
 var init_tslib_es6 = __esm({
-  "node_modules/.pnpm/tslib@2.5.0/node_modules/tslib/tslib.es6.js"() {
+  "node_modules/.pnpm/tslib@2.5.2/node_modules/tslib/tslib.es6.js"() {
     extendStatics = function(d, b) {
       extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
         d2.__proto__ = b2;
@@ -6998,12 +6999,39 @@ var init_tslib_es6 = __esm({
     } : function(o, v) {
       o["default"] = v;
     };
+    tslib_es6_default = {
+      __extends,
+      __assign,
+      __rest,
+      __decorate,
+      __param,
+      __metadata,
+      __awaiter,
+      __generator,
+      __createBinding,
+      __exportStar,
+      __values: __values2,
+      __read,
+      __spread,
+      __spreadArrays,
+      __spreadArray,
+      __await,
+      __asyncGenerator,
+      __asyncDelegator,
+      __asyncValues,
+      __makeTemplateObject,
+      __importStar,
+      __importDefault,
+      __classPrivateFieldGet,
+      __classPrivateFieldSet,
+      __classPrivateFieldIn
+    };
   }
 });
 
-// node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/defaults.js
+// node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/defaults.js
 var require_defaults = __commonJS({
-  "node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/defaults.js"(exports) {
+  "node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/defaults.js"(exports) {
     (function() {
       exports.defaults = {
         "0.1": {
@@ -10877,9 +10905,9 @@ var require_lib2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/builder.js
+// node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/builder.js
 var require_builder = __commonJS({
-  "node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/builder.js"(exports) {
+  "node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/builder.js"(exports) {
     (function() {
       "use strict";
       var builder, defaults, escapeCDATA, requiresCDATA, wrapCDATA, hasProp = {}.hasOwnProperty;
@@ -12444,9 +12472,9 @@ var require_sax = __commonJS({
   }
 });
 
-// node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/bom.js
+// node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/bom.js
 var require_bom = __commonJS({
-  "node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/bom.js"(exports) {
+  "node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/bom.js"(exports) {
     (function() {
       "use strict";
       exports.stripBOM = function(str) {
@@ -12460,9 +12488,9 @@ var require_bom = __commonJS({
   }
 });
 
-// node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/processors.js
+// node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/processors.js
 var require_processors = __commonJS({
-  "node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/processors.js"(exports) {
+  "node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/processors.js"(exports) {
     (function() {
       "use strict";
       var prefixMatch;
@@ -12492,9 +12520,9 @@ var require_processors = __commonJS({
   }
 });
 
-// node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/parser.js
+// node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/parser.js
 var require_parser = __commonJS({
-  "node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/parser.js"(exports) {
+  "node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/parser.js"(exports) {
     (function() {
       "use strict";
       var bom, defaults, events, isEmpty, processItem, processors, sax, setImmediate2, bind = function(fn, me) {
@@ -12639,7 +12667,7 @@ var require_parser = __commonJS({
           this.saxParser.onopentag = function(_this) {
             return function(node) {
               var key, newValue, obj, processedKey, ref;
-              obj = {};
+              obj = /* @__PURE__ */ Object.create(null);
               obj[charkey] = "";
               if (!_this.options.ignoreAttrs) {
                 ref = node.attributes;
@@ -12647,7 +12675,7 @@ var require_parser = __commonJS({
                   if (!hasProp.call(ref, key))
                     continue;
                   if (!(attrkey in obj) && !_this.options.mergeAttrs) {
-                    obj[attrkey] = {};
+                    obj[attrkey] = /* @__PURE__ */ Object.create(null);
                   }
                   newValue = _this.options.attrValueProcessors ? processItem(_this.options.attrValueProcessors, node.attributes[key], key) : node.attributes[key];
                   processedKey = _this.options.attrNameProcessors ? processItem(_this.options.attrNameProcessors, key) : key;
@@ -12697,7 +12725,11 @@ var require_parser = __commonJS({
                 }
               }
               if (isEmpty(obj)) {
-                obj = _this.options.emptyTag !== "" ? _this.options.emptyTag : emptyStr;
+                if (typeof _this.options.emptyTag === "function") {
+                  obj = _this.options.emptyTag();
+                } else {
+                  obj = _this.options.emptyTag !== "" ? _this.options.emptyTag : emptyStr;
+                }
               }
               if (_this.options.validator != null) {
                 xpath = "/" + function() {
@@ -12721,7 +12753,7 @@ var require_parser = __commonJS({
               }
               if (_this.options.explicitChildren && !_this.options.mergeAttrs && typeof obj === "object") {
                 if (!_this.options.preserveChildrenOrder) {
-                  node = {};
+                  node = /* @__PURE__ */ Object.create(null);
                   if (_this.options.attrkey in obj) {
                     node[_this.options.attrkey] = obj[_this.options.attrkey];
                     delete obj[_this.options.attrkey];
@@ -12736,7 +12768,7 @@ var require_parser = __commonJS({
                   obj = node;
                 } else if (s) {
                   s[_this.options.childkey] = s[_this.options.childkey] || [];
-                  objClone = {};
+                  objClone = /* @__PURE__ */ Object.create(null);
                   for (key in obj) {
                     if (!hasProp.call(obj, key))
                       continue;
@@ -12754,7 +12786,7 @@ var require_parser = __commonJS({
               } else {
                 if (_this.options.explicitRoot) {
                   old = obj;
-                  obj = {};
+                  obj = /* @__PURE__ */ Object.create(null);
                   obj[nodeName] = old;
                 }
                 _this.resultObject = obj;
@@ -12875,9 +12907,9 @@ var require_parser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/xml2js.js
+// node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/xml2js.js
 var require_xml2js = __commonJS({
-  "node_modules/.pnpm/xml2js@0.4.23/node_modules/xml2js/lib/xml2js.js"(exports) {
+  "node_modules/.pnpm/xml2js@0.5.0/node_modules/xml2js/lib/xml2js.js"(exports) {
     (function() {
       "use strict";
       var builder, defaults, parser, processors, extend = function(child, parent) {
@@ -13058,15 +13090,15 @@ var require_dist = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.2.0/node_modules/@azure/core-util/dist/index.js
+// node_modules/.pnpm/@azure+core-util@1.3.2/node_modules/@azure/core-util/dist/index.js
 var require_dist2 = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.2.0/node_modules/@azure/core-util/dist/index.js"(exports) {
+  "node_modules/.pnpm/@azure+core-util@1.3.2/node_modules/@azure/core-util/dist/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var abortController = require_dist();
     var crypto5 = require("crypto");
-    var _a;
-    var isNode = typeof process !== "undefined" && Boolean(process.version) && Boolean((_a = process.versions) === null || _a === void 0 ? void 0 : _a.node);
+    var _a$1;
+    var isNode = typeof process !== "undefined" && Boolean(process.version) && Boolean((_a$1 = process.versions) === null || _a$1 === void 0 ? void 0 : _a$1.node);
     function createAbortablePromise(buildPromise, options) {
       const { cleanupBeforeAbort, abortSignal, abortErrorMsg } = options !== null && options !== void 0 ? options : {};
       return new Promise((resolve, reject) => {
@@ -13168,6 +13200,31 @@ var require_dist2 = __commonJS({
     function objectHasProperty(thing, property) {
       return isDefined(thing) && typeof thing === "object" && property in thing;
     }
+    function generateUUID() {
+      let uuid2 = "";
+      for (let i = 0; i < 32; i++) {
+        const randomNumber = Math.floor(Math.random() * 16);
+        if (i === 12) {
+          uuid2 += "4";
+        } else if (i === 16) {
+          uuid2 += randomNumber & 3 | 8;
+        } else {
+          uuid2 += randomNumber.toString(16);
+        }
+        if (i === 7 || i === 11 || i === 15 || i === 19) {
+          uuid2 += "-";
+        }
+      }
+      return uuid2;
+    }
+    var _a;
+    var uuidFunction = typeof ((_a = globalThis === null || globalThis === void 0 ? void 0 : globalThis.crypto) === null || _a === void 0 ? void 0 : _a.randomUUID) === "function" ? globalThis.crypto.randomUUID.bind(globalThis.crypto) : crypto5.randomUUID;
+    if (!uuidFunction) {
+      uuidFunction = generateUUID;
+    }
+    function randomUUID() {
+      return uuidFunction();
+    }
     exports.computeSha256Hash = computeSha256Hash;
     exports.computeSha256Hmac = computeSha256Hmac;
     exports.createAbortablePromise = createAbortablePromise;
@@ -13180,6 +13237,7 @@ var require_dist2 = __commonJS({
     exports.isObject = isObject;
     exports.isObjectWithProperties = isObjectWithProperties;
     exports.objectHasProperty = objectHasProperty;
+    exports.randomUUID = randomUUID;
   }
 });
 
@@ -24708,9 +24766,9 @@ var require_public_api = __commonJS({
   }
 });
 
-// node_modules/.pnpm/node-fetch@2.6.9/node_modules/node-fetch/lib/index.js
+// node_modules/.pnpm/node-fetch@2.6.11/node_modules/node-fetch/lib/index.js
 var require_lib4 = __commonJS({
-  "node_modules/.pnpm/node-fetch@2.6.9/node_modules/node-fetch/lib/index.js"(exports, module2) {
+  "node_modules/.pnpm/node-fetch@2.6.11/node_modules/node-fetch/lib/index.js"(exports, module2) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function _interopDefault(ex) {
@@ -27727,9 +27785,9 @@ var require_dist5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-http@3.0.0/node_modules/@azure/core-http/dist/index.js
+// node_modules/.pnpm/@azure+core-http@3.0.1/node_modules/@azure/core-http/dist/index.js
 var require_dist6 = __commonJS({
-  "node_modules/.pnpm/@azure+core-http@3.0.0/node_modules/@azure/core-http/dist/index.js"(exports) {
+  "node_modules/.pnpm/@azure+core-http@3.0.1/node_modules/@azure/core-http/dist/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var uuid2 = (init_esm_node(), __toCommonJS(esm_node_exports));
@@ -27924,7 +27982,7 @@ var require_dist6 = __commonJS({
       /**
        * The core-http version
        */
-      coreHttpVersion: "3.0.0",
+      coreHttpVersion: "3.0.1",
       /**
        * Specifies HTTP.
        */
@@ -32072,13 +32130,14 @@ var require_dist7 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-lro@2.5.1/node_modules/@azure/core-lro/dist/index.js
+// node_modules/.pnpm/@azure+core-lro@2.5.3/node_modules/@azure/core-lro/dist/index.js
 var require_dist8 = __commonJS({
-  "node_modules/.pnpm/@azure+core-lro@2.5.1/node_modules/@azure/core-lro/dist/index.js"(exports) {
+  "node_modules/.pnpm/@azure+core-lro@2.5.3/node_modules/@azure/core-lro/dist/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var logger$1 = require_dist3();
     var abortController = require_dist();
+    var coreUtil = require_dist2();
     var logger = logger$1.createClientLogger("core-lro");
     var POLL_INTERVAL_IN_MS = 2e3;
     var terminalStates = ["succeeded", "canceled", "failed"];
@@ -32099,16 +32158,45 @@ var require_dist8 = __commonJS({
         throw error;
       };
     }
+    function appendReadableErrorMessage(currentMessage, innerMessage) {
+      let message = currentMessage;
+      if (message.slice(-1) !== ".") {
+        message = message + ".";
+      }
+      return message + " " + innerMessage;
+    }
+    function simplifyError(err) {
+      let message = err.message;
+      let code = err.code;
+      let curErr = err;
+      while (curErr.innererror) {
+        curErr = curErr.innererror;
+        code = curErr.code;
+        message = appendReadableErrorMessage(message, curErr.message);
+      }
+      return {
+        code,
+        message
+      };
+    }
     function processOperationStatus(result) {
-      const { state, stateProxy, status, isDone, processResult, response, setErrorAsResult } = result;
+      const { state, stateProxy, status, isDone, processResult, getError, response, setErrorAsResult } = result;
       switch (status) {
         case "succeeded": {
           stateProxy.setSucceeded(state);
           break;
         }
         case "failed": {
-          stateProxy.setError(state, new Error(`The long-running operation has failed`));
+          const err = getError === null || getError === void 0 ? void 0 : getError(response);
+          let postfix = "";
+          if (err) {
+            const { code, message } = simplifyError(err);
+            postfix = `. ${code}. ${message}`;
+          }
+          const errStr = `The long-running operation has failed${postfix}`;
+          stateProxy.setError(state, new Error(errStr));
           stateProxy.setFailed(state);
+          logger.warning(errStr);
           break;
         }
         case "canceled": {
@@ -32168,7 +32256,7 @@ var require_dist8 = __commonJS({
       return { response, status };
     }
     async function pollOperation(inputs) {
-      const { poll, state, stateProxy, options, getOperationStatus: getOperationStatus2, getResourceLocation: getResourceLocation2, getOperationLocation: getOperationLocation2, isOperationError: isOperationError2, withOperationLocation, getPollingInterval, processResult, updateState, setDelay, isDone, setErrorAsResult } = inputs;
+      const { poll, state, stateProxy, options, getOperationStatus: getOperationStatus2, getResourceLocation: getResourceLocation2, getOperationLocation: getOperationLocation2, isOperationError: isOperationError2, withOperationLocation, getPollingInterval, processResult, getError, updateState, setDelay, isDone, setErrorAsResult } = inputs;
       const { operationLocation } = state.config;
       if (operationLocation !== void 0) {
         const { response, status } = await pollOperationHelper({
@@ -32188,6 +32276,7 @@ var require_dist8 = __commonJS({
           stateProxy,
           isDone,
           processResult,
+          getError,
           setErrorAsResult
         });
         if (!terminalStates.includes(status)) {
@@ -32297,7 +32386,7 @@ var require_dist8 = __commonJS({
         case "cancelled":
           return "canceled";
         default: {
-          logger.warning(`LRO: unrecognized operation status: ${status}`);
+          logger.verbose(`LRO: unrecognized operation status: ${status}`);
           return status;
         }
       }
@@ -32329,6 +32418,18 @@ var require_dist8 = __commonJS({
         return isNaN(retryAfterInSeconds) ? calculatePollingIntervalFromDate(new Date(retryAfter)) : retryAfterInSeconds * 1e3;
       }
       return void 0;
+    }
+    function getErrorFromResponse(response) {
+      const error = response.flatResponse.error;
+      if (!error) {
+        logger.warning(`The long-running operation failed but there is no error property in the response's body`);
+        return;
+      }
+      if (!error.code || !error.message) {
+        logger.warning(`The long-running operation failed but the error property in the response's body doesn't contain code or message`);
+        return;
+      }
+      return error;
     }
     function calculatePollingIntervalFromDate(retryAfterDate) {
       const timeNow = Math.floor((/* @__PURE__ */ new Date()).getTime());
@@ -32429,6 +32530,7 @@ var require_dist8 = __commonJS({
         stateProxy,
         setDelay,
         processResult: processResult ? ({ flatResponse }, inputState) => processResult(flatResponse, inputState) : ({ flatResponse }) => flatResponse,
+        getError: getErrorFromResponse,
         updateState,
         getPollingInterval: parseRetryAfter,
         getOperationLocation,
@@ -32442,29 +32544,6 @@ var require_dist8 = __commonJS({
          */
         poll: async (location, inputOptions) => lro.sendPollRequest(location, inputOptions),
         setErrorAsResult
-      });
-    }
-    var maybemap = (value, f) => value === void 0 ? void 0 : f(value);
-    var INTERRUPTED = new Error("The poller is already stopped");
-    function delayMs(ms) {
-      let aborted = false;
-      let toReject;
-      return Object.assign(new Promise((resolve, reject) => {
-        let token;
-        toReject = () => {
-          maybemap(token, clearTimeout);
-          reject(INTERRUPTED);
-        };
-        if (aborted) {
-          toReject();
-        } else {
-          token = setTimeout(resolve, ms);
-        }
-      }), {
-        cancel: () => {
-          aborted = true;
-          toReject === null || toReject === void 0 ? void 0 : toReject();
-        }
       });
     }
     var createStateProxy$1 = () => ({
@@ -32488,7 +32567,7 @@ var require_dist8 = __commonJS({
       isSucceeded: (state) => state.status === "succeeded"
     });
     function buildCreatePoller(inputs) {
-      const { getOperationLocation: getOperationLocation2, getStatusFromInitialResponse: getStatusFromInitialResponse2, getStatusFromPollResponse, isOperationError: isOperationError2, getResourceLocation: getResourceLocation2, getPollingInterval, resolveOnUnsuccessful } = inputs;
+      const { getOperationLocation: getOperationLocation2, getStatusFromInitialResponse: getStatusFromInitialResponse2, getStatusFromPollResponse, isOperationError: isOperationError2, getResourceLocation: getResourceLocation2, getPollingInterval, getError, resolveOnUnsuccessful } = inputs;
       return async ({ init, poll }, options) => {
         const { processResult, updateState, withOperationLocation: withOperationLocationCallback, intervalInMs = POLL_INTERVAL_IN_MS, restoreFrom } = options || {};
         const stateProxy = createStateProxy$1();
@@ -32511,7 +32590,6 @@ var require_dist8 = __commonJS({
           setErrorAsResult: !resolveOnUnsuccessful
         });
         let resultPromise;
-        let cancelJob;
         const abortController$1 = new abortController.AbortController();
         const handlers = /* @__PURE__ */ new Map();
         const handleProgressEvents = async () => handlers.forEach((h) => h(state));
@@ -32524,7 +32602,6 @@ var require_dist8 = __commonJS({
           isStopped: () => resultPromise === void 0,
           stopPolling: () => {
             abortController$1.abort();
-            cancelJob === null || cancelJob === void 0 ? void 0 : cancelJob();
           },
           toString: () => JSON.stringify({
             state
@@ -32540,9 +32617,7 @@ var require_dist8 = __commonJS({
             if (!poller.isDone()) {
               await poller.poll({ abortSignal });
               while (!poller.isDone()) {
-                const delay = delayMs(currentPollIntervalInMs);
-                cancelJob = delay.cancel;
-                await delay;
+                await coreUtil.delay(currentPollIntervalInMs, { abortSignal });
                 await poller.poll({ abortSignal });
               }
             }
@@ -32589,6 +32664,7 @@ var require_dist8 = __commonJS({
               getOperationStatus: getStatusFromPollResponse,
               getResourceLocation: getResourceLocation2,
               processResult,
+              getError,
               updateState,
               options: pollOptions,
               setDelay: (pollIntervalInMs) => {
@@ -32619,6 +32695,7 @@ var require_dist8 = __commonJS({
         getOperationLocation,
         getResourceLocation,
         getPollingInterval: parseRetryAfter,
+        getError: getErrorFromResponse,
         resolveOnUnsuccessful
       })({
         init: async () => {
@@ -33050,9 +33127,9 @@ var require_dist8 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+storage-blob@12.13.0/node_modules/@azure/storage-blob/dist/index.js
+// node_modules/.pnpm/@azure+storage-blob@12.14.0/node_modules/@azure/storage-blob/dist/index.js
 var require_dist9 = __commonJS({
-  "node_modules/.pnpm/@azure+storage-blob@12.13.0/node_modules/@azure/storage-blob/dist/index.js"(exports) {
+  "node_modules/.pnpm/@azure+storage-blob@12.14.0/node_modules/@azure/storage-blob/dist/index.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var coreHttp = require_dist6();
@@ -41543,7 +41620,7 @@ var require_dist9 = __commonJS({
     var version2 = {
       parameterPath: "version",
       mapper: {
-        defaultValue: "2021-12-02",
+        defaultValue: "2022-11-02",
         isConstant: true,
         serializedName: "x-ms-version",
         type: {
@@ -46342,8 +46419,8 @@ var require_dist9 = __commonJS({
       serializer: xmlSerializer
     };
     var logger = logger$1.createClientLogger("storage-blob");
-    var SDK_VERSION = "12.13.0";
-    var SERVICE_VERSION = "2021-12-02";
+    var SDK_VERSION = "12.14.0";
+    var SERVICE_VERSION = "2022-11-02";
     var BLOCK_BLOB_MAX_UPLOAD_BLOB_BYTES = 256 * 1024 * 1024;
     var BLOCK_BLOB_MAX_STAGE_BLOCK_BYTES = 4e3 * 1024 * 1024;
     var BLOCK_BLOB_MAX_BLOCKS = 5e4;
@@ -47698,7 +47775,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       }
     };
     var packageName = "azure-storage-blob";
-    var packageVersion = "12.13.0";
+    var packageVersion = "12.14.0";
     var StorageClientContext = class extends coreHttp__namespace.ServiceClient {
       /**
        * Initializes a new instance of the StorageClientContext class.
@@ -47721,7 +47798,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this.requestContentType = "application/json; charset=utf-8";
         this.baseUri = options.endpoint || "{url}";
         this.url = url2;
-        this.version = options.version || "2021-12-02";
+        this.version = options.version || "2022-11-02";
       }
     };
     var StorageClient = class {
@@ -50974,6 +51051,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           pipeline = newPipeline(credentialOrPipelineOrContainerName, options);
         } else if (!credentialOrPipelineOrContainerName && typeof credentialOrPipelineOrContainerName !== "string") {
           url2 = urlOrConnectionString;
+          if (blobNameOrOptions && typeof blobNameOrOptions !== "string") {
+            options = blobNameOrOptions;
+          }
           pipeline = newPipeline(new AnonymousCredential(), options);
         } else if (credentialOrPipelineOrContainerName && typeof credentialOrPipelineOrContainerName === "string" && blobNameOrOptions && typeof blobNameOrOptions === "string") {
           const containerName = credentialOrPipelineOrContainerName;
@@ -52120,6 +52200,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           pipeline = newPipeline(credentialOrPipelineOrContainerName, options);
         } else if (!credentialOrPipelineOrContainerName && typeof credentialOrPipelineOrContainerName !== "string") {
           url2 = urlOrConnectionString;
+          if (blobNameOrOptions && typeof blobNameOrOptions !== "string") {
+            options = blobNameOrOptions;
+          }
           pipeline = newPipeline(new AnonymousCredential(), options);
         } else if (credentialOrPipelineOrContainerName && typeof credentialOrPipelineOrContainerName === "string" && blobNameOrOptions && typeof blobNameOrOptions === "string") {
           const containerName = credentialOrPipelineOrContainerName;
@@ -57523,35 +57606,47 @@ var require_cache = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/constants.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/constants.js
 var require_constants2 = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/constants.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/constants.js"(exports, module2) {
     var SEMVER_SPEC_VERSION = "2.0.0";
     var MAX_LENGTH = 256;
     var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
     9007199254740991;
     var MAX_SAFE_COMPONENT_LENGTH = 16;
+    var RELEASE_TYPES = [
+      "major",
+      "premajor",
+      "minor",
+      "preminor",
+      "patch",
+      "prepatch",
+      "prerelease"
+    ];
     module2.exports = {
-      SEMVER_SPEC_VERSION,
       MAX_LENGTH,
+      MAX_SAFE_COMPONENT_LENGTH,
       MAX_SAFE_INTEGER,
-      MAX_SAFE_COMPONENT_LENGTH
+      RELEASE_TYPES,
+      SEMVER_SPEC_VERSION,
+      FLAG_INCLUDE_PRERELEASE: 1,
+      FLAG_LOOSE: 2
     };
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/debug.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/debug.js
 var require_debug = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/debug.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/debug.js"(exports, module2) {
     var debug = typeof process === "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
     };
     module2.exports = debug;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/re.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/re.js
 var require_re = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/re.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/re.js"(exports, module2) {
     var { MAX_SAFE_COMPONENT_LENGTH } = require_constants2();
     var debug = require_debug();
     exports = module2.exports = {};
@@ -57612,21 +57707,27 @@ var require_re = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/parse-options.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/parse-options.js
 var require_parse_options = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/parse-options.js"(exports, module2) {
-    var opts = ["includePrerelease", "loose", "rtl"];
-    var parseOptions = (options) => !options ? {} : typeof options !== "object" ? { loose: true } : opts.filter((k) => options[k]).reduce((o, k) => {
-      o[k] = true;
-      return o;
-    }, {});
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/parse-options.js"(exports, module2) {
+    var looseOption = Object.freeze({ loose: true });
+    var emptyOpts = Object.freeze({});
+    var parseOptions = (options) => {
+      if (!options) {
+        return emptyOpts;
+      }
+      if (typeof options !== "object") {
+        return looseOption;
+      }
+      return options;
+    };
     module2.exports = parseOptions;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/identifiers.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/identifiers.js
 var require_identifiers = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/internal/identifiers.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/internal/identifiers.js"(exports, module2) {
     var numeric = /^[0-9]+$/;
     var compareIdentifiers = (a, b) => {
       const anum = numeric.test(a);
@@ -57645,9 +57746,9 @@ var require_identifiers = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/classes/semver.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/classes/semver.js
 var require_semver3 = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/classes/semver.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/classes/semver.js"(exports, module2) {
     var debug = require_debug();
     var { MAX_LENGTH, MAX_SAFE_INTEGER } = require_constants2();
     var { re, t } = require_re();
@@ -57663,7 +57764,7 @@ var require_semver3 = __commonJS({
             version2 = version2.version;
           }
         } else if (typeof version2 !== "string") {
-          throw new TypeError(`Invalid Version: ${version2}`);
+          throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version2}".`);
         }
         if (version2.length > MAX_LENGTH) {
           throw new TypeError(
@@ -57789,31 +57890,31 @@ var require_semver3 = __commonJS({
       }
       // preminor will bump the version up to the next minor release, and immediately
       // down to pre-release. premajor and prepatch work the same way.
-      inc(release, identifier) {
+      inc(release, identifier, identifierBase) {
         switch (release) {
           case "premajor":
             this.prerelease.length = 0;
             this.patch = 0;
             this.minor = 0;
             this.major++;
-            this.inc("pre", identifier);
+            this.inc("pre", identifier, identifierBase);
             break;
           case "preminor":
             this.prerelease.length = 0;
             this.patch = 0;
             this.minor++;
-            this.inc("pre", identifier);
+            this.inc("pre", identifier, identifierBase);
             break;
           case "prepatch":
             this.prerelease.length = 0;
-            this.inc("patch", identifier);
-            this.inc("pre", identifier);
+            this.inc("patch", identifier, identifierBase);
+            this.inc("pre", identifier, identifierBase);
             break;
           case "prerelease":
             if (this.prerelease.length === 0) {
-              this.inc("patch", identifier);
+              this.inc("patch", identifier, identifierBase);
             }
-            this.inc("pre", identifier);
+            this.inc("pre", identifier, identifierBase);
             break;
           case "major":
             if (this.minor !== 0 || this.patch !== 0 || this.prerelease.length === 0) {
@@ -57836,9 +57937,13 @@ var require_semver3 = __commonJS({
             }
             this.prerelease = [];
             break;
-          case "pre":
+          case "pre": {
+            const base = Number(identifierBase) ? 1 : 0;
+            if (!identifier && identifierBase === false) {
+              throw new Error("invalid increment argument: identifier is empty");
+            }
             if (this.prerelease.length === 0) {
-              this.prerelease = [0];
+              this.prerelease = [base];
             } else {
               let i = this.prerelease.length;
               while (--i >= 0) {
@@ -57848,19 +57953,27 @@ var require_semver3 = __commonJS({
                 }
               }
               if (i === -1) {
-                this.prerelease.push(0);
+                if (identifier === this.prerelease.join(".") && identifierBase === false) {
+                  throw new Error("invalid increment argument: identifier already exists");
+                }
+                this.prerelease.push(base);
               }
             }
             if (identifier) {
+              let prerelease = [identifier, base];
+              if (identifierBase === false) {
+                prerelease = [identifier];
+              }
               if (compareIdentifiers(this.prerelease[0], identifier) === 0) {
                 if (isNaN(this.prerelease[1])) {
-                  this.prerelease = [identifier, 0];
+                  this.prerelease = prerelease;
                 }
               } else {
-                this.prerelease = [identifier, 0];
+                this.prerelease = prerelease;
               }
             }
             break;
+          }
           default:
             throw new Error(`invalid increment argument: ${release}`);
         }
@@ -57873,41 +57986,30 @@ var require_semver3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/parse.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/parse.js
 var require_parse = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/parse.js"(exports, module2) {
-    var { MAX_LENGTH } = require_constants2();
-    var { re, t } = require_re();
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/parse.js"(exports, module2) {
     var SemVer = require_semver3();
-    var parseOptions = require_parse_options();
-    var parse2 = (version2, options) => {
-      options = parseOptions(options);
+    var parse2 = (version2, options, throwErrors = false) => {
       if (version2 instanceof SemVer) {
         return version2;
-      }
-      if (typeof version2 !== "string") {
-        return null;
-      }
-      if (version2.length > MAX_LENGTH) {
-        return null;
-      }
-      const r = options.loose ? re[t.LOOSE] : re[t.FULL];
-      if (!r.test(version2)) {
-        return null;
       }
       try {
         return new SemVer(version2, options);
       } catch (er) {
-        return null;
+        if (!throwErrors) {
+          return null;
+        }
+        throw er;
       }
     };
     module2.exports = parse2;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/valid.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/valid.js
 var require_valid = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/valid.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/valid.js"(exports, module2) {
     var parse2 = require_parse();
     var valid = (version2, options) => {
       const v = parse2(version2, options);
@@ -57917,9 +58019,9 @@ var require_valid = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/clean.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/clean.js
 var require_clean = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/clean.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/clean.js"(exports, module2) {
     var parse2 = require_parse();
     var clean = (version2, options) => {
       const s = parse2(version2.trim().replace(/^[=v]+/, ""), options);
@@ -57929,12 +58031,13 @@ var require_clean = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/inc.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/inc.js
 var require_inc = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/inc.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/inc.js"(exports, module2) {
     var SemVer = require_semver3();
-    var inc = (version2, release, options, identifier) => {
+    var inc = (version2, release, options, identifier, identifierBase) => {
       if (typeof options === "string") {
+        identifierBase = identifier;
         identifier = options;
         options = void 0;
       }
@@ -57942,7 +58045,7 @@ var require_inc = __commonJS({
         return new SemVer(
           version2 instanceof SemVer ? version2.version : version2,
           options
-        ).inc(release, identifier).version;
+        ).inc(release, identifier, identifierBase).version;
       } catch (er) {
         return null;
       }
@@ -57951,82 +58054,76 @@ var require_inc = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/compare.js
-var require_compare = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/compare.js"(exports, module2) {
-    var SemVer = require_semver3();
-    var compare = (a, b, loose) => new SemVer(a, loose).compare(new SemVer(b, loose));
-    module2.exports = compare;
-  }
-});
-
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/eq.js
-var require_eq = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/eq.js"(exports, module2) {
-    var compare = require_compare();
-    var eq = (a, b, loose) => compare(a, b, loose) === 0;
-    module2.exports = eq;
-  }
-});
-
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/diff.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/diff.js
 var require_diff = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/diff.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/diff.js"(exports, module2) {
     var parse2 = require_parse();
-    var eq = require_eq();
     var diff = (version1, version2) => {
-      if (eq(version1, version2)) {
+      const v12 = parse2(version1, null, true);
+      const v2 = parse2(version2, null, true);
+      const comparison = v12.compare(v2);
+      if (comparison === 0) {
         return null;
-      } else {
-        const v12 = parse2(version1);
-        const v2 = parse2(version2);
-        const hasPre = v12.prerelease.length || v2.prerelease.length;
-        const prefix = hasPre ? "pre" : "";
-        const defaultResult = hasPre ? "prerelease" : "";
-        for (const key in v12) {
-          if (key === "major" || key === "minor" || key === "patch") {
-            if (v12[key] !== v2[key]) {
-              return prefix + key;
-            }
-          }
-        }
-        return defaultResult;
       }
+      const v1Higher = comparison > 0;
+      const highVersion = v1Higher ? v12 : v2;
+      const lowVersion = v1Higher ? v2 : v12;
+      const highHasPre = !!highVersion.prerelease.length;
+      const prefix = highHasPre ? "pre" : "";
+      if (v12.major !== v2.major) {
+        return prefix + "major";
+      }
+      if (v12.minor !== v2.minor) {
+        return prefix + "minor";
+      }
+      if (v12.patch !== v2.patch) {
+        return prefix + "patch";
+      }
+      if (highHasPre) {
+        return "prerelease";
+      }
+      if (lowVersion.patch) {
+        return "patch";
+      }
+      if (lowVersion.minor) {
+        return "minor";
+      }
+      return "major";
     };
     module2.exports = diff;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/major.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/major.js
 var require_major = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/major.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/major.js"(exports, module2) {
     var SemVer = require_semver3();
     var major = (a, loose) => new SemVer(a, loose).major;
     module2.exports = major;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/minor.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/minor.js
 var require_minor = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/minor.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/minor.js"(exports, module2) {
     var SemVer = require_semver3();
     var minor = (a, loose) => new SemVer(a, loose).minor;
     module2.exports = minor;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/patch.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/patch.js
 var require_patch = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/patch.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/patch.js"(exports, module2) {
     var SemVer = require_semver3();
     var patch = (a, loose) => new SemVer(a, loose).patch;
     module2.exports = patch;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/prerelease.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/prerelease.js
 var require_prerelease = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/prerelease.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/prerelease.js"(exports, module2) {
     var parse2 = require_parse();
     var prerelease = (version2, options) => {
       const parsed = parse2(version2, options);
@@ -58036,27 +58133,36 @@ var require_prerelease = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/rcompare.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/compare.js
+var require_compare = __commonJS({
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/compare.js"(exports, module2) {
+    var SemVer = require_semver3();
+    var compare = (a, b, loose) => new SemVer(a, loose).compare(new SemVer(b, loose));
+    module2.exports = compare;
+  }
+});
+
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/rcompare.js
 var require_rcompare = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/rcompare.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/rcompare.js"(exports, module2) {
     var compare = require_compare();
     var rcompare = (a, b, loose) => compare(b, a, loose);
     module2.exports = rcompare;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/compare-loose.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/compare-loose.js
 var require_compare_loose = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/compare-loose.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/compare-loose.js"(exports, module2) {
     var compare = require_compare();
     var compareLoose = (a, b) => compare(a, b, true);
     module2.exports = compareLoose;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/compare-build.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/compare-build.js
 var require_compare_build = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/compare-build.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/compare-build.js"(exports, module2) {
     var SemVer = require_semver3();
     var compareBuild = (a, b, loose) => {
       const versionA = new SemVer(a, loose);
@@ -58067,72 +58173,81 @@ var require_compare_build = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/sort.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/sort.js
 var require_sort = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/sort.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/sort.js"(exports, module2) {
     var compareBuild = require_compare_build();
     var sort = (list, loose) => list.sort((a, b) => compareBuild(a, b, loose));
     module2.exports = sort;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/rsort.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/rsort.js
 var require_rsort = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/rsort.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/rsort.js"(exports, module2) {
     var compareBuild = require_compare_build();
     var rsort = (list, loose) => list.sort((a, b) => compareBuild(b, a, loose));
     module2.exports = rsort;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/gt.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/gt.js
 var require_gt = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/gt.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/gt.js"(exports, module2) {
     var compare = require_compare();
     var gt = (a, b, loose) => compare(a, b, loose) > 0;
     module2.exports = gt;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/lt.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/lt.js
 var require_lt = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/lt.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/lt.js"(exports, module2) {
     var compare = require_compare();
     var lt = (a, b, loose) => compare(a, b, loose) < 0;
     module2.exports = lt;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/neq.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/eq.js
+var require_eq = __commonJS({
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/eq.js"(exports, module2) {
+    var compare = require_compare();
+    var eq = (a, b, loose) => compare(a, b, loose) === 0;
+    module2.exports = eq;
+  }
+});
+
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/neq.js
 var require_neq = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/neq.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/neq.js"(exports, module2) {
     var compare = require_compare();
     var neq = (a, b, loose) => compare(a, b, loose) !== 0;
     module2.exports = neq;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/gte.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/gte.js
 var require_gte = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/gte.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/gte.js"(exports, module2) {
     var compare = require_compare();
     var gte = (a, b, loose) => compare(a, b, loose) >= 0;
     module2.exports = gte;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/lte.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/lte.js
 var require_lte = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/lte.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/lte.js"(exports, module2) {
     var compare = require_compare();
     var lte = (a, b, loose) => compare(a, b, loose) <= 0;
     module2.exports = lte;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/cmp.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/cmp.js
 var require_cmp = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/cmp.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/cmp.js"(exports, module2) {
     var eq = require_eq();
     var neq = require_neq();
     var gt = require_gt();
@@ -58179,9 +58294,9 @@ var require_cmp = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/coerce.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/coerce.js
 var require_coerce = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/coerce.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/coerce.js"(exports, module2) {
     var SemVer = require_semver3();
     var parse2 = require_parse();
     var { re, t } = require_re();
@@ -58871,9 +58986,9 @@ var require_lru_cache = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/classes/range.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/classes/range.js
 var require_range = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/classes/range.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/classes/range.js"(exports, module2) {
     var Range = class {
       constructor(range, options) {
         options = parseOptions(options);
@@ -58925,8 +59040,8 @@ var require_range = __commonJS({
       }
       parseRange(range) {
         range = range.trim();
-        const memoOpts = Object.keys(this.options).join(",");
-        const memoKey = `parseRange:${memoOpts}:${range}`;
+        const memoOpts = (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE);
+        const memoKey = memoOpts + ":" + range;
         const cached = cache2.get(memoKey);
         if (cached) {
           return cached;
@@ -59011,6 +59126,7 @@ var require_range = __commonJS({
       tildeTrimReplace,
       caretTrimReplace
     } = require_re();
+    var { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = require_constants2();
     var isNullSet = (c) => c.value === "<0.0.0-0";
     var isAny = (c) => c.value === "";
     var isSatisfiable = (comparators, options) => {
@@ -59231,9 +59347,9 @@ var require_range = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/classes/comparator.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/classes/comparator.js
 var require_comparator = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/classes/comparator.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/classes/comparator.js"(exports, module2) {
     var ANY = Symbol("SemVer ANY");
     var Comparator = class {
       static get ANY() {
@@ -59296,12 +59412,6 @@ var require_comparator = __commonJS({
         if (!(comp instanceof Comparator)) {
           throw new TypeError("a Comparator is required");
         }
-        if (!options || typeof options !== "object") {
-          options = {
-            loose: !!options,
-            includePrerelease: false
-          };
-        }
         if (this.operator === "") {
           if (this.value === "") {
             return true;
@@ -59313,13 +59423,29 @@ var require_comparator = __commonJS({
           }
           return new Range(this.value, options).test(comp.semver);
         }
-        const sameDirectionIncreasing = (this.operator === ">=" || this.operator === ">") && (comp.operator === ">=" || comp.operator === ">");
-        const sameDirectionDecreasing = (this.operator === "<=" || this.operator === "<") && (comp.operator === "<=" || comp.operator === "<");
-        const sameSemVer = this.semver.version === comp.semver.version;
-        const differentDirectionsInclusive = (this.operator === ">=" || this.operator === "<=") && (comp.operator === ">=" || comp.operator === "<=");
-        const oppositeDirectionsLessThan = cmp(this.semver, "<", comp.semver, options) && (this.operator === ">=" || this.operator === ">") && (comp.operator === "<=" || comp.operator === "<");
-        const oppositeDirectionsGreaterThan = cmp(this.semver, ">", comp.semver, options) && (this.operator === "<=" || this.operator === "<") && (comp.operator === ">=" || comp.operator === ">");
-        return sameDirectionIncreasing || sameDirectionDecreasing || sameSemVer && differentDirectionsInclusive || oppositeDirectionsLessThan || oppositeDirectionsGreaterThan;
+        options = parseOptions(options);
+        if (options.includePrerelease && (this.value === "<0.0.0-0" || comp.value === "<0.0.0-0")) {
+          return false;
+        }
+        if (!options.includePrerelease && (this.value.startsWith("<0.0.0") || comp.value.startsWith("<0.0.0"))) {
+          return false;
+        }
+        if (this.operator.startsWith(">") && comp.operator.startsWith(">")) {
+          return true;
+        }
+        if (this.operator.startsWith("<") && comp.operator.startsWith("<")) {
+          return true;
+        }
+        if (this.semver.version === comp.semver.version && this.operator.includes("=") && comp.operator.includes("=")) {
+          return true;
+        }
+        if (cmp(this.semver, "<", comp.semver, options) && this.operator.startsWith(">") && comp.operator.startsWith("<")) {
+          return true;
+        }
+        if (cmp(this.semver, ">", comp.semver, options) && this.operator.startsWith("<") && comp.operator.startsWith(">")) {
+          return true;
+        }
+        return false;
       }
     };
     module2.exports = Comparator;
@@ -59332,9 +59458,9 @@ var require_comparator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/satisfies.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/satisfies.js
 var require_satisfies = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/functions/satisfies.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/functions/satisfies.js"(exports, module2) {
     var Range = require_range();
     var satisfies = (version2, range, options) => {
       try {
@@ -59348,18 +59474,18 @@ var require_satisfies = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/to-comparators.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/to-comparators.js
 var require_to_comparators = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/to-comparators.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/to-comparators.js"(exports, module2) {
     var Range = require_range();
     var toComparators = (range, options) => new Range(range, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
     module2.exports = toComparators;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/max-satisfying.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/max-satisfying.js
 var require_max_satisfying = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/max-satisfying.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/max-satisfying.js"(exports, module2) {
     var SemVer = require_semver3();
     var Range = require_range();
     var maxSatisfying = (versions, range, options) => {
@@ -59385,9 +59511,9 @@ var require_max_satisfying = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/min-satisfying.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/min-satisfying.js
 var require_min_satisfying = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/min-satisfying.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/min-satisfying.js"(exports, module2) {
     var SemVer = require_semver3();
     var Range = require_range();
     var minSatisfying = (versions, range, options) => {
@@ -59413,9 +59539,9 @@ var require_min_satisfying = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/min-version.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/min-version.js
 var require_min_version = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/min-version.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/min-version.js"(exports, module2) {
     var SemVer = require_semver3();
     var Range = require_range();
     var gt = require_gt();
@@ -59469,9 +59595,9 @@ var require_min_version = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/valid.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/valid.js
 var require_valid2 = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/valid.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/valid.js"(exports, module2) {
     var Range = require_range();
     var validRange2 = (range, options) => {
       try {
@@ -59484,9 +59610,9 @@ var require_valid2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/outside.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/outside.js
 var require_outside = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/outside.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/outside.js"(exports, module2) {
     var SemVer = require_semver3();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
@@ -59552,40 +59678,40 @@ var require_outside = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/gtr.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/gtr.js
 var require_gtr = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/gtr.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/gtr.js"(exports, module2) {
     var outside = require_outside();
     var gtr = (version2, range, options) => outside(version2, range, ">", options);
     module2.exports = gtr;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/ltr.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/ltr.js
 var require_ltr = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/ltr.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/ltr.js"(exports, module2) {
     var outside = require_outside();
     var ltr = (version2, range, options) => outside(version2, range, "<", options);
     module2.exports = ltr;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/intersects.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/intersects.js
 var require_intersects = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/intersects.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/intersects.js"(exports, module2) {
     var Range = require_range();
     var intersects = (r1, r2, options) => {
       r1 = new Range(r1, options);
       r2 = new Range(r2, options);
-      return r1.intersects(r2);
+      return r1.intersects(r2, options);
     };
     module2.exports = intersects;
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/simplify.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/simplify.js
 var require_simplify = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/simplify.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/simplify.js"(exports, module2) {
     var satisfies = require_satisfies();
     var compare = require_compare();
     module2.exports = (versions, range, options) => {
@@ -59632,9 +59758,9 @@ var require_simplify = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/subset.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/subset.js
 var require_subset = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/ranges/subset.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/ranges/subset.js"(exports, module2) {
     var Range = require_range();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
@@ -59662,6 +59788,8 @@ var require_subset = __commonJS({
         }
       return true;
     };
+    var minimumVersionWithPreRelease = [new Comparator(">=0.0.0-0")];
+    var minimumVersion = [new Comparator(">=0.0.0")];
     var simpleSubset = (sub, dom, options) => {
       if (sub === dom) {
         return true;
@@ -59670,16 +59798,16 @@ var require_subset = __commonJS({
         if (dom.length === 1 && dom[0].semver === ANY) {
           return true;
         } else if (options.includePrerelease) {
-          sub = [new Comparator(">=0.0.0-0")];
+          sub = minimumVersionWithPreRelease;
         } else {
-          sub = [new Comparator(">=0.0.0")];
+          sub = minimumVersion;
         }
       }
       if (dom.length === 1 && dom[0].semver === ANY) {
         if (options.includePrerelease) {
           return true;
         } else {
-          dom = [new Comparator(">=0.0.0")];
+          dom = minimumVersion;
         }
       }
       const eqSet = /* @__PURE__ */ new Set();
@@ -59792,9 +59920,9 @@ var require_subset = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.3.8/node_modules/semver/index.js
+// node_modules/.pnpm/semver@7.5.1/node_modules/semver/index.js
 var require_semver4 = __commonJS({
-  "node_modules/.pnpm/semver@7.3.8/node_modules/semver/index.js"(exports, module2) {
+  "node_modules/.pnpm/semver@7.5.1/node_modules/semver/index.js"(exports, module2) {
     var internalRe = require_re();
     var constants = require_constants2();
     var SemVer = require_semver3();
@@ -59879,50 +60007,10 @@ var require_semver4 = __commonJS({
       src: internalRe.src,
       tokens: internalRe.t,
       SEMVER_SPEC_VERSION: constants.SEMVER_SPEC_VERSION,
+      RELEASE_TYPES: constants.RELEASE_TYPES,
       compareIdentifiers: identifiers.compareIdentifiers,
       rcompareIdentifiers: identifiers.rcompareIdentifiers
     };
-  }
-});
-
-// node_modules/.pnpm/string-argv@0.3.1/node_modules/string-argv/index.js
-var require_string_argv = __commonJS({
-  "node_modules/.pnpm/string-argv@0.3.1/node_modules/string-argv/index.js"(exports) {
-    "use strict";
-    exports.__esModule = true;
-    function parseArgsStringToArgv(value, env2, file) {
-      var myRegexp = /([^\s'"]([^\s'"]*(['"])([^\3]*?)\3)+[^\s'"]*)|[^\s'"]+|(['"])([^\5]*?)\5/gi;
-      var myString = value;
-      var myArray = [];
-      if (env2) {
-        myArray.push(env2);
-      }
-      if (file) {
-        myArray.push(file);
-      }
-      var match;
-      do {
-        match = myRegexp.exec(myString);
-        if (match !== null) {
-          myArray.push(firstString(match[1], match[6], match[0]));
-        }
-      } while (match !== null);
-      return myArray;
-    }
-    exports["default"] = parseArgsStringToArgv;
-    exports.parseArgsStringToArgv = parseArgsStringToArgv;
-    function firstString() {
-      var args = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i] = arguments[_i];
-      }
-      for (var i = 0; i < args.length; i++) {
-        var arg = args[i];
-        if (typeof arg === "string") {
-          return arg;
-        }
-      }
-    }
   }
 });
 
@@ -60478,7 +60566,41 @@ async function runCargoInstall(input, version2, install) {
 // src/parse.ts
 var core2 = __toESM(require_core());
 var semver = __toESM(require_semver4());
-var import_string_argv = __toESM(require_string_argv());
+
+// node_modules/.pnpm/string-argv@0.3.2/node_modules/string-argv/index.js
+function parseArgsStringToArgv(value, env2, file) {
+  var myRegexp = /([^\s'"]([^\s'"]*(['"])([^\3]*?)\3)+[^\s'"]*)|[^\s'"]+|(['"])([^\5]*?)\5/gi;
+  var myString = value;
+  var myArray = [];
+  if (env2) {
+    myArray.push(env2);
+  }
+  if (file) {
+    myArray.push(file);
+  }
+  var match;
+  do {
+    match = myRegexp.exec(myString);
+    if (match !== null) {
+      myArray.push(firstString(match[1], match[6], match[0]));
+    }
+  } while (match !== null);
+  return myArray;
+}
+function firstString() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  for (var i = 0; i < args.length; i++) {
+    var arg = args[i];
+    if (typeof arg === "string") {
+      return arg;
+    }
+  }
+}
+
+// src/parse.ts
 function parseInput() {
   const crate = core2.getInput("crate", { required: true });
   const version2 = core2.getInput("version", { required: true });
@@ -60490,7 +60612,7 @@ function parseInput() {
     core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
     process.exit(1);
   }
-  const parsedArgs = (0, import_string_argv.default)(args);
+  const parsedArgs = parseArgsStringToArgv(args);
   const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
   if (locked) {
     parsedArgs.push("--locked");
@@ -60508,7 +60630,7 @@ function parseInput() {
 var http = __toESM(require_lib());
 var core3 = __toESM(require_core());
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/errors.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/errors.js
 var InternalArktypeError = class extends Error {
 };
 var throwInternalError = (message) => {
@@ -60520,7 +60642,7 @@ var throwParseError = (message) => {
   throw new ParseError(message);
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/domains.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/domains.js
 var hasDomain = (data, domain) => domainOf(data) === domain;
 var domainOf = (data) => {
   const builtinType = typeof data;
@@ -60537,7 +60659,7 @@ var domainDescriptions = {
   undefined: "undefined"
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/generics.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/generics.js
 var isKeyOf = (k, obj) => k in obj;
 var entriesOf = (o) => Object.entries(o);
 var objectKeysOf = (o) => Object.keys(o);
@@ -60569,7 +60691,7 @@ var listFrom = (data) => Array.isArray(data) ? data : [
   data
 ];
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/paths.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/paths.js
 var Path = class extends Array {
   static fromString(s, delimiter = "/") {
     return s === delimiter ? new Path() : new Path(...s.split(delimiter));
@@ -60589,7 +60711,7 @@ var getPath = (root, path3) => {
   return result;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/numericLiterals.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/numericLiterals.js
 var wellFormedNumberMatcher = /^(?!^-0$)-?(?:0|[1-9]\d*)(?:\.\d*[1-9])?$/;
 var isWellFormedNumber = (s) => wellFormedNumberMatcher.test(s);
 var numberLikeMatcher = /^-?\d*\.?\d*$/;
@@ -60641,7 +60763,7 @@ var tryParseWellFormedBigint = (def) => {
   }
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/serialize.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/serialize.js
 var stringify2 = (data, indent) => {
   switch (domainOf(data)) {
     case "object":
@@ -60690,7 +60812,7 @@ var serializeRecurse = (data, context, seen) => {
 };
 var serializePrimitive = (value) => typeof value === "string" ? `'${value}'` : typeof value === "bigint" ? `${value}n` : `${value}`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/compose.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/compose.js
 function _checkPrivateRedeclaration(obj, privateCollection) {
   if (privateCollection.has(obj)) {
     throw new TypeError("Cannot initialize the same private elements twice on an object");
@@ -60731,6 +60853,19 @@ function _classPrivateFieldSet(receiver, privateMap, value) {
   _classApplyDescriptorSet(receiver, descriptor, value);
   return value;
 }
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var composeIntersection = (reducer) => (l, r, state) => l === void 0 ? r === void 0 ? throwInternalError(undefinedOperandsMessage) : r : r === void 0 ? l : reducer(l, r, state);
 var undefinedOperandsMessage = `Unexpected operation two undefined operands`;
 var disjointDescriptionWriters = {
@@ -60758,6 +60893,10 @@ var IntersectionState = class {
     return empty;
   }
   constructor(type2, lastOperator) {
+    _defineProperty(this, "type", void 0);
+    _defineProperty(this, "lastOperator", void 0);
+    _defineProperty(this, "path", void 0);
+    _defineProperty(this, "domain", void 0);
     _classPrivateFieldInit(this, _disjoints, {
       writable: true,
       value: void 0
@@ -60806,7 +60945,7 @@ var composeKeyedIntersection = (reducer, config) => (l, r, state) => {
   return lImpliesR ? rImpliesL ? equality() : l : rImpliesL ? r : result;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/intersection.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/intersection.js
 var compileDisjointReasonsMessage = (disjoints) => {
   const paths = objectKeysOf(disjoints);
   if (paths.length === 1) {
@@ -60824,7 +60963,7 @@ var compileDisjointReasonsMessage = (disjoints) => {
 };
 var writeImplicitNeverMessage = (path3, operator, description) => `${path3.length ? `At ${path3}: ` : ""}${operator} ${description ? `${description} ` : ""}results in an unsatisfiable type`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/objectKinds.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/objectKinds.js
 var defaultObjectKinds = {
   Array,
   Date,
@@ -60875,7 +61014,7 @@ var getExactConstructorObjectKind = (constructor) => {
   return constructorName && isKeyOf(constructorName, defaultObjectKinds) && defaultObjectKinds[constructorName] === constructor ? constructorName : void 0;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/class.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/class.js
 var classIntersection = composeIntersection((l, r, state) => {
   return l === r ? equality() : l instanceof r ? l : r instanceof l ? r : state.addDisjoint("class", l, r);
 });
@@ -60886,7 +61025,7 @@ var checkClass = (expectedClass, state) => {
   return state.data instanceof expectedClass || !state.problems.add("class", expectedClass);
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/collapsibleSet.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/collapsibleSet.js
 var collapsibleListUnion = (l, r) => {
   if (Array.isArray(l)) {
     if (Array.isArray(r)) {
@@ -60921,7 +61060,7 @@ var listUnion = (l, r) => {
   return result;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/divisor.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/divisor.js
 var divisorIntersection = composeIntersection((l, r) => l === r ? equality() : Math.abs(l * r / greatestCommonDivisor(l, r)));
 var greatestCommonDivisor = (l, r) => {
   let previous;
@@ -60936,7 +61075,7 @@ var greatestCommonDivisor = (l, r) => {
 };
 var checkDivisor = (divisor, state) => state.data % divisor === 0 || !state.problems.add("divisor", divisor);
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/props.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/props.js
 var isOptional = (prop) => prop[0] === "?";
 var isPrerequisite = (prop) => prop[0] === "!";
 var mappedKeys = {
@@ -61067,7 +61206,20 @@ var flattenPropsRecord = (kind, entries, props, ctx) => {
   ]);
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/data.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/data.js
+function _defineProperty2(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var sizeOf = (data) => typeof data === "string" || Array.isArray(data) ? data.length : typeof data === "number" ? data : 0;
 var unitsOf = (data) => typeof data === "string" ? "characters" : Array.isArray(data) ? "items long" : "";
 var DataWrapper = class {
@@ -61087,11 +61239,12 @@ var DataWrapper = class {
     return Object(this.value).constructor.name;
   }
   constructor(value) {
+    _defineProperty2(this, "value", void 0);
     this.value = value;
   }
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/range.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/range.js
 var minComparators = {
   ">": true,
   ">=": true
@@ -61177,7 +61330,7 @@ var comparatorCheckers = {
 var compareStrictness = (kind, l, r) => !l ? !r ? "=" : "r" : !r ? "l" : l.limit === r.limit ? isExclusive(l.comparator) ? isExclusive(r.comparator) ? "=" : "l" : isExclusive(r.comparator) ? "r" : "=" : kind === "min" ? l.limit > r.limit ? "l" : "r" : l.limit < r.limit ? "l" : "r";
 var isExclusive = (comparator) => comparator.length === 1;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/regex.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/regex.js
 var regexCache = {};
 var getRegex = (source) => {
   if (!regexCache[source]) {
@@ -61188,7 +61341,7 @@ var getRegex = (source) => {
 var checkRegex = (source, state) => getRegex(source).test(state.data) || !state.problems.add("regex", `/${source}/`);
 var regexIntersection = composeIntersection(collapsibleListUnion);
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/rules/rules.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/rules/rules.js
 var rulesIntersection = (l, r, state) => "value" in l ? "value" in r ? l.value === r.value ? equality() : state.addDisjoint("value", l.value, r.value) : literalSatisfiesRules(l.value, r, state) ? l : state.addDisjoint("leftAssignability", l, r) : "value" in r ? literalSatisfiesRules(r.value, l, state) ? r : state.addDisjoint("rightAssignability", l, r) : narrowableRulesIntersection(l, r, state);
 var narrowIntersection = composeIntersection(collapsibleListUnion);
 var narrowableRulesIntersection = composeKeyedIntersection({
@@ -61284,7 +61437,7 @@ var literalSatisfiesRules = (data, rules, state) => !state.type.scope.type([
   }
 ])(data).problems;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/branch.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/branch.js
 var isBranchComparison = (comparison) => (comparison == null ? void 0 : comparison.lBranches) !== void 0;
 var compareBranches = (lConditions, rConditions, state) => {
   const result = {
@@ -61394,10 +61547,10 @@ var branchIntersection = (l, r, state) => {
   return rulesResult;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/union.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/union.js
 var writeUndiscriminatableMorphUnionMessage = (path3) => `${path3 === "/" ? "A" : `At ${path3}, a`} union including one or more morphs must be discriminatable`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/discriminate.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/discriminate.js
 var flattenBranches = (branches, ctx) => {
   const discriminants = calculateDiscriminants(branches, ctx);
   const indices = branches.map((_, i) => i);
@@ -61631,7 +61784,7 @@ var serializeCase = (kind, data) => serializeData[kind](data);
 var branchIncludesMorph = (branch, $) => "morph" in branch ? true : "props" in branch ? Object.values(branch.props).some((prop) => nodeIncludesMorph(propToNode(prop), $)) : false;
 var nodeIncludesMorph = (node, $) => typeof node === "string" ? $.resolve(node).includesMorph : Object.values($.resolveTypeNode(node)).some((predicate) => predicate === true ? false : isArray(predicate) ? predicate.some((branch) => branchIncludesMorph(branch, $)) : branchIncludesMorph(predicate, $));
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/predicate.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/predicate.js
 var emptyRulesIfTrue = (predicate) => predicate === true ? {} : predicate;
 var comparePredicates = (l, r, context) => {
   if (l === true && r === true) {
@@ -61699,7 +61852,7 @@ var flattenPredicate = (predicate, context) => {
 };
 var isLiteralCondition = (predicate) => typeof predicate === "object" && "value" in predicate;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/nodes/node.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/nodes/node.js
 var isConfigNode = (node) => "config" in node;
 var nodeIntersection = (l, r, state) => {
   state.domain = void 0;
@@ -61811,7 +61964,20 @@ var toArrayNode = (node) => ({
   }
 });
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/scanner.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/scanner.js
+function _defineProperty3(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var Scanner = class {
   /** Get lookahead and advance scanner by one */
   shift() {
@@ -61848,7 +62014,9 @@ var Scanner = class {
     return this.lookahead in tokens;
   }
   constructor(def) {
-    this.finalized = false;
+    _defineProperty3(this, "chars", void 0);
+    _defineProperty3(this, "i", void 0);
+    _defineProperty3(this, "finalized", false);
     this.chars = [
       ...def
     ];
@@ -61905,7 +62073,7 @@ var Scanner = class {
   var whiteSpaceToken = Scanner2.whiteSpaceToken = " ";
 })(Scanner || (Scanner = {}));
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/traverse/problems.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/traverse/problems.js
 function _checkPrivateRedeclaration2(obj, privateCollection) {
   if (privateCollection.has(obj)) {
     throw new TypeError("Cannot initialize the same private elements twice on an object");
@@ -61946,9 +62114,23 @@ function _classPrivateFieldSet2(receiver, privateMap, value) {
   _classApplyDescriptorSet2(receiver, descriptor, value);
   return value;
 }
+function _defineProperty4(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var ArkTypeError = class extends TypeError {
   constructor(problems) {
     super(`${problems}`);
+    _defineProperty4(this, "cause", void 0);
     this.cause = problems;
   }
 };
@@ -61966,6 +62148,12 @@ var Problem = class {
     return typeof this.writers.mustBe === "string" ? this.writers.mustBe : this.writers.mustBe(this.source);
   }
   constructor(code, path3, data, source, writers) {
+    _defineProperty4(this, "code", void 0);
+    _defineProperty4(this, "path", void 0);
+    _defineProperty4(this, "data", void 0);
+    _defineProperty4(this, "source", void 0);
+    _defineProperty4(this, "writers", void 0);
+    _defineProperty4(this, "parts", void 0);
     this.code = code;
     this.path = path3;
     this.data = data;
@@ -61982,7 +62170,7 @@ var ProblemArray = class extends Array {
     return this.add("custom", description, opts);
   }
   add(code, source, opts) {
-    const path3 = (opts == null ? void 0 : opts.path) ?? Path.from(_classPrivateFieldGet2(this, _state).path);
+    const path3 = Path.from((opts == null ? void 0 : opts.path) ?? _classPrivateFieldGet2(this, _state).path);
     const data = (
       // we have to check for the presence of the key explicitly since the
       // data could be undefined or null
@@ -62032,8 +62220,8 @@ var ProblemArray = class extends Array {
   }
   constructor(state) {
     super();
-    this.byPath = {};
-    this.count = 0;
+    _defineProperty4(this, "byPath", {});
+    _defineProperty4(this, "count", 0);
     _classPrivateFieldInit2(this, _state, {
       writable: true,
       value: void 0
@@ -62145,7 +62333,7 @@ var compileProblemWriters = (input) => {
   return result;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/traverse/traverse.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/traverse/traverse.js
 function _checkPrivateRedeclaration3(obj, privateCollection) {
   if (privateCollection.has(obj)) {
     throw new TypeError("Cannot initialize the same private elements twice on an object");
@@ -62186,6 +62374,19 @@ function _classPrivateFieldSet3(receiver, privateMap, value) {
   _classApplyDescriptorSet3(receiver, descriptor, value);
   return value;
 }
+function _defineProperty5(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var initializeTraversalConfig = () => ({
   mustBe: [],
   writeReason: [],
@@ -62212,6 +62413,10 @@ var traverseRoot = (t, data) => {
   return result;
 };
 var CheckResult = class {
+  constructor() {
+    _defineProperty5(this, "data", void 0);
+    _defineProperty5(this, "problems", void 0);
+  }
 };
 var _seen = /* @__PURE__ */ new WeakMap();
 var TraversalState = class {
@@ -62296,6 +62501,14 @@ var TraversalState = class {
     return hasValidBranch || !this.problems.add("branches", branchProblems);
   }
   constructor(data, type2) {
+    _defineProperty5(this, "data", void 0);
+    _defineProperty5(this, "type", void 0);
+    _defineProperty5(this, "path", void 0);
+    _defineProperty5(this, "problems", void 0);
+    _defineProperty5(this, "entriesToPrune", void 0);
+    _defineProperty5(this, "failFast", void 0);
+    _defineProperty5(this, "traversalConfig", void 0);
+    _defineProperty5(this, "rootScope", void 0);
     _classPrivateFieldInit3(this, _seen, {
       writable: true,
       value: void 0
@@ -62346,10 +62559,12 @@ var createPropChecker = (kind) => (props, state) => {
   };
   for (const k in state.data) {
     if (props.required[k]) {
-      isValid && (isValid = state.traverseKey(k, props.required[k]));
+      isValid = state.traverseKey(k, props.required[k]) && isValid;
       delete remainingUnseenRequired[k];
     } else if (props.optional[k]) {
-      isValid && (isValid = state.traverseKey(k, props.optional[k]));
+      isValid = state.traverseKey(k, props.optional[k]) && isValid;
+    } else if (props.index && wellFormedIntegerMatcher.test(k)) {
+      isValid = state.traverseKey(k, props.index) && isValid;
     } else if (kind === "distilledProps") {
       if (state.failFast) {
         state.entriesToPrune.push([
@@ -62406,7 +62621,7 @@ var entryCheckers = {
     }
     let isValid = true;
     for (let i = 0; i < state.data.length; i++) {
-      isValid && (isValid = state.traverseKey(`${i}`, node));
+      isValid = state.traverseKey(`${i}`, node) && isValid;
       if (!isValid && state.failFast) {
         return false;
       }
@@ -62467,12 +62682,12 @@ var entryCheckers = {
   strictProps: createPropChecker("strictProps")
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/chainableNoOpProxy.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/chainableNoOpProxy.js
 var chainableNoOpProxy = new Proxy(() => chainableNoOpProxy, {
   get: () => chainableNoOpProxy
 });
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/type.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/type.js
 var initializeType = (name, definition, config, scope2) => {
   const root = {
     // temporarily initialize node/flat to aliases that will be included in
@@ -62506,7 +62721,7 @@ var initializeType = (name, definition, config, scope2) => {
 var isType = (value) => (value == null ? void 0 : value.infer) === chainableNoOpProxy;
 var isAnonymousName = (name) => name[0] === "\u03BB";
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operand/unenclosed.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operand/unenclosed.js
 var parseUnenclosed = (s) => {
   const token = s.scanner.shiftUntilNextTerminator();
   s.setRoot(unenclosedToNode(s, token));
@@ -62543,13 +62758,13 @@ var writeMissingOperandMessage = (s) => {
 var writeMissingRightOperandMessage = (token, unscanned) => `Token '${token}' requires a right operand${unscanned ? ` before '${unscanned}'` : ""}`;
 var writeExpressionExpectedMessage = (unscanned) => `Expected an expression${unscanned ? ` before '${unscanned}'` : ""}`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/config.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/config.js
 var parseConfigTuple = (def, ctx) => ({
   node: ctx.type.scope.resolveTypeNode(parseDefinition(def[0], ctx)),
   config: def[2]
 });
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/utils/freeze.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/utils/freeze.js
 var deepFreeze = (value) => Object.isFrozen(value) ? value : Array.isArray(value) ? Object.freeze(value.map(deepFreeze)) : deepFreezeDictionary(value);
 var deepFreezeDictionary = (value) => {
   for (const k in value) {
@@ -62558,11 +62773,7 @@ var deepFreezeDictionary = (value) => {
   return value;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/keyof.js
-var _keyNode;
-var _keyType;
-var _keyNode1;
-var _keyNode2;
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/keyof.js
 var arrayIndexStringBranch = deepFreeze({
   regex: wellFormedNonNegativeIntegerMatcher.source
 });
@@ -62586,11 +62797,13 @@ var parseKeyOfTuple = (def, ctx) => {
   for (const key of sharedKeys) {
     const keyType = typeof key;
     if (keyType === "string" || keyType === "number" || keyType === "symbol") {
+      var _keyNode, _keyType;
       (_keyNode = keyNode)[_keyType = keyType] ?? (_keyNode[_keyType] = []);
       keyNode[keyType].push({
         value: key
       });
     } else if (key === wellFormedNonNegativeIntegerMatcher) {
+      var _keyNode1, _keyNode2;
       (_keyNode1 = keyNode).string ?? (_keyNode1.string = []);
       keyNode.string.push(arrayIndexStringBranch);
       (_keyNode2 = keyNode).number ?? (_keyNode2.number = []);
@@ -62651,7 +62864,7 @@ var keysOfObjectBranch = (branch) => {
   return result;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/morph.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/morph.js
 var parseMorphTuple = (def, ctx) => {
   if (typeof def[2] !== "function") {
     return throwParseError(writeMalformedMorphExpressionMessage(def[2]));
@@ -62692,7 +62905,7 @@ var applyMorph = (branch, morph2) => isTransformationBranch(branch) ? {
 };
 var writeMalformedMorphExpressionMessage = (value) => `Morph expression requires a function following '|>' (was ${typeof value})`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/distributableFunction.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/distributableFunction.js
 var writeMalformedDistributableFunctionMessage = (def) => `Expected a Function or Record<Domain, Function> operand (${stringify2(def)} was invalid)`;
 var distributeFunctionToNode = (distributableFunction, node, ctx, ruleKey) => {
   const domains = objectKeysOf(node);
@@ -62724,7 +62937,7 @@ var distributeFunctionToNode = (distributableFunction, node, ctx, ruleKey) => {
   return distributed;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/narrow.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/narrow.js
 var parseNarrowTuple = (def, ctx) => {
   const inputNode = parseDefinition(def[0], ctx);
   const resolution = ctx.type.scope.resolveNode(inputNode);
@@ -62737,7 +62950,7 @@ var parseNarrowTuple = (def, ctx) => {
   } : result;
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/tuple.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/tuple.js
 var parseTuple = (def, ctx) => {
   if (isIndexOneExpression(def)) {
     return indexOneParsers[def[1]](def, ctx);
@@ -62809,7 +63022,7 @@ var prefixParsers = {
 };
 var isIndexZeroExpression = (def) => prefixParsers[def[0]] !== void 0;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/record.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/record.js
 var parseRecord = (def, ctx) => {
   const props = {};
   for (const definitionKey in def) {
@@ -62838,14 +63051,27 @@ var parseRecord = (def, ctx) => {
   };
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/reduce/shared.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/reduce/shared.js
 var writeUnmatchedGroupCloseMessage = (unscanned) => `Unmatched )${unscanned === "" ? "" : ` before ${unscanned}`}`;
 var unclosedGroupMessage = "Missing )";
 var writeOpenRangeMessage = (min, comparator) => `Left bounds are only valid when paired with right bounds (try ...${comparator}${min})`;
 var writeUnpairableComparatorMessage = (comparator) => `Left-bounded expressions must specify their limits using < or <= (was ${comparator})`;
 var writeMultipleLeftBoundsMessage = (openLimit, openComparator, limit, comparator) => `An expression may have at most one left bound (parsed ${openLimit}${Scanner.invertedComparators[openComparator]}, ${limit}${Scanner.invertedComparators[comparator]})`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/reduce/dynamic.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/reduce/dynamic.js
+function _defineProperty6(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var DynamicState = class {
   error(message) {
     return throwParseError(message);
@@ -62972,6 +63198,11 @@ var DynamicState = class {
     return this;
   }
   constructor(def, ctx) {
+    _defineProperty6(this, "ctx", void 0);
+    _defineProperty6(this, "scanner", void 0);
+    _defineProperty6(this, "root", void 0);
+    _defineProperty6(this, "branches", void 0);
+    _defineProperty6(this, "groups", void 0);
     this.ctx = ctx;
     this.branches = {};
     this.groups = [];
@@ -62982,7 +63213,7 @@ var ejectedProxy = new Proxy({}, {
   get: () => throwInternalError(`Unexpected attempt to access ejected attributes`)
 });
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operand/enclosed.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operand/enclosed.js
 var parseEnclosed = (s, enclosing) => {
   const token = s.scanner.shiftUntil(untilLookaheadIsClosing[enclosing]);
   if (s.scanner.lookahead === "") {
@@ -63020,13 +63251,13 @@ var enclosingCharDescriptions = {
 };
 var writeUnterminatedEnclosedMessage = (fragment, enclosing) => `${enclosing}${fragment} requires a closing ${enclosingCharDescriptions[enclosing]}`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operand/operand.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operand/operand.js
 var parseOperand = (s) => s.scanner.lookahead === "" ? s.error(writeMissingOperandMessage(s)) : s.scanner.lookahead === "(" ? s.shiftedByOne().reduceGroupOpen() : s.scanner.lookaheadIsIn(enclosingChar) ? parseEnclosed(s, s.scanner.shift()) : s.scanner.lookahead === " " ? parseOperand(s.shiftedByOne()) : parseUnenclosed(s);
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/bound.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/bound.js
 var writeUnboundableMessage = (root) => `Bounded expression ${root} must be a number, string or array`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operator/bounds.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operator/bounds.js
 var parseBound = (s, start) => {
   const comparator = shiftComparator(s, start);
   const maybeMin = s.ejectRootIfLimit();
@@ -63090,10 +63321,10 @@ var hasComparatorIn = (bound, comparators) => bound.comparator in comparators;
 var writeInvalidLimitMessage = (comparator, limit) => `Comparator ${comparator} must be followed by a number literal (was '${limit}')`;
 var writeEmptyRangeMessage = (range) => `${stringifyRange(range)} is empty`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/ast/divisor.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/ast/divisor.js
 var writeIndivisibleMessage = (root) => `Divisibility operand ${root} must be a number`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operator/divisor.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operator/divisor.js
 var parseDivisor = (s) => {
   const divisorToken = s.scanner.shiftUntilNextTerminator();
   const divisor = tryParseWellFormedInteger(divisorToken, writeInvalidDivisorMessage(divisorToken));
@@ -63113,7 +63344,7 @@ var parseDivisor = (s) => {
 };
 var writeInvalidDivisorMessage = (divisor) => `% operator must be followed by a non-zero integer literal (was ${divisor})`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operator/operator.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/shift/operator/operator.js
 var parseOperator = (s) => {
   const lookahead = s.scanner.shift();
   return lookahead === "" ? s.finalize() : lookahead === "[" ? s.scanner.shift() === "]" ? s.rootToArray() : s.error(incompleteArrayTokenMessage) : isKeyOf(lookahead, Scanner.branchTokens) ? s.pushRootToBranch(lookahead) : lookahead === ")" ? s.finalizeGroup() : isKeyOf(lookahead, Scanner.comparatorStartChars) ? parseBound(s, lookahead) : lookahead === "%" ? parseDivisor(s) : lookahead === " " ? parseOperator(s) : throwInternalError(writeUnexpectedCharacterMessage(lookahead));
@@ -63121,7 +63352,7 @@ var parseOperator = (s) => {
 var writeUnexpectedCharacterMessage = (char) => `Unexpected character '${char}'`;
 var incompleteArrayTokenMessage = `Missing expected ']'`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/string/string.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/string/string.js
 var parseString = (def, ctx) => ctx.type.scope.parseCache.get(def) ?? ctx.type.scope.parseCache.set(def, maybeNaiveParse(def, ctx) ?? fullStringParse(def, ctx));
 var maybeNaiveParse = (def, ctx) => {
   if (ctx.type.scope.addParsedReferenceIfResolvable(def, ctx)) {
@@ -63147,7 +63378,7 @@ var loop = (s) => {
 };
 var next = (s) => s.hasRoot() ? parseOperator(s) : parseOperand(s);
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/parse/definition.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/parse/definition.js
 var parseDefinition = (def, ctx) => {
   const domain = domainOf(def);
   if (domain === "string") {
@@ -63187,7 +63418,20 @@ var as = Symbol("as");
 var isThunk = (def) => typeof def === "function" && def.length === 0;
 var writeBadDefinitionTypeMessage = (actual) => `Type definitions must be strings or objects (was ${actual})`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/cache.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/cache.js
+function _defineProperty7(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var Cache = class {
   get root() {
     return this.cache;
@@ -63203,7 +63447,7 @@ var Cache = class {
     return item;
   }
   constructor() {
-    this.cache = {};
+    _defineProperty7(this, "cache", {});
   }
 };
 var FreezingCache = class extends Cache {
@@ -63213,7 +63457,7 @@ var FreezingCache = class extends Cache {
   }
 };
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/scope.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/scope.js
 function _checkPrivateRedeclaration4(obj, privateCollection) {
   if (privateCollection.has(obj)) {
     throw new TypeError("Cannot initialize the same private elements twice on an object");
@@ -63264,8 +63508,19 @@ function _classPrivateMethodInit(obj, privateSet) {
   _checkPrivateRedeclaration4(obj, privateSet);
   privateSet.add(obj);
 }
-var _ctx_type;
-var _ctx_type1;
+function _defineProperty8(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
 var compileScopeOptions = (opts) => ({
   codes: compileProblemWriters(opts.codes),
   keys: opts.keys ?? "loose"
@@ -63289,6 +63544,7 @@ var Scope = class {
     return `${this.name}.${id2}`;
   }
   addAnonymousTypeReference(referencedType, ctx) {
+    var _ctx_type;
     (_ctx_type = ctx.type).includesMorph || (_ctx_type.includesMorph = referencedType.includesMorph);
     return referencedType.node;
   }
@@ -63305,13 +63561,14 @@ var Scope = class {
     return _classPrivateFieldGet4(this, _exports).root;
   }
   addParsedReferenceIfResolvable(name, ctx) {
+    var _ctx_type;
     const resolution = _classPrivateMethodGet(this, _resolveRecurse, resolveRecurse).call(this, name, "undefined", [
       name
     ]);
     if (!resolution) {
       return false;
     }
-    (_ctx_type1 = ctx.type).includesMorph || (_ctx_type1.includesMorph = resolution.includesMorph);
+    (_ctx_type = ctx.type).includesMorph || (_ctx_type.includesMorph = resolution.includesMorph);
     return true;
   }
   resolve(name) {
@@ -63334,6 +63591,10 @@ var Scope = class {
     _classPrivateMethodInit(this, _cacheSpaces);
     _classPrivateMethodInit(this, _initializeContext);
     _classPrivateMethodInit(this, _resolveRecurse);
+    _defineProperty8(this, "aliases", void 0);
+    _defineProperty8(this, "name", void 0);
+    _defineProperty8(this, "config", void 0);
+    _defineProperty8(this, "parseCache", void 0);
     _classPrivateFieldInit4(this, _resolutions, {
       writable: true,
       value: void 0
@@ -63342,6 +63603,16 @@ var Scope = class {
       writable: true,
       value: void 0
     });
+    _defineProperty8(this, "expressions", void 0);
+    _defineProperty8(this, "intersection", void 0);
+    _defineProperty8(this, "union", void 0);
+    _defineProperty8(this, "arrayOf", void 0);
+    _defineProperty8(this, "keyOf", void 0);
+    _defineProperty8(this, "valueOf", void 0);
+    _defineProperty8(this, "instanceOf", void 0);
+    _defineProperty8(this, "narrow", void 0);
+    _defineProperty8(this, "morph", void 0);
+    _defineProperty8(this, "type", void 0);
     this.aliases = aliases;
     this.parseCache = new FreezingCache();
     _classPrivateFieldSet4(this, _resolutions, new Cache());
@@ -63485,21 +63756,13 @@ var writeShallowCycleErrorMessage = (name, seen) => `Alias '${name}' has a shall
 ].join("=>")}`;
 var writeDuplicateAliasesMessage = (name) => `Alias '${name}' is already defined`;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/jsObjects.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/jsObjects.js
 var jsObjectsScope = scope({
   Function: [
     "node",
     {
       object: {
         class: Function
-      }
-    }
-  ],
-  Array: [
-    "node",
-    {
-      object: {
-        class: Array
       }
     }
   ],
@@ -63543,38 +63806,6 @@ var jsObjectsScope = scope({
       }
     }
   ],
-  Object: [
-    "node",
-    {
-      object: {
-        class: Object
-      }
-    }
-  ],
-  String: [
-    "node",
-    {
-      object: {
-        class: String
-      }
-    }
-  ],
-  Number: [
-    "node",
-    {
-      object: {
-        class: Number
-      }
-    }
-  ],
-  Boolean: [
-    "node",
-    {
-      object: {
-        class: Boolean
-      }
-    }
-  ],
   WeakMap: [
     "node",
     {
@@ -63605,7 +63836,7 @@ var jsObjectsScope = scope({
 });
 var jsObjects = jsObjectsScope.compile();
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/tsKeywords.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/tsKeywords.js
 var always = {
   bigint: true,
   boolean: true,
@@ -63705,7 +63936,7 @@ var tsKeywordsScope = scope({
 });
 var tsKeywords = tsKeywordsScope.compile();
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/validation/creditCard.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/validation/creditCard.js
 var isLuhnValid = (creditCardInput) => {
   const sanitized = creditCardInput.replace(/[- ]+/g, "");
   let sum = 0;
@@ -63738,7 +63969,7 @@ var creditCard = rootType([
   mustBe: "a valid credit card number"
 });
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/validation/date.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/validation/date.js
 var dayDelimiterMatcher = /^[./-]$/;
 var iso8601Matcher = /^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
 var isValidDateInstance = (date) => !isNaN(date);
@@ -63782,7 +64013,7 @@ var parsedDate = rootType([
   }
 ]);
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/validation/validation.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/validation/validation.js
 var parsedNumber = rootType([
   wellFormedNumberMatcher,
   "|>",
@@ -63865,7 +64096,7 @@ var validationScope = scope({
 });
 var validation = validationScope.compile();
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/ark.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/ark.js
 var arkScope = scope({}, {
   name: "standard",
   includes: [
@@ -63885,7 +64116,7 @@ var scopes = {
 };
 var type = arkScope.type;
 
-// node_modules/.pnpm/arktype@1.0.10-alpha/node_modules/arktype/dist/mjs/scopes/expressions.js
+// node_modules/.pnpm/arktype@1.0.14-alpha/node_modules/arktype/dist/mjs/scopes/expressions.js
 var intersection = scopes.ark.intersection;
 var union = scopes.ark.union;
 var arrayOf = scopes.ark.arrayOf;
