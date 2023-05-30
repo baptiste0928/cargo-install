@@ -1,13 +1,10 @@
 name: "cargo-install"
 description: "GitHub action for cache-efficient Rust crates installation"
 inputs:
+  # Global input parameters
   crate:
     description: "Name of the crate to install"
     required: true
-  version:
-    description: "Version range to install."
-    required: true
-    default: "latest"
   features:
     description: "Features of the crate to enable."
     required: false
@@ -21,6 +18,27 @@ inputs:
   cache-key:
     description: "Additional key added to the automatic cache key."
     required: false
+
+  # Crates.io installation
+  version:
+    description: "Version of the crate to install."
+    required: true
+    default: "latest"
+
+  # Git installation
+  git:
+    description: "Git repository to install the crate from."
+    required: false
+  branch:
+    description: "Branch to install the crate from."
+    required: false
+  tag:
+    description: "Tag to install the crate from."
+    required: false
+  rev:
+    description: "Revision to install the crate from."
+    required: false
+
 outputs:
   version:
     description: "The version of the crate that has been installed."
