@@ -64266,7 +64266,7 @@ async function fetchGitRemote(repository) {
 var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
-  core5.startGroup(chalk2.bold(`Installing ${input.crate} ...`));
+  core5.startGroup(chalk2.bold(`Installing ${input.crate}...`));
   const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source.version) : await resolveGitRev(input.source);
   const install = getInstallSettings(input, version2);
   core5.info("Installation settings:");
@@ -64286,7 +64286,7 @@ async function run() {
     core5.info(`Restored ${input.crate} from cache.`);
     cacheHit = true;
   } else {
-    core5.startGroup(`No cached version found, installing ${input.crate} using cargo ...`);
+    core5.startGroup(`No cached version found, installing ${input.crate} using cargo...`);
     await runCargoInstall(input, version2, install);
     try {
       await cache.saveCache([install.path], install.cacheKey);

@@ -4,7 +4,7 @@ import * as cache from '@actions/cache'
 import path from 'node:path'
 import { Chalk } from 'chalk'
 
-import { ResolvedVersion, getInstallSettings, runCargoInstall } from './install'
+import { type ResolvedVersion, getInstallSettings, runCargoInstall } from './install'
 import { parseInput } from './parse'
 import { resolveRegistryVersion } from './resolve/registry'
 import { resolveGitRev } from './resolve/git'
@@ -15,7 +15,7 @@ async function run (): Promise<void> {
   const input = parseInput()
 
   // Resolve crate version and try to restore from cache
-  core.startGroup(chalk.bold(`Installing ${input.crate} ...`))
+  core.startGroup(chalk.bold(`Installing ${input.crate}...`))
   const version: ResolvedVersion = input.source.type === 'registry'
     ? await resolveRegistryVersion(input.crate, input.source.version)
     : await resolveGitRev(input.source)
@@ -42,7 +42,7 @@ async function run (): Promise<void> {
     cacheHit = true
   } else {
     // Install the crate if it wasn't restored from cache
-    core.startGroup(`No cached version found, installing ${input.crate} using cargo ...`)
+    core.startGroup(`No cached version found, installing ${input.crate} using cargo...`)
     await runCargoInstall(input, version, install)
 
     try {

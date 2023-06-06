@@ -3,6 +3,8 @@ import * as core from '@actions/core'
 import { scope } from 'arktype'
 import semver from 'semver'
 
+import type { ResolvedVersion } from '../install'
+
 // Partial response from crates.io API
 const crateResponseTypes = scope({
   response: {
@@ -20,7 +22,7 @@ const crateResponseTypes = scope({
 type CrateResponse = typeof crateResponseTypes.response.infer
 
 // Resolve latest compatible crate version
-export async function resolveRegistryVersion (crate: string, version: string): Promise<{ version: string }> {
+export async function resolveRegistryVersion (crate: string, version: string): Promise<ResolvedVersion> {
   core.info(`Fetching information for ${crate} on crates.io ...`)
   const res = await fetchCrate(crate)
 

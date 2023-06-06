@@ -1,7 +1,8 @@
 import * as exec from '@actions/exec'
 import * as core from '@actions/core'
 
-import { GitSource } from '../parse'
+import type { GitSource } from '../parse'
+import type { ResolvedVersion } from '../install'
 
 interface GitRemoteRevs {
   head: string
@@ -10,7 +11,7 @@ interface GitRemoteRevs {
 }
 
 // Resolve the Git source to a specific revision (commit hash)
-export async function resolveGitRev (git: GitSource): Promise<{ repository: string, rev: string }> {
+export async function resolveGitRev (git: GitSource): Promise<ResolvedVersion> {
   core.info(`Fetching git revisions for ${git.repository}...`)
   const revs = await fetchGitRemote(git.repository)
 

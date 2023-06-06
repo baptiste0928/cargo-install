@@ -3,10 +3,14 @@ import * as exec from '@actions/exec'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
-import { ActionInput } from './parse'
+import type { ActionInput } from './parse'
 
-export type ResolvedVersion = { version: string } | { repository: string, rev: string }
+// Resolved version information for the crate
+export type ResolvedVersion =
+  | { version: string }
+  | { repository: string, rev: string }
 
+// Installation settings for the crate (path and cache key)
 export interface InstallSettings {
   path: string
   cacheKey: string
