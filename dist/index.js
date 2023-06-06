@@ -1136,12 +1136,12 @@ var require_lib = __commonJS({
             throw new Error("Client has already been disposed.");
           }
           const parsedUrl = new URL(requestUrl);
-          let info3 = this._prepareRequest(verb, parsedUrl, headers);
+          let info4 = this._prepareRequest(verb, parsedUrl, headers);
           const maxTries = this._allowRetries && RetryableHttpVerbs.includes(verb) ? this._maxRetries + 1 : 1;
           let numTries = 0;
           let response;
           do {
-            response = yield this.requestRaw(info3, data);
+            response = yield this.requestRaw(info4, data);
             if (response && response.message && response.message.statusCode === HttpCodes.Unauthorized) {
               let authenticationHandler;
               for (const handler of this.handlers) {
@@ -1151,7 +1151,7 @@ var require_lib = __commonJS({
                 }
               }
               if (authenticationHandler) {
-                return authenticationHandler.handleAuthentication(this, info3, data);
+                return authenticationHandler.handleAuthentication(this, info4, data);
               } else {
                 return response;
               }
@@ -1174,8 +1174,8 @@ var require_lib = __commonJS({
                   }
                 }
               }
-              info3 = this._prepareRequest(verb, parsedRedirectUrl, headers);
-              response = yield this.requestRaw(info3, data);
+              info4 = this._prepareRequest(verb, parsedRedirectUrl, headers);
+              response = yield this.requestRaw(info4, data);
               redirectsRemaining--;
             }
             if (!response.message.statusCode || !HttpResponseRetryCodes.includes(response.message.statusCode)) {
@@ -1204,7 +1204,7 @@ var require_lib = __commonJS({
        * @param info
        * @param data
        */
-      requestRaw(info3, data) {
+      requestRaw(info4, data) {
         return __awaiter2(this, void 0, void 0, function* () {
           return new Promise((resolve, reject) => {
             function callbackForResult(err, res) {
@@ -1216,7 +1216,7 @@ var require_lib = __commonJS({
                 resolve(res);
               }
             }
-            this.requestRawWithCallback(info3, data, callbackForResult);
+            this.requestRawWithCallback(info4, data, callbackForResult);
           });
         });
       }
@@ -1226,12 +1226,12 @@ var require_lib = __commonJS({
        * @param data
        * @param onResult
        */
-      requestRawWithCallback(info3, data, onResult) {
+      requestRawWithCallback(info4, data, onResult) {
         if (typeof data === "string") {
-          if (!info3.options.headers) {
-            info3.options.headers = {};
+          if (!info4.options.headers) {
+            info4.options.headers = {};
           }
-          info3.options.headers["Content-Length"] = Buffer.byteLength(data, "utf8");
+          info4.options.headers["Content-Length"] = Buffer.byteLength(data, "utf8");
         }
         let callbackCalled = false;
         function handleResult(err, res) {
@@ -1240,7 +1240,7 @@ var require_lib = __commonJS({
             onResult(err, res);
           }
         }
-        const req = info3.httpModule.request(info3.options, (msg) => {
+        const req = info4.httpModule.request(info4.options, (msg) => {
           const res = new HttpClientResponse(msg);
           handleResult(void 0, res);
         });
@@ -1252,7 +1252,7 @@ var require_lib = __commonJS({
           if (socket) {
             socket.end();
           }
-          handleResult(new Error(`Request timeout: ${info3.options.path}`));
+          handleResult(new Error(`Request timeout: ${info4.options.path}`));
         });
         req.on("error", function(err) {
           handleResult(err);
@@ -1279,27 +1279,27 @@ var require_lib = __commonJS({
         return this._getAgent(parsedUrl);
       }
       _prepareRequest(method, requestUrl, headers) {
-        const info3 = {};
-        info3.parsedUrl = requestUrl;
-        const usingSsl = info3.parsedUrl.protocol === "https:";
-        info3.httpModule = usingSsl ? https : http2;
+        const info4 = {};
+        info4.parsedUrl = requestUrl;
+        const usingSsl = info4.parsedUrl.protocol === "https:";
+        info4.httpModule = usingSsl ? https : http2;
         const defaultPort = usingSsl ? 443 : 80;
-        info3.options = {};
-        info3.options.host = info3.parsedUrl.hostname;
-        info3.options.port = info3.parsedUrl.port ? parseInt(info3.parsedUrl.port) : defaultPort;
-        info3.options.path = (info3.parsedUrl.pathname || "") + (info3.parsedUrl.search || "");
-        info3.options.method = method;
-        info3.options.headers = this._mergeHeaders(headers);
+        info4.options = {};
+        info4.options.host = info4.parsedUrl.hostname;
+        info4.options.port = info4.parsedUrl.port ? parseInt(info4.parsedUrl.port) : defaultPort;
+        info4.options.path = (info4.parsedUrl.pathname || "") + (info4.parsedUrl.search || "");
+        info4.options.method = method;
+        info4.options.headers = this._mergeHeaders(headers);
         if (this.userAgent != null) {
-          info3.options.headers["user-agent"] = this.userAgent;
+          info4.options.headers["user-agent"] = this.userAgent;
         }
-        info3.options.agent = this._getAgent(info3.parsedUrl);
+        info4.options.agent = this._getAgent(info4.parsedUrl);
         if (this.handlers) {
           for (const handler of this.handlers) {
-            handler.prepareRequest(info3.options);
+            handler.prepareRequest(info4.options);
           }
         }
-        return info3;
+        return info4;
       }
       _mergeHeaders(headers) {
         if (this.requestOptions && this.requestOptions.headers) {
@@ -2118,11 +2118,11 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issue("echo", enabled ? "on" : "off");
     }
     exports.setCommandEcho = setCommandEcho;
-    function setFailed5(message) {
+    function setFailed6(message) {
       process.exitCode = ExitCode.Failure;
       error(message);
     }
-    exports.setFailed = setFailed5;
+    exports.setFailed = setFailed6;
     function isDebug() {
       return process.env["RUNNER_DEBUG"] === "1";
     }
@@ -2135,18 +2135,18 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issueCommand("error", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
     exports.error = error;
-    function warning3(message, properties = {}) {
+    function warning4(message, properties = {}) {
       command_1.issueCommand("warning", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
-    exports.warning = warning3;
+    exports.warning = warning4;
     function notice(message, properties = {}) {
       command_1.issueCommand("notice", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
     exports.notice = notice;
-    function info3(message) {
+    function info4(message) {
       process.stdout.write(message + os2.EOL);
     }
-    exports.info = info3;
+    exports.info = info4;
     function startGroup2(name) {
       command_1.issue("group", name);
     }
@@ -3190,7 +3190,7 @@ var require_exec = __commonJS({
     exports.getExecOutput = exports.exec = void 0;
     var string_decoder_1 = require("string_decoder");
     var tr = __importStar2(require_toolrunner());
-    function exec3(commandLine, args, options) {
+    function exec4(commandLine, args, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const commandArgs = tr.argStringToArray(commandLine);
         if (commandArgs.length === 0) {
@@ -3202,8 +3202,8 @@ var require_exec = __commonJS({
         return runner.exec();
       });
     }
-    exports.exec = exec3;
-    function getExecOutput(commandLine, args, options) {
+    exports.exec = exec4;
+    function getExecOutput2(commandLine, args, options) {
       var _a, _b;
       return __awaiter2(this, void 0, void 0, function* () {
         let stdout = "";
@@ -3225,7 +3225,7 @@ var require_exec = __commonJS({
           }
         };
         const listeners = Object.assign(Object.assign({}, options === null || options === void 0 ? void 0 : options.listeners), { stdout: stdOutListener, stderr: stdErrListener });
-        const exitCode = yield exec3(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
+        const exitCode = yield exec4(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
         stdout += stdoutDecoder.end();
         stderr += stderrDecoder.end();
         return {
@@ -3235,7 +3235,7 @@ var require_exec = __commonJS({
         };
       });
     }
-    exports.getExecOutput = getExecOutput;
+    exports.getExecOutput = getExecOutput2;
   }
 });
 
@@ -3273,7 +3273,7 @@ var require_internal_glob_options_helper = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getOptions = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     function getOptions(copy) {
       const result = {
         followSymbolicLinks: true,
@@ -3283,15 +3283,15 @@ var require_internal_glob_options_helper = __commonJS({
       if (copy) {
         if (typeof copy.followSymbolicLinks === "boolean") {
           result.followSymbolicLinks = copy.followSymbolicLinks;
-          core5.debug(`followSymbolicLinks '${result.followSymbolicLinks}'`);
+          core6.debug(`followSymbolicLinks '${result.followSymbolicLinks}'`);
         }
         if (typeof copy.implicitDescendants === "boolean") {
           result.implicitDescendants = copy.implicitDescendants;
-          core5.debug(`implicitDescendants '${result.implicitDescendants}'`);
+          core6.debug(`implicitDescendants '${result.implicitDescendants}'`);
         }
         if (typeof copy.omitBrokenSymbolicLinks === "boolean") {
           result.omitBrokenSymbolicLinks = copy.omitBrokenSymbolicLinks;
-          core5.debug(`omitBrokenSymbolicLinks '${result.omitBrokenSymbolicLinks}'`);
+          core6.debug(`omitBrokenSymbolicLinks '${result.omitBrokenSymbolicLinks}'`);
         }
       }
       return result;
@@ -4799,7 +4799,7 @@ var require_internal_globber = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DefaultGlobber = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var fs = __importStar2(require("fs"));
     var globOptionsHelper = __importStar2(require_internal_glob_options_helper());
     var path3 = __importStar2(require("path"));
@@ -4852,7 +4852,7 @@ var require_internal_globber = __commonJS({
           }
           const stack = [];
           for (const searchPath of patternHelper.getSearchPaths(patterns)) {
-            core5.debug(`Search path '${searchPath}'`);
+            core6.debug(`Search path '${searchPath}'`);
             try {
               yield __await2(fs.promises.lstat(searchPath));
             } catch (err) {
@@ -4924,7 +4924,7 @@ var require_internal_globber = __commonJS({
             } catch (err) {
               if (err.code === "ENOENT") {
                 if (options.omitBrokenSymbolicLinks) {
-                  core5.debug(`Broken symlink '${item.path}'`);
+                  core6.debug(`Broken symlink '${item.path}'`);
                   return void 0;
                 }
                 throw new Error(`No information found for the path '${item.path}'. This may indicate a broken symbolic link.`);
@@ -4940,7 +4940,7 @@ var require_internal_globber = __commonJS({
               traversalChain.pop();
             }
             if (traversalChain.some((x) => x === realPath)) {
-              core5.debug(`Symlink cycle detected for path '${item.path}' and realpath '${realPath}'`);
+              core6.debug(`Symlink cycle detected for path '${item.path}' and realpath '${realPath}'`);
               return void 0;
             }
             traversalChain.push(realPath);
@@ -6396,8 +6396,8 @@ var require_cacheUtils = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.isGhes = exports.assertDefined = exports.getGnuTarPathOnWindows = exports.getCacheFileName = exports.getCompressionMethod = exports.unlinkFile = exports.resolvePaths = exports.getArchiveFileSizeInBytes = exports.createTempDirectory = void 0;
-    var core5 = __importStar2(require_core());
-    var exec3 = __importStar2(require_exec());
+    var core6 = __importStar2(require_core());
+    var exec4 = __importStar2(require_exec());
     var glob = __importStar2(require_glob());
     var io2 = __importStar2(require_io());
     var fs = __importStar2(require("fs"));
@@ -6446,7 +6446,7 @@ var require_cacheUtils = __commonJS({
           for (var _c = __asyncValues2(globber.globGenerator()), _d; _d = yield _c.next(), !_d.done; ) {
             const file = _d.value;
             const relativeFile = path3.relative(workspace, file).replace(new RegExp(`\\${path3.sep}`, "g"), "/");
-            core5.debug(`Matched: ${relativeFile}`);
+            core6.debug(`Matched: ${relativeFile}`);
             if (relativeFile === "") {
               paths.push(".");
             } else {
@@ -6478,9 +6478,9 @@ var require_cacheUtils = __commonJS({
       return __awaiter2(this, void 0, void 0, function* () {
         let versionOutput = "";
         additionalArgs.push("--version");
-        core5.debug(`Checking ${app} ${additionalArgs.join(" ")}`);
+        core6.debug(`Checking ${app} ${additionalArgs.join(" ")}`);
         try {
-          yield exec3.exec(`${app}`, additionalArgs, {
+          yield exec4.exec(`${app}`, additionalArgs, {
             ignoreReturnCode: true,
             silent: true,
             listeners: {
@@ -6489,10 +6489,10 @@ var require_cacheUtils = __commonJS({
             }
           });
         } catch (err) {
-          core5.debug(err.message);
+          core6.debug(err.message);
         }
         versionOutput = versionOutput.trim();
-        core5.debug(versionOutput);
+        core6.debug(versionOutput);
         return versionOutput;
       });
     }
@@ -6500,7 +6500,7 @@ var require_cacheUtils = __commonJS({
       return __awaiter2(this, void 0, void 0, function* () {
         const versionOutput = yield getVersion("zstd", ["--quiet"]);
         const version2 = semver4.clean(versionOutput);
-        core5.debug(`zstd version: ${version2}`);
+        core6.debug(`zstd version: ${version2}`);
         if (versionOutput === "") {
           return constants_1.CompressionMethod.Gzip;
         } else {
@@ -22430,7 +22430,7 @@ var require_mime_types = __commonJS({
       }
       return exports.types[extension2] || false;
     }
-    function populateMaps(extensions, types2) {
+    function populateMaps(extensions, types) {
       var preference = ["nginx", "apache", void 0, "iana"];
       Object.keys(db).forEach(function forEachMimeType(type2) {
         var mime = db[type2];
@@ -22441,14 +22441,14 @@ var require_mime_types = __commonJS({
         extensions[type2] = exts;
         for (var i = 0; i < exts.length; i++) {
           var extension2 = exts[i];
-          if (types2[extension2]) {
-            var from = preference.indexOf(db[types2[extension2]].source);
+          if (types[extension2]) {
+            var from = preference.indexOf(db[types[extension2]].source);
             var to = preference.indexOf(mime.source);
-            if (types2[extension2] !== "application/octet-stream" && (from > to || from === to && types2[extension2].substr(0, 12) === "application/")) {
+            if (types[extension2] !== "application/octet-stream" && (from > to || from === to && types[extension2].substr(0, 12) === "application/")) {
               continue;
             }
           }
-          types2[extension2] = type2;
+          types[extension2] = type2;
         }
       });
     }
@@ -30624,9 +30624,9 @@ var require_dist6 = __commonJS({
       return [msRestRuntime];
     }
     function getUserAgentString(telemetryInfo, keySeparator = " ", valueSeparator = "/") {
-      return telemetryInfo.map((info3) => {
-        const value = info3.value ? `${valueSeparator}${info3.value}` : "";
-        return `${info3.key}${value}`;
+      return telemetryInfo.map((info4) => {
+        const value = info4.value ? `${valueSeparator}${info4.value}` : "";
+        return `${info4.key}${value}`;
       }).join(keySeparator);
     }
     var getDefaultUserAgentHeaderName = getDefaultUserAgentKey;
@@ -49731,9 +49731,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       }
     };
     var AvroUnionType = class extends AvroType {
-      constructor(types2) {
+      constructor(types) {
         super();
-        this._types = types2;
+        this._types = types;
       }
       async read(stream2, options = {}) {
         const typeIndex = await AvroParser.readInt(stream2, options);
@@ -56396,7 +56396,7 @@ var require_requestUtils = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.retryHttpClientResponse = exports.retryTypedResponse = exports.retry = exports.isRetryableStatusCode = exports.isServerErrorStatusCode = exports.isSuccessStatusCode = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var constants_1 = require_constants();
     function isSuccessStatusCode(statusCode) {
@@ -56457,9 +56457,9 @@ var require_requestUtils = __commonJS({
             isRetryable = isRetryableStatusCode(statusCode);
             errorMessage = `Cache service responded with ${statusCode}`;
           }
-          core5.debug(`${name} - Attempt ${attempt} of ${maxAttempts} failed with error: ${errorMessage}`);
+          core6.debug(`${name} - Attempt ${attempt} of ${maxAttempts} failed with error: ${errorMessage}`);
           if (!isRetryable) {
-            core5.debug(`${name} - Error is not retryable`);
+            core6.debug(`${name} - Error is not retryable`);
             break;
           }
           yield sleep(delay);
@@ -56569,7 +56569,7 @@ var require_downloadUtils = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.downloadCacheStorageSDK = exports.downloadCacheHttpClient = exports.DownloadProgress = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var storage_blob_1 = require_dist9();
     var buffer = __importStar2(require("buffer"));
@@ -56607,7 +56607,7 @@ var require_downloadUtils = __commonJS({
         this.segmentIndex = this.segmentIndex + 1;
         this.segmentSize = segmentSize;
         this.receivedBytes = 0;
-        core5.debug(`Downloading segment at offset ${this.segmentOffset} with length ${this.segmentSize}...`);
+        core6.debug(`Downloading segment at offset ${this.segmentOffset} with length ${this.segmentSize}...`);
       }
       /**
        * Sets the number of bytes received for the current segment.
@@ -56641,7 +56641,7 @@ var require_downloadUtils = __commonJS({
         const percentage = (100 * (transferredBytes / this.contentLength)).toFixed(1);
         const elapsedTime = Date.now() - this.startTime;
         const downloadSpeed = (transferredBytes / (1024 * 1024) / (elapsedTime / 1e3)).toFixed(1);
-        core5.info(`Received ${transferredBytes} of ${this.contentLength} (${percentage}%), ${downloadSpeed} MBs/sec`);
+        core6.info(`Received ${transferredBytes} of ${this.contentLength} (${percentage}%), ${downloadSpeed} MBs/sec`);
         if (this.isDone()) {
           this.displayedComplete = true;
         }
@@ -56691,7 +56691,7 @@ var require_downloadUtils = __commonJS({
         }));
         downloadResponse.message.socket.setTimeout(constants_1.SocketTimeout, () => {
           downloadResponse.message.destroy();
-          core5.debug(`Aborting download, socket timed out after ${constants_1.SocketTimeout} ms`);
+          core6.debug(`Aborting download, socket timed out after ${constants_1.SocketTimeout} ms`);
         });
         yield pipeResponseToStream(downloadResponse, writeStream);
         const contentLengthHeader = downloadResponse.message.headers["content-length"];
@@ -56702,7 +56702,7 @@ var require_downloadUtils = __commonJS({
             throw new Error(`Incomplete download. Expected file size: ${expectedLength}, actual file size: ${actualLength}`);
           }
         } else {
-          core5.debug("Unable to validate download, no Content-Length header");
+          core6.debug("Unable to validate download, no Content-Length header");
         }
       });
     }
@@ -56720,7 +56720,7 @@ var require_downloadUtils = __commonJS({
         const properties = yield client.getProperties();
         const contentLength = (_a = properties.contentLength) !== null && _a !== void 0 ? _a : -1;
         if (contentLength < 0) {
-          core5.debug("Unable to determine content length, downloading file with http-client...");
+          core6.debug("Unable to determine content length, downloading file with http-client...");
           yield downloadCacheHttpClient(archiveLocation, archivePath);
         } else {
           const maxSegmentSize = Math.min(134217728, buffer.constants.MAX_LENGTH);
@@ -56805,7 +56805,7 @@ var require_options = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getDownloadOptions = exports.getUploadOptions = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     function getUploadOptions(copy) {
       const result = {
         uploadConcurrency: 4,
@@ -56819,8 +56819,8 @@ var require_options = __commonJS({
           result.uploadChunkSize = copy.uploadChunkSize;
         }
       }
-      core5.debug(`Upload concurrency: ${result.uploadConcurrency}`);
-      core5.debug(`Upload chunk size: ${result.uploadChunkSize}`);
+      core6.debug(`Upload concurrency: ${result.uploadConcurrency}`);
+      core6.debug(`Upload chunk size: ${result.uploadChunkSize}`);
       return result;
     }
     exports.getUploadOptions = getUploadOptions;
@@ -56853,12 +56853,12 @@ var require_options = __commonJS({
       if (segmentDownloadTimeoutMins && !isNaN(Number(segmentDownloadTimeoutMins)) && isFinite(Number(segmentDownloadTimeoutMins))) {
         result.segmentTimeoutInMs = Number(segmentDownloadTimeoutMins) * 60 * 1e3;
       }
-      core5.debug(`Use Azure SDK: ${result.useAzureSdk}`);
-      core5.debug(`Download concurrency: ${result.downloadConcurrency}`);
-      core5.debug(`Request timeout (ms): ${result.timeoutInMs}`);
-      core5.debug(`Cache segment download timeout mins env var: ${process.env["SEGMENT_DOWNLOAD_TIMEOUT_MINS"]}`);
-      core5.debug(`Segment download timeout (ms): ${result.segmentTimeoutInMs}`);
-      core5.debug(`Lookup only: ${result.lookupOnly}`);
+      core6.debug(`Use Azure SDK: ${result.useAzureSdk}`);
+      core6.debug(`Download concurrency: ${result.downloadConcurrency}`);
+      core6.debug(`Request timeout (ms): ${result.timeoutInMs}`);
+      core6.debug(`Cache segment download timeout mins env var: ${process.env["SEGMENT_DOWNLOAD_TIMEOUT_MINS"]}`);
+      core6.debug(`Segment download timeout (ms): ${result.segmentTimeoutInMs}`);
+      core6.debug(`Lookup only: ${result.lookupOnly}`);
       return result;
     }
     exports.getDownloadOptions = getDownloadOptions;
@@ -56930,7 +56930,7 @@ var require_cacheHttpClient = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.saveCache = exports.reserveCache = exports.downloadCache = exports.getCacheEntry = exports.getCacheVersion = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var auth_1 = require_auth();
     var crypto5 = __importStar2(require("crypto"));
@@ -56947,7 +56947,7 @@ var require_cacheHttpClient = __commonJS({
         throw new Error("Cache Service Url not found, unable to restore cache.");
       }
       const url = `${baseUrl}_apis/artifactcache/${resource}`;
-      core5.debug(`Resource Url: ${url}`);
+      core6.debug(`Resource Url: ${url}`);
       return url;
     }
     function createAcceptHeader(type2, apiVersion) {
@@ -56987,7 +56987,7 @@ var require_cacheHttpClient = __commonJS({
           return httpClient.getJson(getCacheApiUrl(resource));
         }));
         if (response.statusCode === 204) {
-          if (core5.isDebug()) {
+          if (core6.isDebug()) {
             yield printCachesListForDiagnostics(keys[0], httpClient, version2);
           }
           return null;
@@ -57000,9 +57000,9 @@ var require_cacheHttpClient = __commonJS({
         if (!cacheDownloadUrl) {
           throw new Error("Cache not found.");
         }
-        core5.setSecret(cacheDownloadUrl);
-        core5.debug(`Cache Result:`);
-        core5.debug(JSON.stringify(cacheResult));
+        core6.setSecret(cacheDownloadUrl);
+        core6.debug(`Cache Result:`);
+        core6.debug(JSON.stringify(cacheResult));
         return cacheResult;
       });
     }
@@ -57017,10 +57017,10 @@ var require_cacheHttpClient = __commonJS({
           const cacheListResult = response.result;
           const totalCount = cacheListResult === null || cacheListResult === void 0 ? void 0 : cacheListResult.totalCount;
           if (totalCount && totalCount > 0) {
-            core5.debug(`No matching cache found for cache key '${key}', version '${version2} and scope ${process.env["GITHUB_REF"]}. There exist one or more cache(s) with similar key but they have different version or scope. See more info on cache matching here: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key 
+            core6.debug(`No matching cache found for cache key '${key}', version '${version2} and scope ${process.env["GITHUB_REF"]}. There exist one or more cache(s) with similar key but they have different version or scope. See more info on cache matching here: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key 
 Other caches with similar key:`);
             for (const cacheEntry of (cacheListResult === null || cacheListResult === void 0 ? void 0 : cacheListResult.artifactCaches) || []) {
-              core5.debug(`Cache Key: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheKey}, Cache Version: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheVersion}, Cache Scope: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.scope}, Cache Created: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.creationTime}`);
+              core6.debug(`Cache Key: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheKey}, Cache Version: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheVersion}, Cache Scope: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.scope}, Cache Created: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.creationTime}`);
             }
           }
         }
@@ -57059,7 +57059,7 @@ Other caches with similar key:`);
     }
     function uploadChunk(httpClient, resourceUrl, openStream, start, end) {
       return __awaiter2(this, void 0, void 0, function* () {
-        core5.debug(`Uploading chunk of size ${end - start + 1} bytes at offset ${start} with content range: ${getContentRange(start, end)}`);
+        core6.debug(`Uploading chunk of size ${end - start + 1} bytes at offset ${start} with content range: ${getContentRange(start, end)}`);
         const additionalHeaders = {
           "Content-Type": "application/octet-stream",
           "Content-Range": getContentRange(start, end)
@@ -57081,7 +57081,7 @@ Other caches with similar key:`);
         const concurrency = utils.assertDefined("uploadConcurrency", uploadOptions.uploadConcurrency);
         const maxChunkSize = utils.assertDefined("uploadChunkSize", uploadOptions.uploadChunkSize);
         const parallelUploads = [...new Array(concurrency).keys()];
-        core5.debug("Awaiting all uploads");
+        core6.debug("Awaiting all uploads");
         let offset = 0;
         try {
           yield Promise.all(parallelUploads.map(() => __awaiter2(this, void 0, void 0, function* () {
@@ -57117,16 +57117,16 @@ Other caches with similar key:`);
     function saveCache2(cacheId, archivePath, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const httpClient = createHttpClient();
-        core5.debug("Upload cache");
+        core6.debug("Upload cache");
         yield uploadFile(httpClient, cacheId, archivePath, options);
-        core5.debug("Commiting cache");
+        core6.debug("Commiting cache");
         const cacheSize = utils.getArchiveFileSizeInBytes(archivePath);
-        core5.info(`Cache Size: ~${Math.round(cacheSize / (1024 * 1024))} MB (${cacheSize} B)`);
+        core6.info(`Cache Size: ~${Math.round(cacheSize / (1024 * 1024))} MB (${cacheSize} B)`);
         const commitCacheResponse = yield commitCache(httpClient, cacheId, cacheSize);
         if (!(0, requestUtils_1.isSuccessStatusCode)(commitCacheResponse.statusCode)) {
           throw new Error(`Cache service responded with ${commitCacheResponse.statusCode} during commit cache.`);
         }
-        core5.info("Cache saved successfully");
+        core6.info("Cache saved successfully");
       });
     }
     exports.saveCache = saveCache2;
@@ -57446,7 +57446,7 @@ var require_cache = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.saveCache = exports.restoreCache = exports.isFeatureAvailable = exports.ReserveCacheError = exports.ValidationError = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var path3 = __importStar2(require("path"));
     var utils = __importStar2(require_cacheUtils());
     var cacheHttpClient = __importStar2(require_cacheHttpClient());
@@ -57490,8 +57490,8 @@ var require_cache = __commonJS({
         checkPaths(paths);
         restoreKeys = restoreKeys || [];
         const keys = [primaryKey, ...restoreKeys];
-        core5.debug("Resolved Keys:");
-        core5.debug(JSON.stringify(keys));
+        core6.debug("Resolved Keys:");
+        core6.debug(JSON.stringify(keys));
         if (keys.length > 10) {
           throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         }
@@ -57509,32 +57509,32 @@ var require_cache = __commonJS({
             return void 0;
           }
           if (options === null || options === void 0 ? void 0 : options.lookupOnly) {
-            core5.info("Lookup only - skipping download");
+            core6.info("Lookup only - skipping download");
             return cacheEntry.cacheKey;
           }
           archivePath = path3.join(yield utils.createTempDirectory(), utils.getCacheFileName(compressionMethod));
-          core5.debug(`Archive Path: ${archivePath}`);
+          core6.debug(`Archive Path: ${archivePath}`);
           yield cacheHttpClient.downloadCache(cacheEntry.archiveLocation, archivePath, options);
-          if (core5.isDebug()) {
+          if (core6.isDebug()) {
             yield (0, tar_1.listTar)(archivePath, compressionMethod);
           }
           const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
-          core5.info(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
+          core6.info(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
           yield (0, tar_1.extractTar)(archivePath, compressionMethod);
-          core5.info("Cache restored successfully");
+          core6.info("Cache restored successfully");
           return cacheEntry.cacheKey;
         } catch (error) {
           const typedError = error;
           if (typedError.name === ValidationError.name) {
             throw error;
           } else {
-            core5.warning(`Failed to restore: ${error.message}`);
+            core6.warning(`Failed to restore: ${error.message}`);
           }
         } finally {
           try {
             yield utils.unlinkFile(archivePath);
           } catch (error) {
-            core5.debug(`Failed to delete archive: ${error}`);
+            core6.debug(`Failed to delete archive: ${error}`);
           }
         }
         return void 0;
@@ -57549,26 +57549,26 @@ var require_cache = __commonJS({
         const compressionMethod = yield utils.getCompressionMethod();
         let cacheId = -1;
         const cachePaths = yield utils.resolvePaths(paths);
-        core5.debug("Cache Paths:");
-        core5.debug(`${JSON.stringify(cachePaths)}`);
+        core6.debug("Cache Paths:");
+        core6.debug(`${JSON.stringify(cachePaths)}`);
         if (cachePaths.length === 0) {
           throw new Error(`Path Validation Error: Path(s) specified in the action for caching do(es) not exist, hence no cache is being saved.`);
         }
         const archiveFolder = yield utils.createTempDirectory();
         const archivePath = path3.join(archiveFolder, utils.getCacheFileName(compressionMethod));
-        core5.debug(`Archive Path: ${archivePath}`);
+        core6.debug(`Archive Path: ${archivePath}`);
         try {
           yield (0, tar_1.createTar)(archiveFolder, cachePaths, compressionMethod);
-          if (core5.isDebug()) {
+          if (core6.isDebug()) {
             yield (0, tar_1.listTar)(archivePath, compressionMethod);
           }
           const fileSizeLimit = 10 * 1024 * 1024 * 1024;
           const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
-          core5.debug(`File Size: ${archiveFileSize}`);
+          core6.debug(`File Size: ${archiveFileSize}`);
           if (archiveFileSize > fileSizeLimit && !utils.isGhes()) {
             throw new Error(`Cache size of ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B) is over the 10GB limit, not saving cache.`);
           }
-          core5.debug("Reserving Cache");
+          core6.debug("Reserving Cache");
           const reserveCacheResponse = yield cacheHttpClient.reserveCache(key, paths, {
             compressionMethod,
             enableCrossOsArchive,
@@ -57581,22 +57581,22 @@ var require_cache = __commonJS({
           } else {
             throw new ReserveCacheError(`Unable to reserve cache with key ${key}, another job may be creating this cache. More details: ${(_e = reserveCacheResponse === null || reserveCacheResponse === void 0 ? void 0 : reserveCacheResponse.error) === null || _e === void 0 ? void 0 : _e.message}`);
           }
-          core5.debug(`Saving Cache (ID: ${cacheId})`);
+          core6.debug(`Saving Cache (ID: ${cacheId})`);
           yield cacheHttpClient.saveCache(cacheId, archivePath, options);
         } catch (error) {
           const typedError = error;
           if (typedError.name === ValidationError.name) {
             throw error;
           } else if (typedError.name === ReserveCacheError.name) {
-            core5.info(`Failed to save: ${typedError.message}`);
+            core6.info(`Failed to save: ${typedError.message}`);
           } else {
-            core5.warning(`Failed to save: ${typedError.message}`);
+            core6.warning(`Failed to save: ${typedError.message}`);
           }
         } finally {
           try {
             yield utils.unlinkFile(archivePath);
           } catch (error) {
-            core5.debug(`Failed to delete archive: ${error}`);
+            core6.debug(`Failed to delete archive: ${error}`);
           }
         }
         return cacheId;
@@ -60015,7 +60015,7 @@ var require_semver4 = __commonJS({
 });
 
 // src/index.ts
-var core4 = __toESM(require_core());
+var core5 = __toESM(require_core());
 var io = __toESM(require_io());
 var cache = __toESM(require_cache());
 var import_node_path2 = __toESM(require("node:path"));
@@ -60550,10 +60550,16 @@ function getCacheKey(input, version2) {
     hashKey += input.cacheKey;
   }
   const hash = import_node_crypto.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 20);
-  return `cargo-install-${input.crate}-${version2}-${hash}`;
+  const versionKey = "version" in version2 ? version2.version : version2.rev.slice(0, 7);
+  return `cargo-install-${input.crate}-${versionKey}-${hash}`;
 }
 async function runCargoInstall(input, version2, install) {
-  let commandArgs = ["install", input.crate, "--force", "--root", install.path, "--version", version2];
+  let commandArgs = ["install", input.crate, "--force", "--root", install.path];
+  if ("version" in version2) {
+    commandArgs.push("--version", version2.version);
+  } else {
+    commandArgs.push("--git", version2.repository, "--rev", version2.rev);
+  }
   if (input.features.length > 0) {
     commandArgs.push("--features", input.features.join(","));
   }
@@ -60603,30 +60609,47 @@ function firstString() {
 // src/parse.ts
 function parseInput() {
   const crate = core2.getInput("crate", { required: true });
-  const version2 = core2.getInput("version", { required: true });
   const features = core2.getInput("features", { required: false });
   const locked = core2.getBooleanInput("locked", { required: false });
   const args = core2.getInput("args", { required: false });
   const cacheKey = core2.getInput("cache-key", { required: false });
-  if (version2 !== "latest" && semver.validRange(version2) === null) {
-    core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
-    process.exit(1);
-  }
   const parsedArgs = parseArgsStringToArgv(args);
   const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
   if (locked) {
     parsedArgs.push("--locked");
   }
+  const version2 = core2.getInput("version", { required: true });
+  if (version2 !== "latest" && semver.validRange(version2) === null) {
+    core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
+    process.exit(1);
+  }
+  const repository = core2.getInput("git", { required: false });
+  const branch = core2.getInput("branch", { required: false });
+  const tag = core2.getInput("tag", { required: false });
+  const rev = core2.getInput("rev", { required: false });
+  let source = { type: "registry", version: version2 };
+  if (repository !== "") {
+    source = { type: "git", repository };
+    source.branch = branch !== "" ? branch : void 0;
+    source.tag = tag !== "" ? tag : void 0;
+    source.rev = rev !== "" ? rev : void 0;
+  }
+  if (repository === "" && (branch !== "" || tag !== "" || rev !== "")) {
+    core2.warning("Ignoring branch, tag, and rev since git is not provided.");
+  }
+  if (repository !== "" && version2 !== "latest") {
+    core2.warning("Ignoring version since git is provided.");
+  }
   return {
     crate,
-    version: version2,
+    source,
     features: parsedFeatures,
     args: parsedArgs,
     cacheKey
   };
 }
 
-// src/resolve.ts
+// src/resolve/registry.ts
 var http = __toESM(require_lib());
 var core3 = __toESM(require_core());
 
@@ -64126,9 +64149,9 @@ var valueOf = scopes.ark.valueOf;
 var narrow = scopes.ark.narrow;
 var morph = scopes.ark.morph;
 
-// src/resolve.ts
+// src/resolve/registry.ts
 var import_semver = __toESM(require_semver4());
-var types = scope({
+var crateResponseTypes = scope({
   response: {
     crate: {
       max_stable_version: "semver"
@@ -64140,24 +64163,26 @@ var types = scope({
     yanked: "boolean"
   }
 }).compile();
-async function resolveVersion(input) {
-  const res = await fetchCrate(input.crate);
+async function resolveRegistryVersion(crate, version2) {
+  core3.info(`Fetching information for ${crate} on crates.io ...`);
+  const res = await fetchCrate(crate);
   const latest = res.crate.max_stable_version;
-  if (input.version === "latest") {
-    return latest;
+  if (version2 === "latest") {
+    return { version: latest };
   }
-  const resolved = res.versions.filter((ver) => import_semver.default.satisfies(ver.num, input.version)).sort((a, b) => import_semver.default.compare(a.num, b.num)).reverse();
+  const resolved = res.versions.filter((ver) => import_semver.default.satisfies(ver.num, version2)).sort((a, b) => import_semver.default.compare(a.num, b.num)).reverse();
   if (resolved.length === 0) {
-    core3.setFailed(`No version found for ${input.crate} that satisfies ${input.version}`);
+    core3.setFailed(`No version found for ${crate} that satisfies ${version2}`);
+    core3.info(`Available versions: ${res.versions.map((ver) => ver.num).join(", ")}`);
     process.exit(1);
   }
-  const version2 = resolved.find((ver) => !ver.yanked) ?? resolved[0];
-  if (version2.yanked) {
-    core3.warning(`Using yanked version ${version2.num} for ${input.crate}`);
-  } else if (version2.num !== latest) {
-    core3.warning(`New version for ${input.crate} available: ${latest}`);
+  const resolvedVersion = resolved.find((ver) => !ver.yanked) ?? resolved[0];
+  if (resolvedVersion.yanked) {
+    core3.warning(`Using yanked version ${resolvedVersion.num} for ${crate}`);
+  } else if (resolvedVersion.num !== latest) {
+    core3.warning(`New version for ${crate} available: ${latest}`);
   }
-  return version2.num;
+  return { version: resolvedVersion.num };
 }
 async function fetchCrate(name) {
   const client = new http.HttpClient("cargo-install-action");
@@ -64170,7 +64195,7 @@ async function fetchCrate(name) {
     core3.info(`Error code: ${response.statusCode}`);
     process.exit(1);
   }
-  const { data, problems } = types.response(response.result);
+  const { data, problems } = crateResponseTypes.response(response.result);
   if (data === void 0) {
     core3.setFailed(`Failed to parse crates.io API response for ${name}`);
     core3.info(`Errors: ${problems}`);
@@ -64179,44 +64204,110 @@ async function fetchCrate(name) {
   return data;
 }
 
+// src/resolve/git.ts
+var exec3 = __toESM(require_exec());
+var core4 = __toESM(require_core());
+async function resolveGitRev(git) {
+  core4.info(`Fetching git revisions for ${git.repository}...`);
+  const revs = await fetchGitRemote(git.repository);
+  if (git.rev !== void 0) {
+    core4.info(`Using explicit revision ${git.rev} for ${git.repository}`);
+    return { repository: git.repository, rev: git.rev };
+  }
+  if (git.tag !== void 0) {
+    const rev = revs.tags[git.tag];
+    if (rev === void 0) {
+      core4.setFailed(`Failed to resolve tag ${git.tag} for ${git.repository}`);
+      process.exit(1);
+    }
+    core4.info(`Resolved tag ${git.tag} to revision ${rev}`);
+    return { repository: git.repository, rev };
+  }
+  if (git.branch !== void 0) {
+    const rev = revs.branches[git.branch];
+    if (rev === void 0) {
+      core4.setFailed(`Failed to resolve branch ${git.branch} for ${git.repository}`);
+      process.exit(1);
+    }
+    core4.info(`Resolved branch ${git.branch} to revision ${rev}`);
+    return { repository: git.repository, rev };
+  }
+  core4.info(`Resolved HEAD to revision ${revs.head}`);
+  return { repository: git.repository, rev: revs.head };
+}
+async function fetchGitRemote(repository) {
+  const commandOutput = await exec3.getExecOutput("git", ["ls-remote", repository]);
+  const revs = { head: "", tags: {}, branches: {} };
+  const lines = commandOutput.stdout.split("\n");
+  for (const line of lines) {
+    const [rev, ref] = line.split("	");
+    if (ref === "HEAD") {
+      revs.head = rev;
+    }
+    const tagMatch = "refs/tags/";
+    if (ref.startsWith(tagMatch)) {
+      const tag = ref.slice(tagMatch.length);
+      revs.tags[tag] = rev;
+    }
+    const branchMatch = "refs/heads/";
+    if (ref.startsWith(branchMatch)) {
+      const branch = ref.slice(branchMatch.length);
+      revs.branches[branch] = rev;
+    }
+  }
+  if (revs.head === "") {
+    core4.setFailed(`Failed to fetch HEAD revision for ${repository}`);
+    process.exit(1);
+  }
+  return revs;
+}
+
 // src/index.ts
 var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
-  core4.startGroup(chalk2.bold(`Installing ${input.crate} ...`));
-  core4.info("Fetching crate information on crates.io ...");
-  const version2 = await resolveVersion(input);
+  core5.startGroup(chalk2.bold(`Installing ${input.crate} ...`));
+  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source.version) : await resolveGitRev(input.source);
   const install = getInstallSettings(input, version2);
-  core4.info("Installation settings:");
-  core4.info(`   version: ${version2}`);
-  core4.info(`   path: ${install.path}`);
-  core4.info(`   key: ${install.cacheKey}`);
+  core5.info("Installation settings:");
+  if ("version" in version2) {
+    core5.info(`   version: ${version2.version}`);
+  } else {
+    core5.info(`   repository: ${version2.repository}`);
+    core5.info(`   rev: ${version2.rev}`);
+  }
+  core5.info(`   path: ${install.path}`);
+  core5.info(`   key: ${install.cacheKey}`);
   await io.mkdirP(install.path);
   const restored = await cache.restoreCache([install.path], install.cacheKey);
-  core4.endGroup();
+  core5.endGroup();
   let cacheHit = false;
   if (restored !== void 0) {
-    core4.info(`Restored ${input.crate} from cache.`);
+    core5.info(`Restored ${input.crate} from cache.`);
     cacheHit = true;
   } else {
-    core4.startGroup(`No cached version found, installing ${input.crate} using cargo ...`);
+    core5.startGroup(`No cached version found, installing ${input.crate} using cargo ...`);
     await runCargoInstall(input, version2, install);
     try {
       await cache.saveCache([install.path], install.cacheKey);
     } catch (e) {
-      core4.warning(e.message);
+      core5.warning(e.message);
     }
-    core4.endGroup();
+    core5.endGroup();
   }
-  core4.addPath(import_node_path2.default.join(install.path, "bin"));
-  core4.info(`Added ${install.path}/bin to PATH.`);
-  core4.info(chalk2.green(`Installed ${input.crate} ${version2}.`));
-  core4.setOutput("version", version2);
-  core4.setOutput("cache-hit", cacheHit);
+  core5.addPath(import_node_path2.default.join(install.path, "bin"));
+  core5.info(`Added ${install.path}/bin to PATH.`);
+  if ("version" in version2) {
+    core5.info(chalk2.green(`Installed ${input.crate} ${version2.version}.`));
+  } else {
+    core5.info(chalk2.green(`Installed ${input.crate} from ${version2.repository} at ${version2.rev.slice(0, 7)}.`));
+  }
+  core5.setOutput("version", version2);
+  core5.setOutput("cache-hit", cacheHit);
 }
 run().catch((error) => {
-  core4.setFailed(error.message);
-  core4.info(error.stack);
+  core5.setFailed(error.message);
+  core5.info(error.stack);
 });
 /*! Bundled license information:
 

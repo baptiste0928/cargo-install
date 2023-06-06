@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import * as semver from 'semver'
 import stringArgv from 'string-argv'
 
+// Action input parameters
 export interface ActionInput {
   crate: string
   source: CratesIoSource | GitSource
@@ -11,10 +12,12 @@ export interface ActionInput {
 }
 
 export interface CratesIoSource {
+  type: 'registry'
   version: string
 }
 
 export interface GitSource {
+  type: 'git'
   repository: string
   branch?: string
   tag?: string
@@ -49,9 +52,9 @@ export function parseInput (): ActionInput {
   const tag = core.getInput('tag', { required: false })
   const rev = core.getInput('rev', { required: false })
 
-  let source: CratesIoSource | GitSource = { version }
+  let source: CratesIoSource | GitSource = { type: 'registry', version }
   if (repository !== '') {
-    source = { repository }
+    source = { type: 'git', repository }
     source.branch = branch !== '' ? branch : undefined
     source.tag = tag !== '' ? tag : undefined
     source.rev = rev !== '' ? rev : undefined
