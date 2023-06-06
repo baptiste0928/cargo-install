@@ -1082,9 +1082,9 @@ var require_lib = __commonJS({
           return this.request("HEAD", requestUrl, null, additionalHeaders || {});
         });
       }
-      sendStream(verb, requestUrl, stream, additionalHeaders) {
+      sendStream(verb, requestUrl, stream2, additionalHeaders) {
         return __awaiter2(this, void 0, void 0, function* () {
-          return this.request(verb, requestUrl, stream, additionalHeaders);
+          return this.request(verb, requestUrl, stream2, additionalHeaders);
         });
       }
       /**
@@ -3190,7 +3190,7 @@ var require_exec = __commonJS({
     exports.getExecOutput = exports.exec = void 0;
     var string_decoder_1 = require("string_decoder");
     var tr = __importStar2(require_toolrunner());
-    function exec4(commandLine, args, options) {
+    function exec5(commandLine, args, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const commandArgs = tr.argStringToArray(commandLine);
         if (commandArgs.length === 0) {
@@ -3202,8 +3202,8 @@ var require_exec = __commonJS({
         return runner.exec();
       });
     }
-    exports.exec = exec4;
-    function getExecOutput2(commandLine, args, options) {
+    exports.exec = exec5;
+    function getExecOutput(commandLine, args, options) {
       var _a, _b;
       return __awaiter2(this, void 0, void 0, function* () {
         let stdout = "";
@@ -3225,7 +3225,7 @@ var require_exec = __commonJS({
           }
         };
         const listeners = Object.assign(Object.assign({}, options === null || options === void 0 ? void 0 : options.listeners), { stdout: stdOutListener, stderr: stdErrListener });
-        const exitCode = yield exec4(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
+        const exitCode = yield exec5(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
         stdout += stdoutDecoder.end();
         stderr += stderrDecoder.end();
         return {
@@ -3235,7 +3235,7 @@ var require_exec = __commonJS({
         };
       });
     }
-    exports.getExecOutput = getExecOutput2;
+    exports.getExecOutput = getExecOutput;
   }
 });
 
@@ -6397,7 +6397,7 @@ var require_cacheUtils = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.isGhes = exports.assertDefined = exports.getGnuTarPathOnWindows = exports.getCacheFileName = exports.getCompressionMethod = exports.unlinkFile = exports.resolvePaths = exports.getArchiveFileSizeInBytes = exports.createTempDirectory = void 0;
     var core6 = __importStar2(require_core());
-    var exec4 = __importStar2(require_exec());
+    var exec5 = __importStar2(require_exec());
     var glob = __importStar2(require_glob());
     var io2 = __importStar2(require_io());
     var fs = __importStar2(require("fs"));
@@ -6480,7 +6480,7 @@ var require_cacheUtils = __commonJS({
         additionalArgs.push("--version");
         core6.debug(`Checking ${app} ${additionalArgs.join(" ")}`);
         try {
-          yield exec4.exec(`${app}`, additionalArgs, {
+          yield exec5.exec(`${app}`, additionalArgs, {
             ignoreReturnCode: true,
             silent: true,
             listeners: {
@@ -10704,8 +10704,8 @@ var require_XMLStreamWriter = __commonJS({
       WriterState = require_WriterState();
       module2.exports = XMLStreamWriter = function(superClass) {
         extend(XMLStreamWriter2, superClass);
-        function XMLStreamWriter2(stream, options) {
-          this.stream = stream;
+        function XMLStreamWriter2(stream2, options) {
+          this.stream = stream2;
           XMLStreamWriter2.__super__.constructor.call(this, options);
         }
         XMLStreamWriter2.prototype.endline = function(node, options, level) {
@@ -10895,8 +10895,8 @@ var require_lib2 = __commonJS({
       module2.exports.stringWriter = function(options) {
         return new XMLStringWriter(options);
       };
-      module2.exports.streamWriter = function(stream, options) {
-        return new XMLStreamWriter(stream, options);
+      module2.exports.streamWriter = function(stream2, options) {
+        return new XMLStreamWriter(stream2, options);
       };
       module2.exports.implementation = new XMLDOMImplementation();
       module2.exports.nodeType = NodeType;
@@ -13689,26 +13689,26 @@ var require_combined_stream = __commonJS({
       }
       return combinedStream;
     };
-    CombinedStream.isStreamLike = function(stream) {
-      return typeof stream !== "function" && typeof stream !== "string" && typeof stream !== "boolean" && typeof stream !== "number" && !Buffer.isBuffer(stream);
+    CombinedStream.isStreamLike = function(stream2) {
+      return typeof stream2 !== "function" && typeof stream2 !== "string" && typeof stream2 !== "boolean" && typeof stream2 !== "number" && !Buffer.isBuffer(stream2);
     };
-    CombinedStream.prototype.append = function(stream) {
-      var isStreamLike = CombinedStream.isStreamLike(stream);
+    CombinedStream.prototype.append = function(stream2) {
+      var isStreamLike = CombinedStream.isStreamLike(stream2);
       if (isStreamLike) {
-        if (!(stream instanceof DelayedStream)) {
-          var newStream = DelayedStream.create(stream, {
+        if (!(stream2 instanceof DelayedStream)) {
+          var newStream = DelayedStream.create(stream2, {
             maxDataSize: Infinity,
             pauseStream: this.pauseStreams
           });
-          stream.on("data", this._checkDataSize.bind(this));
-          stream = newStream;
+          stream2.on("data", this._checkDataSize.bind(this));
+          stream2 = newStream;
         }
-        this._handleErrors(stream);
+        this._handleErrors(stream2);
         if (this.pauseStreams) {
-          stream.pause();
+          stream2.pause();
         }
       }
-      this._streams.push(stream);
+      this._streams.push(stream2);
       return this;
     };
     CombinedStream.prototype.pipe = function(dest, options) {
@@ -13733,40 +13733,40 @@ var require_combined_stream = __commonJS({
       }
     };
     CombinedStream.prototype._realGetNext = function() {
-      var stream = this._streams.shift();
-      if (typeof stream == "undefined") {
+      var stream2 = this._streams.shift();
+      if (typeof stream2 == "undefined") {
         this.end();
         return;
       }
-      if (typeof stream !== "function") {
-        this._pipeNext(stream);
+      if (typeof stream2 !== "function") {
+        this._pipeNext(stream2);
         return;
       }
-      var getStream = stream;
-      getStream(function(stream2) {
-        var isStreamLike = CombinedStream.isStreamLike(stream2);
+      var getStream = stream2;
+      getStream(function(stream3) {
+        var isStreamLike = CombinedStream.isStreamLike(stream3);
         if (isStreamLike) {
-          stream2.on("data", this._checkDataSize.bind(this));
-          this._handleErrors(stream2);
+          stream3.on("data", this._checkDataSize.bind(this));
+          this._handleErrors(stream3);
         }
-        this._pipeNext(stream2);
+        this._pipeNext(stream3);
       }.bind(this));
     };
-    CombinedStream.prototype._pipeNext = function(stream) {
-      this._currentStream = stream;
-      var isStreamLike = CombinedStream.isStreamLike(stream);
+    CombinedStream.prototype._pipeNext = function(stream2) {
+      this._currentStream = stream2;
+      var isStreamLike = CombinedStream.isStreamLike(stream2);
       if (isStreamLike) {
-        stream.on("end", this._getNext.bind(this));
-        stream.pipe(this, { end: false });
+        stream2.on("end", this._getNext.bind(this));
+        stream2.pipe(this, { end: false });
         return;
       }
-      var value = stream;
+      var value = stream2;
       this.write(value);
       this._getNext();
     };
-    CombinedStream.prototype._handleErrors = function(stream) {
+    CombinedStream.prototype._handleErrors = function(stream2) {
       var self = this;
-      stream.on("error", function(err) {
+      stream2.on("error", function(err) {
         self._emitError(err);
       });
     };
@@ -13815,11 +13815,11 @@ var require_combined_stream = __commonJS({
     CombinedStream.prototype._updateDataSize = function() {
       this.dataSize = 0;
       var self = this;
-      this._streams.forEach(function(stream) {
-        if (!stream.dataSize) {
+      this._streams.forEach(function(stream2) {
+        if (!stream2.dataSize) {
           return;
         }
-        self.dataSize += stream.dataSize;
+        self.dataSize += stream2.dataSize;
       });
       if (this._currentStream && this._currentStream.dataSize) {
         this.dataSize += this._currentStream.dataSize;
@@ -25993,12 +25993,12 @@ var require_lib4 = __commonJS({
         }
       });
     }
-    function destroyStream(stream, err) {
-      if (stream.destroy) {
-        stream.destroy(err);
+    function destroyStream(stream2, err) {
+      if (stream2.destroy) {
+        stream2.destroy(err);
       } else {
-        stream.emit("error", err);
-        stream.end();
+        stream2.emit("error", err);
+        stream2.end();
       }
     }
     fetch.isRedirect = function(code) {
@@ -27802,7 +27802,7 @@ var require_dist6 = __commonJS({
     var https = require("https");
     var abortController = require_dist();
     var tunnel = require_tunnel2();
-    var stream = require("stream");
+    var stream2 = require("stream");
     var FormData = require_form_data();
     var node_fetch = require_lib4();
     var coreTracing = require_dist5();
@@ -29790,7 +29790,7 @@ var require_dist6 = __commonJS({
     function getCachedAgent(isHttps, agentCache) {
       return isHttps ? agentCache.httpsAgent : agentCache.httpAgent;
     }
-    var ReportTransform = class extends stream.Transform {
+    var ReportTransform = class extends stream2.Transform {
       constructor(progressCallback) {
         super();
         this.progressCallback = progressCallback;
@@ -29806,14 +29806,14 @@ var require_dist6 = __commonJS({
     function isReadableStream(body) {
       return body && typeof body.pipe === "function";
     }
-    function isStreamComplete(stream2, aborter) {
+    function isStreamComplete(stream3, aborter) {
       return new Promise((resolve) => {
-        stream2.once("close", () => {
+        stream3.once("close", () => {
           aborter === null || aborter === void 0 ? void 0 : aborter.abort();
           resolve();
         });
-        stream2.once("end", resolve);
-        stream2.once("error", resolve);
+        stream3.once("end", resolve);
+        stream3.once("error", resolve);
       });
     }
     function parseHeaders(headers) {
@@ -33139,7 +33139,7 @@ var require_dist9 = __commonJS({
     var abortController = require_dist();
     var os2 = require("os");
     var crypto5 = require("crypto");
-    var stream = require("stream");
+    var stream2 = require("stream");
     require_dist7();
     var coreLro = require_dist8();
     var events = require("events");
@@ -48937,7 +48937,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var RetriableReadableStream = class extends stream.Readable {
+    var RetriableReadableStream = class extends stream2.Readable {
       /**
        * Creates an instance of RetriableReadableStream.
        *
@@ -49481,8 +49481,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param length -
        * @param options -
        */
-      static async readFixedBytes(stream2, length, options = {}) {
-        const bytes = await stream2.read(length, { abortSignal: options.abortSignal });
+      static async readFixedBytes(stream3, length, options = {}) {
+        const bytes = await stream3.read(length, { abortSignal: options.abortSignal });
         if (bytes.length !== length) {
           throw new Error("Hit stream end.");
         }
@@ -49494,19 +49494,19 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param stream -
        * @param options -
        */
-      static async readByte(stream2, options = {}) {
-        const buf = await AvroParser.readFixedBytes(stream2, 1, options);
+      static async readByte(stream3, options = {}) {
+        const buf = await AvroParser.readFixedBytes(stream3, 1, options);
         return buf[0];
       }
       // int and long are stored in variable-length zig-zag coding.
       // variable-length: https://lucene.apache.org/core/3_5_0/fileformats.html#VInt
       // zig-zag: https://developers.google.com/protocol-buffers/docs/encoding?csw=1#types
-      static async readZigZagLong(stream2, options = {}) {
+      static async readZigZagLong(stream3, options = {}) {
         let zigZagEncoded = 0;
         let significanceInBit = 0;
         let byte, haveMoreByte, significanceInFloat;
         do {
-          byte = await AvroParser.readByte(stream2, options);
+          byte = await AvroParser.readByte(stream3, options);
           haveMoreByte = byte & 128;
           zigZagEncoded |= (byte & 127) << significanceInBit;
           significanceInBit += 7;
@@ -49515,7 +49515,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           zigZagEncoded = zigZagEncoded;
           significanceInFloat = 268435456;
           do {
-            byte = await AvroParser.readByte(stream2, options);
+            byte = await AvroParser.readByte(stream3, options);
             zigZagEncoded += (byte & 127) * significanceInFloat;
             significanceInFloat *= 128;
           } while (byte & 128);
@@ -49527,17 +49527,17 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
         return zigZagEncoded >> 1 ^ -(zigZagEncoded & 1);
       }
-      static async readLong(stream2, options = {}) {
-        return AvroParser.readZigZagLong(stream2, options);
+      static async readLong(stream3, options = {}) {
+        return AvroParser.readZigZagLong(stream3, options);
       }
-      static async readInt(stream2, options = {}) {
-        return AvroParser.readZigZagLong(stream2, options);
+      static async readInt(stream3, options = {}) {
+        return AvroParser.readZigZagLong(stream3, options);
       }
       static async readNull() {
         return null;
       }
-      static async readBoolean(stream2, options = {}) {
-        const b = await AvroParser.readByte(stream2, options);
+      static async readBoolean(stream3, options = {}) {
+        const b = await AvroParser.readByte(stream3, options);
         if (b === 1) {
           return true;
         } else if (b === 0) {
@@ -49546,53 +49546,53 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           throw new Error("Byte was not a boolean.");
         }
       }
-      static async readFloat(stream2, options = {}) {
-        const u8arr = await AvroParser.readFixedBytes(stream2, 4, options);
+      static async readFloat(stream3, options = {}) {
+        const u8arr = await AvroParser.readFixedBytes(stream3, 4, options);
         const view = new DataView(u8arr.buffer, u8arr.byteOffset, u8arr.byteLength);
         return view.getFloat32(0, true);
       }
-      static async readDouble(stream2, options = {}) {
-        const u8arr = await AvroParser.readFixedBytes(stream2, 8, options);
+      static async readDouble(stream3, options = {}) {
+        const u8arr = await AvroParser.readFixedBytes(stream3, 8, options);
         const view = new DataView(u8arr.buffer, u8arr.byteOffset, u8arr.byteLength);
         return view.getFloat64(0, true);
       }
-      static async readBytes(stream2, options = {}) {
-        const size = await AvroParser.readLong(stream2, options);
+      static async readBytes(stream3, options = {}) {
+        const size = await AvroParser.readLong(stream3, options);
         if (size < 0) {
           throw new Error("Bytes size was negative.");
         }
-        return stream2.read(size, { abortSignal: options.abortSignal });
+        return stream3.read(size, { abortSignal: options.abortSignal });
       }
-      static async readString(stream2, options = {}) {
-        const u8arr = await AvroParser.readBytes(stream2, options);
+      static async readString(stream3, options = {}) {
+        const u8arr = await AvroParser.readBytes(stream3, options);
         const utf8decoder = new TextDecoder();
         return utf8decoder.decode(u8arr);
       }
-      static async readMapPair(stream2, readItemMethod, options = {}) {
-        const key = await AvroParser.readString(stream2, options);
-        const value = await readItemMethod(stream2, options);
+      static async readMapPair(stream3, readItemMethod, options = {}) {
+        const key = await AvroParser.readString(stream3, options);
+        const value = await readItemMethod(stream3, options);
         return { key, value };
       }
-      static async readMap(stream2, readItemMethod, options = {}) {
+      static async readMap(stream3, readItemMethod, options = {}) {
         const readPairMethod = (s, opts = {}) => {
           return AvroParser.readMapPair(s, readItemMethod, opts);
         };
-        const pairs = await AvroParser.readArray(stream2, readPairMethod, options);
+        const pairs = await AvroParser.readArray(stream3, readPairMethod, options);
         const dict = {};
         for (const pair of pairs) {
           dict[pair.key] = pair.value;
         }
         return dict;
       }
-      static async readArray(stream2, readItemMethod, options = {}) {
+      static async readArray(stream3, readItemMethod, options = {}) {
         const items = [];
-        for (let count = await AvroParser.readLong(stream2, options); count !== 0; count = await AvroParser.readLong(stream2, options)) {
+        for (let count = await AvroParser.readLong(stream3, options); count !== 0; count = await AvroParser.readLong(stream3, options)) {
           if (count < 0) {
-            await AvroParser.readLong(stream2, options);
+            await AvroParser.readLong(stream3, options);
             count = -count;
           }
           while (count--) {
-            const item = await readItemMethod(stream2, options);
+            const item = await readItemMethod(stream3, options);
             items.push(item);
           }
         }
@@ -49697,24 +49697,24 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._primitive = primitive;
       }
-      read(stream2, options = {}) {
+      read(stream3, options = {}) {
         switch (this._primitive) {
           case AvroPrimitive.NULL:
             return AvroParser.readNull();
           case AvroPrimitive.BOOLEAN:
-            return AvroParser.readBoolean(stream2, options);
+            return AvroParser.readBoolean(stream3, options);
           case AvroPrimitive.INT:
-            return AvroParser.readInt(stream2, options);
+            return AvroParser.readInt(stream3, options);
           case AvroPrimitive.LONG:
-            return AvroParser.readLong(stream2, options);
+            return AvroParser.readLong(stream3, options);
           case AvroPrimitive.FLOAT:
-            return AvroParser.readFloat(stream2, options);
+            return AvroParser.readFloat(stream3, options);
           case AvroPrimitive.DOUBLE:
-            return AvroParser.readDouble(stream2, options);
+            return AvroParser.readDouble(stream3, options);
           case AvroPrimitive.BYTES:
-            return AvroParser.readBytes(stream2, options);
+            return AvroParser.readBytes(stream3, options);
           case AvroPrimitive.STRING:
-            return AvroParser.readString(stream2, options);
+            return AvroParser.readString(stream3, options);
           default:
             throw new Error("Unknown Avro Primitive");
         }
@@ -49725,8 +49725,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._symbols = symbols;
       }
-      async read(stream2, options = {}) {
-        const value = await AvroParser.readInt(stream2, options);
+      async read(stream3, options = {}) {
+        const value = await AvroParser.readInt(stream3, options);
         return this._symbols[value];
       }
     };
@@ -49735,9 +49735,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._types = types;
       }
-      async read(stream2, options = {}) {
-        const typeIndex = await AvroParser.readInt(stream2, options);
-        return this._types[typeIndex].read(stream2, options);
+      async read(stream3, options = {}) {
+        const typeIndex = await AvroParser.readInt(stream3, options);
+        return this._types[typeIndex].read(stream3, options);
       }
     };
     var AvroMapType = class extends AvroType {
@@ -49745,11 +49745,11 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._itemType = itemType;
       }
-      read(stream2, options = {}) {
+      read(stream3, options = {}) {
         const readItemMethod = (s, opts) => {
           return this._itemType.read(s, opts);
         };
-        return AvroParser.readMap(stream2, readItemMethod, options);
+        return AvroParser.readMap(stream3, readItemMethod, options);
       }
     };
     var AvroRecordType = class extends AvroType {
@@ -49758,12 +49758,12 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this._fields = fields;
         this._name = name;
       }
-      async read(stream2, options = {}) {
+      async read(stream3, options = {}) {
         const record = {};
         record["$schema"] = this._name;
         for (const key in this._fields) {
           if (Object.prototype.hasOwnProperty.call(this._fields, key)) {
-            record[key] = await this._fields[key].read(stream2, options);
+            record[key] = await this._fields[key].read(stream3, options);
           }
         }
         return record;
@@ -49944,7 +49944,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var BlobQuickQueryStream = class extends stream.Readable {
+    var BlobQuickQueryStream = class extends stream2.Readable {
       /**
        * Creates an instance of BlobQuickQueryStream.
        *
@@ -50647,7 +50647,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var BuffersStream = class extends stream.Readable {
+    var BuffersStream = class extends stream2.Readable {
       /**
        * Creates an instance of BuffersStream that will emit the data
        * contained in the array of buffers.
@@ -50962,18 +50962,18 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    async function streamToBuffer(stream2, buffer, offset, end, encoding) {
+    async function streamToBuffer(stream3, buffer, offset, end, encoding) {
       let pos = 0;
       const count = end - offset;
       return new Promise((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error(`The operation cannot be completed in timeout.`)), REQUEST_TIMEOUT);
-        stream2.on("readable", () => {
+        stream3.on("readable", () => {
           if (pos >= count) {
             clearTimeout(timeout);
             resolve();
             return;
           }
-          let chunk = stream2.read();
+          let chunk = stream3.read();
           if (!chunk) {
             return;
           }
@@ -50984,25 +50984,25 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           buffer.fill(chunk.slice(0, chunkLength), offset + pos, offset + pos + chunkLength);
           pos += chunkLength;
         });
-        stream2.on("end", () => {
+        stream3.on("end", () => {
           clearTimeout(timeout);
           if (pos < count) {
             reject(new Error(`Stream drains before getting enough data needed. Data read: ${pos}, data need: ${count}`));
           }
           resolve();
         });
-        stream2.on("error", (msg) => {
+        stream3.on("error", (msg) => {
           clearTimeout(timeout);
           reject(msg);
         });
       });
     }
-    async function streamToBuffer2(stream2, buffer, encoding) {
+    async function streamToBuffer2(stream3, buffer, encoding) {
       let pos = 0;
       const bufferSize = buffer.length;
       return new Promise((resolve, reject) => {
-        stream2.on("readable", () => {
-          let chunk = stream2.read();
+        stream3.on("readable", () => {
+          let chunk = stream3.read();
           if (!chunk) {
             return;
           }
@@ -51016,10 +51016,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           buffer.fill(chunk, pos, pos + chunk.length);
           pos += chunk.length;
         });
-        stream2.on("end", () => {
+        stream3.on("end", () => {
           resolve(pos);
         });
-        stream2.on("error", reject);
+        stream3.on("error", reject);
       });
     }
     async function readStreamToLocalFile(rs, file) {
@@ -51771,8 +51771,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 customerProvidedKey: options.customerProvidedKey,
                 tracingOptions: Object.assign(Object.assign({}, options.tracingOptions), convertTracingToRequestOptionsBase(updatedOptions))
               });
-              const stream2 = response.readableStreamBody;
-              await streamToBuffer(stream2, buffer, off - offset, chunkEnd - offset);
+              const stream3 = response.readableStreamBody;
+              await streamToBuffer(stream3, buffer, off - offset, chunkEnd - offset);
               transferProgress += chunkEnd - off;
               if (options.onProgress) {
                 options.onProgress({ loadedBytes: transferProgress });
@@ -52734,7 +52734,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param options - Options to Upload Stream to Block Blob operation.
        * @returns Response data for the Blob Upload operation.
        */
-      async uploadStream(stream2, bufferSize = DEFAULT_BLOCK_BUFFER_SIZE_BYTES, maxConcurrency = 5, options = {}) {
+      async uploadStream(stream3, bufferSize = DEFAULT_BLOCK_BUFFER_SIZE_BYTES, maxConcurrency = 5, options = {}) {
         if (!options.blobHTTPHeaders) {
           options.blobHTTPHeaders = {};
         }
@@ -52748,7 +52748,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           let transferProgress = 0;
           const blockList = [];
           const scheduler = new BufferScheduler(
-            stream2,
+            stream3,
             bufferSize,
             maxConcurrency,
             async (body2, length) => {
@@ -56574,7 +56574,7 @@ var require_downloadUtils = __commonJS({
     var storage_blob_1 = require_dist9();
     var buffer = __importStar2(require("buffer"));
     var fs = __importStar2(require("fs"));
-    var stream = __importStar2(require("stream"));
+    var stream2 = __importStar2(require("stream"));
     var util = __importStar2(require("util"));
     var utils = __importStar2(require_cacheUtils());
     var constants_1 = require_constants();
@@ -56582,7 +56582,7 @@ var require_downloadUtils = __commonJS({
     var abort_controller_1 = require_dist();
     function pipeResponseToStream(response, output) {
       return __awaiter2(this, void 0, void 0, function* () {
-        const pipeline = util.promisify(stream.pipeline);
+        const pipeline = util.promisify(stream2.pipeline);
         yield pipeline(response.message, output);
       });
     }
@@ -60319,9 +60319,9 @@ function _supportsColor(haveStream, { streamIsTTY, sniffFlags = true } = {}) {
   }
   return min;
 }
-function createSupportsColor(stream, options = {}) {
-  const level = _supportsColor(stream, {
-    streamIsTTY: stream && stream.isTTY,
+function createSupportsColor(stream2, options = {}) {
+  const level = _supportsColor(stream2, {
+    streamIsTTY: stream2 && stream2.isTTY,
     ...options
   });
   return translateLevel(level);
@@ -64205,6 +64205,7 @@ async function fetchCrate(name) {
 }
 
 // src/resolve/git.ts
+var import_node_stream = __toESM(require("node:stream"));
 var exec3 = __toESM(require_exec());
 var core4 = __toESM(require_core());
 async function resolveGitRev(git) {
@@ -64236,11 +64237,15 @@ async function resolveGitRev(git) {
   return { repository: git.repository, rev: revs.head };
 }
 async function fetchGitRemote(repository) {
-  const commandOutput = await exec3.getExecOutput("git", ["ls-remote", repository]);
+  const commandOutput = new import_node_stream.default.PassThrough();
+  await exec3.exec("git", ["ls-remote", repository], { outStream: commandOutput });
   const revs = { head: "", tags: {}, branches: {} };
-  const lines = commandOutput.stdout.split("\n");
+  const lines = commandOutput.read().toString().split("\n");
   for (const line of lines) {
     const [rev, ref] = line.split("	");
+    if (rev === "" || ref === "" || ref === void 0) {
+      continue;
+    }
     if (ref === "HEAD") {
       revs.head = rev;
     }

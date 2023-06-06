@@ -1,3 +1,4 @@
+import stream from 'node:stream'
 import * as exec from '@actions/exec'
 import * as core from '@actions/core'
 
@@ -47,12 +48,17 @@ export async function resolveGitRev (git: GitSource): Promise<ResolvedVersion> {
 }
 
 async function fetchGitRemote (repository: string): Promise<GitRemoteRevs> {
-  const commandOutput = await exec.getExecOutput('git', ['ls-remote', repository])
-  const revs: GitRemoteRevs = { head: '', tags: {}, branches: {} }
+  const commandOutput = new stream.PassThrough()
+  await exec.exec('git', ['ls-remote', repository], { outStream: commandOutput })
 
-  const lines = commandOutput.stdout.split('\n')
+  const revs: GitRemoteRevs = { head: '', tags: {}, branches: {} }
+  const lines: string[] = commandOutput.read().toString().split('\n')
   for (const line of lines) {
     const [rev, ref] = line.split('\t')
+
+    if (rev === '' || ref === '' || ref === undefined) {
+      continue
+    }
 
     if (ref === 'HEAD') {
       revs.head = rev
