@@ -84,6 +84,7 @@ jobs:
     - name: Install cargo-sort (from git)
       uses: ./
       with:
+        crate: cargo-sort
         git: https://github.com/devinr528/cargo-sort
         tag: v1.0.9
 
