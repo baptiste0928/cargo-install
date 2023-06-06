@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   lint:
@@ -74,12 +74,21 @@ jobs:
     - name: Checkout sources
       uses: actions/checkout@v3
 
-    - name: Install cargo-hack
+    - name: Install cargo-hack (from crates.io)
       uses: ./
       with:
         crate: cargo-hack
         version: ^0.4.4
         cache-key: test
 
+    - name: Install cargo-sort (from git)
+      uses: ./
+      with:
+        git: https://github.com/devinr528/cargo-sort
+        tag: v1.0.9
+
     - name: Print cargo hack version
       run: cargo hack --version
+
+    - name: Print cargo sort version
+      run: cargo sort --version
