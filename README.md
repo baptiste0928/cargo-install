@@ -8,7 +8,7 @@ This action enables you to run `cargo install` in your GitHub workflows,
 and automatically caches the resulting binaries to speed up subsequent builds.
 
 | ✨ Recent updates: |
-| --- |
+| :--- |
 | **v2.1:** Installing crates from git is now supported. |
 | **v2.0:** This major update introduces some breaking changes. Read the [changelog] before updating. |
 
