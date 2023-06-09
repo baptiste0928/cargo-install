@@ -60550,7 +60550,7 @@ function getCacheKey(input, version2) {
     hashKey += input.cacheKey;
   }
   const hash = import_node_crypto.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 20);
-  const versionKey = "version" in version2 ? version2.version : version2.rev.slice(0, 7);
+  const versionKey = "version" in version2 ? version2.version : version2.commit.slice(0, 7);
   return `cargo-install-${input.crate}-${versionKey}-${hash}`;
 }
 async function runCargoInstall(input, version2, install) {
@@ -60558,7 +60558,7 @@ async function runCargoInstall(input, version2, install) {
   if ("version" in version2) {
     commandArgs.push("--version", version2.version);
   } else {
-    commandArgs.push("--git", version2.repository, "--rev", version2.rev);
+    commandArgs.push("--git", version2.repository, "--rev", version2.commit);
   }
   if (input.features.length > 0) {
     commandArgs.push("--features", input.features.join(","));
@@ -60627,15 +60627,16 @@ function parseInput() {
   const branch = core2.getInput("branch", { required: false });
   const tag = core2.getInput("tag", { required: false });
   const rev = core2.getInput("rev", { required: false });
+  const commit = core2.getInput("commit", { required: false });
   let source = { type: "registry", version: version2 };
   if (repository !== "") {
     source = { type: "git", repository };
     source.branch = branch !== "" ? branch : void 0;
     source.tag = tag !== "" ? tag : void 0;
-    source.rev = rev !== "" ? rev : void 0;
+    source.commit = commit !== "" ? commit : rev !== "" ? rev : void 0;
   }
-  if (repository === "" && (branch !== "" || tag !== "" || rev !== "")) {
-    core2.warning("Ignoring branch, tag, and rev since git is not provided.");
+  if (repository === "" && (branch !== "" || tag !== "" || commit !== "" || rev !== "")) {
+    core2.warning("Ignoring branch, tag, and commit since git is not provided.");
   }
   if (repository !== "" && version2 !== "latest") {
     core2.warning("Ignoring version since git is provided.");
@@ -64208,63 +64209,63 @@ async function fetchCrate(name) {
 var import_node_stream = __toESM(require("node:stream"));
 var exec3 = __toESM(require_exec());
 var core4 = __toESM(require_core());
-async function resolveGitRev(git) {
-  core4.info(`Fetching git revisions for ${git.repository}...`);
-  const revs = await fetchGitRemote(git.repository);
-  if (git.rev !== void 0) {
-    core4.info(`Using explicit revision ${git.rev} for ${git.repository}`);
-    return { repository: git.repository, rev: git.rev };
+async function resolveGitCommit(git) {
+  core4.info(`Fetching git commits for ${git.repository}...`);
+  const commits = await fetchGitRemote(git.repository);
+  if (git.commit !== void 0) {
+    core4.info(`Using explicit commit ${git.commit} for ${git.repository}`);
+    return { repository: git.repository, commit: git.commit };
   }
   if (git.tag !== void 0) {
-    const rev = revs.tags[git.tag];
-    if (rev === void 0) {
+    const commit = commits.tags[git.tag];
+    if (commit === void 0) {
       core4.setFailed(`Failed to resolve tag ${git.tag} for ${git.repository}`);
       process.exit(1);
     }
-    core4.info(`Resolved tag ${git.tag} to revision ${rev}`);
-    return { repository: git.repository, rev };
+    core4.info(`Resolved tag ${git.tag} to commit ${commit}`);
+    return { repository: git.repository, commit };
   }
   if (git.branch !== void 0) {
-    const rev = revs.branches[git.branch];
-    if (rev === void 0) {
+    const commit = commits.branches[git.branch];
+    if (commit === void 0) {
       core4.setFailed(`Failed to resolve branch ${git.branch} for ${git.repository}`);
       process.exit(1);
     }
-    core4.info(`Resolved branch ${git.branch} to revision ${rev}`);
-    return { repository: git.repository, rev };
+    core4.info(`Resolved branch ${git.branch} to commit ${commit}`);
+    return { repository: git.repository, commit };
   }
-  core4.info(`Resolved HEAD to revision ${revs.head}`);
-  return { repository: git.repository, rev: revs.head };
+  core4.info(`Resolved HEAD to commit ${commits.head}`);
+  return { repository: git.repository, commit: commits.head };
 }
 async function fetchGitRemote(repository) {
   const commandOutput = new import_node_stream.default.PassThrough();
   await exec3.exec("git", ["ls-remote", repository], { outStream: commandOutput });
-  const revs = { head: "", tags: {}, branches: {} };
+  const commits = { head: "", tags: {}, branches: {} };
   const lines = commandOutput.read().toString().split("\n");
   for (const line of lines) {
-    const [rev, ref] = line.split("	");
-    if (rev === "" || ref === "" || ref === void 0) {
+    const [commit, ref] = line.split("	");
+    if (commit === "" || ref === "" || ref === void 0) {
       continue;
     }
     if (ref === "HEAD") {
-      revs.head = rev;
+      commits.head = commit;
     }
     const tagMatch = "refs/tags/";
     if (ref.startsWith(tagMatch)) {
       const tag = ref.slice(tagMatch.length);
-      revs.tags[tag] = rev;
+      commits.tags[tag] = commit;
     }
     const branchMatch = "refs/heads/";
     if (ref.startsWith(branchMatch)) {
       const branch = ref.slice(branchMatch.length);
-      revs.branches[branch] = rev;
+      commits.branches[branch] = commit;
     }
   }
-  if (revs.head === "") {
-    core4.setFailed(`Failed to fetch HEAD revision for ${repository}`);
+  if (commits.head === "") {
+    core4.setFailed(`Failed to fetch HEAD commit for ${repository}`);
     process.exit(1);
   }
-  return revs;
+  return commits;
 }
 
 // src/index.ts
@@ -64272,14 +64273,14 @@ var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
   core5.startGroup(chalk2.bold(`Installing ${input.crate}...`));
-  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source.version) : await resolveGitRev(input.source);
+  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source.version) : await resolveGitCommit(input.source);
   const install = getInstallSettings(input, version2);
   core5.info("Installation settings:");
   if ("version" in version2) {
     core5.info(`   version: ${version2.version}`);
   } else {
     core5.info(`   repository: ${version2.repository}`);
-    core5.info(`   rev: ${version2.rev}`);
+    core5.info(`   commit: ${version2.commit}`);
   }
   core5.info(`   path: ${install.path}`);
   core5.info(`   key: ${install.cacheKey}`);
@@ -64305,7 +64306,7 @@ async function run() {
   if ("version" in version2) {
     core5.info(chalk2.green(`Installed ${input.crate} ${version2.version}.`));
   } else {
-    core5.info(chalk2.green(`Installed ${input.crate} from ${version2.repository} at ${version2.rev.slice(0, 7)}.`));
+    core5.info(chalk2.green(`Installed ${input.crate} from ${version2.repository} at ${version2.commit.slice(0, 7)}.`));
   }
   core5.setOutput("version", version2);
   core5.setOutput("cache-hit", cacheHit);

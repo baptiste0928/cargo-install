@@ -7,7 +7,7 @@ import { Chalk } from 'chalk'
 import { type ResolvedVersion, getInstallSettings, runCargoInstall } from './install'
 import { parseInput } from './parse'
 import { resolveRegistryVersion } from './resolve/registry'
-import { resolveGitRev } from './resolve/git'
+import { resolveGitCommit } from './resolve/git'
 
 const chalk = new Chalk({ level: 3 })
 
@@ -18,7 +18,7 @@ async function run (): Promise<void> {
   core.startGroup(chalk.bold(`Installing ${input.crate}...`))
   const version: ResolvedVersion = input.source.type === 'registry'
     ? await resolveRegistryVersion(input.crate, input.source.version)
-    : await resolveGitRev(input.source)
+    : await resolveGitCommit(input.source)
 
   const install = getInstallSettings(input, version)
   core.info('Installation settings:')
@@ -26,7 +26,7 @@ async function run (): Promise<void> {
     core.info(`   version: ${version.version}`)
   } else {
     core.info(`   repository: ${version.repository}`)
-    core.info(`   rev: ${version.rev}`)
+    core.info(`   commit: ${version.commit}`)
   }
   core.info(`   path: ${install.path}`)
   core.info(`   key: ${install.cacheKey}`)
@@ -61,7 +61,7 @@ async function run (): Promise<void> {
   if ('version' in version) {
     core.info(chalk.green(`Installed ${input.crate} ${version.version}.`))
   } else {
-    core.info(chalk.green(`Installed ${input.crate} from ${version.repository} at ${version.rev.slice(0, 7)}.`))
+    core.info(chalk.green(`Installed ${input.crate} from ${version.repository} at ${version.commit.slice(0, 7)}.`))
   }
 
   core.setOutput('version', version)

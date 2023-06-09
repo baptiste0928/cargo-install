@@ -35,8 +35,11 @@ inputs:
   tag:
     description: "Tag to install the crate from."
     required: false
-  rev:
-    description: "Revision to install the crate from."
+  commit:
+    description: "Commit to install the crate from."
+    required: false
+  rev: # alias for commit
+    description: "Commit to install the crate from."
     required: false
 
 outputs:

@@ -5,82 +5,82 @@ import * as core from '@actions/core'
 import type { GitSource } from '../parse'
 import type { ResolvedVersion } from '../install'
 
-interface GitRemoteRevs {
+interface GitRemoteCommits {
   head: string
   tags: { [tag: string]: string }
   branches: { [branch: string]: string }
 }
 
-// Resolve the Git source to a specific revision (commit hash)
-export async function resolveGitRev (git: GitSource): Promise<ResolvedVersion> {
-  core.info(`Fetching git revisions for ${git.repository}...`)
-  const revs = await fetchGitRemote(git.repository)
+// Resolve the Git source to a specific commit
+export async function resolveGitCommit (git: GitSource): Promise<ResolvedVersion> {
+  core.info(`Fetching git commits for ${git.repository}...`)
+  const commits = await fetchGitRemote(git.repository)
 
-  if (git.rev !== undefined) {
-    core.info(`Using explicit revision ${git.rev} for ${git.repository}`)
-    return { repository: git.repository, rev: git.rev }
+  if (git.commit !== undefined) {
+    core.info(`Using explicit commit ${git.commit} for ${git.repository}`)
+    return { repository: git.repository, commit: git.commit }
   }
 
   if (git.tag !== undefined) {
-    const rev = revs.tags[git.tag]
-    if (rev === undefined) {
+    const commit = commits.tags[git.tag]
+    if (commit === undefined) {
       core.setFailed(`Failed to resolve tag ${git.tag} for ${git.repository}`)
       process.exit(1)
     }
 
-    core.info(`Resolved tag ${git.tag} to revision ${rev}`)
-    return { repository: git.repository, rev }
+    core.info(`Resolved tag ${git.tag} to commit ${commit}`)
+    return { repository: git.repository, commit }
   }
 
   if (git.branch !== undefined) {
-    const rev = revs.branches[git.branch]
-    if (rev === undefined) {
+    const commit = commits.branches[git.branch]
+    if (commit === undefined) {
       core.setFailed(`Failed to resolve branch ${git.branch} for ${git.repository}`)
       process.exit(1)
     }
 
-    core.info(`Resolved branch ${git.branch} to revision ${rev}`)
-    return { repository: git.repository, rev }
+    core.info(`Resolved branch ${git.branch} to commit ${commit}`)
+    return { repository: git.repository, commit }
   }
 
-  core.info(`Resolved HEAD to revision ${revs.head}`)
-  return { repository: git.repository, rev: revs.head }
+  core.info(`Resolved HEAD to commit ${commits.head}`)
+  return { repository: git.repository, commit: commits.head }
 }
 
-async function fetchGitRemote (repository: string): Promise<GitRemoteRevs> {
+async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
   const commandOutput = new stream.PassThrough()
   await exec.exec('git', ['ls-remote', repository], { outStream: commandOutput })
 
-  const revs: GitRemoteRevs = { head: '', tags: {}, branches: {} }
+  const commits: GitRemoteCommits = { head: '', tags: {}, branches: {} }
   const lines: string[] = commandOutput.read().toString().split('\n')
   for (const line of lines) {
-    const [rev, ref] = line.split('\t')
+    const [commit, ref] = line.split('\t')
 
-    if (rev === '' || ref === '' || ref === undefined) {
+    if (commit === '' || ref === '' || ref === undefined) {
       continue
     }
 
     if (ref === 'HEAD') {
-      revs.head = rev
+      commits.head = commit
     }
 
     const tagMatch = 'refs/tags/'
     if (ref.startsWith(tagMatch)) {
       const tag = ref.slice(tagMatch.length)
-      revs.tags[tag] = rev
+      commits.tags[tag] = commit
     }
 
     const branchMatch = 'refs/heads/'
     if (ref.startsWith(branchMatch)) {
       const branch = ref.slice(branchMatch.length)
-      revs.branches[branch] = rev
+      commits.branches[branch] = commit
     }
   }
 
-  if (revs.head === '') {
-    core.setFailed(`Failed to fetch HEAD revision for ${repository}`)
+  if (commits.head === '') {
+    core.setFailed(`Failed to fetch HEAD commit for ${repository}`)
     process.exit(1)
   }
 
-  return revs
+  return commits
 }

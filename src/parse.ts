@@ -21,7 +21,7 @@ export interface GitSource {
   repository: string
   branch?: string
   tag?: string
-  rev?: string
+  commit?: string
 }
 
 // Parse and validate action input
@@ -51,18 +51,19 @@ export function parseInput (): ActionInput {
   const branch = core.getInput('branch', { required: false })
   const tag = core.getInput('tag', { required: false })
   const rev = core.getInput('rev', { required: false })
+  const commit = core.getInput('commit', { required: false })
 
   let source: CratesIoSource | GitSource = { type: 'registry', version }
   if (repository !== '') {
     source = { type: 'git', repository }
     source.branch = branch !== '' ? branch : undefined
     source.tag = tag !== '' ? tag : undefined
-    source.rev = rev !== '' ? rev : undefined
+    source.commit = commit !== '' ? commit : rev !== '' ? rev : undefined
   }
 
   // Warnings if both crates.io and git are provided
-  if (repository === '' && (branch !== '' || tag !== '' || rev !== '')) {
-    core.warning('Ignoring branch, tag, and rev since git is not provided.')
+  if (repository === '' && (branch !== '' || tag !== '' || commit !== '' || rev !== '')) {
+    core.warning('Ignoring branch, tag, and commit since git is not provided.')
   }
   if (repository !== '' && version !== 'latest') {
     core.warning('Ignoring version since git is provided.')

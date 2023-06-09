@@ -8,7 +8,7 @@ import type { ActionInput } from './parse'
 // Resolved version information for the crate
 export type ResolvedVersion =
   | { version: string }
-  | { repository: string, rev: string }
+  | { repository: string, commit: string }
 
 // Installation settings for the crate (path and cache key)
 export interface InstallSettings {
@@ -54,7 +54,7 @@ function getCacheKey (input: ActionInput, version: ResolvedVersion): string {
   }
 
   const hash = crypto.createHash('sha256').update(hashKey).digest('hex').slice(0, 20)
-  const versionKey = 'version' in version ? version.version : version.rev.slice(0, 7)
+  const versionKey = 'version' in version ? version.version : version.commit.slice(0, 7)
 
   return `cargo-install-${input.crate}-${versionKey}-${hash}`
 }
@@ -65,7 +65,7 @@ export async function runCargoInstall (input: ActionInput, version: ResolvedVers
   if ('version' in version) {
     commandArgs.push('--version', version.version)
   } else {
-    commandArgs.push('--git', version.repository, '--rev', version.rev)
+    commandArgs.push('--git', version.repository, '--rev', version.commit)
   }
 
   if (input.features.length > 0) {
