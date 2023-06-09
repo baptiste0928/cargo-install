@@ -1082,9 +1082,9 @@ var require_lib = __commonJS({
           return this.request("HEAD", requestUrl, null, additionalHeaders || {});
         });
       }
-      sendStream(verb, requestUrl, stream, additionalHeaders) {
+      sendStream(verb, requestUrl, stream2, additionalHeaders) {
         return __awaiter2(this, void 0, void 0, function* () {
-          return this.request(verb, requestUrl, stream, additionalHeaders);
+          return this.request(verb, requestUrl, stream2, additionalHeaders);
         });
       }
       /**
@@ -1136,12 +1136,12 @@ var require_lib = __commonJS({
             throw new Error("Client has already been disposed.");
           }
           const parsedUrl = new URL(requestUrl);
-          let info3 = this._prepareRequest(verb, parsedUrl, headers);
+          let info4 = this._prepareRequest(verb, parsedUrl, headers);
           const maxTries = this._allowRetries && RetryableHttpVerbs.includes(verb) ? this._maxRetries + 1 : 1;
           let numTries = 0;
           let response;
           do {
-            response = yield this.requestRaw(info3, data);
+            response = yield this.requestRaw(info4, data);
             if (response && response.message && response.message.statusCode === HttpCodes.Unauthorized) {
               let authenticationHandler;
               for (const handler of this.handlers) {
@@ -1151,7 +1151,7 @@ var require_lib = __commonJS({
                 }
               }
               if (authenticationHandler) {
-                return authenticationHandler.handleAuthentication(this, info3, data);
+                return authenticationHandler.handleAuthentication(this, info4, data);
               } else {
                 return response;
               }
@@ -1174,8 +1174,8 @@ var require_lib = __commonJS({
                   }
                 }
               }
-              info3 = this._prepareRequest(verb, parsedRedirectUrl, headers);
-              response = yield this.requestRaw(info3, data);
+              info4 = this._prepareRequest(verb, parsedRedirectUrl, headers);
+              response = yield this.requestRaw(info4, data);
               redirectsRemaining--;
             }
             if (!response.message.statusCode || !HttpResponseRetryCodes.includes(response.message.statusCode)) {
@@ -1204,7 +1204,7 @@ var require_lib = __commonJS({
        * @param info
        * @param data
        */
-      requestRaw(info3, data) {
+      requestRaw(info4, data) {
         return __awaiter2(this, void 0, void 0, function* () {
           return new Promise((resolve, reject) => {
             function callbackForResult(err, res) {
@@ -1216,7 +1216,7 @@ var require_lib = __commonJS({
                 resolve(res);
               }
             }
-            this.requestRawWithCallback(info3, data, callbackForResult);
+            this.requestRawWithCallback(info4, data, callbackForResult);
           });
         });
       }
@@ -1226,12 +1226,12 @@ var require_lib = __commonJS({
        * @param data
        * @param onResult
        */
-      requestRawWithCallback(info3, data, onResult) {
+      requestRawWithCallback(info4, data, onResult) {
         if (typeof data === "string") {
-          if (!info3.options.headers) {
-            info3.options.headers = {};
+          if (!info4.options.headers) {
+            info4.options.headers = {};
           }
-          info3.options.headers["Content-Length"] = Buffer.byteLength(data, "utf8");
+          info4.options.headers["Content-Length"] = Buffer.byteLength(data, "utf8");
         }
         let callbackCalled = false;
         function handleResult(err, res) {
@@ -1240,7 +1240,7 @@ var require_lib = __commonJS({
             onResult(err, res);
           }
         }
-        const req = info3.httpModule.request(info3.options, (msg) => {
+        const req = info4.httpModule.request(info4.options, (msg) => {
           const res = new HttpClientResponse(msg);
           handleResult(void 0, res);
         });
@@ -1252,7 +1252,7 @@ var require_lib = __commonJS({
           if (socket) {
             socket.end();
           }
-          handleResult(new Error(`Request timeout: ${info3.options.path}`));
+          handleResult(new Error(`Request timeout: ${info4.options.path}`));
         });
         req.on("error", function(err) {
           handleResult(err);
@@ -1279,27 +1279,27 @@ var require_lib = __commonJS({
         return this._getAgent(parsedUrl);
       }
       _prepareRequest(method, requestUrl, headers) {
-        const info3 = {};
-        info3.parsedUrl = requestUrl;
-        const usingSsl = info3.parsedUrl.protocol === "https:";
-        info3.httpModule = usingSsl ? https : http2;
+        const info4 = {};
+        info4.parsedUrl = requestUrl;
+        const usingSsl = info4.parsedUrl.protocol === "https:";
+        info4.httpModule = usingSsl ? https : http2;
         const defaultPort = usingSsl ? 443 : 80;
-        info3.options = {};
-        info3.options.host = info3.parsedUrl.hostname;
-        info3.options.port = info3.parsedUrl.port ? parseInt(info3.parsedUrl.port) : defaultPort;
-        info3.options.path = (info3.parsedUrl.pathname || "") + (info3.parsedUrl.search || "");
-        info3.options.method = method;
-        info3.options.headers = this._mergeHeaders(headers);
+        info4.options = {};
+        info4.options.host = info4.parsedUrl.hostname;
+        info4.options.port = info4.parsedUrl.port ? parseInt(info4.parsedUrl.port) : defaultPort;
+        info4.options.path = (info4.parsedUrl.pathname || "") + (info4.parsedUrl.search || "");
+        info4.options.method = method;
+        info4.options.headers = this._mergeHeaders(headers);
         if (this.userAgent != null) {
-          info3.options.headers["user-agent"] = this.userAgent;
+          info4.options.headers["user-agent"] = this.userAgent;
         }
-        info3.options.agent = this._getAgent(info3.parsedUrl);
+        info4.options.agent = this._getAgent(info4.parsedUrl);
         if (this.handlers) {
           for (const handler of this.handlers) {
-            handler.prepareRequest(info3.options);
+            handler.prepareRequest(info4.options);
           }
         }
-        return info3;
+        return info4;
       }
       _mergeHeaders(headers) {
         if (this.requestOptions && this.requestOptions.headers) {
@@ -2118,11 +2118,11 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issue("echo", enabled ? "on" : "off");
     }
     exports.setCommandEcho = setCommandEcho;
-    function setFailed5(message) {
+    function setFailed6(message) {
       process.exitCode = ExitCode.Failure;
       error(message);
     }
-    exports.setFailed = setFailed5;
+    exports.setFailed = setFailed6;
     function isDebug() {
       return process.env["RUNNER_DEBUG"] === "1";
     }
@@ -2135,18 +2135,18 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issueCommand("error", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
     exports.error = error;
-    function warning3(message, properties = {}) {
+    function warning4(message, properties = {}) {
       command_1.issueCommand("warning", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
-    exports.warning = warning3;
+    exports.warning = warning4;
     function notice(message, properties = {}) {
       command_1.issueCommand("notice", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
     exports.notice = notice;
-    function info3(message) {
+    function info4(message) {
       process.stdout.write(message + os2.EOL);
     }
-    exports.info = info3;
+    exports.info = info4;
     function startGroup2(name) {
       command_1.issue("group", name);
     }
@@ -3190,7 +3190,7 @@ var require_exec = __commonJS({
     exports.getExecOutput = exports.exec = void 0;
     var string_decoder_1 = require("string_decoder");
     var tr = __importStar2(require_toolrunner());
-    function exec3(commandLine, args, options) {
+    function exec5(commandLine, args, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const commandArgs = tr.argStringToArray(commandLine);
         if (commandArgs.length === 0) {
@@ -3202,7 +3202,7 @@ var require_exec = __commonJS({
         return runner.exec();
       });
     }
-    exports.exec = exec3;
+    exports.exec = exec5;
     function getExecOutput(commandLine, args, options) {
       var _a, _b;
       return __awaiter2(this, void 0, void 0, function* () {
@@ -3225,7 +3225,7 @@ var require_exec = __commonJS({
           }
         };
         const listeners = Object.assign(Object.assign({}, options === null || options === void 0 ? void 0 : options.listeners), { stdout: stdOutListener, stderr: stdErrListener });
-        const exitCode = yield exec3(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
+        const exitCode = yield exec5(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
         stdout += stdoutDecoder.end();
         stderr += stderrDecoder.end();
         return {
@@ -3273,7 +3273,7 @@ var require_internal_glob_options_helper = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getOptions = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     function getOptions(copy) {
       const result = {
         followSymbolicLinks: true,
@@ -3283,15 +3283,15 @@ var require_internal_glob_options_helper = __commonJS({
       if (copy) {
         if (typeof copy.followSymbolicLinks === "boolean") {
           result.followSymbolicLinks = copy.followSymbolicLinks;
-          core5.debug(`followSymbolicLinks '${result.followSymbolicLinks}'`);
+          core6.debug(`followSymbolicLinks '${result.followSymbolicLinks}'`);
         }
         if (typeof copy.implicitDescendants === "boolean") {
           result.implicitDescendants = copy.implicitDescendants;
-          core5.debug(`implicitDescendants '${result.implicitDescendants}'`);
+          core6.debug(`implicitDescendants '${result.implicitDescendants}'`);
         }
         if (typeof copy.omitBrokenSymbolicLinks === "boolean") {
           result.omitBrokenSymbolicLinks = copy.omitBrokenSymbolicLinks;
-          core5.debug(`omitBrokenSymbolicLinks '${result.omitBrokenSymbolicLinks}'`);
+          core6.debug(`omitBrokenSymbolicLinks '${result.omitBrokenSymbolicLinks}'`);
         }
       }
       return result;
@@ -4799,7 +4799,7 @@ var require_internal_globber = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DefaultGlobber = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var fs = __importStar2(require("fs"));
     var globOptionsHelper = __importStar2(require_internal_glob_options_helper());
     var path3 = __importStar2(require("path"));
@@ -4852,7 +4852,7 @@ var require_internal_globber = __commonJS({
           }
           const stack = [];
           for (const searchPath of patternHelper.getSearchPaths(patterns)) {
-            core5.debug(`Search path '${searchPath}'`);
+            core6.debug(`Search path '${searchPath}'`);
             try {
               yield __await2(fs.promises.lstat(searchPath));
             } catch (err) {
@@ -4924,7 +4924,7 @@ var require_internal_globber = __commonJS({
             } catch (err) {
               if (err.code === "ENOENT") {
                 if (options.omitBrokenSymbolicLinks) {
-                  core5.debug(`Broken symlink '${item.path}'`);
+                  core6.debug(`Broken symlink '${item.path}'`);
                   return void 0;
                 }
                 throw new Error(`No information found for the path '${item.path}'. This may indicate a broken symbolic link.`);
@@ -4940,7 +4940,7 @@ var require_internal_globber = __commonJS({
               traversalChain.pop();
             }
             if (traversalChain.some((x) => x === realPath)) {
-              core5.debug(`Symlink cycle detected for path '${item.path}' and realpath '${realPath}'`);
+              core6.debug(`Symlink cycle detected for path '${item.path}' and realpath '${realPath}'`);
               return void 0;
             }
             traversalChain.push(realPath);
@@ -6396,8 +6396,8 @@ var require_cacheUtils = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.isGhes = exports.assertDefined = exports.getGnuTarPathOnWindows = exports.getCacheFileName = exports.getCompressionMethod = exports.unlinkFile = exports.resolvePaths = exports.getArchiveFileSizeInBytes = exports.createTempDirectory = void 0;
-    var core5 = __importStar2(require_core());
-    var exec3 = __importStar2(require_exec());
+    var core6 = __importStar2(require_core());
+    var exec5 = __importStar2(require_exec());
     var glob = __importStar2(require_glob());
     var io2 = __importStar2(require_io());
     var fs = __importStar2(require("fs"));
@@ -6446,7 +6446,7 @@ var require_cacheUtils = __commonJS({
           for (var _c = __asyncValues2(globber.globGenerator()), _d; _d = yield _c.next(), !_d.done; ) {
             const file = _d.value;
             const relativeFile = path3.relative(workspace, file).replace(new RegExp(`\\${path3.sep}`, "g"), "/");
-            core5.debug(`Matched: ${relativeFile}`);
+            core6.debug(`Matched: ${relativeFile}`);
             if (relativeFile === "") {
               paths.push(".");
             } else {
@@ -6478,9 +6478,9 @@ var require_cacheUtils = __commonJS({
       return __awaiter2(this, void 0, void 0, function* () {
         let versionOutput = "";
         additionalArgs.push("--version");
-        core5.debug(`Checking ${app} ${additionalArgs.join(" ")}`);
+        core6.debug(`Checking ${app} ${additionalArgs.join(" ")}`);
         try {
-          yield exec3.exec(`${app}`, additionalArgs, {
+          yield exec5.exec(`${app}`, additionalArgs, {
             ignoreReturnCode: true,
             silent: true,
             listeners: {
@@ -6489,10 +6489,10 @@ var require_cacheUtils = __commonJS({
             }
           });
         } catch (err) {
-          core5.debug(err.message);
+          core6.debug(err.message);
         }
         versionOutput = versionOutput.trim();
-        core5.debug(versionOutput);
+        core6.debug(versionOutput);
         return versionOutput;
       });
     }
@@ -6500,7 +6500,7 @@ var require_cacheUtils = __commonJS({
       return __awaiter2(this, void 0, void 0, function* () {
         const versionOutput = yield getVersion("zstd", ["--quiet"]);
         const version2 = semver4.clean(versionOutput);
-        core5.debug(`zstd version: ${version2}`);
+        core6.debug(`zstd version: ${version2}`);
         if (versionOutput === "") {
           return constants_1.CompressionMethod.Gzip;
         } else {
@@ -10704,8 +10704,8 @@ var require_XMLStreamWriter = __commonJS({
       WriterState = require_WriterState();
       module2.exports = XMLStreamWriter = function(superClass) {
         extend(XMLStreamWriter2, superClass);
-        function XMLStreamWriter2(stream, options) {
-          this.stream = stream;
+        function XMLStreamWriter2(stream2, options) {
+          this.stream = stream2;
           XMLStreamWriter2.__super__.constructor.call(this, options);
         }
         XMLStreamWriter2.prototype.endline = function(node, options, level) {
@@ -10895,8 +10895,8 @@ var require_lib2 = __commonJS({
       module2.exports.stringWriter = function(options) {
         return new XMLStringWriter(options);
       };
-      module2.exports.streamWriter = function(stream, options) {
-        return new XMLStreamWriter(stream, options);
+      module2.exports.streamWriter = function(stream2, options) {
+        return new XMLStreamWriter(stream2, options);
       };
       module2.exports.implementation = new XMLDOMImplementation();
       module2.exports.nodeType = NodeType;
@@ -13689,26 +13689,26 @@ var require_combined_stream = __commonJS({
       }
       return combinedStream;
     };
-    CombinedStream.isStreamLike = function(stream) {
-      return typeof stream !== "function" && typeof stream !== "string" && typeof stream !== "boolean" && typeof stream !== "number" && !Buffer.isBuffer(stream);
+    CombinedStream.isStreamLike = function(stream2) {
+      return typeof stream2 !== "function" && typeof stream2 !== "string" && typeof stream2 !== "boolean" && typeof stream2 !== "number" && !Buffer.isBuffer(stream2);
     };
-    CombinedStream.prototype.append = function(stream) {
-      var isStreamLike = CombinedStream.isStreamLike(stream);
+    CombinedStream.prototype.append = function(stream2) {
+      var isStreamLike = CombinedStream.isStreamLike(stream2);
       if (isStreamLike) {
-        if (!(stream instanceof DelayedStream)) {
-          var newStream = DelayedStream.create(stream, {
+        if (!(stream2 instanceof DelayedStream)) {
+          var newStream = DelayedStream.create(stream2, {
             maxDataSize: Infinity,
             pauseStream: this.pauseStreams
           });
-          stream.on("data", this._checkDataSize.bind(this));
-          stream = newStream;
+          stream2.on("data", this._checkDataSize.bind(this));
+          stream2 = newStream;
         }
-        this._handleErrors(stream);
+        this._handleErrors(stream2);
         if (this.pauseStreams) {
-          stream.pause();
+          stream2.pause();
         }
       }
-      this._streams.push(stream);
+      this._streams.push(stream2);
       return this;
     };
     CombinedStream.prototype.pipe = function(dest, options) {
@@ -13733,40 +13733,40 @@ var require_combined_stream = __commonJS({
       }
     };
     CombinedStream.prototype._realGetNext = function() {
-      var stream = this._streams.shift();
-      if (typeof stream == "undefined") {
+      var stream2 = this._streams.shift();
+      if (typeof stream2 == "undefined") {
         this.end();
         return;
       }
-      if (typeof stream !== "function") {
-        this._pipeNext(stream);
+      if (typeof stream2 !== "function") {
+        this._pipeNext(stream2);
         return;
       }
-      var getStream = stream;
-      getStream(function(stream2) {
-        var isStreamLike = CombinedStream.isStreamLike(stream2);
+      var getStream = stream2;
+      getStream(function(stream3) {
+        var isStreamLike = CombinedStream.isStreamLike(stream3);
         if (isStreamLike) {
-          stream2.on("data", this._checkDataSize.bind(this));
-          this._handleErrors(stream2);
+          stream3.on("data", this._checkDataSize.bind(this));
+          this._handleErrors(stream3);
         }
-        this._pipeNext(stream2);
+        this._pipeNext(stream3);
       }.bind(this));
     };
-    CombinedStream.prototype._pipeNext = function(stream) {
-      this._currentStream = stream;
-      var isStreamLike = CombinedStream.isStreamLike(stream);
+    CombinedStream.prototype._pipeNext = function(stream2) {
+      this._currentStream = stream2;
+      var isStreamLike = CombinedStream.isStreamLike(stream2);
       if (isStreamLike) {
-        stream.on("end", this._getNext.bind(this));
-        stream.pipe(this, { end: false });
+        stream2.on("end", this._getNext.bind(this));
+        stream2.pipe(this, { end: false });
         return;
       }
-      var value = stream;
+      var value = stream2;
       this.write(value);
       this._getNext();
     };
-    CombinedStream.prototype._handleErrors = function(stream) {
+    CombinedStream.prototype._handleErrors = function(stream2) {
       var self = this;
-      stream.on("error", function(err) {
+      stream2.on("error", function(err) {
         self._emitError(err);
       });
     };
@@ -13815,11 +13815,11 @@ var require_combined_stream = __commonJS({
     CombinedStream.prototype._updateDataSize = function() {
       this.dataSize = 0;
       var self = this;
-      this._streams.forEach(function(stream) {
-        if (!stream.dataSize) {
+      this._streams.forEach(function(stream2) {
+        if (!stream2.dataSize) {
           return;
         }
-        self.dataSize += stream.dataSize;
+        self.dataSize += stream2.dataSize;
       });
       if (this._currentStream && this._currentStream.dataSize) {
         this.dataSize += this._currentStream.dataSize;
@@ -22430,7 +22430,7 @@ var require_mime_types = __commonJS({
       }
       return exports.types[extension2] || false;
     }
-    function populateMaps(extensions, types2) {
+    function populateMaps(extensions, types) {
       var preference = ["nginx", "apache", void 0, "iana"];
       Object.keys(db).forEach(function forEachMimeType(type2) {
         var mime = db[type2];
@@ -22441,14 +22441,14 @@ var require_mime_types = __commonJS({
         extensions[type2] = exts;
         for (var i = 0; i < exts.length; i++) {
           var extension2 = exts[i];
-          if (types2[extension2]) {
-            var from = preference.indexOf(db[types2[extension2]].source);
+          if (types[extension2]) {
+            var from = preference.indexOf(db[types[extension2]].source);
             var to = preference.indexOf(mime.source);
-            if (types2[extension2] !== "application/octet-stream" && (from > to || from === to && types2[extension2].substr(0, 12) === "application/")) {
+            if (types[extension2] !== "application/octet-stream" && (from > to || from === to && types[extension2].substr(0, 12) === "application/")) {
               continue;
             }
           }
-          types2[extension2] = type2;
+          types[extension2] = type2;
         }
       });
     }
@@ -25993,12 +25993,12 @@ var require_lib4 = __commonJS({
         }
       });
     }
-    function destroyStream(stream, err) {
-      if (stream.destroy) {
-        stream.destroy(err);
+    function destroyStream(stream2, err) {
+      if (stream2.destroy) {
+        stream2.destroy(err);
       } else {
-        stream.emit("error", err);
-        stream.end();
+        stream2.emit("error", err);
+        stream2.end();
       }
     }
     fetch.isRedirect = function(code) {
@@ -27802,7 +27802,7 @@ var require_dist6 = __commonJS({
     var https = require("https");
     var abortController = require_dist();
     var tunnel = require_tunnel2();
-    var stream = require("stream");
+    var stream2 = require("stream");
     var FormData = require_form_data();
     var node_fetch = require_lib4();
     var coreTracing = require_dist5();
@@ -29790,7 +29790,7 @@ var require_dist6 = __commonJS({
     function getCachedAgent(isHttps, agentCache) {
       return isHttps ? agentCache.httpsAgent : agentCache.httpAgent;
     }
-    var ReportTransform = class extends stream.Transform {
+    var ReportTransform = class extends stream2.Transform {
       constructor(progressCallback) {
         super();
         this.progressCallback = progressCallback;
@@ -29806,14 +29806,14 @@ var require_dist6 = __commonJS({
     function isReadableStream(body) {
       return body && typeof body.pipe === "function";
     }
-    function isStreamComplete(stream2, aborter) {
+    function isStreamComplete(stream3, aborter) {
       return new Promise((resolve) => {
-        stream2.once("close", () => {
+        stream3.once("close", () => {
           aborter === null || aborter === void 0 ? void 0 : aborter.abort();
           resolve();
         });
-        stream2.once("end", resolve);
-        stream2.once("error", resolve);
+        stream3.once("end", resolve);
+        stream3.once("error", resolve);
       });
     }
     function parseHeaders(headers) {
@@ -30624,9 +30624,9 @@ var require_dist6 = __commonJS({
       return [msRestRuntime];
     }
     function getUserAgentString(telemetryInfo, keySeparator = " ", valueSeparator = "/") {
-      return telemetryInfo.map((info3) => {
-        const value = info3.value ? `${valueSeparator}${info3.value}` : "";
-        return `${info3.key}${value}`;
+      return telemetryInfo.map((info4) => {
+        const value = info4.value ? `${valueSeparator}${info4.value}` : "";
+        return `${info4.key}${value}`;
       }).join(keySeparator);
     }
     var getDefaultUserAgentHeaderName = getDefaultUserAgentKey;
@@ -33139,7 +33139,7 @@ var require_dist9 = __commonJS({
     var abortController = require_dist();
     var os2 = require("os");
     var crypto5 = require("crypto");
-    var stream = require("stream");
+    var stream2 = require("stream");
     require_dist7();
     var coreLro = require_dist8();
     var events = require("events");
@@ -48937,7 +48937,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var RetriableReadableStream = class extends stream.Readable {
+    var RetriableReadableStream = class extends stream2.Readable {
       /**
        * Creates an instance of RetriableReadableStream.
        *
@@ -49481,8 +49481,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param length -
        * @param options -
        */
-      static async readFixedBytes(stream2, length, options = {}) {
-        const bytes = await stream2.read(length, { abortSignal: options.abortSignal });
+      static async readFixedBytes(stream3, length, options = {}) {
+        const bytes = await stream3.read(length, { abortSignal: options.abortSignal });
         if (bytes.length !== length) {
           throw new Error("Hit stream end.");
         }
@@ -49494,19 +49494,19 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param stream -
        * @param options -
        */
-      static async readByte(stream2, options = {}) {
-        const buf = await AvroParser.readFixedBytes(stream2, 1, options);
+      static async readByte(stream3, options = {}) {
+        const buf = await AvroParser.readFixedBytes(stream3, 1, options);
         return buf[0];
       }
       // int and long are stored in variable-length zig-zag coding.
       // variable-length: https://lucene.apache.org/core/3_5_0/fileformats.html#VInt
       // zig-zag: https://developers.google.com/protocol-buffers/docs/encoding?csw=1#types
-      static async readZigZagLong(stream2, options = {}) {
+      static async readZigZagLong(stream3, options = {}) {
         let zigZagEncoded = 0;
         let significanceInBit = 0;
         let byte, haveMoreByte, significanceInFloat;
         do {
-          byte = await AvroParser.readByte(stream2, options);
+          byte = await AvroParser.readByte(stream3, options);
           haveMoreByte = byte & 128;
           zigZagEncoded |= (byte & 127) << significanceInBit;
           significanceInBit += 7;
@@ -49515,7 +49515,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           zigZagEncoded = zigZagEncoded;
           significanceInFloat = 268435456;
           do {
-            byte = await AvroParser.readByte(stream2, options);
+            byte = await AvroParser.readByte(stream3, options);
             zigZagEncoded += (byte & 127) * significanceInFloat;
             significanceInFloat *= 128;
           } while (byte & 128);
@@ -49527,17 +49527,17 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
         return zigZagEncoded >> 1 ^ -(zigZagEncoded & 1);
       }
-      static async readLong(stream2, options = {}) {
-        return AvroParser.readZigZagLong(stream2, options);
+      static async readLong(stream3, options = {}) {
+        return AvroParser.readZigZagLong(stream3, options);
       }
-      static async readInt(stream2, options = {}) {
-        return AvroParser.readZigZagLong(stream2, options);
+      static async readInt(stream3, options = {}) {
+        return AvroParser.readZigZagLong(stream3, options);
       }
       static async readNull() {
         return null;
       }
-      static async readBoolean(stream2, options = {}) {
-        const b = await AvroParser.readByte(stream2, options);
+      static async readBoolean(stream3, options = {}) {
+        const b = await AvroParser.readByte(stream3, options);
         if (b === 1) {
           return true;
         } else if (b === 0) {
@@ -49546,53 +49546,53 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           throw new Error("Byte was not a boolean.");
         }
       }
-      static async readFloat(stream2, options = {}) {
-        const u8arr = await AvroParser.readFixedBytes(stream2, 4, options);
+      static async readFloat(stream3, options = {}) {
+        const u8arr = await AvroParser.readFixedBytes(stream3, 4, options);
         const view = new DataView(u8arr.buffer, u8arr.byteOffset, u8arr.byteLength);
         return view.getFloat32(0, true);
       }
-      static async readDouble(stream2, options = {}) {
-        const u8arr = await AvroParser.readFixedBytes(stream2, 8, options);
+      static async readDouble(stream3, options = {}) {
+        const u8arr = await AvroParser.readFixedBytes(stream3, 8, options);
         const view = new DataView(u8arr.buffer, u8arr.byteOffset, u8arr.byteLength);
         return view.getFloat64(0, true);
       }
-      static async readBytes(stream2, options = {}) {
-        const size = await AvroParser.readLong(stream2, options);
+      static async readBytes(stream3, options = {}) {
+        const size = await AvroParser.readLong(stream3, options);
         if (size < 0) {
           throw new Error("Bytes size was negative.");
         }
-        return stream2.read(size, { abortSignal: options.abortSignal });
+        return stream3.read(size, { abortSignal: options.abortSignal });
       }
-      static async readString(stream2, options = {}) {
-        const u8arr = await AvroParser.readBytes(stream2, options);
+      static async readString(stream3, options = {}) {
+        const u8arr = await AvroParser.readBytes(stream3, options);
         const utf8decoder = new TextDecoder();
         return utf8decoder.decode(u8arr);
       }
-      static async readMapPair(stream2, readItemMethod, options = {}) {
-        const key = await AvroParser.readString(stream2, options);
-        const value = await readItemMethod(stream2, options);
+      static async readMapPair(stream3, readItemMethod, options = {}) {
+        const key = await AvroParser.readString(stream3, options);
+        const value = await readItemMethod(stream3, options);
         return { key, value };
       }
-      static async readMap(stream2, readItemMethod, options = {}) {
+      static async readMap(stream3, readItemMethod, options = {}) {
         const readPairMethod = (s, opts = {}) => {
           return AvroParser.readMapPair(s, readItemMethod, opts);
         };
-        const pairs = await AvroParser.readArray(stream2, readPairMethod, options);
+        const pairs = await AvroParser.readArray(stream3, readPairMethod, options);
         const dict = {};
         for (const pair of pairs) {
           dict[pair.key] = pair.value;
         }
         return dict;
       }
-      static async readArray(stream2, readItemMethod, options = {}) {
+      static async readArray(stream3, readItemMethod, options = {}) {
         const items = [];
-        for (let count = await AvroParser.readLong(stream2, options); count !== 0; count = await AvroParser.readLong(stream2, options)) {
+        for (let count = await AvroParser.readLong(stream3, options); count !== 0; count = await AvroParser.readLong(stream3, options)) {
           if (count < 0) {
-            await AvroParser.readLong(stream2, options);
+            await AvroParser.readLong(stream3, options);
             count = -count;
           }
           while (count--) {
-            const item = await readItemMethod(stream2, options);
+            const item = await readItemMethod(stream3, options);
             items.push(item);
           }
         }
@@ -49697,24 +49697,24 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._primitive = primitive;
       }
-      read(stream2, options = {}) {
+      read(stream3, options = {}) {
         switch (this._primitive) {
           case AvroPrimitive.NULL:
             return AvroParser.readNull();
           case AvroPrimitive.BOOLEAN:
-            return AvroParser.readBoolean(stream2, options);
+            return AvroParser.readBoolean(stream3, options);
           case AvroPrimitive.INT:
-            return AvroParser.readInt(stream2, options);
+            return AvroParser.readInt(stream3, options);
           case AvroPrimitive.LONG:
-            return AvroParser.readLong(stream2, options);
+            return AvroParser.readLong(stream3, options);
           case AvroPrimitive.FLOAT:
-            return AvroParser.readFloat(stream2, options);
+            return AvroParser.readFloat(stream3, options);
           case AvroPrimitive.DOUBLE:
-            return AvroParser.readDouble(stream2, options);
+            return AvroParser.readDouble(stream3, options);
           case AvroPrimitive.BYTES:
-            return AvroParser.readBytes(stream2, options);
+            return AvroParser.readBytes(stream3, options);
           case AvroPrimitive.STRING:
-            return AvroParser.readString(stream2, options);
+            return AvroParser.readString(stream3, options);
           default:
             throw new Error("Unknown Avro Primitive");
         }
@@ -49725,19 +49725,19 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._symbols = symbols;
       }
-      async read(stream2, options = {}) {
-        const value = await AvroParser.readInt(stream2, options);
+      async read(stream3, options = {}) {
+        const value = await AvroParser.readInt(stream3, options);
         return this._symbols[value];
       }
     };
     var AvroUnionType = class extends AvroType {
-      constructor(types2) {
+      constructor(types) {
         super();
-        this._types = types2;
+        this._types = types;
       }
-      async read(stream2, options = {}) {
-        const typeIndex = await AvroParser.readInt(stream2, options);
-        return this._types[typeIndex].read(stream2, options);
+      async read(stream3, options = {}) {
+        const typeIndex = await AvroParser.readInt(stream3, options);
+        return this._types[typeIndex].read(stream3, options);
       }
     };
     var AvroMapType = class extends AvroType {
@@ -49745,11 +49745,11 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._itemType = itemType;
       }
-      read(stream2, options = {}) {
+      read(stream3, options = {}) {
         const readItemMethod = (s, opts) => {
           return this._itemType.read(s, opts);
         };
-        return AvroParser.readMap(stream2, readItemMethod, options);
+        return AvroParser.readMap(stream3, readItemMethod, options);
       }
     };
     var AvroRecordType = class extends AvroType {
@@ -49758,12 +49758,12 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this._fields = fields;
         this._name = name;
       }
-      async read(stream2, options = {}) {
+      async read(stream3, options = {}) {
         const record = {};
         record["$schema"] = this._name;
         for (const key in this._fields) {
           if (Object.prototype.hasOwnProperty.call(this._fields, key)) {
-            record[key] = await this._fields[key].read(stream2, options);
+            record[key] = await this._fields[key].read(stream3, options);
           }
         }
         return record;
@@ -49944,7 +49944,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var BlobQuickQueryStream = class extends stream.Readable {
+    var BlobQuickQueryStream = class extends stream2.Readable {
       /**
        * Creates an instance of BlobQuickQueryStream.
        *
@@ -50647,7 +50647,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var BuffersStream = class extends stream.Readable {
+    var BuffersStream = class extends stream2.Readable {
       /**
        * Creates an instance of BuffersStream that will emit the data
        * contained in the array of buffers.
@@ -50962,18 +50962,18 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    async function streamToBuffer(stream2, buffer, offset, end, encoding) {
+    async function streamToBuffer(stream3, buffer, offset, end, encoding) {
       let pos = 0;
       const count = end - offset;
       return new Promise((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error(`The operation cannot be completed in timeout.`)), REQUEST_TIMEOUT);
-        stream2.on("readable", () => {
+        stream3.on("readable", () => {
           if (pos >= count) {
             clearTimeout(timeout);
             resolve();
             return;
           }
-          let chunk = stream2.read();
+          let chunk = stream3.read();
           if (!chunk) {
             return;
           }
@@ -50984,25 +50984,25 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           buffer.fill(chunk.slice(0, chunkLength), offset + pos, offset + pos + chunkLength);
           pos += chunkLength;
         });
-        stream2.on("end", () => {
+        stream3.on("end", () => {
           clearTimeout(timeout);
           if (pos < count) {
             reject(new Error(`Stream drains before getting enough data needed. Data read: ${pos}, data need: ${count}`));
           }
           resolve();
         });
-        stream2.on("error", (msg) => {
+        stream3.on("error", (msg) => {
           clearTimeout(timeout);
           reject(msg);
         });
       });
     }
-    async function streamToBuffer2(stream2, buffer, encoding) {
+    async function streamToBuffer2(stream3, buffer, encoding) {
       let pos = 0;
       const bufferSize = buffer.length;
       return new Promise((resolve, reject) => {
-        stream2.on("readable", () => {
-          let chunk = stream2.read();
+        stream3.on("readable", () => {
+          let chunk = stream3.read();
           if (!chunk) {
             return;
           }
@@ -51016,10 +51016,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           buffer.fill(chunk, pos, pos + chunk.length);
           pos += chunk.length;
         });
-        stream2.on("end", () => {
+        stream3.on("end", () => {
           resolve(pos);
         });
-        stream2.on("error", reject);
+        stream3.on("error", reject);
       });
     }
     async function readStreamToLocalFile(rs, file) {
@@ -51771,8 +51771,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 customerProvidedKey: options.customerProvidedKey,
                 tracingOptions: Object.assign(Object.assign({}, options.tracingOptions), convertTracingToRequestOptionsBase(updatedOptions))
               });
-              const stream2 = response.readableStreamBody;
-              await streamToBuffer(stream2, buffer, off - offset, chunkEnd - offset);
+              const stream3 = response.readableStreamBody;
+              await streamToBuffer(stream3, buffer, off - offset, chunkEnd - offset);
               transferProgress += chunkEnd - off;
               if (options.onProgress) {
                 options.onProgress({ loadedBytes: transferProgress });
@@ -52734,7 +52734,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param options - Options to Upload Stream to Block Blob operation.
        * @returns Response data for the Blob Upload operation.
        */
-      async uploadStream(stream2, bufferSize = DEFAULT_BLOCK_BUFFER_SIZE_BYTES, maxConcurrency = 5, options = {}) {
+      async uploadStream(stream3, bufferSize = DEFAULT_BLOCK_BUFFER_SIZE_BYTES, maxConcurrency = 5, options = {}) {
         if (!options.blobHTTPHeaders) {
           options.blobHTTPHeaders = {};
         }
@@ -52748,7 +52748,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           let transferProgress = 0;
           const blockList = [];
           const scheduler = new BufferScheduler(
-            stream2,
+            stream3,
             bufferSize,
             maxConcurrency,
             async (body2, length) => {
@@ -56396,7 +56396,7 @@ var require_requestUtils = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.retryHttpClientResponse = exports.retryTypedResponse = exports.retry = exports.isRetryableStatusCode = exports.isServerErrorStatusCode = exports.isSuccessStatusCode = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var constants_1 = require_constants();
     function isSuccessStatusCode(statusCode) {
@@ -56457,9 +56457,9 @@ var require_requestUtils = __commonJS({
             isRetryable = isRetryableStatusCode(statusCode);
             errorMessage = `Cache service responded with ${statusCode}`;
           }
-          core5.debug(`${name} - Attempt ${attempt} of ${maxAttempts} failed with error: ${errorMessage}`);
+          core6.debug(`${name} - Attempt ${attempt} of ${maxAttempts} failed with error: ${errorMessage}`);
           if (!isRetryable) {
-            core5.debug(`${name} - Error is not retryable`);
+            core6.debug(`${name} - Error is not retryable`);
             break;
           }
           yield sleep(delay);
@@ -56569,12 +56569,12 @@ var require_downloadUtils = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.downloadCacheStorageSDK = exports.downloadCacheHttpClient = exports.DownloadProgress = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var storage_blob_1 = require_dist9();
     var buffer = __importStar2(require("buffer"));
     var fs = __importStar2(require("fs"));
-    var stream = __importStar2(require("stream"));
+    var stream2 = __importStar2(require("stream"));
     var util = __importStar2(require("util"));
     var utils = __importStar2(require_cacheUtils());
     var constants_1 = require_constants();
@@ -56582,7 +56582,7 @@ var require_downloadUtils = __commonJS({
     var abort_controller_1 = require_dist();
     function pipeResponseToStream(response, output) {
       return __awaiter2(this, void 0, void 0, function* () {
-        const pipeline = util.promisify(stream.pipeline);
+        const pipeline = util.promisify(stream2.pipeline);
         yield pipeline(response.message, output);
       });
     }
@@ -56607,7 +56607,7 @@ var require_downloadUtils = __commonJS({
         this.segmentIndex = this.segmentIndex + 1;
         this.segmentSize = segmentSize;
         this.receivedBytes = 0;
-        core5.debug(`Downloading segment at offset ${this.segmentOffset} with length ${this.segmentSize}...`);
+        core6.debug(`Downloading segment at offset ${this.segmentOffset} with length ${this.segmentSize}...`);
       }
       /**
        * Sets the number of bytes received for the current segment.
@@ -56641,7 +56641,7 @@ var require_downloadUtils = __commonJS({
         const percentage = (100 * (transferredBytes / this.contentLength)).toFixed(1);
         const elapsedTime = Date.now() - this.startTime;
         const downloadSpeed = (transferredBytes / (1024 * 1024) / (elapsedTime / 1e3)).toFixed(1);
-        core5.info(`Received ${transferredBytes} of ${this.contentLength} (${percentage}%), ${downloadSpeed} MBs/sec`);
+        core6.info(`Received ${transferredBytes} of ${this.contentLength} (${percentage}%), ${downloadSpeed} MBs/sec`);
         if (this.isDone()) {
           this.displayedComplete = true;
         }
@@ -56691,7 +56691,7 @@ var require_downloadUtils = __commonJS({
         }));
         downloadResponse.message.socket.setTimeout(constants_1.SocketTimeout, () => {
           downloadResponse.message.destroy();
-          core5.debug(`Aborting download, socket timed out after ${constants_1.SocketTimeout} ms`);
+          core6.debug(`Aborting download, socket timed out after ${constants_1.SocketTimeout} ms`);
         });
         yield pipeResponseToStream(downloadResponse, writeStream);
         const contentLengthHeader = downloadResponse.message.headers["content-length"];
@@ -56702,7 +56702,7 @@ var require_downloadUtils = __commonJS({
             throw new Error(`Incomplete download. Expected file size: ${expectedLength}, actual file size: ${actualLength}`);
           }
         } else {
-          core5.debug("Unable to validate download, no Content-Length header");
+          core6.debug("Unable to validate download, no Content-Length header");
         }
       });
     }
@@ -56720,7 +56720,7 @@ var require_downloadUtils = __commonJS({
         const properties = yield client.getProperties();
         const contentLength = (_a = properties.contentLength) !== null && _a !== void 0 ? _a : -1;
         if (contentLength < 0) {
-          core5.debug("Unable to determine content length, downloading file with http-client...");
+          core6.debug("Unable to determine content length, downloading file with http-client...");
           yield downloadCacheHttpClient(archiveLocation, archivePath);
         } else {
           const maxSegmentSize = Math.min(134217728, buffer.constants.MAX_LENGTH);
@@ -56805,7 +56805,7 @@ var require_options = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.getDownloadOptions = exports.getUploadOptions = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     function getUploadOptions(copy) {
       const result = {
         uploadConcurrency: 4,
@@ -56819,8 +56819,8 @@ var require_options = __commonJS({
           result.uploadChunkSize = copy.uploadChunkSize;
         }
       }
-      core5.debug(`Upload concurrency: ${result.uploadConcurrency}`);
-      core5.debug(`Upload chunk size: ${result.uploadChunkSize}`);
+      core6.debug(`Upload concurrency: ${result.uploadConcurrency}`);
+      core6.debug(`Upload chunk size: ${result.uploadChunkSize}`);
       return result;
     }
     exports.getUploadOptions = getUploadOptions;
@@ -56853,12 +56853,12 @@ var require_options = __commonJS({
       if (segmentDownloadTimeoutMins && !isNaN(Number(segmentDownloadTimeoutMins)) && isFinite(Number(segmentDownloadTimeoutMins))) {
         result.segmentTimeoutInMs = Number(segmentDownloadTimeoutMins) * 60 * 1e3;
       }
-      core5.debug(`Use Azure SDK: ${result.useAzureSdk}`);
-      core5.debug(`Download concurrency: ${result.downloadConcurrency}`);
-      core5.debug(`Request timeout (ms): ${result.timeoutInMs}`);
-      core5.debug(`Cache segment download timeout mins env var: ${process.env["SEGMENT_DOWNLOAD_TIMEOUT_MINS"]}`);
-      core5.debug(`Segment download timeout (ms): ${result.segmentTimeoutInMs}`);
-      core5.debug(`Lookup only: ${result.lookupOnly}`);
+      core6.debug(`Use Azure SDK: ${result.useAzureSdk}`);
+      core6.debug(`Download concurrency: ${result.downloadConcurrency}`);
+      core6.debug(`Request timeout (ms): ${result.timeoutInMs}`);
+      core6.debug(`Cache segment download timeout mins env var: ${process.env["SEGMENT_DOWNLOAD_TIMEOUT_MINS"]}`);
+      core6.debug(`Segment download timeout (ms): ${result.segmentTimeoutInMs}`);
+      core6.debug(`Lookup only: ${result.lookupOnly}`);
       return result;
     }
     exports.getDownloadOptions = getDownloadOptions;
@@ -56930,7 +56930,7 @@ var require_cacheHttpClient = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.saveCache = exports.reserveCache = exports.downloadCache = exports.getCacheEntry = exports.getCacheVersion = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var auth_1 = require_auth();
     var crypto5 = __importStar2(require("crypto"));
@@ -56947,7 +56947,7 @@ var require_cacheHttpClient = __commonJS({
         throw new Error("Cache Service Url not found, unable to restore cache.");
       }
       const url = `${baseUrl}_apis/artifactcache/${resource}`;
-      core5.debug(`Resource Url: ${url}`);
+      core6.debug(`Resource Url: ${url}`);
       return url;
     }
     function createAcceptHeader(type2, apiVersion) {
@@ -56987,7 +56987,7 @@ var require_cacheHttpClient = __commonJS({
           return httpClient.getJson(getCacheApiUrl(resource));
         }));
         if (response.statusCode === 204) {
-          if (core5.isDebug()) {
+          if (core6.isDebug()) {
             yield printCachesListForDiagnostics(keys[0], httpClient, version2);
           }
           return null;
@@ -57000,9 +57000,9 @@ var require_cacheHttpClient = __commonJS({
         if (!cacheDownloadUrl) {
           throw new Error("Cache not found.");
         }
-        core5.setSecret(cacheDownloadUrl);
-        core5.debug(`Cache Result:`);
-        core5.debug(JSON.stringify(cacheResult));
+        core6.setSecret(cacheDownloadUrl);
+        core6.debug(`Cache Result:`);
+        core6.debug(JSON.stringify(cacheResult));
         return cacheResult;
       });
     }
@@ -57017,10 +57017,10 @@ var require_cacheHttpClient = __commonJS({
           const cacheListResult = response.result;
           const totalCount = cacheListResult === null || cacheListResult === void 0 ? void 0 : cacheListResult.totalCount;
           if (totalCount && totalCount > 0) {
-            core5.debug(`No matching cache found for cache key '${key}', version '${version2} and scope ${process.env["GITHUB_REF"]}. There exist one or more cache(s) with similar key but they have different version or scope. See more info on cache matching here: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key 
+            core6.debug(`No matching cache found for cache key '${key}', version '${version2} and scope ${process.env["GITHUB_REF"]}. There exist one or more cache(s) with similar key but they have different version or scope. See more info on cache matching here: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key 
 Other caches with similar key:`);
             for (const cacheEntry of (cacheListResult === null || cacheListResult === void 0 ? void 0 : cacheListResult.artifactCaches) || []) {
-              core5.debug(`Cache Key: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheKey}, Cache Version: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheVersion}, Cache Scope: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.scope}, Cache Created: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.creationTime}`);
+              core6.debug(`Cache Key: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheKey}, Cache Version: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheVersion}, Cache Scope: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.scope}, Cache Created: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.creationTime}`);
             }
           }
         }
@@ -57059,7 +57059,7 @@ Other caches with similar key:`);
     }
     function uploadChunk(httpClient, resourceUrl, openStream, start, end) {
       return __awaiter2(this, void 0, void 0, function* () {
-        core5.debug(`Uploading chunk of size ${end - start + 1} bytes at offset ${start} with content range: ${getContentRange(start, end)}`);
+        core6.debug(`Uploading chunk of size ${end - start + 1} bytes at offset ${start} with content range: ${getContentRange(start, end)}`);
         const additionalHeaders = {
           "Content-Type": "application/octet-stream",
           "Content-Range": getContentRange(start, end)
@@ -57081,7 +57081,7 @@ Other caches with similar key:`);
         const concurrency = utils.assertDefined("uploadConcurrency", uploadOptions.uploadConcurrency);
         const maxChunkSize = utils.assertDefined("uploadChunkSize", uploadOptions.uploadChunkSize);
         const parallelUploads = [...new Array(concurrency).keys()];
-        core5.debug("Awaiting all uploads");
+        core6.debug("Awaiting all uploads");
         let offset = 0;
         try {
           yield Promise.all(parallelUploads.map(() => __awaiter2(this, void 0, void 0, function* () {
@@ -57117,16 +57117,16 @@ Other caches with similar key:`);
     function saveCache2(cacheId, archivePath, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const httpClient = createHttpClient();
-        core5.debug("Upload cache");
+        core6.debug("Upload cache");
         yield uploadFile(httpClient, cacheId, archivePath, options);
-        core5.debug("Commiting cache");
+        core6.debug("Commiting cache");
         const cacheSize = utils.getArchiveFileSizeInBytes(archivePath);
-        core5.info(`Cache Size: ~${Math.round(cacheSize / (1024 * 1024))} MB (${cacheSize} B)`);
+        core6.info(`Cache Size: ~${Math.round(cacheSize / (1024 * 1024))} MB (${cacheSize} B)`);
         const commitCacheResponse = yield commitCache(httpClient, cacheId, cacheSize);
         if (!(0, requestUtils_1.isSuccessStatusCode)(commitCacheResponse.statusCode)) {
           throw new Error(`Cache service responded with ${commitCacheResponse.statusCode} during commit cache.`);
         }
-        core5.info("Cache saved successfully");
+        core6.info("Cache saved successfully");
       });
     }
     exports.saveCache = saveCache2;
@@ -57446,7 +57446,7 @@ var require_cache = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.saveCache = exports.restoreCache = exports.isFeatureAvailable = exports.ReserveCacheError = exports.ValidationError = void 0;
-    var core5 = __importStar2(require_core());
+    var core6 = __importStar2(require_core());
     var path3 = __importStar2(require("path"));
     var utils = __importStar2(require_cacheUtils());
     var cacheHttpClient = __importStar2(require_cacheHttpClient());
@@ -57490,8 +57490,8 @@ var require_cache = __commonJS({
         checkPaths(paths);
         restoreKeys = restoreKeys || [];
         const keys = [primaryKey, ...restoreKeys];
-        core5.debug("Resolved Keys:");
-        core5.debug(JSON.stringify(keys));
+        core6.debug("Resolved Keys:");
+        core6.debug(JSON.stringify(keys));
         if (keys.length > 10) {
           throw new ValidationError(`Key Validation Error: Keys are limited to a maximum of 10.`);
         }
@@ -57509,32 +57509,32 @@ var require_cache = __commonJS({
             return void 0;
           }
           if (options === null || options === void 0 ? void 0 : options.lookupOnly) {
-            core5.info("Lookup only - skipping download");
+            core6.info("Lookup only - skipping download");
             return cacheEntry.cacheKey;
           }
           archivePath = path3.join(yield utils.createTempDirectory(), utils.getCacheFileName(compressionMethod));
-          core5.debug(`Archive Path: ${archivePath}`);
+          core6.debug(`Archive Path: ${archivePath}`);
           yield cacheHttpClient.downloadCache(cacheEntry.archiveLocation, archivePath, options);
-          if (core5.isDebug()) {
+          if (core6.isDebug()) {
             yield (0, tar_1.listTar)(archivePath, compressionMethod);
           }
           const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
-          core5.info(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
+          core6.info(`Cache Size: ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B)`);
           yield (0, tar_1.extractTar)(archivePath, compressionMethod);
-          core5.info("Cache restored successfully");
+          core6.info("Cache restored successfully");
           return cacheEntry.cacheKey;
         } catch (error) {
           const typedError = error;
           if (typedError.name === ValidationError.name) {
             throw error;
           } else {
-            core5.warning(`Failed to restore: ${error.message}`);
+            core6.warning(`Failed to restore: ${error.message}`);
           }
         } finally {
           try {
             yield utils.unlinkFile(archivePath);
           } catch (error) {
-            core5.debug(`Failed to delete archive: ${error}`);
+            core6.debug(`Failed to delete archive: ${error}`);
           }
         }
         return void 0;
@@ -57549,26 +57549,26 @@ var require_cache = __commonJS({
         const compressionMethod = yield utils.getCompressionMethod();
         let cacheId = -1;
         const cachePaths = yield utils.resolvePaths(paths);
-        core5.debug("Cache Paths:");
-        core5.debug(`${JSON.stringify(cachePaths)}`);
+        core6.debug("Cache Paths:");
+        core6.debug(`${JSON.stringify(cachePaths)}`);
         if (cachePaths.length === 0) {
           throw new Error(`Path Validation Error: Path(s) specified in the action for caching do(es) not exist, hence no cache is being saved.`);
         }
         const archiveFolder = yield utils.createTempDirectory();
         const archivePath = path3.join(archiveFolder, utils.getCacheFileName(compressionMethod));
-        core5.debug(`Archive Path: ${archivePath}`);
+        core6.debug(`Archive Path: ${archivePath}`);
         try {
           yield (0, tar_1.createTar)(archiveFolder, cachePaths, compressionMethod);
-          if (core5.isDebug()) {
+          if (core6.isDebug()) {
             yield (0, tar_1.listTar)(archivePath, compressionMethod);
           }
           const fileSizeLimit = 10 * 1024 * 1024 * 1024;
           const archiveFileSize = utils.getArchiveFileSizeInBytes(archivePath);
-          core5.debug(`File Size: ${archiveFileSize}`);
+          core6.debug(`File Size: ${archiveFileSize}`);
           if (archiveFileSize > fileSizeLimit && !utils.isGhes()) {
             throw new Error(`Cache size of ~${Math.round(archiveFileSize / (1024 * 1024))} MB (${archiveFileSize} B) is over the 10GB limit, not saving cache.`);
           }
-          core5.debug("Reserving Cache");
+          core6.debug("Reserving Cache");
           const reserveCacheResponse = yield cacheHttpClient.reserveCache(key, paths, {
             compressionMethod,
             enableCrossOsArchive,
@@ -57581,22 +57581,22 @@ var require_cache = __commonJS({
           } else {
             throw new ReserveCacheError(`Unable to reserve cache with key ${key}, another job may be creating this cache. More details: ${(_e = reserveCacheResponse === null || reserveCacheResponse === void 0 ? void 0 : reserveCacheResponse.error) === null || _e === void 0 ? void 0 : _e.message}`);
           }
-          core5.debug(`Saving Cache (ID: ${cacheId})`);
+          core6.debug(`Saving Cache (ID: ${cacheId})`);
           yield cacheHttpClient.saveCache(cacheId, archivePath, options);
         } catch (error) {
           const typedError = error;
           if (typedError.name === ValidationError.name) {
             throw error;
           } else if (typedError.name === ReserveCacheError.name) {
-            core5.info(`Failed to save: ${typedError.message}`);
+            core6.info(`Failed to save: ${typedError.message}`);
           } else {
-            core5.warning(`Failed to save: ${typedError.message}`);
+            core6.warning(`Failed to save: ${typedError.message}`);
           }
         } finally {
           try {
             yield utils.unlinkFile(archivePath);
           } catch (error) {
-            core5.debug(`Failed to delete archive: ${error}`);
+            core6.debug(`Failed to delete archive: ${error}`);
           }
         }
         return cacheId;
@@ -60015,7 +60015,7 @@ var require_semver4 = __commonJS({
 });
 
 // src/index.ts
-var core4 = __toESM(require_core());
+var core5 = __toESM(require_core());
 var io = __toESM(require_io());
 var cache = __toESM(require_cache());
 var import_node_path2 = __toESM(require("node:path"));
@@ -60319,9 +60319,9 @@ function _supportsColor(haveStream, { streamIsTTY, sniffFlags = true } = {}) {
   }
   return min;
 }
-function createSupportsColor(stream, options = {}) {
-  const level = _supportsColor(stream, {
-    streamIsTTY: stream && stream.isTTY,
+function createSupportsColor(stream2, options = {}) {
+  const level = _supportsColor(stream2, {
+    streamIsTTY: stream2 && stream2.isTTY,
     ...options
   });
   return translateLevel(level);
@@ -60550,10 +60550,16 @@ function getCacheKey(input, version2) {
     hashKey += input.cacheKey;
   }
   const hash = import_node_crypto.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 20);
-  return `cargo-install-${input.crate}-${version2}-${hash}`;
+  const versionKey = "version" in version2 ? version2.version : version2.commit.slice(0, 7);
+  return `cargo-install-${input.crate}-${versionKey}-${hash}`;
 }
 async function runCargoInstall(input, version2, install) {
-  let commandArgs = ["install", input.crate, "--force", "--root", install.path, "--version", version2];
+  let commandArgs = ["install", input.crate, "--force", "--root", install.path];
+  if ("version" in version2) {
+    commandArgs.push("--version", version2.version);
+  } else {
+    commandArgs.push("--git", version2.repository, "--rev", version2.commit);
+  }
   if (input.features.length > 0) {
     commandArgs.push("--features", input.features.join(","));
   }
@@ -60603,30 +60609,48 @@ function firstString() {
 // src/parse.ts
 function parseInput() {
   const crate = core2.getInput("crate", { required: true });
-  const version2 = core2.getInput("version", { required: true });
   const features = core2.getInput("features", { required: false });
   const locked = core2.getBooleanInput("locked", { required: false });
   const args = core2.getInput("args", { required: false });
   const cacheKey = core2.getInput("cache-key", { required: false });
-  if (version2 !== "latest" && semver.validRange(version2) === null) {
-    core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
-    process.exit(1);
-  }
   const parsedArgs = parseArgsStringToArgv(args);
   const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
   if (locked) {
     parsedArgs.push("--locked");
   }
+  const version2 = core2.getInput("version", { required: true });
+  if (version2 !== "latest" && semver.validRange(version2) === null) {
+    core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
+    process.exit(1);
+  }
+  const repository = core2.getInput("git", { required: false });
+  const branch = core2.getInput("branch", { required: false });
+  const tag = core2.getInput("tag", { required: false });
+  const rev = core2.getInput("rev", { required: false });
+  const commit = core2.getInput("commit", { required: false });
+  let source = { type: "registry", version: version2 };
+  if (repository !== "") {
+    source = { type: "git", repository };
+    source.branch = branch !== "" ? branch : void 0;
+    source.tag = tag !== "" ? tag : void 0;
+    source.commit = commit !== "" ? commit : rev !== "" ? rev : void 0;
+  }
+  if (repository === "" && (branch !== "" || tag !== "" || commit !== "" || rev !== "")) {
+    core2.warning("Ignoring branch, tag, and commit since git is not provided.");
+  }
+  if (repository !== "" && version2 !== "latest") {
+    core2.warning("Ignoring version since git is provided.");
+  }
   return {
     crate,
-    version: version2,
+    source,
     features: parsedFeatures,
     args: parsedArgs,
     cacheKey
   };
 }
 
-// src/resolve.ts
+// src/resolve/registry.ts
 var http = __toESM(require_lib());
 var core3 = __toESM(require_core());
 
@@ -64126,9 +64150,9 @@ var valueOf = scopes.ark.valueOf;
 var narrow = scopes.ark.narrow;
 var morph = scopes.ark.morph;
 
-// src/resolve.ts
+// src/resolve/registry.ts
 var import_semver = __toESM(require_semver4());
-var types = scope({
+var crateResponseTypes = scope({
   response: {
     crate: {
       max_stable_version: "semver"
@@ -64140,24 +64164,26 @@ var types = scope({
     yanked: "boolean"
   }
 }).compile();
-async function resolveVersion(input) {
-  const res = await fetchCrate(input.crate);
+async function resolveRegistryVersion(crate, version2) {
+  core3.info(`Fetching information for ${crate} on crates.io ...`);
+  const res = await fetchCrate(crate);
   const latest = res.crate.max_stable_version;
-  if (input.version === "latest") {
-    return latest;
+  if (version2 === "latest") {
+    return { version: latest };
   }
-  const resolved = res.versions.filter((ver) => import_semver.default.satisfies(ver.num, input.version)).sort((a, b) => import_semver.default.compare(a.num, b.num)).reverse();
+  const resolved = res.versions.filter((ver) => import_semver.default.satisfies(ver.num, version2)).sort((a, b) => import_semver.default.compare(a.num, b.num)).reverse();
   if (resolved.length === 0) {
-    core3.setFailed(`No version found for ${input.crate} that satisfies ${input.version}`);
+    core3.setFailed(`No version found for ${crate} that satisfies ${version2}`);
+    core3.info(`Available versions: ${res.versions.map((ver) => ver.num).join(", ")}`);
     process.exit(1);
   }
-  const version2 = resolved.find((ver) => !ver.yanked) ?? resolved[0];
-  if (version2.yanked) {
-    core3.warning(`Using yanked version ${version2.num} for ${input.crate}`);
-  } else if (version2.num !== latest) {
-    core3.warning(`New version for ${input.crate} available: ${latest}`);
+  const resolvedVersion = resolved.find((ver) => !ver.yanked) ?? resolved[0];
+  if (resolvedVersion.yanked) {
+    core3.warning(`Using yanked version ${resolvedVersion.num} for ${crate}`);
+  } else if (resolvedVersion.num !== latest) {
+    core3.warning(`New version for ${crate} available: ${latest}`);
   }
-  return version2.num;
+  return { version: resolvedVersion.num };
 }
 async function fetchCrate(name) {
   const client = new http.HttpClient("cargo-install-action");
@@ -64170,7 +64196,7 @@ async function fetchCrate(name) {
     core3.info(`Error code: ${response.statusCode}`);
     process.exit(1);
   }
-  const { data, problems } = types.response(response.result);
+  const { data, problems } = crateResponseTypes.response(response.result);
   if (data === void 0) {
     core3.setFailed(`Failed to parse crates.io API response for ${name}`);
     core3.info(`Errors: ${problems}`);
@@ -64179,44 +64205,115 @@ async function fetchCrate(name) {
   return data;
 }
 
+// src/resolve/git.ts
+var import_node_stream = __toESM(require("node:stream"));
+var exec3 = __toESM(require_exec());
+var core4 = __toESM(require_core());
+async function resolveGitCommit(git) {
+  core4.info(`Fetching git commits for ${git.repository}...`);
+  const commits = await fetchGitRemote(git.repository);
+  if (git.commit !== void 0) {
+    core4.info(`Using explicit commit ${git.commit} for ${git.repository}`);
+    return { repository: git.repository, commit: git.commit };
+  }
+  if (git.tag !== void 0) {
+    const commit = commits.tags[git.tag];
+    if (commit === void 0) {
+      core4.setFailed(`Failed to resolve tag ${git.tag} for ${git.repository}`);
+      process.exit(1);
+    }
+    core4.info(`Resolved tag ${git.tag} to commit ${commit}`);
+    return { repository: git.repository, commit };
+  }
+  if (git.branch !== void 0) {
+    const commit = commits.branches[git.branch];
+    if (commit === void 0) {
+      core4.setFailed(`Failed to resolve branch ${git.branch} for ${git.repository}`);
+      process.exit(1);
+    }
+    core4.info(`Resolved branch ${git.branch} to commit ${commit}`);
+    return { repository: git.repository, commit };
+  }
+  core4.info(`Resolved HEAD to commit ${commits.head}`);
+  return { repository: git.repository, commit: commits.head };
+}
+async function fetchGitRemote(repository) {
+  const commandOutput = new import_node_stream.default.PassThrough();
+  await exec3.exec("git", ["ls-remote", repository], { outStream: commandOutput });
+  const commits = { head: "", tags: {}, branches: {} };
+  const lines = commandOutput.read().toString().split("\n");
+  for (const line of lines) {
+    const [commit, ref] = line.split("	");
+    if (commit === "" || ref === "" || ref === void 0) {
+      continue;
+    }
+    if (ref === "HEAD") {
+      commits.head = commit;
+    }
+    const tagMatch = "refs/tags/";
+    if (ref.startsWith(tagMatch)) {
+      const tag = ref.slice(tagMatch.length);
+      commits.tags[tag] = commit;
+    }
+    const branchMatch = "refs/heads/";
+    if (ref.startsWith(branchMatch)) {
+      const branch = ref.slice(branchMatch.length);
+      commits.branches[branch] = commit;
+    }
+  }
+  if (commits.head === "") {
+    core4.setFailed(`Failed to fetch HEAD commit for ${repository}`);
+    process.exit(1);
+  }
+  return commits;
+}
+
 // src/index.ts
 var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
-  core4.startGroup(chalk2.bold(`Installing ${input.crate} ...`));
-  core4.info("Fetching crate information on crates.io ...");
-  const version2 = await resolveVersion(input);
+  core5.startGroup(chalk2.bold(`Installing ${input.crate}...`));
+  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source.version) : await resolveGitCommit(input.source);
   const install = getInstallSettings(input, version2);
-  core4.info("Installation settings:");
-  core4.info(`   version: ${version2}`);
-  core4.info(`   path: ${install.path}`);
-  core4.info(`   key: ${install.cacheKey}`);
+  core5.info("Installation settings:");
+  if ("version" in version2) {
+    core5.info(`   version: ${version2.version}`);
+  } else {
+    core5.info(`   repository: ${version2.repository}`);
+    core5.info(`   commit: ${version2.commit}`);
+  }
+  core5.info(`   path: ${install.path}`);
+  core5.info(`   key: ${install.cacheKey}`);
   await io.mkdirP(install.path);
   const restored = await cache.restoreCache([install.path], install.cacheKey);
-  core4.endGroup();
+  core5.endGroup();
   let cacheHit = false;
   if (restored !== void 0) {
-    core4.info(`Restored ${input.crate} from cache.`);
+    core5.info(`Restored ${input.crate} from cache.`);
     cacheHit = true;
   } else {
-    core4.startGroup(`No cached version found, installing ${input.crate} using cargo ...`);
+    core5.startGroup(`No cached version found, installing ${input.crate} using cargo...`);
     await runCargoInstall(input, version2, install);
     try {
       await cache.saveCache([install.path], install.cacheKey);
     } catch (e) {
-      core4.warning(e.message);
+      core5.warning(e.message);
     }
-    core4.endGroup();
+    core5.endGroup();
   }
-  core4.addPath(import_node_path2.default.join(install.path, "bin"));
-  core4.info(`Added ${install.path}/bin to PATH.`);
-  core4.info(chalk2.green(`Installed ${input.crate} ${version2}.`));
-  core4.setOutput("version", version2);
-  core4.setOutput("cache-hit", cacheHit);
+  core5.addPath(import_node_path2.default.join(install.path, "bin"));
+  core5.info(`Added ${install.path}/bin to PATH.`);
+  if ("version" in version2) {
+    core5.info(chalk2.green(`Installed ${input.crate} ${version2.version}.`));
+  } else {
+    core5.info(chalk2.green(`Installed ${input.crate} from ${version2.repository} at ${version2.commit.slice(0, 7)}.`));
+  }
+  core5.setOutput("version", "version" in version2 ? version2.version : version2.commit);
+  core5.setOutput("cache-hit", cacheHit);
 }
 run().catch((error) => {
-  core4.setFailed(error.message);
-  core4.info(error.stack);
+  core5.setFailed(error.message);
+  core5.info(error.stack);
 });
 /*! Bundled license information:
 

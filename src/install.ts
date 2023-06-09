@@ -3,14 +3,21 @@ import * as exec from '@actions/exec'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
-import { ActionInput } from './parse'
+import type { ActionInput } from './parse'
 
+// Resolved version information for the crate
+export type ResolvedVersion =
+  | { version: string }
+  | { repository: string, commit: string }
+
+// Installation settings for the crate (path and cache key)
 export interface InstallSettings {
   path: string
   cacheKey: string
 }
 
-export function getInstallSettings (input: ActionInput, version: string): InstallSettings {
+// Get the installation settings for the crate (path and cache key)
+export function getInstallSettings (input: ActionInput, version: ResolvedVersion): InstallSettings {
   const homePath = process.env.HOME ?? process.env.USERPROFILE
   if (homePath === undefined || homePath === '') {
     core.setFailed('Could not determine home directory (missing HOME and USERPROFILE environement variables)')
@@ -26,7 +33,7 @@ export function getInstallSettings (input: ActionInput, version: string): Instal
   }
 }
 
-function getCacheKey (input: ActionInput, version: string): string {
+function getCacheKey (input: ActionInput, version: ResolvedVersion): string {
   const runnerOs = process.env.RUNNER_OS
   const jobId = process.env.GITHUB_JOB
 
@@ -47,11 +54,19 @@ function getCacheKey (input: ActionInput, version: string): string {
   }
 
   const hash = crypto.createHash('sha256').update(hashKey).digest('hex').slice(0, 20)
-  return `cargo-install-${input.crate}-${version}-${hash}`
+  const versionKey = 'version' in version ? version.version : version.commit.slice(0, 7)
+
+  return `cargo-install-${input.crate}-${versionKey}-${hash}`
 }
 
-export async function runCargoInstall (input: ActionInput, version: string, install: InstallSettings): Promise<void> {
-  let commandArgs = ['install', input.crate, '--force', '--root', install.path, '--version', version]
+export async function runCargoInstall (input: ActionInput, version: ResolvedVersion, install: InstallSettings): Promise<void> {
+  let commandArgs = ['install', input.crate, '--force', '--root', install.path]
+
+  if ('version' in version) {
+    commandArgs.push('--version', version.version)
+  } else {
+    commandArgs.push('--git', version.repository, '--rev', version.commit)
+  }
 
   if (input.features.length > 0) {
     commandArgs.push('--features', input.features.join(','))
