@@ -7,44 +7,63 @@
 This action enables you to run `cargo install` in your GitHub workflows,
 and automatically caches the resulting binaries to speed up subsequent builds.
 
-> ✨ **Update:** The recent v2 update introduces some breaking changes. Read
-> the [changelog] before updating.
+| ✨ Recent updates: |
+| --- |
+| **v2.1:** Installing crates from git is now supported. |
+| **v2.0:** This major update introduces some breaking changes. Read the [changelog] before updating. |
 
 ## Features
-- Install any Rust binary crate published on [crates.io].
+- Install any Rust binary crate from [crates.io] or a git repository.
 - Automatically cache installed binaries to avoid compiling them each run.
 - Keep crates updated, with an optional version range to avoid breakages.
 - Works on Linux, Windows and MacOS runners.
 
 ## Usage
-The following example steps install the [`cargo-hack`] crate. Read
-[Quickstart for GitHub Actions] to learn more about Actions usage.
+The following example steps install the [`cargo-hack`] and [`cargo-sort`] crates.
+Read [Quickstart for GitHub Actions] to learn more about Actions usage.
 
 ```yaml
-- name: Install cargo-hack
+- name: Install cargo-hack from crates.io
   uses: baptiste0928/cargo-install@v2
   with:
     crate: cargo-hack
     version: "^0.5"  # You can specify any semver range
 
+- name: Install cargo-sort from git
+  uses: baptiste0928/cargo-install@v2
+  with:
+    crate: cargo-sort
+    git: https://github.com/devinr528/cargo-sort
+    tag: v1.0.9  # `branch` and `commit` are also supported
+
 - name: Run cargo hack
   run: cargo hack --version
 ```
 
-If no version is specified, the latest version will be installed. The
-`--locked` flag is added by default to avoid breakages due to unexpected
-dependencies updates.
+If no version or branch/tag/commit is specified, the latest version will be
+installed. The `--locked` flag is added by default to avoid breakages due to
+unexpected dependencies updates.
 
-### Inputs
+### Input parameters
 - `crate` *(required)*: Name of the crate to install.
 - `version`: Version to install (defaults to the latest version). Supports any
-  semver range.
+  semver range. Only used when installing from crates.io, see below for git
+  installation.
 - `features`: Space or comma-separated list of crate features to enable.
 - `locked`: Use the crate `Cargo.lock` if available (enabled by default).
   This adds `--locked` to the install command arguments.
 - `args`: Additional arguments to pass to `cargo install`.
 - `cache-key`: Additional string added to the cache key used to manually
   invalidate the cache.
+
+#### Git parameters
+- `git`: URL of the git repository to install from.
+- `branch`: Branch to install from.
+- `tag`: Tag to install from.
+- `commit`/`rev`: Commit hash to install from.
+
+`branch`, `tag` and `commit`/`rev` are mutually exclusive. If none of them are
+specified, the latest commit of the default branch will be used.
 
 ### Outputs
 - `version`: The version of the crate that has been installed.
@@ -66,7 +85,7 @@ to learn more about caching with GitHub Actions.
   follows the following pattern:
 
   ```
-  cargo-install-<crate>-<version>-<hash>
+  cargo-install-<crate>-<version or commit>-<hash>
   ```
 
   The hash is derived from the action job and runner os name and the
@@ -79,6 +98,9 @@ Crates are installed using `cargo install` and the latest version is retrieved
 with the [crates.io] API. You can ask to install a specific version by not
 using any semver range operator.
 
+If using a git repository, the action will use [`git ls-remote`] to retrieve
+the commit hash. The repository is cloned by `cargo install`.
+
 ## Contributing
 There is no particular contribution guidelines, feel free to open a new PR to
 improve the code. If you want to introduce a new feature, please create an
@@ -87,5 +109,7 @@ issue before.
 [changelog]: https://github.com/baptiste0928/cargo-install/releases/tag/v2.0.0
 [crates.io]: https://crates.io
 [`cargo-hack`]: https://crates.io/crates/cargo-hack
+[`cargo-sort`]: https://crates.io/crates/cargo-sort
+[`git ls-remote`]: https://git-scm.com/docs/git-ls-remote
 [Quickstart for GitHub Actions]: https://docs.github.com/en/actions/quickstart
 [Caching dependencies to speed up workflows]: https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows
