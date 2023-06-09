@@ -64,7 +64,7 @@ async function run (): Promise<void> {
     core.info(chalk.green(`Installed ${input.crate} from ${version.repository} at ${version.commit.slice(0, 7)}.`))
   }
 
-  core.setOutput('version', version)
+  core.setOutput('version', 'version' in version ? version.version : version.commit)
   core.setOutput('cache-hit', cacheHit)
 }
 

@@ -64308,7 +64308,7 @@ async function run() {
   } else {
     core5.info(chalk2.green(`Installed ${input.crate} from ${version2.repository} at ${version2.commit.slice(0, 7)}.`));
   }
-  core5.setOutput("version", version2);
+  core5.setOutput("version", "version" in version2 ? version2.version : version2.commit);
   core5.setOutput("cache-hit", cacheHit);
 }
 run().catch((error) => {
