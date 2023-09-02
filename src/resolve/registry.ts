@@ -63,7 +63,7 @@ async function fetchIndex (crate: string): Promise<CrateVersion[]> {
   return body
     .split('\n')
     .filter(line => line.length > 0)
-    .map(line => parse(CrateVersionSchema, line))
+    .map(line => parse(CrateVersionSchema, JSON.parse(line)))
 }
 
 // Get index path for crate

@@ -61210,7 +61210,7 @@ async function fetchIndex(crate) {
     process.exit(1);
   }
   const body = await response.readBody();
-  return body.split("\n").filter((line) => line.length > 0).map((line) => parse2(CrateVersionSchema, line));
+  return body.split("\n").filter((line) => line.length > 0).map((line) => parse2(CrateVersionSchema, JSON.parse(line)));
 }
 function getIndexPath(crate) {
   const name = crate.toLowerCase();
