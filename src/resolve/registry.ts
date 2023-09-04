@@ -22,12 +22,12 @@ export async function resolveRegistryVersion (crate: string, { version, registry
     ? parseRegistryIndex(index)
     : { sparse: true, url: 'https://index.crates.io/' }
 
-  if (isVersionRange && (registry !== undefined || registryIndex.sparse)) {
+  const nonSparseIndex = registry !== undefined || !registryIndex.sparse
+  if (isVersionRange && nonSparseIndex) {
     core.error('Version ranges can only be used with sparse indexes')
     process.exit(1)
   }
-
-  if (!isVersionRange && (registry !== undefined || !registryIndex.sparse)) {
+  if (!isVersionRange && nonSparseIndex) {
     core.info('Using non-sparse index, skipping version resolution')
     return { version }
   }

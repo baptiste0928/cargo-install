@@ -61205,11 +61205,12 @@ var CrateVersionSchema = object({
 async function resolveRegistryVersion(crate, { version: version2, registry, index }) {
   const isVersionRange = import_semver.default.valid(version2) === null;
   const registryIndex = index !== void 0 ? parseRegistryIndex(index) : { sparse: true, url: "https://index.crates.io/" };
-  if (isVersionRange && (registry !== void 0 || registryIndex.sparse)) {
+  const nonSparseIndex = registry !== void 0 || !registryIndex.sparse;
+  if (isVersionRange && nonSparseIndex) {
     core3.error("Version ranges can only be used with sparse indexes");
     process.exit(1);
   }
-  if (!isVersionRange && (registry !== void 0 || !registryIndex.sparse)) {
+  if (!isVersionRange && nonSparseIndex) {
     core3.info("Using non-sparse index, skipping version resolution");
     return { version: version2 };
   }
