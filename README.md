@@ -13,7 +13,8 @@ and automatically caches the resulting binaries to speed up subsequent builds.
 | **v2.0:** This major update introduces some breaking changes. Read the [changelog] before updating. |
 
 ## Features
-- Install any Rust binary crate from [crates.io] or a git repository.
+- Install any Rust binary crate from [crates.io], a git repository or an
+  alternate registry.
 - Automatically cache installed binaries to avoid compiling them each run.
 - Keep crates updated, with an optional version range to avoid breakages.
 - Works on Linux, Windows and MacOS runners.
@@ -64,6 +65,16 @@ unexpected dependencies updates.
 
 `branch`, `tag` and `commit`/`rev` are mutually exclusive. If none of them are
 specified, the latest commit of the default branch will be used.
+
+#### Alternate registry parameters
+- `registry`: Registry name from the Cargo configuration. See
+  [Using an alternate registry](https://doc.rust-lang.org/nightly/cargo/reference/registries.html#using-an-alternate-registry)
+  on the Cargo Book.
+- `index`: URL of the registry index.
+
+`registry` and `index` are mutually exclusive. Only sparse `index` support
+version range resolution, you'll need to specify an exact version when using
+`registry` or a non-sparse `index`.
 
 ### Outputs
 - `version`: The version of the crate that has been installed.
