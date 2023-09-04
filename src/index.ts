@@ -17,7 +17,7 @@ async function run (): Promise<void> {
   // Resolve crate version and try to restore from cache
   core.startGroup(chalk.bold(`Installing ${input.crate}...`))
   const version: ResolvedVersion = input.source.type === 'registry'
-    ? await resolveRegistryVersion(input.crate, input.source.version)
+    ? await resolveRegistryVersion(input.crate, input.source)
     : await resolveGitCommit(input.source)
 
   const install = getInstallSettings(input, version)

@@ -43,6 +43,18 @@ function getCacheKey (input: ActionInput, version: ResolvedVersion): string {
   }
 
   let hashKey = jobId + runnerOs
+
+  hashKey += input.source.type
+  if (input.source.type === 'registry') {
+    hashKey += input.source.registry ?? ''
+    hashKey += input.source.index ?? ''
+  } else {
+    hashKey += input.source.repository
+    hashKey += input.source.branch ?? ''
+    hashKey += input.source.tag ?? ''
+    hashKey += input.source.commit ?? ''
+  }
+
   for (const feature of input.features) {
     hashKey += feature
   }
@@ -66,6 +78,13 @@ export async function runCargoInstall (input: ActionInput, version: ResolvedVers
     commandArgs.push('--version', version.version)
   } else {
     commandArgs.push('--git', version.repository, '--rev', version.commit)
+  }
+
+  if (input.source.type === 'registry' && input.source.registry !== undefined) {
+    commandArgs.push('--registry', input.source.registry)
+  }
+  if (input.source.type === 'registry' && input.source.index !== undefined) {
+    commandArgs.push('--index', input.source.index)
   }
 
   if (input.features.length > 0) {

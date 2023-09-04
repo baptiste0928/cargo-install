@@ -4,6 +4,7 @@ import semver from 'semver'
 
 import type { ResolvedVersion } from '../install'
 import { Output, boolean, custom, object, parse, string } from 'valibot'
+import { RegistrySource } from '../parse'
 
 const CrateVersionSchema = object({
   vers: string([
@@ -15,9 +16,41 @@ const CrateVersionSchema = object({
 type CrateVersion = Output<typeof CrateVersionSchema>
 
 // Resolve latest compatible crate version
-export async function resolveRegistryVersion (crate: string, version: string): Promise<ResolvedVersion> {
-  core.info(`Fetching information for ${crate} from crates.io index ...`)
-  const versions = await fetchIndex(crate)
+export async function resolveRegistryVersion (crate: string, { version, registry, index }: RegistrySource): Promise<ResolvedVersion> {
+  const isVersionRange = semver.valid(version) === null
+  const registryIndex = index !== undefined
+    ? parseRegistryIndex(index)
+    : { sparse: true, url: 'https://index.crates.io/' }
+
+  if (isVersionRange && (registry !== undefined || registryIndex.sparse)) {
+    core.error('Version ranges can only be used with sparse indexes')
+    process.exit(1)
+  }
+
+  if (!isVersionRange && (registry !== undefined || !registryIndex.sparse)) {
+    core.info('Using non-sparse index, skipping version resolution')
+    return { version }
+  }
+
+  return await resolveCrateVersion(crate, version, registryIndex)
+}
+
+interface RegistryIndex {
+  sparse: boolean
+  url: string
+}
+
+function parseRegistryIndex (input: string): RegistryIndex {
+  const sparseProtocol = 'sparse+'
+  const sparse = input.startsWith(sparseProtocol)
+  const url = sparse ? input.slice(sparseProtocol.length) : input
+
+  return { sparse, url }
+}
+
+async function resolveCrateVersion (crate: string, version: string, index: RegistryIndex): Promise<ResolvedVersion> {
+  core.info(`Fetching information for ${crate} from index ...`)
+  const versions = await fetchIndex(crate, index.url)
 
   const sortedVersions = versions
     .sort((a, b) => semver.compare(a.vers, b.vers))
@@ -45,9 +78,10 @@ export async function resolveRegistryVersion (crate: string, version: string): P
   return { version: resolvedVersion.vers }
 }
 
-async function fetchIndex (crate: string): Promise<CrateVersion[]> {
+async function fetchIndex (crate: string, indexUrl: string): Promise<CrateVersion[]> {
+  const url = new URL(getIndexPath(crate), indexUrl)
   const client = new http.HttpClient('cargo-install-action')
-  const response = await client.get(`https://index.crates.io/${getIndexPath(crate)}`)
+  const response = await client.get(url.toString())
 
   if (response.message.statusCode === 404) {
     core.setFailed(`Crate ${crate} not found on crates.io index`)
