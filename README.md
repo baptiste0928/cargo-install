@@ -4,11 +4,12 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![CI](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml/badge.svg)](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml)
 
-This action enables you to run `cargo install` in your GitHub workflows,
-and automatically caches the resulting binaries to speed up subsequent builds.
+This action enables you to run `cargo install` in your GitHub workflows, and
+automatically caches the resulting binaries to speed up subsequent builds.
 
 | ✨ Recent updates: |
 | :--- |
+| **v2.2:** Added support for alternate registries and sparse indexes. |
 | **v2.1:** Installing crates from git is now supported. |
 | **v2.0:** This major update introduces some breaking changes. Read the [changelog] before updating. |
 
@@ -20,8 +21,8 @@ and automatically caches the resulting binaries to speed up subsequent builds.
 - Works on Linux, Windows and MacOS runners.
 
 ## Usage
-The following example steps install the [`cargo-hack`] and [`cargo-sort`] crates.
-Read [Quickstart for GitHub Actions] to learn more about Actions usage.
+The following example steps install the [`cargo-hack`] and [`cargo-sort`]
+crates. Read [Quickstart for GitHub Actions] to learn more about Actions usage.
 
 ```yaml
 - name: Install cargo-hack from crates.io
@@ -51,8 +52,8 @@ unexpected dependencies updates.
   semver range. Only used when installing from crates.io, see below for git
   installation.
 - `features`: Space or comma-separated list of crate features to enable.
-- `locked`: Use the crate `Cargo.lock` if available (enabled by default).
-  This adds `--locked` to the install command arguments.
+- `locked`: Use the crate `Cargo.lock` if available (enabled by default). This
+  adds `--locked` to the install command arguments.
 - `args`: Additional arguments to pass to `cargo install`.
 - `cache-key`: Additional string added to the cache key used to manually
   invalidate the cache.
@@ -82,8 +83,8 @@ version range resolution, you'll need to specify an exact version when using
 
 ## Caching
 Compiled binaries of installed crates are automatically cached. If a cached
-version is present when the action is executed, it will be used. This allows
-the installation of the crate to be almost instant in most cases.
+version is present when the action is executed, it will be used. This allows the
+installation of the crate to be almost instant in most cases.
 
 Cached binaries will be automatically removed by GitHub if they have not been
 accessed in the last 7 days. Read [Caching dependencies to speed up workflows]
@@ -106,8 +107,8 @@ to learn more about caching with GitHub Actions.
 
 ## Security
 Crates are installed using `cargo install` and the latest version is retrieved
-with the [crates.io] API. You can ask to install a specific version by not
-using any semver range operator.
+from the [crates.io] sparse index. You can ask to install a specific version by
+not using any semver range operator.
 
 If using a git repository, the action will use [`git ls-remote`] to retrieve
 the commit hash. The repository is cloned by `cargo install`.
