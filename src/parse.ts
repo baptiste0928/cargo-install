@@ -5,15 +5,17 @@ import stringArgv from 'string-argv'
 // Action input parameters
 export interface ActionInput {
   crate: string
-  source: CratesIoSource | GitSource
+  source: RegistrySource | GitSource
   features: string[]
   args: string[]
   cacheKey: string
 }
 
-export interface CratesIoSource {
+export interface RegistrySource {
   type: 'registry'
   version: string
+  registry?: string
+  index?: string
 }
 
 export interface GitSource {
@@ -39,10 +41,18 @@ export function parseInput (): ActionInput {
     parsedArgs.push('--locked')
   }
 
-  // Crates.io version (always provided, defaults to 'latest')
+  // Crate version (always provided, defaults to 'latest')
   const version = core.getInput('version', { required: true })
   if (version !== 'latest' && semver.validRange(version) === null) {
     core.setFailed('Invalid version provided. Must be a valid semver range or "latest".')
+    process.exit(1)
+  }
+
+  // Custom registry source
+  const registry = core.getInput('registry', { required: false })
+  const index = core.getInput('index', { required: false })
+  if (registry !== '' && index !== '') {
+    core.setFailed('Cannot provide both registry and index.')
     process.exit(1)
   }
 
@@ -53,12 +63,16 @@ export function parseInput (): ActionInput {
   const rev = core.getInput('rev', { required: false })
   const commit = core.getInput('commit', { required: false })
 
-  let source: CratesIoSource | GitSource = { type: 'registry', version }
+  let source: RegistrySource | GitSource
   if (repository !== '') {
     source = { type: 'git', repository }
     source.branch = branch !== '' ? branch : undefined
     source.tag = tag !== '' ? tag : undefined
     source.commit = commit !== '' ? commit : rev !== '' ? rev : undefined
+  } else {
+    source = { type: 'registry', version }
+    source.registry = registry !== '' ? registry : undefined
+    source.index = index !== '' ? index : undefined
   }
 
   // Warnings if both crates.io and git are provided

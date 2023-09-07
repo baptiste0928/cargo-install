@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Support alternative registries with the `registry` and `index` input
+  parameters.
+
 ### Changed
 - Crate versions are fetched from the sparse index instead of the crates.io
   API.

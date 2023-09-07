@@ -748,18 +748,18 @@ var require_tunnel = __commonJS({
             res.statusCode
           );
           socket.destroy();
-          var error = new Error("tunneling socket could not be established, statusCode=" + res.statusCode);
-          error.code = "ECONNRESET";
-          options.request.emit("error", error);
+          var error2 = new Error("tunneling socket could not be established, statusCode=" + res.statusCode);
+          error2.code = "ECONNRESET";
+          options.request.emit("error", error2);
           self2.removeSocket(placeholder);
           return;
         }
         if (head.length > 0) {
           debug("got illegal response body from proxy");
           socket.destroy();
-          var error = new Error("got illegal response body from proxy");
-          error.code = "ECONNRESET";
-          options.request.emit("error", error);
+          var error2 = new Error("got illegal response body from proxy");
+          error2.code = "ECONNRESET";
+          options.request.emit("error", error2);
           self2.removeSocket(placeholder);
           return;
         }
@@ -774,9 +774,9 @@ var require_tunnel = __commonJS({
           cause.message,
           cause.stack
         );
-        var error = new Error("tunneling socket could not be established, cause=" + cause.message);
-        error.code = "ECONNRESET";
-        options.request.emit("error", error);
+        var error2 = new Error("tunneling socket could not be established, cause=" + cause.message);
+        error2.code = "ECONNRESET";
+        options.request.emit("error", error2);
         self2.removeSocket(placeholder);
       }
     };
@@ -1616,12 +1616,12 @@ var require_oidc_utils = __commonJS({
         var _a;
         return __awaiter2(this, void 0, void 0, function* () {
           const httpclient = _OidcClient.createHttpClient();
-          const res = yield httpclient.getJson(id_token_url).catch((error) => {
+          const res = yield httpclient.getJson(id_token_url).catch((error2) => {
             throw new Error(`Failed to get ID Token. 
  
-        Error Code : ${error.statusCode}
+        Error Code : ${error2.statusCode}
  
-        Error Message: ${error.result.message}`);
+        Error Message: ${error2.result.message}`);
           });
           const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
           if (!id_token) {
@@ -1642,8 +1642,8 @@ var require_oidc_utils = __commonJS({
             const id_token = yield _OidcClient.getCall(id_token_url);
             core_1.setSecret(id_token);
             return id_token;
-          } catch (error) {
-            throw new Error(`Error message: ${error.message}`);
+          } catch (error2) {
+            throw new Error(`Error message: ${error2.message}`);
           }
         });
       }
@@ -2138,7 +2138,7 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
     exports.setCommandEcho = setCommandEcho;
     function setFailed6(message) {
       process.exitCode = ExitCode.Failure;
-      error(message);
+      error2(message);
     }
     exports.setFailed = setFailed6;
     function isDebug() {
@@ -2149,10 +2149,10 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
       command_1.issueCommand("debug", {}, message);
     }
     exports.debug = debug;
-    function error(message, properties = {}) {
+    function error2(message, properties = {}) {
       command_1.issueCommand("error", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
-    exports.error = error;
+    exports.error = error2;
     function warning4(message, properties = {}) {
       command_1.issueCommand("warning", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
     }
@@ -3010,7 +3010,7 @@ var require_toolrunner = __commonJS({
               this._debug(`STDIO streams have closed for tool '${this.toolPath}'`);
               state.CheckComplete();
             });
-            state.on("done", (error, exitCode) => {
+            state.on("done", (error2, exitCode) => {
               if (stdbuffer.length > 0) {
                 this.emit("stdline", stdbuffer);
               }
@@ -3018,8 +3018,8 @@ var require_toolrunner = __commonJS({
                 this.emit("errline", errbuffer);
               }
               cp.removeAllListeners();
-              if (error) {
-                reject(error);
+              if (error2) {
+                reject(error2);
               } else {
                 resolve(exitCode);
               }
@@ -3114,14 +3114,14 @@ var require_toolrunner = __commonJS({
         this.emit("debug", message);
       }
       _setResult() {
-        let error;
+        let error2;
         if (this.processExited) {
           if (this.processError) {
-            error = new Error(`There was an error when attempting to execute the process '${this.toolPath}'. This may indicate the process failed to start. Error: ${this.processError}`);
+            error2 = new Error(`There was an error when attempting to execute the process '${this.toolPath}'. This may indicate the process failed to start. Error: ${this.processError}`);
           } else if (this.processExitCode !== 0 && !this.options.ignoreReturnCode) {
-            error = new Error(`The process '${this.toolPath}' failed with exit code ${this.processExitCode}`);
+            error2 = new Error(`The process '${this.toolPath}' failed with exit code ${this.processExitCode}`);
           } else if (this.processStderr && this.options.failOnStdErr) {
-            error = new Error(`The process '${this.toolPath}' failed because one or more lines were written to the STDERR stream`);
+            error2 = new Error(`The process '${this.toolPath}' failed because one or more lines were written to the STDERR stream`);
           }
         }
         if (this.timeout) {
@@ -3129,7 +3129,7 @@ var require_toolrunner = __commonJS({
           this.timeout = null;
         }
         this.done = true;
-        this.emit("done", error, this.processExitCode);
+        this.emit("done", error2, this.processExitCode);
       }
       static HandleTimeout(state) {
         if (state.done) {
@@ -6848,8 +6848,8 @@ function __read(o, n) {
   try {
     while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
       ar.push(r.value);
-  } catch (error) {
-    e = { error };
+  } catch (error2) {
+    e = { error: error2 };
   } finally {
     try {
       if (r && !r.done && (m = i["return"]))
@@ -7093,9 +7093,9 @@ var init_tslib_es6 = __esm({
     } : function(o, v) {
       o["default"] = v;
     };
-    _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+    _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function(error2, suppressed, message) {
       var e = new Error(message);
-      return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+      return e.name = "SuppressedError", e.error = error2, e.suppressed = suppressed, e;
     };
     tslib_es6_default = {
       __extends,
@@ -7315,8 +7315,8 @@ var require_XMLDOMErrorHandler = __commonJS({
       module2.exports = XMLDOMErrorHandler = function() {
         function XMLDOMErrorHandler2() {
         }
-        XMLDOMErrorHandler2.prototype.handleError = function(error) {
-          throw new Error(error);
+        XMLDOMErrorHandler2.prototype.handleError = function(error2) {
+          throw new Error(error2);
         };
         return XMLDOMErrorHandler2;
       }();
@@ -11242,7 +11242,7 @@ var require_sax = __commonJS({
                 parser.script = "";
                 break;
               default:
-                error(parser, "Max buffer length exceeded: " + buffers[i]);
+                error2(parser, "Max buffer length exceeded: " + buffers[i]);
             }
           }
           maxActual = Math.max(maxActual, len);
@@ -11756,7 +11756,7 @@ var require_sax = __commonJS({
           text = text.replace(/\s+/g, " ");
         return text;
       }
-      function error(parser, er) {
+      function error2(parser, er) {
         closeText(parser);
         if (parser.trackPosition) {
           er += "\nLine: " + parser.line + "\nColumn: " + parser.column + "\nChar: " + parser.c;
@@ -11770,7 +11770,7 @@ var require_sax = __commonJS({
         if (parser.sawRoot && !parser.closedRoot)
           strictFail(parser, "Unclosed root tag");
         if (parser.state !== S.BEGIN && parser.state !== S.BEGIN_WHITESPACE && parser.state !== S.TEXT) {
-          error(parser, "Unexpected end");
+          error2(parser, "Unexpected end");
         }
         closeText(parser);
         parser.c = "";
@@ -11784,7 +11784,7 @@ var require_sax = __commonJS({
           throw new Error("bad call to strictFail");
         }
         if (parser.strict) {
-          error(parser, message);
+          error2(parser, message);
         }
       }
       function newTag(parser) {
@@ -12025,7 +12025,7 @@ var require_sax = __commonJS({
           throw this.error;
         }
         if (parser.closed) {
-          return error(
+          return error2(
             parser,
             "Cannot write after close. Assign an onready handler."
           );
@@ -12742,11 +12742,11 @@ var require_parser = __commonJS({
           });
           this.saxParser.errThrown = false;
           this.saxParser.onerror = function(_this) {
-            return function(error) {
+            return function(error2) {
               _this.saxParser.resume();
               if (!_this.saxParser.errThrown) {
                 _this.saxParser.errThrown = true;
-                return _this.emit("error", error);
+                return _this.emit("error", error2);
               }
             };
           }(this);
@@ -22654,17 +22654,17 @@ var require_iterate = __commonJS({
     module2.exports = iterate;
     function iterate(list, iterator, state, callback) {
       var key = state["keyedList"] ? state["keyedList"][state.index] : state.index;
-      state.jobs[key] = runJob(iterator, key, list[key], function(error, output) {
+      state.jobs[key] = runJob(iterator, key, list[key], function(error2, output) {
         if (!(key in state.jobs)) {
           return;
         }
         delete state.jobs[key];
-        if (error) {
+        if (error2) {
           abort(state);
         } else {
           state.results[key] = output;
         }
-        callback(error, state.results);
+        callback(error2, state.results);
       });
     }
     function runJob(iterator, key, item, callback) {
@@ -22728,9 +22728,9 @@ var require_parallel = __commonJS({
     function parallel(list, iterator, callback) {
       var state = initState(list);
       while (state.index < (state["keyedList"] || list).length) {
-        iterate(list, iterator, state, function(error, result) {
-          if (error) {
-            callback(error, result);
+        iterate(list, iterator, state, function(error2, result) {
+          if (error2) {
+            callback(error2, result);
             return;
           }
           if (Object.keys(state.jobs).length === 0) {
@@ -22756,9 +22756,9 @@ var require_serialOrdered = __commonJS({
     module2.exports.descending = descending;
     function serialOrdered(list, iterator, sortMethod, callback) {
       var state = initState(list, sortMethod);
-      iterate(list, iterator, state, function iteratorHandler(error, result) {
-        if (error) {
-          callback(error, result);
+      iterate(list, iterator, state, function iteratorHandler(error2, result) {
+        if (error2) {
+          callback(error2, result);
           return;
         }
         state.index++;
@@ -23103,10 +23103,10 @@ var require_form_data = __commonJS({
         this.pipe(request);
         if (cb) {
           var onResponse;
-          var callback = function(error, responce) {
+          var callback = function(error2, responce) {
             request.removeListener("error", callback);
             request.removeListener("response", onResponse);
-            return cb.call(this, error, responce);
+            return cb.call(this, error2, responce);
           };
           onResponse = callback.bind(this, null);
           request.on("error", callback);
@@ -23402,21 +23402,21 @@ var require_tr46 = __commonJS({
         label = punycode.toUnicode(label);
         processing_option = PROCESSING_OPTIONS.NONTRANSITIONAL;
       }
-      var error = false;
+      var error2 = false;
       if (normalize(label) !== label || label[3] === "-" && label[4] === "-" || label[0] === "-" || label[label.length - 1] === "-" || label.indexOf(".") !== -1 || label.search(combiningMarksRegex) === 0) {
-        error = true;
+        error2 = true;
       }
       var len = countSymbols(label);
       for (var i = 0; i < len; ++i) {
         var status = findStatus(label.codePointAt(i));
         if (processing === PROCESSING_OPTIONS.TRANSITIONAL && status[1] !== "valid" || processing === PROCESSING_OPTIONS.NONTRANSITIONAL && status[1] !== "valid" && status[1] !== "deviation") {
-          error = true;
+          error2 = true;
           break;
         }
       }
       return {
         label,
-        error
+        error: error2
       };
     }
     function processing(domain_name, useSTD3, processing_option) {
@@ -25068,8 +25068,8 @@ var require_lib4 = __commonJS({
       this.timeout = timeout;
       if (body instanceof Stream) {
         body.on("error", function(err) {
-          const error = err.name === "AbortError" ? err : new FetchError(`Invalid response body while trying to fetch ${_this.url}: ${err.message}`, "system", err);
-          _this[INTERNALS].error = error;
+          const error2 = err.name === "AbortError" ? err : new FetchError(`Invalid response body while trying to fetch ${_this.url}: ${err.message}`, "system", err);
+          _this[INTERNALS].error = error2;
         });
       }
     }
@@ -25914,14 +25914,14 @@ var require_lib4 = __commonJS({
         const signal = request.signal;
         let response = null;
         const abort = function abort2() {
-          let error = new AbortError("The user aborted a request.");
-          reject(error);
+          let error2 = new AbortError("The user aborted a request.");
+          reject(error2);
           if (request.body && request.body instanceof Stream.Readable) {
-            destroyStream(request.body, error);
+            destroyStream(request.body, error2);
           }
           if (!response || !response.body)
             return;
-          response.body.emit("error", error);
+          response.body.emit("error", error2);
         };
         if (signal && signal.aborted) {
           abort();
@@ -30074,8 +30074,8 @@ var require_dist6 = __commonJS({
           }
           await this.processRequest(operationResponse);
           return operationResponse;
-        } catch (error) {
-          const fetchError = error;
+        } catch (error2) {
+          const fetchError = error2;
           if (fetchError.code === "ENOTFOUND") {
             throw new RestError(fetchError.message, RestError.REQUEST_SEND_ERROR, void 0, httpRequest);
           } else if (fetchError.type === "aborted") {
@@ -30375,9 +30375,9 @@ var require_dist6 = __commonJS({
           return parsedResponse;
         }
         const responseSpec = getOperationResponse(parsedResponse);
-        const { error, shouldReturnResponse } = handleErrorResponse(parsedResponse, operationSpec, responseSpec);
-        if (error) {
-          throw error;
+        const { error: error2, shouldReturnResponse } = handleErrorResponse(parsedResponse, operationSpec, responseSpec);
+        if (error2) {
+          throw error2;
         } else if (shouldReturnResponse) {
           return parsedResponse;
         }
@@ -30423,9 +30423,9 @@ var require_dist6 = __commonJS({
       const errorResponseSpec = responseSpec !== null && responseSpec !== void 0 ? responseSpec : operationSpec.responses.default;
       const streaming = ((_a = parsedResponse.request.streamResponseStatusCodes) === null || _a === void 0 ? void 0 : _a.has(parsedResponse.status)) || parsedResponse.request.streamResponseBody;
       const initialErrorMessage = streaming ? `Unexpected status code: ${parsedResponse.status}` : parsedResponse.bodyAsText;
-      const error = new RestError(initialErrorMessage, void 0, parsedResponse.status, parsedResponse.request, parsedResponse);
+      const error2 = new RestError(initialErrorMessage, void 0, parsedResponse.status, parsedResponse.request, parsedResponse);
       if (!errorResponseSpec) {
-        throw error;
+        throw error2;
       }
       const defaultBodyMapper = errorResponseSpec.bodyMapper;
       const defaultHeadersMapper = errorResponseSpec.headersMapper;
@@ -30441,21 +30441,21 @@ var require_dist6 = __commonJS({
             parsedError = operationSpec.serializer.deserialize(defaultBodyMapper, valueToDeserialize, "error.response.parsedBody");
           }
           const internalError = parsedBody.error || parsedError || parsedBody;
-          error.code = internalError.code;
+          error2.code = internalError.code;
           if (internalError.message) {
-            error.message = internalError.message;
+            error2.message = internalError.message;
           }
           if (defaultBodyMapper) {
-            error.response.parsedBody = parsedError;
+            error2.response.parsedBody = parsedError;
           }
         }
         if (parsedResponse.headers && defaultHeadersMapper) {
-          error.response.parsedHeaders = operationSpec.serializer.deserialize(defaultHeadersMapper, parsedResponse.headers.toJson(), "operationRes.parsedHeaders");
+          error2.response.parsedHeaders = operationSpec.serializer.deserialize(defaultHeadersMapper, parsedResponse.headers.toJson(), "operationRes.parsedHeaders");
         }
       } catch (defaultError) {
-        error.message = `Error "${defaultError.message}" occurred in deserializing the responseBody - "${parsedResponse.bodyAsText}" for the default response.`;
+        error2.message = `Error "${defaultError.message}" occurred in deserializing the responseBody - "${parsedResponse.bodyAsText}" for the default response.`;
       }
-      return { error, shouldReturnResponse: false };
+      return { error: error2, shouldReturnResponse: false };
     }
     function parse3(jsonContentTypes, xmlContentTypes, operationResponse, opts) {
       var _a;
@@ -30560,8 +30560,8 @@ var require_dist6 = __commonJS({
     function isNumber(n) {
       return typeof n === "number";
     }
-    function shouldRetry(retryLimit, predicate, retryData, response, error) {
-      if (!predicate(response, error)) {
+    function shouldRetry(retryLimit, predicate, retryData, response, error2) {
+      if (!predicate(response, error2)) {
         return false;
       }
       return retryData.retryCount < retryLimit;
@@ -30612,7 +30612,7 @@ var require_dist6 = __commonJS({
         this.maxRetryInterval = isNumber(maxRetryInterval) ? maxRetryInterval : DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
       }
       sendRequest(request) {
-        return this._nextPolicy.sendRequest(request.clone()).then((response) => retry$1(this, request, response)).catch((error) => retry$1(this, request, error.response, void 0, error));
+        return this._nextPolicy.sendRequest(request.clone()).then((response) => retry$1(this, request, response)).catch((error2) => retry$1(this, request, error2.response, void 0, error2));
       }
     };
     async function retry$1(policy, request, response, retryData, requestError) {
@@ -31247,13 +31247,13 @@ var require_dist6 = __commonJS({
         this.maxRetryInterval = isNumber(maxRetryInterval) ? maxRetryInterval : DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
       }
       sendRequest(request) {
-        return this._nextPolicy.sendRequest(request.clone()).catch((error) => retry(this, request, error.response, error));
+        return this._nextPolicy.sendRequest(request.clone()).catch((error2) => retry(this, request, error2.response, error2));
       }
     };
     async function retry(policy, request, operationResponse, err, retryData) {
       retryData = updateRetryData(policy, retryData, err);
-      function shouldPolicyRetry(_response, error) {
-        if (error && error.code && (error.code === "ETIMEDOUT" || error.code === "ESOCKETTIMEDOUT" || error.code === "ECONNREFUSED" || error.code === "ECONNRESET" || error.code === "ENOENT")) {
+      function shouldPolicyRetry(_response, error2) {
+        if (error2 && error2.code && (error2.code === "ETIMEDOUT" || error2.code === "ESOCKETTIMEDOUT" || error2.code === "ECONNREFUSED" || error2.code === "ECONNRESET" || error2.code === "ENOENT")) {
           return true;
         }
         return false;
@@ -31333,7 +31333,7 @@ var require_dist6 = __commonJS({
           const date = Date.parse(headerValue);
           const diff = date - now;
           return Number.isNaN(diff) ? void 0 : diff;
-        } catch (error) {
+        } catch (error2) {
           return void 0;
         }
       }
@@ -31406,8 +31406,8 @@ var require_dist6 = __commonJS({
             }
           }
           return span;
-        } catch (error) {
-          logger.warning(`Skipping creating a tracing span due to an error: ${error.message}`);
+        } catch (error2) {
+          logger.warning(`Skipping creating a tracing span due to an error: ${error2.message}`);
           return void 0;
         }
       }
@@ -31421,8 +31421,8 @@ var require_dist6 = __commonJS({
             span.setAttribute("http.status_code", err.statusCode);
           }
           span.end();
-        } catch (error) {
-          logger.warning(`Skipping tracing span processing due to an error: ${error.message}`);
+        } catch (error2) {
+          logger.warning(`Skipping tracing span processing due to an error: ${error2.message}`);
         }
       }
       tryProcessResponse(span, response) {
@@ -31436,8 +31436,8 @@ var require_dist6 = __commonJS({
             code: coreTracing.SpanStatusCode.OK
           });
           span.end();
-        } catch (error) {
-          logger.warning(`Skipping tracing span processing due to an error: ${error.message}`);
+        } catch (error2) {
+          logger.warning(`Skipping tracing span processing due to an error: ${error2.message}`);
         }
       }
     };
@@ -31513,8 +31513,8 @@ var require_dist6 = __commonJS({
             httpRequest = new WebResource();
             httpRequest = httpRequest.prepare(options);
           }
-        } catch (error) {
-          return Promise.reject(error);
+        } catch (error2) {
+          return Promise.reject(error2);
         }
         let httpPipeline = this._httpClient;
         if (this._requestPolicyFactories && this._requestPolicyFactories.length > 0) {
@@ -31656,8 +31656,8 @@ var require_dist6 = __commonJS({
           let sendRequestError;
           try {
             rawResponse = await this.sendRequest(httpRequest);
-          } catch (error) {
-            sendRequestError = error;
+          } catch (error2) {
+            sendRequestError = error2;
           }
           if (sendRequestError) {
             if (sendRequestError.response) {
@@ -31667,8 +31667,8 @@ var require_dist6 = __commonJS({
           } else {
             result = Promise.resolve(flattenResponse(rawResponse, operationSpec.responses[rawResponse.status]));
           }
-        } catch (error) {
-          result = Promise.reject(error);
+        } catch (error2) {
+          result = Promise.reject(error2);
         }
         const cb = callback;
         if (cb) {
@@ -31716,8 +31716,8 @@ var require_dist6 = __commonJS({
               httpRequest.body = JSON.stringify(httpRequest.body);
             }
           }
-        } catch (error) {
-          throw new Error(`Error "${error.message}" occurred in serializing the payload - ${JSON.stringify(serializedName, void 0, "  ")}.`);
+        } catch (error2) {
+          throw new Error(`Error "${error2.message}" occurred in serializing the payload - ${JSON.stringify(serializedName, void 0, "  ")}.`);
         }
       } else if (operationSpec.formDataParameters && operationSpec.formDataParameters.length > 0) {
         httpRequest.formData = {};
@@ -32288,12 +32288,12 @@ var require_dist8 = __commonJS({
     }
     function setStateError(inputs) {
       const { state, stateProxy, isOperationError: isOperationError2 } = inputs;
-      return (error) => {
-        if (isOperationError2(error)) {
-          stateProxy.setError(state, error);
+      return (error2) => {
+        if (isOperationError2(error2)) {
+          stateProxy.setError(state, error2);
           stateProxy.setFailed(state);
         }
-        throw error;
+        throw error2;
       };
     }
     function appendReadableErrorMessage(currentMessage, innerMessage) {
@@ -32565,16 +32565,16 @@ var require_dist8 = __commonJS({
       return void 0;
     }
     function getErrorFromResponse(response) {
-      const error = response.flatResponse.error;
-      if (!error) {
+      const error2 = response.flatResponse.error;
+      if (!error2) {
         logger.warning(`The long-running operation failed but there is no error property in the response's body`);
         return;
       }
-      if (!error.code || !error.message) {
+      if (!error2.code || !error2.message) {
         logger.warning(`The long-running operation failed but the error property in the response's body doesn't contain code or message`);
         return;
       }
-      return error;
+      return error2;
     }
     function calculatePollingIntervalFromDate(retryAfterDate) {
       const timeNow = Math.floor((/* @__PURE__ */ new Date()).getTime());
@@ -32699,7 +32699,7 @@ var require_dist8 = __commonJS({
        */
       initState: (config) => ({ status: "running", config }),
       setCanceled: (state) => state.status = "canceled",
-      setError: (state, error) => state.error = error,
+      setError: (state, error2) => state.error = error2,
       setResult: (state, result) => state.result = result,
       setRunning: (state) => state.status = "running",
       setSucceeded: (state) => state.status = "succeeded",
@@ -32865,7 +32865,7 @@ var require_dist8 = __commonJS({
     var createStateProxy = () => ({
       initState: (config) => ({ config, isStarted: true }),
       setCanceled: (state) => state.isCancelled = true,
-      setError: (state, error) => state.error = error,
+      setError: (state, error2) => state.error = error2,
       setResult: (state, result) => state.result = result,
       setRunning: (state) => state.isStarted = true,
       setSucceeded: (state) => state.isCompleted = true,
@@ -33106,9 +33106,9 @@ var require_dist8 = __commonJS({
         if (this.operation.state.isCancelled) {
           this.stopped = true;
           if (!this.resolveOnUnsuccessful) {
-            const error = new PollerCancelledError("Operation was canceled");
-            this.reject(error);
-            throw error;
+            const error2 = new PollerCancelledError("Operation was canceled");
+            this.reject(error2);
+            throw error2;
           }
         }
         if (this.isDone() && this.resolve) {
@@ -47005,7 +47005,7 @@ var require_dist9 = __commonJS({
           accountName = "";
         }
         return accountName;
-      } catch (error) {
+      } catch (error2) {
         throw new Error("Unable to extract accountName with provided information.");
       }
     }
@@ -49125,8 +49125,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 this.source = newSource;
                 this.setSourceEventHandlers();
                 return;
-              }).catch((error) => {
-                this.destroy(error);
+              }).catch((error2) => {
+                this.destroy(error2);
               });
             } else {
               this.destroy(new Error(`Data corruption failure: received less data than required and reached maxRetires limitation. Received data offset: ${this.offset - 1}, data needed offset: ${this.end}, retries: ${this.retries}, max retries: ${this.maxRetryRequests}`));
@@ -49158,10 +49158,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this.source.removeListener("end", this.sourceErrorOrEndHandler);
         this.source.removeListener("error", this.sourceErrorOrEndHandler);
       }
-      _destroy(error, callback) {
+      _destroy(error2, callback) {
         this.removeSourceEventHandlers();
         this.source.destroy();
-        callback(error === null ? void 0 : error);
+        callback(error2 === null ? void 0 : error2);
       }
     };
     var BlobDownloadResponse = class {
@@ -50735,8 +50735,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
             this.actives--;
             this.completed++;
             this.parallelExecute();
-          } catch (error) {
-            this.emitter.emit("error", error);
+          } catch (error2) {
+            this.emitter.emit("error", error2);
           }
         });
       }
@@ -50751,9 +50751,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this.parallelExecute();
         return new Promise((resolve, reject) => {
           this.emitter.on("finish", resolve);
-          this.emitter.on("error", (error) => {
+          this.emitter.on("error", (error2) => {
             this.state = BatchStates.Error;
-            reject(error);
+            reject(error2);
           });
         });
       }
@@ -51892,8 +51892,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           if (!buffer) {
             try {
               buffer = Buffer.alloc(count);
-            } catch (error) {
-              throw new Error(`Unable to allocate the buffer of size: ${count}(in bytes). Please try passing your own buffer to the "downloadToBuffer" method or try using other methods like "download" or "downloadToFile".	 ${error.message}`);
+            } catch (error2) {
+              throw new Error(`Unable to allocate the buffer of size: ${count}(in bytes). Please try passing your own buffer to the "downloadToBuffer" method or try using other methods like "download" or "downloadToFile".	 ${error2.message}`);
             }
           }
           if (buffer.length < count) {
@@ -51994,7 +51994,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
             throw new Error("Provided containerName is invalid.");
           }
           return { blobName, containerName };
-        } catch (error) {
+        } catch (error2) {
           throw new Error("Unable to extract blobName and containerName with provided information.");
         }
       }
@@ -55293,7 +55293,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
             throw new Error("Provided containerName is invalid.");
           }
           return containerName;
-        } catch (error) {
+        } catch (error2) {
           throw new Error("Unable to extract containerName with provided information.");
         }
       }
@@ -56581,12 +56581,12 @@ var require_requestUtils = __commonJS({
           let isRetryable = false;
           try {
             response = yield method();
-          } catch (error) {
+          } catch (error2) {
             if (onError) {
-              response = onError(error);
+              response = onError(error2);
             }
             isRetryable = true;
-            errorMessage = error.message;
+            errorMessage = error2.message;
           }
           if (response) {
             statusCode = getStatusCode(response);
@@ -56620,13 +56620,13 @@ var require_requestUtils = __commonJS({
           delay,
           // If the error object contains the statusCode property, extract it and return
           // an TypedResponse<T> so it can be processed by the retry logic.
-          (error) => {
-            if (error instanceof http_client_1.HttpClientError) {
+          (error2) => {
+            if (error2 instanceof http_client_1.HttpClientError) {
               return {
-                statusCode: error.statusCode,
+                statusCode: error2.statusCode,
                 result: null,
                 headers: {},
-                error
+                error: error2
               };
             } else {
               return void 0;
@@ -57348,8 +57348,8 @@ Other caches with similar key:`);
                 start,
                 end,
                 autoClose: false
-              }).on("error", (error) => {
-                throw new Error(`Cache upload failed because file read failed with ${error.message}`);
+              }).on("error", (error2) => {
+                throw new Error(`Cache upload failed because file read failed with ${error2.message}`);
               }), start, end);
             }
           })));
@@ -57601,8 +57601,8 @@ var require_tar = __commonJS({
               cwd,
               env: Object.assign(Object.assign({}, process.env), { MSYS: "winsymlinks:nativestrict" })
             });
-          } catch (error) {
-            throw new Error(`${command.split(" ")[0]} failed with error: ${error === null || error === void 0 ? void 0 : error.message}`);
+          } catch (error2) {
+            throw new Error(`${command.split(" ")[0]} failed with error: ${error2 === null || error2 === void 0 ? void 0 : error2.message}`);
           }
         }
       });
@@ -57776,18 +57776,18 @@ var require_cache = __commonJS({
           yield (0, tar_1.extractTar)(archivePath, compressionMethod);
           core6.info("Cache restored successfully");
           return cacheEntry.cacheKey;
-        } catch (error) {
-          const typedError = error;
+        } catch (error2) {
+          const typedError = error2;
           if (typedError.name === ValidationError.name) {
-            throw error;
+            throw error2;
           } else {
-            core6.warning(`Failed to restore: ${error.message}`);
+            core6.warning(`Failed to restore: ${error2.message}`);
           }
         } finally {
           try {
             yield utils.unlinkFile(archivePath);
-          } catch (error) {
-            core6.debug(`Failed to delete archive: ${error}`);
+          } catch (error2) {
+            core6.debug(`Failed to delete archive: ${error2}`);
           }
         }
         return void 0;
@@ -57836,10 +57836,10 @@ var require_cache = __commonJS({
           }
           core6.debug(`Saving Cache (ID: ${cacheId})`);
           yield cacheHttpClient.saveCache(cacheId, archivePath, options);
-        } catch (error) {
-          const typedError = error;
+        } catch (error2) {
+          const typedError = error2;
           if (typedError.name === ValidationError.name) {
-            throw error;
+            throw error2;
           } else if (typedError.name === ReserveCacheError.name) {
             core6.info(`Failed to save: ${typedError.message}`);
           } else {
@@ -57848,8 +57848,8 @@ var require_cache = __commonJS({
         } finally {
           try {
             yield utils.unlinkFile(archivePath);
-          } catch (error) {
-            core6.debug(`Failed to delete archive: ${error}`);
+          } catch (error2) {
+            core6.debug(`Failed to delete archive: ${error2}`);
           }
         }
         return cacheId;
@@ -60817,6 +60817,16 @@ function getCacheKey(input, version2) {
     process.exit(1);
   }
   let hashKey = jobId + runnerOs;
+  hashKey += input.source.type;
+  if (input.source.type === "registry") {
+    hashKey += input.source.registry ?? "";
+    hashKey += input.source.index ?? "";
+  } else {
+    hashKey += input.source.repository;
+    hashKey += input.source.branch ?? "";
+    hashKey += input.source.tag ?? "";
+    hashKey += input.source.commit ?? "";
+  }
   for (const feature of input.features) {
     hashKey += feature;
   }
@@ -60836,6 +60846,12 @@ async function runCargoInstall(input, version2, install) {
     commandArgs.push("--version", version2.version);
   } else {
     commandArgs.push("--git", version2.repository, "--rev", version2.commit);
+  }
+  if (input.source.type === "registry" && input.source.registry !== void 0) {
+    commandArgs.push("--registry", input.source.registry);
+  }
+  if (input.source.type === "registry" && input.source.index !== void 0) {
+    commandArgs.push("--index", input.source.index);
   }
   if (input.features.length > 0) {
     commandArgs.push("--features", input.features.join(","));
@@ -60900,17 +60916,27 @@ function parseInput() {
     core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
     process.exit(1);
   }
+  const registry = core2.getInput("registry", { required: false });
+  const index = core2.getInput("index", { required: false });
+  if (registry !== "" && index !== "") {
+    core2.setFailed("Cannot provide both registry and index.");
+    process.exit(1);
+  }
   const repository = core2.getInput("git", { required: false });
   const branch = core2.getInput("branch", { required: false });
   const tag = core2.getInput("tag", { required: false });
   const rev = core2.getInput("rev", { required: false });
   const commit = core2.getInput("commit", { required: false });
-  let source = { type: "registry", version: version2 };
+  let source;
   if (repository !== "") {
     source = { type: "git", repository };
     source.branch = branch !== "" ? branch : void 0;
     source.tag = tag !== "" ? tag : void 0;
     source.commit = commit !== "" ? commit : rev !== "" ? rev : void 0;
+  } else {
+    source = { type: "registry", version: version2 };
+    source.registry = registry !== "" ? registry : void 0;
+    source.index = index !== "" ? index : void 0;
   }
   if (repository === "" && (branch !== "" || tag !== "" || commit !== "" || rev !== "")) {
     core2.warning("Ignoring branch, tag, and commit since git is not provided.");
@@ -61008,7 +61034,7 @@ function getIssues(info4, reason, validation, message, input, issues) {
   };
 }
 function boolean(arg1, arg2) {
-  const [error, pipe] = getDefaultArgs(arg1, arg2);
+  const [error2, pipe] = getDefaultArgs(arg1, arg2);
   return {
     /**
      * The schema type.
@@ -61032,7 +61058,7 @@ function boolean(arg1, arg2) {
           info4,
           "type",
           "boolean",
-          error || "Invalid type",
+          error2 || "Invalid type",
           input
         );
       }
@@ -61041,7 +61067,7 @@ function boolean(arg1, arg2) {
   };
 }
 function object(object2, arg2, arg3) {
-  const [error, pipe] = getDefaultArgs(arg2, arg3);
+  const [error2, pipe] = getDefaultArgs(arg2, arg3);
   let cachedEntries;
   return {
     /**
@@ -61070,7 +61096,7 @@ function object(object2, arg2, arg3) {
           info4,
           "type",
           "object",
-          error || "Invalid type",
+          error2 || "Invalid type",
           input
         );
       }
@@ -61115,7 +61141,7 @@ function object(object2, arg2, arg3) {
   };
 }
 function string(arg1, arg2) {
-  const [error, pipe] = getDefaultArgs(arg1, arg2);
+  const [error2, pipe] = getDefaultArgs(arg1, arg2);
   return {
     /**
      * The schema type.
@@ -61139,7 +61165,7 @@ function string(arg1, arg2) {
           info4,
           "type",
           "string",
-          error || "Invalid type",
+          error2 || "Invalid type",
           input
         );
       }
@@ -61154,13 +61180,13 @@ function parse2(schema, input, info4) {
   }
   return result.output;
 }
-function custom(requirement, error) {
+function custom(requirement, error2) {
   return (input) => {
     if (!requirement(input)) {
       return {
         issue: {
           validation: "custom",
-          message: error || "Invalid input",
+          message: error2 || "Invalid input",
           input
         }
       };
@@ -61176,9 +61202,29 @@ var CrateVersionSchema = object({
   ]),
   yanked: boolean()
 });
-async function resolveRegistryVersion(crate, version2) {
-  core3.info(`Fetching information for ${crate} from crates.io index ...`);
-  const versions = await fetchIndex(crate);
+async function resolveRegistryVersion(crate, { version: version2, registry, index }) {
+  const isVersionRange = import_semver.default.valid(version2) === null;
+  const registryIndex = index !== void 0 ? parseRegistryIndex(index) : { sparse: true, url: "https://index.crates.io/" };
+  const nonSparseIndex = registry !== void 0 || !registryIndex.sparse;
+  if (isVersionRange && nonSparseIndex) {
+    core3.error("Version ranges can only be used with sparse indexes");
+    process.exit(1);
+  }
+  if (!isVersionRange && nonSparseIndex) {
+    core3.info("Using non-sparse index, skipping version resolution");
+    return { version: version2 };
+  }
+  return await resolveCrateVersion(crate, version2, registryIndex);
+}
+function parseRegistryIndex(input) {
+  const sparseProtocol = "sparse+";
+  const sparse = input.startsWith(sparseProtocol);
+  const url = sparse ? input.slice(sparseProtocol.length) : input;
+  return { sparse, url };
+}
+async function resolveCrateVersion(crate, version2, index) {
+  core3.info(`Fetching information for ${crate} from index ...`);
+  const versions = await fetchIndex(crate, index.url);
   const sortedVersions = versions.sort((a, b) => import_semver.default.compare(a.vers, b.vers)).reverse();
   const latest = sortedVersions.find((ver) => !ver.yanked) ?? sortedVersions[0];
   if (version2 === "latest") {
@@ -61198,9 +61244,10 @@ async function resolveRegistryVersion(crate, version2) {
   }
   return { version: resolvedVersion.vers };
 }
-async function fetchIndex(crate) {
+async function fetchIndex(crate, indexUrl) {
+  const url = new URL(getIndexPath(crate), indexUrl);
   const client = new http.HttpClient("cargo-install-action");
-  const response = await client.get(`https://index.crates.io/${getIndexPath(crate)}`);
+  const response = await client.get(url.toString());
   if (response.message.statusCode === 404) {
     core3.setFailed(`Crate ${crate} not found on crates.io index`);
     process.exit(1);
@@ -61294,7 +61341,7 @@ var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
   core5.startGroup(chalk2.bold(`Installing ${input.crate}...`));
-  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source.version) : await resolveGitCommit(input.source);
+  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source) : await resolveGitCommit(input.source);
   const install = getInstallSettings(input, version2);
   core5.info("Installation settings:");
   if ("version" in version2) {
@@ -61332,9 +61379,9 @@ async function run() {
   core5.setOutput("version", "version" in version2 ? version2.version : version2.commit);
   core5.setOutput("cache-hit", cacheHit);
 }
-run().catch((error) => {
-  core5.setFailed(error.message);
-  core5.info(error.stack);
+run().catch((error2) => {
+  core5.setFailed(error2.message);
+  core5.info(error2.stack);
 });
 /*! Bundled license information:
 

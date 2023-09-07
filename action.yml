@@ -19,11 +19,17 @@ inputs:
     description: "Additional key added to the automatic cache key."
     required: false
 
-  # Crates.io installation
+  # Registry installation
   version:
     description: "Version of the crate to install."
     required: true
     default: "latest"
+  registry:
+    description: "Registry to install the crate from."
+    required: false
+  index:
+    description: "Registry index to install the crate from."
+    required: false
 
   # Git installation
   git:
