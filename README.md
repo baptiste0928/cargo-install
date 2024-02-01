@@ -9,6 +9,7 @@ automatically caches the resulting binaries to speed up subsequent builds.
 
 | ✨ Recent updates: |
 | :--- |
+| **v3.0:** Run on Node 20 instead of Node 16. |
 | **v2.2:** Added support for alternate registries and sparse indexes. |
 | **v2.1:** Installing crates from git is now supported. |
 | **v2.0:** This major update introduces some breaking changes. Read the [changelog] before updating. |
@@ -100,7 +101,7 @@ to learn more about caching with GitHub Actions.
   cargo-install-<crate>-<version or commit>-<hash>
   ```
 
-  The hash is derived from the action job and runner os name and the
+  The hash is derived from the action job and runner os name, os version and the
   installation arguments. The `cache-key` value is added to the hashed string
   if provided.
 </details>
