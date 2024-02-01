@@ -27,13 +27,13 @@ crates. Read [Quickstart for GitHub Actions] to learn more about Actions usage.
 
 ```yaml
 - name: Install cargo-hack from crates.io
-  uses: baptiste0928/cargo-install@v2
+  uses: baptiste0928/cargo-install@v3
   with:
     crate: cargo-hack
     version: "^0.5"  # You can specify any semver range
 
 - name: Install cargo-sort from git
-  uses: baptiste0928/cargo-install@v2
+  uses: baptiste0928/cargo-install@v3
   with:
     crate: cargo-sort
     git: https://github.com/devinr528/cargo-sort
