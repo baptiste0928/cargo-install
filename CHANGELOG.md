@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Runner os version is included in the cache key. (issue #21)
+-
+### Changed
+- **Breaking:** The action now runs on Node.js 20.
+- Dependencies have been updated.
 
 ## [2.2.0] - 2023-09-07
 ### Added
