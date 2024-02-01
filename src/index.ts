@@ -20,7 +20,7 @@ async function run (): Promise<void> {
     ? await resolveRegistryVersion(input.crate, input.source)
     : await resolveGitCommit(input.source)
 
-  const install = getInstallSettings(input, version)
+  const install = await getInstallSettings(input, version)
   core.info('Installation settings:')
   if ('version' in version) {
     core.info(`   version: ${version.version}`)

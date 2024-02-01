@@ -17,7 +17,7 @@ export interface InstallSettings {
 }
 
 // Get the installation settings for the crate (path and cache key)
-export function getInstallSettings (input: ActionInput, version: ResolvedVersion): InstallSettings {
+export async function getInstallSettings (input: ActionInput, version: ResolvedVersion): Promise<InstallSettings> {
   const homePath = process.env.HOME ?? process.env.USERPROFILE
   if (homePath === undefined || homePath === '') {
     core.setFailed('Could not determine home directory (missing HOME and USERPROFILE environement variables)')
@@ -25,7 +25,7 @@ export function getInstallSettings (input: ActionInput, version: ResolvedVersion
   }
 
   const installPath = path.join(homePath, '.cargo-install', input.crate)
-  const cacheKey = getCacheKey(input, version)
+  const cacheKey = await getCacheKey(input, version)
 
   return {
     path: installPath,
@@ -33,16 +33,39 @@ export function getInstallSettings (input: ActionInput, version: ResolvedVersion
   }
 }
 
-function getCacheKey (input: ActionInput, version: ResolvedVersion): string {
+// Get the os version of the runner, used for the cache key
+async function getOsVersion (): Promise<string | undefined> {
+  const runnerOs = process.env.RUNNER_OS
+
+  if (runnerOs === 'Linux') {
+    const output = await exec.getExecOutput('cat', ['/etc/os-release'], { silent: true })
+    const match = output.stdout.match(/VERSION_ID="(.*)"/)
+    return match?.[1]
+  }
+
+  if (runnerOs === 'MacOS') {
+    const output = await exec.getExecOutput('sw_vers', ['-productVersion'], { silent: true })
+    return output.stdout.trim()
+  }
+
+  if (runnerOs === 'Windows') {
+    const major = await exec.getExecOutput('pwsh', ['-Command', '[System.Environment]::OSVersion.Version.Major'], { silent: true })
+    const minor = await exec.getExecOutput('pwsh', ['-Command', '[System.Environment]::OSVersion.Version.Minor'], { silent: true })
+    return `${major.stdout.trim()}.${minor.stdout.trim()}`
+  }
+}
+
+async function getCacheKey (input: ActionInput, version: ResolvedVersion): Promise<string> {
   const runnerOs = process.env.RUNNER_OS
   const jobId = process.env.GITHUB_JOB
+  const osVersion = await getOsVersion()
 
   if (runnerOs === undefined || jobId === undefined) {
     core.setFailed('Could not determine runner OS or job ID')
     process.exit(1)
   }
 
-  let hashKey = jobId + runnerOs
+  let hashKey = jobId + runnerOs + (osVersion ?? '')
 
   hashKey += input.source.type
   if (input.source.type === 'registry') {

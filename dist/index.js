@@ -3221,7 +3221,7 @@ var require_exec = __commonJS({
       });
     }
     exports.exec = exec5;
-    function getExecOutput(commandLine, args, options) {
+    function getExecOutput2(commandLine, args, options) {
       var _a, _b;
       return __awaiter2(this, void 0, void 0, function* () {
         let stdout = "";
@@ -3253,7 +3253,7 @@ var require_exec = __commonJS({
         };
       });
     }
-    exports.getExecOutput = getExecOutput;
+    exports.getExecOutput = getExecOutput2;
   }
 });
 
@@ -60795,28 +60795,46 @@ var core = __toESM(require_core());
 var exec = __toESM(require_exec());
 var import_node_path = __toESM(require("node:path"));
 var import_node_crypto = __toESM(require("node:crypto"));
-function getInstallSettings(input, version2) {
+async function getInstallSettings(input, version2) {
   const homePath = process.env.HOME ?? process.env.USERPROFILE;
   if (homePath === void 0 || homePath === "") {
     core.setFailed("Could not determine home directory (missing HOME and USERPROFILE environement variables)");
     process.exit(1);
   }
   const installPath = import_node_path.default.join(homePath, ".cargo-install", input.crate);
-  const cacheKey = getCacheKey(input, version2);
+  const cacheKey = await getCacheKey(input, version2);
   return {
     path: installPath,
     cacheKey
   };
 }
-function getCacheKey(input, version2) {
+async function getOsVersion() {
+  const runnerOs = process.env.RUNNER_OS;
+  if (runnerOs === "Linux") {
+    const output = await exec.getExecOutput("cat", ["/etc/os-release"], { silent: true });
+    const match = output.stdout.match(/VERSION_ID="(.*)"/);
+    return match == null ? void 0 : match[1];
+  }
+  if (runnerOs === "MacOS") {
+    const output = await exec.getExecOutput("sw_vers", ["-productVersion"], { silent: true });
+    return output.stdout.trim();
+  }
+  if (runnerOs === "Windows") {
+    const major = await exec.getExecOutput("pwsh", ["-Command", "[System.Environment]::OSVersion.Version.Major"], { silent: true });
+    const minor = await exec.getExecOutput("pwsh", ["-Command", "[System.Environment]::OSVersion.Version.Minor"], { silent: true });
+    return `${major.stdout.trim()}.${minor.stdout.trim()}`;
+  }
+}
+async function getCacheKey(input, version2) {
   var _a;
   const runnerOs = process.env.RUNNER_OS;
   const jobId = process.env.GITHUB_JOB;
+  const osVersion = await getOsVersion();
   if (runnerOs === void 0 || jobId === void 0) {
     core.setFailed("Could not determine runner OS or job ID");
     process.exit(1);
   }
-  let hashKey = jobId + runnerOs;
+  let hashKey = jobId + runnerOs + (osVersion ?? "");
   hashKey += input.source.type;
   if (input.source.type === "registry") {
     hashKey += input.source.registry ?? "";
@@ -61342,7 +61360,7 @@ async function run() {
   const input = parseInput();
   core5.startGroup(chalk2.bold(`Installing ${input.crate}...`));
   const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source) : await resolveGitCommit(input.source);
-  const install = getInstallSettings(input, version2);
+  const install = await getInstallSettings(input, version2);
   core5.info("Installation settings:");
   if ("version" in version2) {
     core5.info(`   version: ${version2.version}`);
