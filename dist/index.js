@@ -76922,10 +76922,10 @@ var require_semver4 = __commonJS({
 });
 
 // src/index.ts
-var core5 = __toESM(require_core(), 1);
-var io = __toESM(require_io(), 1);
-var cache = __toESM(require_cache2(), 1);
-var import_node_path2 = __toESM(require("node:path"), 1);
+var core5 = __toESM(require_core());
+var io = __toESM(require_io());
+var cache = __toESM(require_cache2());
+var import_node_path2 = __toESM(require("node:path"));
 
 // node_modules/.pnpm/chalk@5.3.0/node_modules/chalk/source/vendor/ansi-styles/index.js
 var ANSI_BACKGROUND_OFFSET = 10;
@@ -77421,10 +77421,10 @@ var chalk = createChalk();
 var chalkStderr = createChalk({ level: stderrColor ? stderrColor.level : 0 });
 
 // src/install.ts
-var core = __toESM(require_core(), 1);
-var exec = __toESM(require_exec(), 1);
-var import_node_path = __toESM(require("node:path"), 1);
-var import_node_crypto = __toESM(require("node:crypto"), 1);
+var core = __toESM(require_core());
+var exec = __toESM(require_exec());
+var import_node_path = __toESM(require("node:path"));
+var import_node_crypto = __toESM(require("node:crypto"));
 async function getInstallSettings(input, version2) {
   const homePath = process.env.HOME ?? process.env.USERPROFILE;
   if (homePath === void 0 || homePath === "") {
@@ -77510,8 +77510,8 @@ async function runCargoInstall(input, version2, install) {
 }
 
 // src/parse.ts
-var core2 = __toESM(require_core(), 1);
-var semver = __toESM(require_semver4(), 1);
+var core2 = __toESM(require_core());
+var semver = __toESM(require_semver4());
 
 // node_modules/.pnpm/string-argv@0.3.2/node_modules/string-argv/index.js
 function parseArgsStringToArgv(value, env2, file) {
@@ -77601,9 +77601,9 @@ function parseInput() {
 }
 
 // src/resolve/registry.ts
-var http = __toESM(require_lib(), 1);
-var core3 = __toESM(require_core(), 1);
-var import_semver = __toESM(require_semver4(), 1);
+var http = __toESM(require_lib());
+var core3 = __toESM(require_core());
+var import_semver = __toESM(require_semver4());
 
 // node_modules/.pnpm/valibot@0.27.1/node_modules/valibot/dist/index.js
 var ValiError = class extends Error {
@@ -77948,9 +77948,9 @@ function getIndexPath(crate) {
 }
 
 // src/resolve/git.ts
-var import_node_stream = __toESM(require("node:stream"), 1);
-var exec3 = __toESM(require_exec(), 1);
-var core4 = __toESM(require_core(), 1);
+var import_node_stream = __toESM(require("node:stream"));
+var exec3 = __toESM(require_exec());
+var core4 = __toESM(require_core());
 async function resolveGitCommit(git) {
   core4.info(`Fetching git commits for ${git.repository}...`);
   const commits = await fetchGitRemote(git.repository);
