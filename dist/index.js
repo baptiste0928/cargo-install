@@ -1148,7 +1148,7 @@ var require_util = __commonJS({
     var assert = require("assert");
     var { kDestroyed, kBodyUsed } = require_symbols();
     var { IncomingMessage } = require("http");
-    var stream = require("stream");
+    var stream2 = require("stream");
     var net = require("net");
     var { InvalidArgumentError } = require_errors();
     var { Blob: Blob2 } = require("buffer");
@@ -1267,29 +1267,29 @@ var require_util = __commonJS({
       }
       return null;
     }
-    function isDestroyed(stream2) {
-      return !stream2 || !!(stream2.destroyed || stream2[kDestroyed]);
+    function isDestroyed(stream3) {
+      return !stream3 || !!(stream3.destroyed || stream3[kDestroyed]);
     }
-    function isReadableAborted(stream2) {
-      const state = stream2 && stream2._readableState;
-      return isDestroyed(stream2) && state && !state.endEmitted;
+    function isReadableAborted(stream3) {
+      const state = stream3 && stream3._readableState;
+      return isDestroyed(stream3) && state && !state.endEmitted;
     }
-    function destroy(stream2, err) {
-      if (stream2 == null || !isStream(stream2) || isDestroyed(stream2)) {
+    function destroy(stream3, err) {
+      if (stream3 == null || !isStream(stream3) || isDestroyed(stream3)) {
         return;
       }
-      if (typeof stream2.destroy === "function") {
-        if (Object.getPrototypeOf(stream2).constructor === IncomingMessage) {
-          stream2.socket = null;
+      if (typeof stream3.destroy === "function") {
+        if (Object.getPrototypeOf(stream3).constructor === IncomingMessage) {
+          stream3.socket = null;
         }
-        stream2.destroy(err);
+        stream3.destroy(err);
       } else if (err) {
-        process.nextTick((stream3, err2) => {
-          stream3.emit("error", err2);
-        }, stream2, err);
+        process.nextTick((stream4, err2) => {
+          stream4.emit("error", err2);
+        }, stream3, err);
       }
-      if (stream2.destroyed !== true) {
-        stream2[kDestroyed] = true;
+      if (stream3.destroyed !== true) {
+        stream3[kDestroyed] = true;
       }
     }
     var KEEPALIVE_TIMEOUT_EXPR = /timeout=(\d+)/;
@@ -1376,15 +1376,15 @@ var require_util = __commonJS({
       }
     }
     function isDisturbed(body) {
-      return !!(body && (stream.isDisturbed ? stream.isDisturbed(body) || body[kBodyUsed] : body[kBodyUsed] || body.readableDidRead || body._readableState && body._readableState.dataEmitted || isReadableAborted(body)));
+      return !!(body && (stream2.isDisturbed ? stream2.isDisturbed(body) || body[kBodyUsed] : body[kBodyUsed] || body.readableDidRead || body._readableState && body._readableState.dataEmitted || isReadableAborted(body)));
     }
     function isErrored(body) {
-      return !!(body && (stream.isErrored ? stream.isErrored(body) : /state: 'errored'/.test(
+      return !!(body && (stream2.isErrored ? stream2.isErrored(body) : /state: 'errored'/.test(
         nodeUtil.inspect(body)
       )));
     }
     function isReadable(body) {
-      return !!(body && (stream.isReadable ? stream.isReadable(body) : /state: 'readable'/.test(
+      return !!(body && (stream2.isReadable ? stream2.isReadable(body) : /state: 'readable'/.test(
         nodeUtil.inspect(body)
       )));
     }
@@ -4283,11 +4283,11 @@ var require_util2 = __commonJS({
       }
     }
     var ReadableStream = globalThis.ReadableStream;
-    function isReadableStreamLike(stream) {
+    function isReadableStreamLike(stream2) {
       if (!ReadableStream) {
         ReadableStream = require("stream/web").ReadableStream;
       }
-      return stream instanceof ReadableStream || stream[Symbol.toStringTag] === "ReadableStream" && typeof stream.tee === "function";
+      return stream2 instanceof ReadableStream || stream2[Symbol.toStringTag] === "ReadableStream" && typeof stream2.tee === "function";
     }
     var MAXIMUM_ARGUMENT_LENGTH = 65535;
     function isomorphicDecode(input) {
@@ -5440,13 +5440,13 @@ var require_body = __commonJS({
       if (!ReadableStream) {
         ReadableStream = require("stream/web").ReadableStream;
       }
-      let stream = null;
+      let stream2 = null;
       if (object2 instanceof ReadableStream) {
-        stream = object2;
+        stream2 = object2;
       } else if (isBlobLike(object2)) {
-        stream = object2.stream();
+        stream2 = object2.stream();
       } else {
-        stream = new ReadableStream({
+        stream2 = new ReadableStream({
           async pull(controller) {
             controller.enqueue(
               typeof source === "string" ? textEncoder.encode(source) : source
@@ -5458,7 +5458,7 @@ var require_body = __commonJS({
           type: void 0
         });
       }
-      assert(isReadableStreamLike(stream));
+      assert(isReadableStreamLike(stream2));
       let action = null;
       let source = null;
       let length = null;
@@ -5536,14 +5536,14 @@ Content-Type: ${value.type || "application/octet-stream"}\r
             "Response body object should not be disturbed or locked"
           );
         }
-        stream = object2 instanceof ReadableStream ? object2 : ReadableStreamFrom(object2);
+        stream2 = object2 instanceof ReadableStream ? object2 : ReadableStreamFrom(object2);
       }
       if (typeof source === "string" || util.isBuffer(source)) {
         length = Buffer.byteLength(source);
       }
       if (action != null) {
         let iterator;
-        stream = new ReadableStream({
+        stream2 = new ReadableStream({
           async start() {
             iterator = action(object2)[Symbol.asyncIterator]();
           },
@@ -5554,7 +5554,7 @@ Content-Type: ${value.type || "application/octet-stream"}\r
                 controller.close();
               });
             } else {
-              if (!isErrored(stream)) {
+              if (!isErrored(stream2)) {
                 controller.enqueue(new Uint8Array(value));
               }
             }
@@ -5566,7 +5566,7 @@ Content-Type: ${value.type || "application/octet-stream"}\r
           type: void 0
         });
       }
-      const body = { stream, source, length };
+      const body = { stream: stream2, source, length };
       return [body, type];
     }
     function safelyExtractBody(object2, keepalive = false) {
@@ -5595,15 +5595,15 @@ Content-Type: ${value.type || "application/octet-stream"}\r
         if (isUint8Array(body)) {
           yield body;
         } else {
-          const stream = body.stream;
-          if (util.isDisturbed(stream)) {
+          const stream2 = body.stream;
+          if (util.isDisturbed(stream2)) {
             throw new TypeError("The body has already been consumed.");
           }
-          if (stream.locked) {
+          if (stream2.locked) {
             throw new TypeError("The stream is locked.");
           }
-          stream[kBodyUsed] = true;
-          yield* stream;
+          stream2[kBodyUsed] = true;
+          yield* stream2;
         }
       }
     }
@@ -8280,23 +8280,23 @@ upgrade: ${upgrade}\r
       if (request.aborted) {
         return false;
       }
-      let stream;
+      let stream2;
       const h2State = client[kHTTP2SessionState];
       headers[HTTP2_HEADER_AUTHORITY] = host || client[kHost];
       headers[HTTP2_HEADER_METHOD] = method;
       if (method === "CONNECT") {
         session.ref();
-        stream = session.request(headers, { endStream: false, signal });
-        if (stream.id && !stream.pending) {
-          request.onUpgrade(null, null, stream);
+        stream2 = session.request(headers, { endStream: false, signal });
+        if (stream2.id && !stream2.pending) {
+          request.onUpgrade(null, null, stream2);
           ++h2State.openStreams;
         } else {
-          stream.once("ready", () => {
-            request.onUpgrade(null, null, stream);
+          stream2.once("ready", () => {
+            request.onUpgrade(null, null, stream2);
             ++h2State.openStreams;
           });
         }
-        stream.once("close", () => {
+        stream2.once("close", () => {
           h2State.openStreams -= 1;
           if (h2State.openStreams === 0)
             session.unref();
@@ -8331,48 +8331,48 @@ upgrade: ${upgrade}\r
       const shouldEndStream = method === "GET" || method === "HEAD";
       if (expectContinue) {
         headers[HTTP2_HEADER_EXPECT] = "100-continue";
-        stream = session.request(headers, { endStream: shouldEndStream, signal });
-        stream.once("continue", writeBodyH2);
+        stream2 = session.request(headers, { endStream: shouldEndStream, signal });
+        stream2.once("continue", writeBodyH2);
       } else {
-        stream = session.request(headers, {
+        stream2 = session.request(headers, {
           endStream: shouldEndStream,
           signal
         });
         writeBodyH2();
       }
       ++h2State.openStreams;
-      stream.once("response", (headers2) => {
+      stream2.once("response", (headers2) => {
         const { [HTTP2_HEADER_STATUS]: statusCode, ...realHeaders } = headers2;
-        if (request.onHeaders(Number(statusCode), realHeaders, stream.resume.bind(stream), "") === false) {
-          stream.pause();
+        if (request.onHeaders(Number(statusCode), realHeaders, stream2.resume.bind(stream2), "") === false) {
+          stream2.pause();
         }
       });
-      stream.once("end", () => {
+      stream2.once("end", () => {
         request.onComplete([]);
       });
-      stream.on("data", (chunk) => {
+      stream2.on("data", (chunk) => {
         if (request.onData(chunk) === false) {
-          stream.pause();
+          stream2.pause();
         }
       });
-      stream.once("close", () => {
+      stream2.once("close", () => {
         h2State.openStreams -= 1;
         if (h2State.openStreams === 0) {
           session.unref();
         }
       });
-      stream.once("error", function(err) {
+      stream2.once("error", function(err) {
         if (client[kHTTP2Session] && !client[kHTTP2Session].destroyed && !this.closed && !this.destroyed) {
           h2State.streams -= 1;
-          util.destroy(stream, err);
+          util.destroy(stream2, err);
         }
       });
-      stream.once("frameError", (type, code) => {
+      stream2.once("frameError", (type, code) => {
         const err = new InformationalError(`HTTP/2: "frameError" received - type ${type}, code ${code}`);
         errorRequest(client, request, err);
         if (client[kHTTP2Session] && !client[kHTTP2Session].destroyed && !this.closed && !this.destroyed) {
           h2State.streams -= 1;
-          util.destroy(stream, err);
+          util.destroy(stream2, err);
         }
       });
       return true;
@@ -8381,10 +8381,10 @@ upgrade: ${upgrade}\r
           request.onRequestSent();
         } else if (util.isBuffer(body)) {
           assert(contentLength === body.byteLength, "buffer body must have content length");
-          stream.cork();
-          stream.write(body);
-          stream.uncork();
-          stream.end();
+          stream2.cork();
+          stream2.write(body);
+          stream2.uncork();
+          stream2.end();
           request.onBodySent(body);
           request.onRequestSent();
         } else if (util.isBlobLike(body)) {
@@ -8393,7 +8393,7 @@ upgrade: ${upgrade}\r
               client,
               request,
               contentLength,
-              h2stream: stream,
+              h2stream: stream2,
               expectsPayload,
               body: body.stream(),
               socket: client[kSocket],
@@ -8406,7 +8406,7 @@ upgrade: ${upgrade}\r
               request,
               contentLength,
               expectsPayload,
-              h2stream: stream,
+              h2stream: stream2,
               header: "",
               socket: client[kSocket]
             });
@@ -8419,7 +8419,7 @@ upgrade: ${upgrade}\r
             contentLength,
             expectsPayload,
             socket: client[kSocket],
-            h2stream: stream,
+            h2stream: stream2,
             header: ""
           });
         } else if (util.isIterable(body)) {
@@ -8430,7 +8430,7 @@ upgrade: ${upgrade}\r
             contentLength,
             expectsPayload,
             header: "",
-            h2stream: stream,
+            h2stream: stream2,
             socket: client[kSocket]
           });
         } else {
@@ -9508,28 +9508,28 @@ var require_readable = __commonJS({
     function isUnusable(self2) {
       return util.isDisturbed(self2) || isLocked(self2);
     }
-    async function consume(stream, type) {
-      if (isUnusable(stream)) {
+    async function consume(stream2, type) {
+      if (isUnusable(stream2)) {
         throw new TypeError("unusable");
       }
-      assert(!stream[kConsume]);
+      assert(!stream2[kConsume]);
       return new Promise((resolve, reject) => {
-        stream[kConsume] = {
+        stream2[kConsume] = {
           type,
-          stream,
+          stream: stream2,
           resolve,
           reject,
           length: 0,
           body: []
         };
-        stream.on("error", function(err) {
+        stream2.on("error", function(err) {
           consumeFinish(this[kConsume], err);
         }).on("close", function() {
           if (this[kConsume].body !== null) {
             consumeFinish(this[kConsume], new RequestAbortedError());
           }
         });
-        process.nextTick(consumeStart, stream[kConsume]);
+        process.nextTick(consumeStart, stream2[kConsume]);
       });
     }
     function consumeStart(consume2) {
@@ -9552,7 +9552,7 @@ var require_readable = __commonJS({
       }
     }
     function consumeEnd(consume2) {
-      const { type, body, resolve, stream, length } = consume2;
+      const { type, body, resolve, stream: stream2, length } = consume2;
       try {
         if (type === "text") {
           resolve(toUSVString(Buffer.concat(body)));
@@ -9570,11 +9570,11 @@ var require_readable = __commonJS({
           if (!Blob2) {
             Blob2 = require("buffer").Blob;
           }
-          resolve(new Blob2(body, { type: stream[kContentType] }));
+          resolve(new Blob2(body, { type: stream2[kContentType] }));
         }
         consumeFinish(consume2);
       } catch (err) {
-        stream.destroy(err);
+        stream2.destroy(err);
       }
     }
     function consumePush(consume2, chunk) {
@@ -9998,10 +9998,10 @@ var require_api_stream = __commonJS({
         }
       }
     };
-    function stream(opts, factory, callback) {
+    function stream2(opts, factory, callback) {
       if (callback === void 0) {
         return new Promise((resolve, reject) => {
-          stream.call(this, opts, factory, (err, data) => {
+          stream2.call(this, opts, factory, (err, data) => {
             return err ? reject(err) : resolve(data);
           });
         });
@@ -10016,7 +10016,7 @@ var require_api_stream = __commonJS({
         queueMicrotask(() => callback(err, { opaque }));
       }
     }
-    module2.exports = stream;
+    module2.exports = stream2;
   }
 });
 
@@ -13916,7 +13916,7 @@ var require_fetch = __commonJS({
       if (!ReadableStream) {
         ReadableStream = require("stream/web").ReadableStream;
       }
-      const stream = new ReadableStream(
+      const stream2 = new ReadableStream(
         {
           async start(controller) {
             fetchParams.controller.controller = controller;
@@ -13935,7 +13935,7 @@ var require_fetch = __commonJS({
           }
         }
       );
-      response.body = { stream };
+      response.body = { stream: stream2 };
       fetchParams.controller.on("terminated", onAborted);
       fetchParams.controller.resume = async () => {
         while (true) {
@@ -13966,7 +13966,7 @@ var require_fetch = __commonJS({
             return;
           }
           fetchParams.controller.controller.enqueue(new Uint8Array(bytes));
-          if (isErrored(stream)) {
+          if (isErrored(stream2)) {
             fetchParams.controller.terminate();
             return;
           }
@@ -13978,13 +13978,13 @@ var require_fetch = __commonJS({
       function onAborted(reason) {
         if (isAborted(fetchParams)) {
           response.aborted = true;
-          if (isReadable(stream)) {
+          if (isReadable(stream2)) {
             fetchParams.controller.controller.error(
               fetchParams.controller.serializedAbortReason
             );
           }
         } else {
-          if (isReadable(stream)) {
+          if (isReadable(stream2)) {
             fetchParams.controller.controller.error(new TypeError("terminated", {
               cause: isErrorLike(reason) ? reason : void 0
             }));
@@ -14535,8 +14535,8 @@ var require_util4 = __commonJS({
       fr[kState] = "loading";
       fr[kResult] = null;
       fr[kError] = null;
-      const stream = blob.stream();
-      const reader = stream.getReader();
+      const stream2 = blob.stream();
+      const reader = stream2.getReader();
       const bytes = [];
       let chunkPromise = reader.read();
       let isFirstChunk = true;
@@ -15221,8 +15221,8 @@ var require_cache = __commonJS({
         const clonedResponse = cloneResponse(innerResponse);
         const bodyReadPromise = createDeferredPromise();
         if (innerResponse.body != null) {
-          const stream = innerResponse.body.stream;
-          const reader = stream.getReader();
+          const stream2 = innerResponse.body.stream;
+          const reader = stream2.getReader();
           readAllBytes(reader).then(bodyReadPromise.resolve, bodyReadPromise.reject);
         } else {
           bodyReadPromise.resolve(void 0);
@@ -17700,9 +17700,9 @@ var require_lib = __commonJS({
           return this.request("HEAD", requestUrl, null, additionalHeaders || {});
         });
       }
-      sendStream(verb, requestUrl, stream, additionalHeaders) {
+      sendStream(verb, requestUrl, stream2, additionalHeaders) {
         return __awaiter2(this, void 0, void 0, function* () {
-          return this.request(verb, requestUrl, stream, additionalHeaders);
+          return this.request(verb, requestUrl, stream2, additionalHeaders);
         });
       }
       /**
@@ -27432,8 +27432,8 @@ var require_XMLStreamWriter = __commonJS({
       WriterState = require_WriterState();
       module2.exports = XMLStreamWriter = function(superClass) {
         extend(XMLStreamWriter2, superClass);
-        function XMLStreamWriter2(stream, options) {
-          this.stream = stream;
+        function XMLStreamWriter2(stream2, options) {
+          this.stream = stream2;
           XMLStreamWriter2.__super__.constructor.call(this, options);
         }
         XMLStreamWriter2.prototype.endline = function(node, options, level) {
@@ -27623,8 +27623,8 @@ var require_lib2 = __commonJS({
       module2.exports.stringWriter = function(options) {
         return new XMLStringWriter(options);
       };
-      module2.exports.streamWriter = function(stream, options) {
-        return new XMLStreamWriter(stream, options);
+      module2.exports.streamWriter = function(stream2, options) {
+        return new XMLStreamWriter(stream2, options);
       };
       module2.exports.implementation = new XMLDOMImplementation();
       module2.exports.nodeType = NodeType;
@@ -30448,26 +30448,26 @@ var require_combined_stream = __commonJS({
       }
       return combinedStream;
     };
-    CombinedStream.isStreamLike = function(stream) {
-      return typeof stream !== "function" && typeof stream !== "string" && typeof stream !== "boolean" && typeof stream !== "number" && !Buffer.isBuffer(stream);
+    CombinedStream.isStreamLike = function(stream2) {
+      return typeof stream2 !== "function" && typeof stream2 !== "string" && typeof stream2 !== "boolean" && typeof stream2 !== "number" && !Buffer.isBuffer(stream2);
     };
-    CombinedStream.prototype.append = function(stream) {
-      var isStreamLike = CombinedStream.isStreamLike(stream);
+    CombinedStream.prototype.append = function(stream2) {
+      var isStreamLike = CombinedStream.isStreamLike(stream2);
       if (isStreamLike) {
-        if (!(stream instanceof DelayedStream)) {
-          var newStream = DelayedStream.create(stream, {
+        if (!(stream2 instanceof DelayedStream)) {
+          var newStream = DelayedStream.create(stream2, {
             maxDataSize: Infinity,
             pauseStream: this.pauseStreams
           });
-          stream.on("data", this._checkDataSize.bind(this));
-          stream = newStream;
+          stream2.on("data", this._checkDataSize.bind(this));
+          stream2 = newStream;
         }
-        this._handleErrors(stream);
+        this._handleErrors(stream2);
         if (this.pauseStreams) {
-          stream.pause();
+          stream2.pause();
         }
       }
-      this._streams.push(stream);
+      this._streams.push(stream2);
       return this;
     };
     CombinedStream.prototype.pipe = function(dest, options) {
@@ -30492,40 +30492,40 @@ var require_combined_stream = __commonJS({
       }
     };
     CombinedStream.prototype._realGetNext = function() {
-      var stream = this._streams.shift();
-      if (typeof stream == "undefined") {
+      var stream2 = this._streams.shift();
+      if (typeof stream2 == "undefined") {
         this.end();
         return;
       }
-      if (typeof stream !== "function") {
-        this._pipeNext(stream);
+      if (typeof stream2 !== "function") {
+        this._pipeNext(stream2);
         return;
       }
-      var getStream = stream;
-      getStream(function(stream2) {
-        var isStreamLike = CombinedStream.isStreamLike(stream2);
+      var getStream = stream2;
+      getStream(function(stream3) {
+        var isStreamLike = CombinedStream.isStreamLike(stream3);
         if (isStreamLike) {
-          stream2.on("data", this._checkDataSize.bind(this));
-          this._handleErrors(stream2);
+          stream3.on("data", this._checkDataSize.bind(this));
+          this._handleErrors(stream3);
         }
-        this._pipeNext(stream2);
+        this._pipeNext(stream3);
       }.bind(this));
     };
-    CombinedStream.prototype._pipeNext = function(stream) {
-      this._currentStream = stream;
-      var isStreamLike = CombinedStream.isStreamLike(stream);
+    CombinedStream.prototype._pipeNext = function(stream2) {
+      this._currentStream = stream2;
+      var isStreamLike = CombinedStream.isStreamLike(stream2);
       if (isStreamLike) {
-        stream.on("end", this._getNext.bind(this));
-        stream.pipe(this, { end: false });
+        stream2.on("end", this._getNext.bind(this));
+        stream2.pipe(this, { end: false });
         return;
       }
-      var value = stream;
+      var value = stream2;
       this.write(value);
       this._getNext();
     };
-    CombinedStream.prototype._handleErrors = function(stream) {
+    CombinedStream.prototype._handleErrors = function(stream2) {
       var self2 = this;
-      stream.on("error", function(err) {
+      stream2.on("error", function(err) {
         self2._emitError(err);
       });
     };
@@ -30574,11 +30574,11 @@ var require_combined_stream = __commonJS({
     CombinedStream.prototype._updateDataSize = function() {
       this.dataSize = 0;
       var self2 = this;
-      this._streams.forEach(function(stream) {
-        if (!stream.dataSize) {
+      this._streams.forEach(function(stream2) {
+        if (!stream2.dataSize) {
           return;
         }
-        self2.dataSize += stream.dataSize;
+        self2.dataSize += stream2.dataSize;
       });
       if (this._currentStream && this._currentStream.dataSize) {
         this.dataSize += this._currentStream.dataSize;
@@ -42749,12 +42749,12 @@ var require_lib4 = __commonJS({
         }
       });
     }
-    function destroyStream(stream, err) {
-      if (stream.destroy) {
-        stream.destroy(err);
+    function destroyStream(stream2, err) {
+      if (stream2.destroy) {
+        stream2.destroy(err);
       } else {
-        stream.emit("error", err);
-        stream.end();
+        stream2.emit("error", err);
+        stream2.end();
       }
     }
     fetch.isRedirect = function(code) {
@@ -44559,7 +44559,7 @@ var require_dist6 = __commonJS({
     var https = require("https");
     var abortController = require_dist();
     var tunnel = require_tunnel2();
-    var stream = require("stream");
+    var stream2 = require("stream");
     var FormData = require_form_data();
     var node_fetch = require_lib4();
     var coreTracing = require_dist5();
@@ -46546,7 +46546,7 @@ var require_dist6 = __commonJS({
     function getCachedAgent(isHttps, agentCache) {
       return isHttps ? agentCache.httpsAgent : agentCache.httpAgent;
     }
-    var ReportTransform = class extends stream.Transform {
+    var ReportTransform = class extends stream2.Transform {
       constructor(progressCallback) {
         super();
         this.progressCallback = progressCallback;
@@ -46562,14 +46562,14 @@ var require_dist6 = __commonJS({
     function isReadableStream(body) {
       return body && typeof body.pipe === "function";
     }
-    function isStreamComplete(stream2, aborter) {
+    function isStreamComplete(stream3, aborter) {
       return new Promise((resolve) => {
-        stream2.once("close", () => {
+        stream3.once("close", () => {
           aborter === null || aborter === void 0 ? void 0 : aborter.abort();
           resolve();
         });
-        stream2.once("end", resolve);
-        stream2.once("error", resolve);
+        stream3.once("end", resolve);
+        stream3.once("error", resolve);
       });
     }
     function parseHeaders(headers) {
@@ -49906,7 +49906,7 @@ var require_dist9 = __commonJS({
     var abortController = require_dist();
     var os2 = require("os");
     var crypto5 = require("crypto");
-    var stream = require("stream");
+    var stream2 = require("stream");
     require_dist7();
     var coreLro = require_dist8();
     var events = require("events");
@@ -65706,7 +65706,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var RetriableReadableStream = class extends stream.Readable {
+    var RetriableReadableStream = class extends stream2.Readable {
       /**
        * Creates an instance of RetriableReadableStream.
        *
@@ -66250,8 +66250,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param length -
        * @param options -
        */
-      static async readFixedBytes(stream2, length, options = {}) {
-        const bytes = await stream2.read(length, { abortSignal: options.abortSignal });
+      static async readFixedBytes(stream3, length, options = {}) {
+        const bytes = await stream3.read(length, { abortSignal: options.abortSignal });
         if (bytes.length !== length) {
           throw new Error("Hit stream end.");
         }
@@ -66263,19 +66263,19 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param stream -
        * @param options -
        */
-      static async readByte(stream2, options = {}) {
-        const buf = await _AvroParser.readFixedBytes(stream2, 1, options);
+      static async readByte(stream3, options = {}) {
+        const buf = await _AvroParser.readFixedBytes(stream3, 1, options);
         return buf[0];
       }
       // int and long are stored in variable-length zig-zag coding.
       // variable-length: https://lucene.apache.org/core/3_5_0/fileformats.html#VInt
       // zig-zag: https://developers.google.com/protocol-buffers/docs/encoding?csw=1#types
-      static async readZigZagLong(stream2, options = {}) {
+      static async readZigZagLong(stream3, options = {}) {
         let zigZagEncoded = 0;
         let significanceInBit = 0;
         let byte, haveMoreByte, significanceInFloat;
         do {
-          byte = await _AvroParser.readByte(stream2, options);
+          byte = await _AvroParser.readByte(stream3, options);
           haveMoreByte = byte & 128;
           zigZagEncoded |= (byte & 127) << significanceInBit;
           significanceInBit += 7;
@@ -66284,7 +66284,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           zigZagEncoded = zigZagEncoded;
           significanceInFloat = 268435456;
           do {
-            byte = await _AvroParser.readByte(stream2, options);
+            byte = await _AvroParser.readByte(stream3, options);
             zigZagEncoded += (byte & 127) * significanceInFloat;
             significanceInFloat *= 128;
           } while (byte & 128);
@@ -66296,17 +66296,17 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
         return zigZagEncoded >> 1 ^ -(zigZagEncoded & 1);
       }
-      static async readLong(stream2, options = {}) {
-        return _AvroParser.readZigZagLong(stream2, options);
+      static async readLong(stream3, options = {}) {
+        return _AvroParser.readZigZagLong(stream3, options);
       }
-      static async readInt(stream2, options = {}) {
-        return _AvroParser.readZigZagLong(stream2, options);
+      static async readInt(stream3, options = {}) {
+        return _AvroParser.readZigZagLong(stream3, options);
       }
       static async readNull() {
         return null;
       }
-      static async readBoolean(stream2, options = {}) {
-        const b = await _AvroParser.readByte(stream2, options);
+      static async readBoolean(stream3, options = {}) {
+        const b = await _AvroParser.readByte(stream3, options);
         if (b === 1) {
           return true;
         } else if (b === 0) {
@@ -66315,53 +66315,53 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           throw new Error("Byte was not a boolean.");
         }
       }
-      static async readFloat(stream2, options = {}) {
-        const u8arr = await _AvroParser.readFixedBytes(stream2, 4, options);
+      static async readFloat(stream3, options = {}) {
+        const u8arr = await _AvroParser.readFixedBytes(stream3, 4, options);
         const view = new DataView(u8arr.buffer, u8arr.byteOffset, u8arr.byteLength);
         return view.getFloat32(0, true);
       }
-      static async readDouble(stream2, options = {}) {
-        const u8arr = await _AvroParser.readFixedBytes(stream2, 8, options);
+      static async readDouble(stream3, options = {}) {
+        const u8arr = await _AvroParser.readFixedBytes(stream3, 8, options);
         const view = new DataView(u8arr.buffer, u8arr.byteOffset, u8arr.byteLength);
         return view.getFloat64(0, true);
       }
-      static async readBytes(stream2, options = {}) {
-        const size = await _AvroParser.readLong(stream2, options);
+      static async readBytes(stream3, options = {}) {
+        const size = await _AvroParser.readLong(stream3, options);
         if (size < 0) {
           throw new Error("Bytes size was negative.");
         }
-        return stream2.read(size, { abortSignal: options.abortSignal });
+        return stream3.read(size, { abortSignal: options.abortSignal });
       }
-      static async readString(stream2, options = {}) {
-        const u8arr = await _AvroParser.readBytes(stream2, options);
+      static async readString(stream3, options = {}) {
+        const u8arr = await _AvroParser.readBytes(stream3, options);
         const utf8decoder = new TextDecoder();
         return utf8decoder.decode(u8arr);
       }
-      static async readMapPair(stream2, readItemMethod, options = {}) {
-        const key = await _AvroParser.readString(stream2, options);
-        const value = await readItemMethod(stream2, options);
+      static async readMapPair(stream3, readItemMethod, options = {}) {
+        const key = await _AvroParser.readString(stream3, options);
+        const value = await readItemMethod(stream3, options);
         return { key, value };
       }
-      static async readMap(stream2, readItemMethod, options = {}) {
+      static async readMap(stream3, readItemMethod, options = {}) {
         const readPairMethod = (s, opts = {}) => {
           return _AvroParser.readMapPair(s, readItemMethod, opts);
         };
-        const pairs = await _AvroParser.readArray(stream2, readPairMethod, options);
+        const pairs = await _AvroParser.readArray(stream3, readPairMethod, options);
         const dict = {};
         for (const pair of pairs) {
           dict[pair.key] = pair.value;
         }
         return dict;
       }
-      static async readArray(stream2, readItemMethod, options = {}) {
+      static async readArray(stream3, readItemMethod, options = {}) {
         const items = [];
-        for (let count = await _AvroParser.readLong(stream2, options); count !== 0; count = await _AvroParser.readLong(stream2, options)) {
+        for (let count = await _AvroParser.readLong(stream3, options); count !== 0; count = await _AvroParser.readLong(stream3, options)) {
           if (count < 0) {
-            await _AvroParser.readLong(stream2, options);
+            await _AvroParser.readLong(stream3, options);
             count = -count;
           }
           while (count--) {
-            const item = await readItemMethod(stream2, options);
+            const item = await readItemMethod(stream3, options);
             items.push(item);
           }
         }
@@ -66466,24 +66466,24 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._primitive = primitive;
       }
-      read(stream2, options = {}) {
+      read(stream3, options = {}) {
         switch (this._primitive) {
           case AvroPrimitive.NULL:
             return AvroParser.readNull();
           case AvroPrimitive.BOOLEAN:
-            return AvroParser.readBoolean(stream2, options);
+            return AvroParser.readBoolean(stream3, options);
           case AvroPrimitive.INT:
-            return AvroParser.readInt(stream2, options);
+            return AvroParser.readInt(stream3, options);
           case AvroPrimitive.LONG:
-            return AvroParser.readLong(stream2, options);
+            return AvroParser.readLong(stream3, options);
           case AvroPrimitive.FLOAT:
-            return AvroParser.readFloat(stream2, options);
+            return AvroParser.readFloat(stream3, options);
           case AvroPrimitive.DOUBLE:
-            return AvroParser.readDouble(stream2, options);
+            return AvroParser.readDouble(stream3, options);
           case AvroPrimitive.BYTES:
-            return AvroParser.readBytes(stream2, options);
+            return AvroParser.readBytes(stream3, options);
           case AvroPrimitive.STRING:
-            return AvroParser.readString(stream2, options);
+            return AvroParser.readString(stream3, options);
           default:
             throw new Error("Unknown Avro Primitive");
         }
@@ -66494,8 +66494,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._symbols = symbols;
       }
-      async read(stream2, options = {}) {
-        const value = await AvroParser.readInt(stream2, options);
+      async read(stream3, options = {}) {
+        const value = await AvroParser.readInt(stream3, options);
         return this._symbols[value];
       }
     };
@@ -66504,9 +66504,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._types = types;
       }
-      async read(stream2, options = {}) {
-        const typeIndex = await AvroParser.readInt(stream2, options);
-        return this._types[typeIndex].read(stream2, options);
+      async read(stream3, options = {}) {
+        const typeIndex = await AvroParser.readInt(stream3, options);
+        return this._types[typeIndex].read(stream3, options);
       }
     };
     var AvroMapType = class extends AvroType {
@@ -66514,11 +66514,11 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._itemType = itemType;
       }
-      read(stream2, options = {}) {
+      read(stream3, options = {}) {
         const readItemMethod = (s, opts) => {
           return this._itemType.read(s, opts);
         };
-        return AvroParser.readMap(stream2, readItemMethod, options);
+        return AvroParser.readMap(stream3, readItemMethod, options);
       }
     };
     var AvroRecordType = class extends AvroType {
@@ -66527,12 +66527,12 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this._fields = fields;
         this._name = name;
       }
-      async read(stream2, options = {}) {
+      async read(stream3, options = {}) {
         const record = {};
         record["$schema"] = this._name;
         for (const key in this._fields) {
           if (Object.prototype.hasOwnProperty.call(this._fields, key)) {
-            record[key] = await this._fields[key].read(stream2, options);
+            record[key] = await this._fields[key].read(stream3, options);
           }
         }
         return record;
@@ -66713,7 +66713,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var BlobQuickQueryStream = class extends stream.Readable {
+    var BlobQuickQueryStream = class extends stream2.Readable {
       /**
        * Creates an instance of BlobQuickQueryStream.
        *
@@ -67419,7 +67419,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var BuffersStream = class extends stream.Readable {
+    var BuffersStream = class extends stream2.Readable {
       /**
        * Creates an instance of BuffersStream that will emit the data
        * contained in the array of buffers.
@@ -67734,18 +67734,18 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    async function streamToBuffer(stream2, buffer, offset, end, encoding) {
+    async function streamToBuffer(stream3, buffer, offset, end, encoding) {
       let pos = 0;
       const count = end - offset;
       return new Promise((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error(`The operation cannot be completed in timeout.`)), REQUEST_TIMEOUT);
-        stream2.on("readable", () => {
+        stream3.on("readable", () => {
           if (pos >= count) {
             clearTimeout(timeout);
             resolve();
             return;
           }
-          let chunk = stream2.read();
+          let chunk = stream3.read();
           if (!chunk) {
             return;
           }
@@ -67756,25 +67756,25 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           buffer.fill(chunk.slice(0, chunkLength), offset + pos, offset + pos + chunkLength);
           pos += chunkLength;
         });
-        stream2.on("end", () => {
+        stream3.on("end", () => {
           clearTimeout(timeout);
           if (pos < count) {
             reject(new Error(`Stream drains before getting enough data needed. Data read: ${pos}, data need: ${count}`));
           }
           resolve();
         });
-        stream2.on("error", (msg) => {
+        stream3.on("error", (msg) => {
           clearTimeout(timeout);
           reject(msg);
         });
       });
     }
-    async function streamToBuffer2(stream2, buffer, encoding) {
+    async function streamToBuffer2(stream3, buffer, encoding) {
       let pos = 0;
       const bufferSize = buffer.length;
       return new Promise((resolve, reject) => {
-        stream2.on("readable", () => {
-          let chunk = stream2.read();
+        stream3.on("readable", () => {
+          let chunk = stream3.read();
           if (!chunk) {
             return;
           }
@@ -67788,10 +67788,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           buffer.fill(chunk, pos, pos + chunk.length);
           pos += chunk.length;
         });
-        stream2.on("end", () => {
+        stream3.on("end", () => {
           resolve(pos);
         });
-        stream2.on("error", reject);
+        stream3.on("error", reject);
       });
     }
     async function readStreamToLocalFile(rs, file) {
@@ -68543,8 +68543,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 customerProvidedKey: options.customerProvidedKey,
                 tracingOptions: Object.assign(Object.assign({}, options.tracingOptions), convertTracingToRequestOptionsBase(updatedOptions))
               });
-              const stream2 = response.readableStreamBody;
-              await streamToBuffer(stream2, buffer, off - offset, chunkEnd - offset);
+              const stream3 = response.readableStreamBody;
+              await streamToBuffer(stream3, buffer, off - offset, chunkEnd - offset);
               transferProgress += chunkEnd - off;
               if (options.onProgress) {
                 options.onProgress({ loadedBytes: transferProgress });
@@ -69506,7 +69506,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param options - Options to Upload Stream to Block Blob operation.
        * @returns Response data for the Blob Upload operation.
        */
-      async uploadStream(stream2, bufferSize = DEFAULT_BLOCK_BUFFER_SIZE_BYTES, maxConcurrency = 5, options = {}) {
+      async uploadStream(stream3, bufferSize = DEFAULT_BLOCK_BUFFER_SIZE_BYTES, maxConcurrency = 5, options = {}) {
         if (!options.blobHTTPHeaders) {
           options.blobHTTPHeaders = {};
         }
@@ -69520,7 +69520,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           let transferProgress = 0;
           const blockList = [];
           const scheduler = new BufferScheduler(
-            stream2,
+            stream3,
             bufferSize,
             maxConcurrency,
             async (body2, length) => {
@@ -73345,7 +73345,7 @@ var require_downloadUtils = __commonJS({
     var storage_blob_1 = require_dist9();
     var buffer = __importStar2(require("buffer"));
     var fs = __importStar2(require("fs"));
-    var stream = __importStar2(require("stream"));
+    var stream2 = __importStar2(require("stream"));
     var util = __importStar2(require("util"));
     var utils = __importStar2(require_cacheUtils());
     var constants_1 = require_constants5();
@@ -73353,7 +73353,7 @@ var require_downloadUtils = __commonJS({
     var abort_controller_1 = require_dist();
     function pipeResponseToStream(response, output) {
       return __awaiter2(this, void 0, void 0, function* () {
-        const pipeline = util.promisify(stream.pipeline);
+        const pipeline = util.promisify(stream2.pipeline);
         yield pipeline(response.message, output);
       });
     }
@@ -77226,9 +77226,9 @@ function _supportsColor(haveStream, { streamIsTTY, sniffFlags = true } = {}) {
   }
   return min;
 }
-function createSupportsColor(stream, options = {}) {
-  const level = _supportsColor(stream, {
-    streamIsTTY: stream && stream.isTTY,
+function createSupportsColor(stream2, options = {}) {
+  const level = _supportsColor(stream2, {
+    streamIsTTY: stream2 && stream2.isTTY,
     ...options
   });
   return translateLevel(level);
@@ -77948,6 +77948,7 @@ function getIndexPath(crate) {
 }
 
 // src/resolve/git.ts
+var import_node_stream = __toESM(require("node:stream"));
 var exec3 = __toESM(require_exec());
 var core4 = __toESM(require_core());
 async function resolveGitCommit(git) {
@@ -77980,10 +77981,18 @@ async function resolveGitCommit(git) {
 }
 async function fetchGitRemote(repository) {
   const commits = { head: "", tags: {}, branches: {} };
-  const parseLine = (line) => {
+  const outStream = new import_node_stream.default.PassThrough();
+  await exec3.exec("git", ["ls-remote", repository], { outStream });
+  const chunks = [];
+  const output = await new Promise((resolve, reject) => {
+    outStream.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    outStream.on("error", (error2) => reject(error2));
+    outStream.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
+  });
+  for (const line of output.split("\n")) {
     const [commit, ref] = line.split("	");
     if (commit === "" || ref === "" || ref === void 0) {
-      return;
+      continue;
     }
     if (ref === "HEAD") {
       commits.head = commit;
@@ -77998,8 +78007,7 @@ async function fetchGitRemote(repository) {
       const branch = ref.slice(branchMatch.length);
       commits.branches[branch] = commit;
     }
-  };
-  await exec3.exec("git", ["ls-remote", repository], { listeners: { stdline: parseLine }, silent: true });
+  }
   if (commits.head === "") {
     core4.setFailed(`Failed to fetch HEAD commit for ${repository}`);
     process.exit(1);

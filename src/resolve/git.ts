@@ -1,3 +1,4 @@
+import stream from 'node:stream'
 import * as exec from '@actions/exec'
 import * as core from '@actions/core'
 
@@ -48,12 +49,21 @@ export async function resolveGitCommit (git: GitSource): Promise<ResolvedVersion
 
 async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
   const commits: GitRemoteCommits = { head: '', tags: {}, branches: {} }
+  const outStream = new stream.PassThrough()
+  await exec.exec('git', ['ls-remote', repository], { outStream })
 
-  const parseLine = (line: string): void => {
+  const chunks: Uint8Array[] = []
+  const output = await new Promise<string>((resolve, reject) => {
+    outStream.on('data', chunk => chunks.push(Buffer.from(chunk)))
+    outStream.on('error', error => reject(error))
+    outStream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')))
+  })
+
+  for (const line of output.split('\n')) {
     const [commit, ref] = line.split('\t')
 
     if (commit === '' || ref === '' || ref === undefined) {
-      return
+      continue
     }
 
     if (ref === 'HEAD') {
@@ -72,8 +82,6 @@ async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
       commits.branches[branch] = commit
     }
   }
-
-  await exec.exec('git', ['ls-remote', repository], { listeners: { stdline: parseLine }, silent: true })
 
   if (commits.head === '') {
     core.setFailed(`Failed to fetch HEAD commit for ${repository}`)
