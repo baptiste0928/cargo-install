@@ -77980,7 +77980,10 @@ async function resolveGitCommit(git) {
 }
 async function fetchGitRemote(repository) {
   const chunks = [];
-  await exec3.exec("git", ["ls-remote", repository], { listeners: { stdout: (data) => chunks.push(data) } });
+  await exec3.exec("git", ["ls-remote", repository], {
+    listeners: { stdout: (data) => chunks.push(data) },
+    silent: true
+  });
   const output = Buffer.concat(chunks).toString("utf-8");
   const commits = { head: "", tags: {}, branches: {} };
   for (const line of output.split("\n")) {
