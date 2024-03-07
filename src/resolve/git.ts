@@ -48,12 +48,17 @@ export async function resolveGitCommit (git: GitSource): Promise<ResolvedVersion
 }
 
 async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
-  const commandOutput = new stream.PassThrough()
-  await exec.exec('git', ['ls-remote', repository], { outStream: commandOutput })
+  const outStream = new stream.PassThrough()
+  await exec.exec('git', ['ls-remote', repository], { outStream })
 
+  const outChunks: Uint8Array[] = []
+  for await (const chunk of outStream) {
+    outChunks.push(Buffer.from(chunk))
+  }
+
+  const output = Buffer.concat(outChunks).toString('utf-8')
   const commits: GitRemoteCommits = { head: '', tags: {}, branches: {} }
-  const lines: string[] = commandOutput.read().toString().split('\n')
-  for (const line of lines) {
+  for (const line of output.split('\n')) {
     const [commit, ref] = line.split('\t')
 
     if (commit === '' || ref === '' || ref === undefined) {
