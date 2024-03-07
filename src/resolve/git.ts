@@ -1,4 +1,3 @@
-import stream from 'node:stream'
 import * as exec from '@actions/exec'
 import * as core from '@actions/core'
 
@@ -48,16 +47,11 @@ export async function resolveGitCommit (git: GitSource): Promise<ResolvedVersion
 }
 
 async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
-  const commits: GitRemoteCommits = { head: '', tags: {}, branches: {} }
-  const outStream = new stream.PassThrough()
-  await exec.exec('git', ['ls-remote', repository], { outStream })
+  const chunks: Buffer[] = []
+  await exec.exec('git', ['ls-remote', repository], { listeners: { stdout: data => chunks.push(data) } })
 
-  const chunks: Uint8Array[] = []
-  const output = await new Promise<string>((resolve, reject) => {
-    outStream.on('data', chunk => chunks.push(Buffer.from(chunk)))
-    outStream.on('error', error => reject(error))
-    outStream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')))
-  })
+  const output = Buffer.concat(chunks).toString('utf-8')
+  const commits: GitRemoteCommits = { head: '', tags: {}, branches: {} }
 
   for (const line of output.split('\n')) {
     const [commit, ref] = line.split('\t')
