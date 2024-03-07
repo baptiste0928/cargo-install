@@ -1,4 +1,3 @@
-import stream from 'node:stream'
 import * as exec from '@actions/exec'
 import * as core from '@actions/core'
 
@@ -48,21 +47,13 @@ export async function resolveGitCommit (git: GitSource): Promise<ResolvedVersion
 }
 
 async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
-  const outStream = new stream.PassThrough()
-  await exec.exec('git', ['ls-remote', repository], { outStream })
-
-  const outChunks: Uint8Array[] = []
-  for await (const chunk of outStream) {
-    outChunks.push(Buffer.from(chunk))
-  }
-
-  const output = Buffer.concat(outChunks).toString('utf-8')
   const commits: GitRemoteCommits = { head: '', tags: {}, branches: {} }
-  for (const line of output.split('\n')) {
+
+  const parseLine = (line: string): void => {
     const [commit, ref] = line.split('\t')
 
     if (commit === '' || ref === '' || ref === undefined) {
-      continue
+      return
     }
 
     if (ref === 'HEAD') {
@@ -81,6 +72,8 @@ async function fetchGitRemote (repository: string): Promise<GitRemoteCommits> {
       commits.branches[branch] = commit
     }
   }
+
+  await exec.exec('git', ['ls-remote', repository], { listeners: { stdline: parseLine }, silent: true })
 
   if (commits.head === '') {
     core.setFailed(`Failed to fetch HEAD commit for ${repository}`)
