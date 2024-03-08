@@ -5,7 +5,7 @@
     "module": "commonjs",
     "target": "es2019",
 
-    "rootDir": "./src",
+    "rootDir": ".",
     "noEmit": true,
 
     "strict": true,

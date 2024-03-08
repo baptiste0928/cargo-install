@@ -1,61 +1,61 @@
-name: "cargo-install"
-description: "GitHub action for cache-efficient Rust crates installation"
+name: 'cargo-install'
+description: 'GitHub action for cache-efficient Rust crates installation'
 inputs:
   # Global input parameters
   crate:
-    description: "Name of the crate to install"
+    description: 'Name of the crate to install'
     required: true
   features:
-    description: "Features of the crate to enable."
+    description: 'Features of the crate to enable.'
     required: false
   locked:
-    description: "Use the crate Cargo.lock if available."
+    description: 'Use the crate Cargo.lock if available.'
     required: false
-    default: "true"
+    default: 'true'
   args:
-    description: "Arguments added to the `cargo install` command."
+    description: 'Arguments added to the `cargo install` command.'
     required: false
   cache-key:
-    description: "Additional key added to the automatic cache key."
+    description: 'Additional key added to the automatic cache key.'
     required: false
 
   # Registry installation
   version:
-    description: "Version of the crate to install."
+    description: 'Version of the crate to install.'
     required: true
-    default: "latest"
+    default: 'latest'
   registry:
-    description: "Registry to install the crate from."
+    description: 'Registry to install the crate from.'
     required: false
   index:
-    description: "Registry index to install the crate from."
+    description: 'Registry index to install the crate from.'
     required: false
 
   # Git installation
   git:
-    description: "Git repository to install the crate from."
+    description: 'Git repository to install the crate from.'
     required: false
   branch:
-    description: "Branch to install the crate from."
+    description: 'Branch to install the crate from.'
     required: false
   tag:
-    description: "Tag to install the crate from."
+    description: 'Tag to install the crate from.'
     required: false
   commit:
-    description: "Commit to install the crate from."
+    description: 'Commit to install the crate from.'
     required: false
   rev: # alias for commit
-    description: "Commit to install the crate from."
+    description: 'Commit to install the crate from.'
     required: false
 
 outputs:
   version:
-    description: "The version of the crate that has been installed."
+    description: 'The version of the crate that has been installed.'
   cache-hit:
-    description: "A boolean indicating whether the crate was restored from cache."
+    description: 'A boolean indicating whether the crate was restored from cache.'
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: 'node20'
+  main: 'dist/index.js'
 branding:
-  color: "yellow"
-  icon: "package"
+  color: 'yellow'
+  icon: 'package'

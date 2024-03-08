@@ -6,8 +6,9 @@
   "license": "ISC",
   "scripts": {
     "check": "tsc",
-    "lint": "ts-standard src",
-    "fix": "ts-standard src --fix",
+    "lint": "eslint src",
+    "format": "prettier . !pnpm-lock.yaml !dist --write",
+    "format:check": "prettier . !pnpm-lock.yaml !dist --check",
     "package": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js"
   },
   "dependencies": {
@@ -24,7 +25,13 @@
   "devDependencies": {
     "@types/semver": "^7.5.8",
     "esbuild": "^0.20.1",
-    "ts-standard": "^12.0.2",
-    "typescript": "^5.4.2"
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "typescript-eslint": "^7.1.1"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "singleQuote": true
   }
 }

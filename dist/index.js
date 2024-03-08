@@ -77461,7 +77461,9 @@ var import_node_crypto = __toESM(require("node:crypto"));
 async function getInstallSettings(input, version2) {
   const homePath = process.env.HOME ?? process.env.USERPROFILE;
   if (homePath === void 0 || homePath === "") {
-    core.setFailed("Could not determine home directory (missing HOME and USERPROFILE environement variables)");
+    core.setFailed(
+      "Could not determine home directory (missing HOME and USERPROFILE environement variables)"
+    );
     process.exit(1);
   }
   const installPath = import_node_path.default.join(homePath, ".cargo-install", input.crate);
@@ -77474,17 +77476,29 @@ async function getInstallSettings(input, version2) {
 async function getOsVersion() {
   const runnerOs = process.env.RUNNER_OS;
   if (runnerOs === "Linux") {
-    const output = await exec.getExecOutput("cat", ["/etc/os-release"], { silent: true });
+    const output = await exec.getExecOutput("cat", ["/etc/os-release"], {
+      silent: true
+    });
     const match = output.stdout.match(/VERSION_ID="(.*)"/);
     return match?.[1];
   }
   if (runnerOs === "MacOS") {
-    const output = await exec.getExecOutput("sw_vers", ["-productVersion"], { silent: true });
+    const output = await exec.getExecOutput("sw_vers", ["-productVersion"], {
+      silent: true
+    });
     return output.stdout.trim();
   }
   if (runnerOs === "Windows") {
-    const major2 = await exec.getExecOutput("pwsh", ["-Command", "[System.Environment]::OSVersion.Version.Major"], { silent: true });
-    const minor = await exec.getExecOutput("pwsh", ["-Command", "[System.Environment]::OSVersion.Version.Minor"], { silent: true });
+    const major2 = await exec.getExecOutput(
+      "pwsh",
+      ["-Command", "[System.Environment]::OSVersion.Version.Major"],
+      { silent: true }
+    );
+    const minor = await exec.getExecOutput(
+      "pwsh",
+      ["-Command", "[System.Environment]::OSVersion.Version.Minor"],
+      { silent: true }
+    );
     return `${major2.stdout.trim()}.${minor.stdout.trim()}`;
   }
 }
@@ -77593,7 +77607,9 @@ function parseInput() {
   }
   const version2 = core2.getInput("version", { required: true });
   if (version2 !== "latest" && semver.validRange(version2) === null) {
-    core2.setFailed('Invalid version provided. Must be a valid semver range or "latest".');
+    core2.setFailed(
+      'Invalid version provided. Must be a valid semver range or "latest".'
+    );
     process.exit(1);
   }
   const registry = core2.getInput("registry", { required: false });
@@ -77966,17 +77982,23 @@ async function resolveCrateVersion(crate, version2, index) {
   if (version2 === "latest") {
     return { version: latest.vers };
   }
-  const resolved = sortedVersions.filter((ver) => import_semver2.default.satisfies(ver.vers, version2));
+  const resolved = sortedVersions.filter(
+    (ver) => import_semver2.default.satisfies(ver.vers, version2)
+  );
   if (resolved.length === 0) {
     core3.setFailed(`No version found for ${crate} that satisfies ${version2}`);
-    core3.info(`Available versions: ${versions.map((ver) => ver.vers).join(", ")}`);
+    core3.info(
+      `Available versions: ${versions.map((ver) => ver.vers).join(", ")}`
+    );
     process.exit(1);
   }
   const resolvedVersion = resolved.find((ver) => !ver.yanked) ?? resolved[0];
   if (resolvedVersion.yanked) {
     core3.warning(`Using yanked version ${resolvedVersion.vers} for ${crate}`);
   } else if (resolvedVersion.vers !== latest.vers) {
-    core3.warning(`New version for ${crate} available: ${sortedVersions[0].vers}`);
+    core3.warning(
+      `New version for ${crate} available: ${sortedVersions[0].vers}`
+    );
   }
   return { version: resolvedVersion.vers };
 }
@@ -77989,7 +78011,9 @@ async function fetchIndex(crate, indexUrl) {
     process.exit(1);
   } else if (response.message.statusCode !== 200) {
     core3.setFailed(`Failed to fetch crate ${crate} on crates.io index`);
-    core3.info(`Error: ${response.message.statusMessage ?? ""} (${response.message.statusCode ?? ""})`);
+    core3.info(
+      `Error: ${response.message.statusMessage ?? ""} (${response.message.statusCode ?? ""})`
+    );
     process.exit(1);
   }
   const body = await response.readBody();
@@ -78031,7 +78055,9 @@ async function resolveGitCommit(git) {
   if (git.branch !== void 0) {
     const commit = commits.branches[git.branch];
     if (commit === void 0) {
-      core4.setFailed(`Failed to resolve branch ${git.branch} for ${git.repository}`);
+      core4.setFailed(
+        `Failed to resolve branch ${git.branch} for ${git.repository}`
+      );
       process.exit(1);
     }
     core4.info(`Resolved branch ${git.branch} to commit ${commit}`);
@@ -78098,12 +78124,18 @@ async function run() {
     core5.info(`Restored ${input.crate} from cache.`);
     cacheHit = true;
   } else {
-    core5.startGroup(`No cached version found, installing ${input.crate} using cargo...`);
+    core5.startGroup(
+      `No cached version found, installing ${input.crate} using cargo...`
+    );
     await runCargoInstall(input, version2, install);
     try {
       await cache.saveCache([install.path], install.cacheKey);
-    } catch (e) {
-      core5.warning(e.message);
+    } catch (error2) {
+      if (error2 instanceof Error) {
+        core5.warning(error2.message);
+      } else {
+        core5.warning("An error occurred while saving the cache.");
+      }
     }
     core5.endGroup();
   }
@@ -78112,9 +78144,16 @@ async function run() {
   if ("version" in version2) {
     core5.info(chalk2.green(`Installed ${input.crate} ${version2.version}.`));
   } else {
-    core5.info(chalk2.green(`Installed ${input.crate} from ${version2.repository} at ${version2.commit.slice(0, 7)}.`));
+    core5.info(
+      chalk2.green(
+        `Installed ${input.crate} from ${version2.repository} at ${version2.commit.slice(0, 7)}.`
+      )
+    );
   }
-  core5.setOutput("version", "version" in version2 ? version2.version : version2.commit);
+  core5.setOutput(
+    "version",
+    "version" in version2 ? version2.version : version2.commit
+  );
   core5.setOutput("cache-hit", cacheHit);
 }
 run().catch((error2) => {
