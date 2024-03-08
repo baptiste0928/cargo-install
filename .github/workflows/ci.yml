@@ -12,13 +12,13 @@ jobs:
 
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Enable corepack
         run: corepack enable
 
       - name: Setup Node.js 20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
@@ -32,28 +32,7 @@ jobs:
       - name: Lint with ts-standard
         run: pnpm run lint
 
-  package:
-    name: Package
-    runs-on: ubuntu-latest
-    needs: [lint]
-
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v3
-
-      - name: Enable corepack
-        run: corepack enable
-
-      - name: Setup Node.js 20
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Package action
+      - name: Build action
         run: pnpm run package
 
       - name: Compare output
@@ -67,7 +46,7 @@ jobs:
   test-action:
     name: Test on ${{ matrix.runner }}
     runs-on: ${{ matrix.runner }}
-    needs: [package]
+    needs: [lint]
 
     strategy:
       matrix:
@@ -75,7 +54,7 @@ jobs:
 
     steps:
     - name: Checkout sources
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install cargo-hack (from crates.io)
       uses: ./
