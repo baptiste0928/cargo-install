@@ -77482,7 +77482,7 @@ async function getOsVersion() {
     const match = output.stdout.match(/VERSION_ID="(.*)"/);
     return match?.[1];
   }
-  if (runnerOs === "MacOS") {
+  if (runnerOs === "macOS") {
     const output = await exec.getExecOutput("sw_vers", ["-productVersion"], {
       silent: true
     });
@@ -77504,13 +77504,14 @@ async function getOsVersion() {
 }
 async function getCacheKey(input, version2) {
   const runnerOs = process.env.RUNNER_OS;
+  const runnerArch = process.env.RUNNER_ARCH;
   const jobId = process.env.GITHUB_JOB;
   const osVersion = await getOsVersion();
-  if (runnerOs === void 0 || jobId === void 0) {
-    core.setFailed("Could not determine runner OS or job ID");
+  if (runnerOs === void 0 || runnerArch === void 0 || jobId === void 0) {
+    core.setFailed("Could not determine runner OS, runner arch or job ID");
     process.exit(1);
   }
-  let hashKey = jobId + runnerOs + (osVersion ?? "");
+  let hashKey = jobId + runnerOs + runnerArch + (osVersion ?? "");
   hashKey += input.source.type;
   if (input.source.type === "registry") {
     hashKey += input.source.registry ?? "";

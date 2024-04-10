@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Runner arch is included in the cache key.
+
+### Fixed
+
+- Fix runner os version resolution on macOS runners. (issue #24)
+
 ## [3.0.1] - 2024-03-08
 
 ### Fixed
