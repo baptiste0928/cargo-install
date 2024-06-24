@@ -72,7 +72,9 @@ async function resolveCrateVersion(
   const sortedVersions = versions
     .sort((a, b) => semver.compare(a.vers, b.vers))
     .reverse();
-  const latest = sortedVersions.find(ver => !ver.yanked) ?? sortedVersions[0];
+  const latest =
+    sortedVersions.find(ver => !ver.yanked && !semver.prerelease(ver.vers)) ??
+    sortedVersions[0];
 
   if (version === 'latest') {
     return { version: latest.vers };

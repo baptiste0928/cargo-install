@@ -60899,7 +60899,7 @@ async function resolveCrateVersion(crate, version2, index) {
   core3.info(`Fetching information for ${crate} from index ...`);
   const versions = await fetchIndex(crate, index.url);
   const sortedVersions = versions.sort((a, b) => import_semver.default.compare(a.vers, b.vers)).reverse();
-  const latest = sortedVersions.find((ver) => !ver.yanked) ?? sortedVersions[0];
+  const latest = sortedVersions.find((ver) => !ver.yanked && !import_semver.default.prerelease(ver.vers)) ?? sortedVersions[0];
   if (version2 === "latest") {
     return { version: latest.vers };
   }
