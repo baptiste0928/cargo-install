@@ -3,17 +3,26 @@ import * as core from '@actions/core';
 import semver from 'semver';
 
 import type { ResolvedVersion } from '../install';
-import { Output, boolean, custom, object, parse, string } from 'valibot';
+import {
+  InferOutput,
+  boolean,
+  check,
+  object,
+  parse,
+  string,
+  pipe,
+} from 'valibot';
 import { RegistrySource } from '../parse';
 
 const CrateVersionSchema = object({
-  vers: string([
-    custom(input => semver.valid(input) !== null, 'Invalid semver version'),
-  ]),
+  vers: pipe(
+    string(),
+    check(input => semver.valid(input) !== null, 'Invalid semver version'),
+  ),
   yanked: boolean(),
 });
 
-type CrateVersion = Output<typeof CrateVersionSchema>;
+type CrateVersion = InferOutput<typeof CrateVersionSchema>;
 
 // Resolve latest compatible crate version
 export async function resolveRegistryVersion(
