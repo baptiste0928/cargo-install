@@ -4,6 +4,7 @@
   "description": "GitHub action for cache-efficient Rust crates installation",
   "author": "baptiste0928",
   "license": "ISC",
+  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "check": "tsc",
     "lint": "eslint src",
