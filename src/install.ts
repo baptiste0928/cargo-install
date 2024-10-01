@@ -90,15 +90,7 @@ async function getCacheKey(
     process.exit(1);
   }
 
-  let hashKey;
-  const sharedKey = core.getInput("shared-key");
-  if (sharedKey) {
-    hashKey = sharedKey;
-  } else {
-    hashKey = jobId;
-  }
-
-  hashKey += runnerOs + runnerArch + (osVersion ?? '');
+  let hashKey = (input.sharedKey || jobId) + runnerOs + runnerArch + (osVersion ?? '');
 
   hashKey += input.source.type;
   if (input.source.type === 'registry') {
