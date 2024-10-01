@@ -60,6 +60,8 @@ unexpected dependencies updates.
 - `args`: Additional arguments to pass to `cargo install`.
 - `cache-key`: Additional string added to the cache key used to manually
   invalidate the cache.
+- `shared-key`: A cache key that is used instead of the automatic `job`-based key, 
+  and is stable over multiple jobs.
 
 #### Git parameters
 
