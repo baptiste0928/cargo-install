@@ -60504,7 +60504,7 @@ async function getCacheKey(input, version2) {
     core.setFailed("Could not determine runner OS, runner arch or job ID");
     process.exit(1);
   }
-  let hashKey = jobId + runnerOs + runnerArch + (osVersion ?? "");
+  let hashKey = (input.sharedKey || jobId) + runnerOs + runnerArch + (osVersion ?? "");
   hashKey += input.source.type;
   if (input.source.type === "registry") {
     hashKey += input.source.registry ?? "";
@@ -60594,6 +60594,7 @@ function parseInput() {
   const locked = core2.getBooleanInput("locked", { required: false });
   const args = core2.getInput("args", { required: false });
   const cacheKey = core2.getInput("cache-key", { required: false });
+  const sharedKey = core2.getInput("shared-key", { required: false });
   const parsedArgs = parseArgsStringToArgv(args);
   const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
   if (locked) {
@@ -60639,7 +60640,8 @@ function parseInput() {
     source,
     features: parsedFeatures,
     args: parsedArgs,
-    cacheKey
+    cacheKey,
+    sharedKey
   };
 }
 

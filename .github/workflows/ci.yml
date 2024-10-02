@@ -65,6 +65,7 @@ jobs:
           crate: cargo-hack
           version: ^0.4.4
           cache-key: test
+          shared-key: some-job
 
       - name: Install cargo-sort (from git)
         uses: ./
