@@ -54,6 +54,9 @@ jobs:
     strategy:
       matrix:
         runner: [ubuntu-latest, macos-latest, windows-latest]
+        shared-key: ['', 'test-action']
+        # Exercise parallel job execution by spinning up several identical variations.
+        instance: ['1', '2', '3']
 
     steps:
       - name: Checkout sources
@@ -65,7 +68,7 @@ jobs:
           crate: cargo-hack
           version: ^0.4.4
           cache-key: test
-          shared-key: some-job
+          shared-key: ${{ matrix.shared-key }}
 
       - name: Install cargo-sort (from git)
         uses: ./
@@ -73,6 +76,7 @@ jobs:
           crate: cargo-sort
           git: https://github.com/devinr528/cargo-sort
           tag: v1.0.9
+          shared-key: ${{ matrix.shared-key }}
 
       - name: Print cargo hack version
         run: cargo hack --version
