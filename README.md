@@ -6,12 +6,11 @@
 This action enables you to run `cargo install` in your GitHub workflows, and
 automatically caches the resulting binaries to speed up subsequent builds.
 
-| ✨ Recent updates:                                                                                  |
-| :-------------------------------------------------------------------------------------------------- |
-| **v3.0:** Run on Node 20 instead of Node 16.                                                        |
-| **v2.2:** Added support for alternate registries and sparse indexes.                                |
-| **v2.1:** Installing crates from git is now supported.                                              |
-| **v2.0:** This major update introduces some breaking changes. Read the [changelog] before updating. |
+> [!WARNING]
+>
+> **Versions prior to v3.2 will stop working on February 1st, 2025**, due to
+> GitHub changing their cache service APIs. See also the [`@actions/cache`
+> package deprecation warning](https://github.com/actions/toolkit/discussions/1890).
 
 ## Features
 

@@ -13,7 +13,7 @@
     "package": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js"
   },
   "dependencies": {
-    "@actions/cache": "^3.3.0",
+    "@actions/cache": "^4.0.0",
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "@actions/http-client": "^2.2.3",

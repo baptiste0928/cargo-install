@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated to `@actions/cache` v4 ([previous versions are
+  deprecated](https://github.com/actions/toolkit/discussions/1890)).
+
 ## [3.1.1] - 2024-06-24
 
 ### Fixed
