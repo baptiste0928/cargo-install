@@ -9,6 +9,7 @@ export interface ActionInput {
   features: string[];
   args: string[];
   cacheKey: string;
+  sharedKey: string;
 }
 
 export interface RegistrySource {
@@ -34,6 +35,7 @@ export function parseInput(): ActionInput {
   const locked = core.getBooleanInput('locked', { required: false });
   const args = core.getInput('args', { required: false });
   const cacheKey = core.getInput('cache-key', { required: false });
+  const sharedKey = core.getInput('shared-key', { required: false });
 
   const parsedArgs = stringArgv(args);
   const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
@@ -94,5 +96,6 @@ export function parseInput(): ActionInput {
     features: parsedFeatures,
     args: parsedArgs,
     cacheKey,
+    sharedKey,
   };
 }

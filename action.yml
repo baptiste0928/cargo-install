@@ -18,6 +18,9 @@ inputs:
   cache-key:
     description: 'Additional key added to the automatic cache key.'
     required: false
+  shared-key:
+    description: 'A cache key that is used instead of the automatic `job`-based key.'
+    required: false
 
   # Registry installation
   version:
