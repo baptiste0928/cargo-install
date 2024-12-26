@@ -33,9 +33,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/utils.js
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/utils.js
 var require_utils = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/utils.js"(exports2) {
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/utils.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.toCommandProperties = exports2.toCommandValue = void 0;
@@ -65,15 +65,19 @@ var require_utils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/command.js
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/command.js
 var require_command = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/command.js"(exports2) {
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/command.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -87,7 +91,7 @@ var require_command = __commonJS({
       if (mod && mod.__esModule) return mod;
       var result = {};
       if (mod != null) {
-        for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
+        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
       }
       __setModuleDefault2(result, mod);
       return result;
@@ -122,14 +126,14 @@ var require_command = __commonJS({
           let first = true;
           for (const key in this.properties) {
             if (this.properties.hasOwnProperty(key)) {
-              const val2 = this.properties[key];
-              if (val2) {
+              const val = this.properties[key];
+              if (val) {
                 if (first) {
                   first = false;
                 } else {
                   cmdStr += ",";
                 }
-                cmdStr += `${key}=${escapeProperty(val2)}`;
+                cmdStr += `${key}=${escapeProperty(val)}`;
               }
             }
           }
@@ -139,356 +143,27 @@ var require_command = __commonJS({
       }
     };
     function escapeData(s) {
-      return utils_1.toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+      return (0, utils_1.toCommandValue)(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
     }
     function escapeProperty(s) {
-      return utils_1.toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A").replace(/:/g, "%3A").replace(/,/g, "%2C");
+      return (0, utils_1.toCommandValue)(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A").replace(/:/g, "%3A").replace(/,/g, "%2C");
     }
   }
 });
 
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/rng.js
-function rng() {
-  if (poolPtr > rnds8Pool.length - 16) {
-    import_crypto.default.randomFillSync(rnds8Pool);
-    poolPtr = 0;
-  }
-  return rnds8Pool.slice(poolPtr, poolPtr += 16);
-}
-var import_crypto, rnds8Pool, poolPtr;
-var init_rng = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/rng.js"() {
-    import_crypto = __toESM(require("crypto"));
-    rnds8Pool = new Uint8Array(256);
-    poolPtr = rnds8Pool.length;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/regex.js
-var regex_default;
-var init_regex = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/regex.js"() {
-    regex_default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/validate.js
-function validate(uuid) {
-  return typeof uuid === "string" && regex_default.test(uuid);
-}
-var validate_default;
-var init_validate = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/validate.js"() {
-    init_regex();
-    validate_default = validate;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/stringify.js
-function stringify(arr, offset = 0) {
-  const uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
-  if (!validate_default(uuid)) {
-    throw TypeError("Stringified UUID is invalid");
-  }
-  return uuid;
-}
-var byteToHex, stringify_default;
-var init_stringify = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/stringify.js"() {
-    init_validate();
-    byteToHex = [];
-    for (let i = 0; i < 256; ++i) {
-      byteToHex.push((i + 256).toString(16).substr(1));
-    }
-    stringify_default = stringify;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v1.js
-function v1(options, buf, offset) {
-  let i = buf && offset || 0;
-  const b = buf || new Array(16);
-  options = options || {};
-  let node = options.node || _nodeId;
-  let clockseq = options.clockseq !== void 0 ? options.clockseq : _clockseq;
-  if (node == null || clockseq == null) {
-    const seedBytes = options.random || (options.rng || rng)();
-    if (node == null) {
-      node = _nodeId = [seedBytes[0] | 1, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
-    }
-    if (clockseq == null) {
-      clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 16383;
-    }
-  }
-  let msecs = options.msecs !== void 0 ? options.msecs : Date.now();
-  let nsecs = options.nsecs !== void 0 ? options.nsecs : _lastNSecs + 1;
-  const dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 1e4;
-  if (dt < 0 && options.clockseq === void 0) {
-    clockseq = clockseq + 1 & 16383;
-  }
-  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === void 0) {
-    nsecs = 0;
-  }
-  if (nsecs >= 1e4) {
-    throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-  }
-  _lastMSecs = msecs;
-  _lastNSecs = nsecs;
-  _clockseq = clockseq;
-  msecs += 122192928e5;
-  const tl = ((msecs & 268435455) * 1e4 + nsecs) % 4294967296;
-  b[i++] = tl >>> 24 & 255;
-  b[i++] = tl >>> 16 & 255;
-  b[i++] = tl >>> 8 & 255;
-  b[i++] = tl & 255;
-  const tmh = msecs / 4294967296 * 1e4 & 268435455;
-  b[i++] = tmh >>> 8 & 255;
-  b[i++] = tmh & 255;
-  b[i++] = tmh >>> 24 & 15 | 16;
-  b[i++] = tmh >>> 16 & 255;
-  b[i++] = clockseq >>> 8 | 128;
-  b[i++] = clockseq & 255;
-  for (let n = 0; n < 6; ++n) {
-    b[i + n] = node[n];
-  }
-  return buf || stringify_default(b);
-}
-var _nodeId, _clockseq, _lastMSecs, _lastNSecs, v1_default;
-var init_v1 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v1.js"() {
-    init_rng();
-    init_stringify();
-    _lastMSecs = 0;
-    _lastNSecs = 0;
-    v1_default = v1;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/parse.js
-function parse(uuid) {
-  if (!validate_default(uuid)) {
-    throw TypeError("Invalid UUID");
-  }
-  let v;
-  const arr = new Uint8Array(16);
-  arr[0] = (v = parseInt(uuid.slice(0, 8), 16)) >>> 24;
-  arr[1] = v >>> 16 & 255;
-  arr[2] = v >>> 8 & 255;
-  arr[3] = v & 255;
-  arr[4] = (v = parseInt(uuid.slice(9, 13), 16)) >>> 8;
-  arr[5] = v & 255;
-  arr[6] = (v = parseInt(uuid.slice(14, 18), 16)) >>> 8;
-  arr[7] = v & 255;
-  arr[8] = (v = parseInt(uuid.slice(19, 23), 16)) >>> 8;
-  arr[9] = v & 255;
-  arr[10] = (v = parseInt(uuid.slice(24, 36), 16)) / 1099511627776 & 255;
-  arr[11] = v / 4294967296 & 255;
-  arr[12] = v >>> 24 & 255;
-  arr[13] = v >>> 16 & 255;
-  arr[14] = v >>> 8 & 255;
-  arr[15] = v & 255;
-  return arr;
-}
-var parse_default;
-var init_parse = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/parse.js"() {
-    init_validate();
-    parse_default = parse;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v35.js
-function stringToBytes(str) {
-  str = unescape(encodeURIComponent(str));
-  const bytes = [];
-  for (let i = 0; i < str.length; ++i) {
-    bytes.push(str.charCodeAt(i));
-  }
-  return bytes;
-}
-function v35_default(name, version2, hashfunc) {
-  function generateUUID(value, namespace, buf, offset) {
-    if (typeof value === "string") {
-      value = stringToBytes(value);
-    }
-    if (typeof namespace === "string") {
-      namespace = parse_default(namespace);
-    }
-    if (namespace.length !== 16) {
-      throw TypeError("Namespace must be array-like (16 iterable integer values, 0-255)");
-    }
-    let bytes = new Uint8Array(16 + value.length);
-    bytes.set(namespace);
-    bytes.set(value, namespace.length);
-    bytes = hashfunc(bytes);
-    bytes[6] = bytes[6] & 15 | version2;
-    bytes[8] = bytes[8] & 63 | 128;
-    if (buf) {
-      offset = offset || 0;
-      for (let i = 0; i < 16; ++i) {
-        buf[offset + i] = bytes[i];
-      }
-      return buf;
-    }
-    return stringify_default(bytes);
-  }
-  try {
-    generateUUID.name = name;
-  } catch (err) {
-  }
-  generateUUID.DNS = DNS;
-  generateUUID.URL = URL2;
-  return generateUUID;
-}
-var DNS, URL2;
-var init_v35 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v35.js"() {
-    init_stringify();
-    init_parse();
-    DNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
-    URL2 = "6ba7b811-9dad-11d1-80b4-00c04fd430c8";
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/md5.js
-function md5(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === "string") {
-    bytes = Buffer.from(bytes, "utf8");
-  }
-  return import_crypto2.default.createHash("md5").update(bytes).digest();
-}
-var import_crypto2, md5_default;
-var init_md5 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/md5.js"() {
-    import_crypto2 = __toESM(require("crypto"));
-    md5_default = md5;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v3.js
-var v3, v3_default;
-var init_v3 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v3.js"() {
-    init_v35();
-    init_md5();
-    v3 = v35_default("v3", 48, md5_default);
-    v3_default = v3;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v4.js
-function v4(options, buf, offset) {
-  options = options || {};
-  const rnds = options.random || (options.rng || rng)();
-  rnds[6] = rnds[6] & 15 | 64;
-  rnds[8] = rnds[8] & 63 | 128;
-  if (buf) {
-    offset = offset || 0;
-    for (let i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-    return buf;
-  }
-  return stringify_default(rnds);
-}
-var v4_default;
-var init_v4 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v4.js"() {
-    init_rng();
-    init_stringify();
-    v4_default = v4;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/sha1.js
-function sha1(bytes) {
-  if (Array.isArray(bytes)) {
-    bytes = Buffer.from(bytes);
-  } else if (typeof bytes === "string") {
-    bytes = Buffer.from(bytes, "utf8");
-  }
-  return import_crypto3.default.createHash("sha1").update(bytes).digest();
-}
-var import_crypto3, sha1_default;
-var init_sha1 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/sha1.js"() {
-    import_crypto3 = __toESM(require("crypto"));
-    sha1_default = sha1;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v5.js
-var v5, v5_default;
-var init_v5 = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/v5.js"() {
-    init_v35();
-    init_sha1();
-    v5 = v35_default("v5", 80, sha1_default);
-    v5_default = v5;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/nil.js
-var nil_default;
-var init_nil = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/nil.js"() {
-    nil_default = "00000000-0000-0000-0000-000000000000";
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/version.js
-function version(uuid) {
-  if (!validate_default(uuid)) {
-    throw TypeError("Invalid UUID");
-  }
-  return parseInt(uuid.substr(14, 1), 16);
-}
-var version_default;
-var init_version = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/version.js"() {
-    init_validate();
-    version_default = version;
-  }
-});
-
-// node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/index.js
-var esm_node_exports = {};
-__export(esm_node_exports, {
-  NIL: () => nil_default,
-  parse: () => parse_default,
-  stringify: () => stringify_default,
-  v1: () => v1_default,
-  v3: () => v3_default,
-  v4: () => v4_default,
-  v5: () => v5_default,
-  validate: () => validate_default,
-  version: () => version_default
-});
-var init_esm_node = __esm({
-  "node_modules/.pnpm/uuid@8.3.2/node_modules/uuid/dist/esm-node/index.js"() {
-    init_v1();
-    init_v3();
-    init_v4();
-    init_v5();
-    init_nil();
-    init_version();
-    init_validate();
-    init_stringify();
-    init_parse();
-  }
-});
-
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/file-command.js
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/file-command.js
 var require_file_command = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/file-command.js"(exports2) {
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/file-command.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -502,16 +177,16 @@ var require_file_command = __commonJS({
       if (mod && mod.__esModule) return mod;
       var result = {};
       if (mod != null) {
-        for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
+        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
       }
       __setModuleDefault2(result, mod);
       return result;
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.prepareKeyValueMessage = exports2.issueFileCommand = void 0;
+    var crypto2 = __importStar2(require("crypto"));
     var fs = __importStar2(require("fs"));
     var os2 = __importStar2(require("os"));
-    var uuid_1 = (init_esm_node(), __toCommonJS(esm_node_exports));
     var utils_1 = require_utils();
     function issueFileCommand(command, message) {
       const filePath = process.env[`GITHUB_${command}`];
@@ -521,14 +196,14 @@ var require_file_command = __commonJS({
       if (!fs.existsSync(filePath)) {
         throw new Error(`Missing file at path: ${filePath}`);
       }
-      fs.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os2.EOL}`, {
+      fs.appendFileSync(filePath, `${(0, utils_1.toCommandValue)(message)}${os2.EOL}`, {
         encoding: "utf8"
       });
     }
     exports2.issueFileCommand = issueFileCommand;
     function prepareKeyValueMessage(key, value) {
-      const delimiter = `ghadelimiter_${uuid_1.v4()}`;
-      const convertedValue = utils_1.toCommandValue(value);
+      const delimiter = `ghadelimiter_${crypto2.randomUUID()}`;
+      const convertedValue = (0, utils_1.toCommandValue)(value);
       if (key.includes(delimiter)) {
         throw new Error(`Unexpected input: name should not contain the delimiter "${delimiter}"`);
       }
@@ -541,9 +216,9 @@ var require_file_command = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+http-client@2.2.1/node_modules/@actions/http-client/lib/proxy.js
+// node_modules/.pnpm/@actions+http-client@2.2.3/node_modules/@actions/http-client/lib/proxy.js
 var require_proxy = __commonJS({
-  "node_modules/.pnpm/@actions+http-client@2.2.1/node_modules/@actions/http-client/lib/proxy.js"(exports2) {
+  "node_modules/.pnpm/@actions+http-client@2.2.3/node_modules/@actions/http-client/lib/proxy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.checkBypass = exports2.getProxyUrl = void 0;
@@ -561,10 +236,10 @@ var require_proxy = __commonJS({
       })();
       if (proxyVar) {
         try {
-          return new URL(proxyVar);
+          return new DecodedURL(proxyVar);
         } catch (_a) {
           if (!proxyVar.startsWith("http://") && !proxyVar.startsWith("https://"))
-            return new URL(`http://${proxyVar}`);
+            return new DecodedURL(`http://${proxyVar}`);
         }
       } else {
         return void 0;
@@ -607,6 +282,19 @@ var require_proxy = __commonJS({
       const hostLower = host.toLowerCase();
       return hostLower === "localhost" || hostLower.startsWith("127.") || hostLower.startsWith("[::1]") || hostLower.startsWith("[0:0:0:0:0:0:0:1]");
     }
+    var DecodedURL = class extends URL {
+      constructor(url, base) {
+        super(url, base);
+        this._decodedUsername = decodeURIComponent(super.username);
+        this._decodedPassword = decodeURIComponent(super.password);
+      }
+      get username() {
+        return this._decodedUsername;
+      }
+      get password() {
+        return this._decodedPassword;
+      }
+    };
   }
 });
 
@@ -1258,7 +946,7 @@ var require_util = __commonJS({
     var { InvalidArgumentError } = require_errors();
     var { Blob: Blob2 } = require("buffer");
     var nodeUtil = require("util");
-    var { stringify: stringify2 } = require("querystring");
+    var { stringify } = require("querystring");
     var { headerNameLowerCasedRecord } = require_constants();
     var [nodeMajor, nodeMinor] = process.versions.node.split(".").map((v) => Number(v));
     function nop() {
@@ -1273,7 +961,7 @@ var require_util = __commonJS({
       if (url.includes("?") || url.includes("#")) {
         throw new Error('Query params cannot be passed when url already contains "?" or "#".');
       }
-      const stringified = stringify2(queryParams);
+      const stringified = stringify(queryParams);
       if (stringified) {
         url += "?" + stringified;
       }
@@ -1398,8 +1086,8 @@ var require_util = __commonJS({
       }
     }
     var KEEPALIVE_TIMEOUT_EXPR = /timeout=(\d+)/;
-    function parseKeepAliveTimeout(val2) {
-      const m = val2.toString().match(KEEPALIVE_TIMEOUT_EXPR);
+    function parseKeepAliveTimeout(val) {
+      const m = val.toString().match(KEEPALIVE_TIMEOUT_EXPR);
       return m ? parseInt(m[1], 10) * 1e3 : null;
     }
     function headerNameToString(value) {
@@ -1409,19 +1097,19 @@ var require_util = __commonJS({
       if (!Array.isArray(headers)) return headers;
       for (let i = 0; i < headers.length; i += 2) {
         const key = headers[i].toString().toLowerCase();
-        let val2 = obj[key];
-        if (!val2) {
+        let val = obj[key];
+        if (!val) {
           if (Array.isArray(headers[i + 1])) {
             obj[key] = headers[i + 1].map((x) => x.toString("utf8"));
           } else {
             obj[key] = headers[i + 1].toString("utf8");
           }
         } else {
-          if (!Array.isArray(val2)) {
-            val2 = [val2];
-            obj[key] = val2;
+          if (!Array.isArray(val)) {
+            val = [val];
+            obj[key] = val;
           }
-          val2.push(headers[i + 1].toString("utf8"));
+          val.push(headers[i + 1].toString("utf8"));
         }
       }
       if ("content-length" in obj && "content-disposition" in obj) {
@@ -1435,14 +1123,14 @@ var require_util = __commonJS({
       let contentDispositionIdx = -1;
       for (let n = 0; n < headers.length; n += 2) {
         const key = headers[n + 0].toString();
-        const val2 = headers[n + 1].toString("utf8");
+        const val = headers[n + 1].toString("utf8");
         if (key.length === 14 && (key === "content-length" || key.toLowerCase() === "content-length")) {
-          ret.push(key, val2);
+          ret.push(key, val);
           hasContentLength = true;
         } else if (key.length === 19 && (key === "content-disposition" || key.toLowerCase() === "content-disposition")) {
-          contentDispositionIdx = ret.push(key, val2) - 1;
+          contentDispositionIdx = ret.push(key, val) - 1;
         } else {
-          ret.push(key, val2);
+          ret.push(key, val);
         }
       }
       if (hasContentLength && contentDispositionIdx !== -1) {
@@ -1571,13 +1259,13 @@ var require_util = __commonJS({
       return () => signal.removeListener("abort", listener);
     }
     var hasToWellFormed = !!String.prototype.toWellFormed;
-    function toUSVString(val2) {
+    function toUSVString(val) {
       if (hasToWellFormed) {
-        return `${val2}`.toWellFormed();
+        return `${val}`.toWellFormed();
       } else if (nodeUtil.toUSVString) {
-        return nodeUtil.toUSVString(val2);
+        return nodeUtil.toUSVString(val);
       }
-      return `${val2}`;
+      return `${val}`;
     }
     function parseRangeHeader(range) {
       if (range == null || range === "") return { start: 0, end: null, size: null };
@@ -2239,6 +1927,7 @@ var require_decodeText = __commonJS({
             return decoders.utf8;
           case "latin1":
           case "ascii":
+          // TODO: Make these a separate, strict decoder?
           case "us-ascii":
           case "iso-8859-1":
           case "iso8859-1":
@@ -2938,6 +2627,7 @@ var require_basename = __commonJS({
       for (var i = path3.length - 1; i >= 0; --i) {
         switch (path3.charCodeAt(i)) {
           case 47:
+          // '/'
           case 92:
             path3 = path3.slice(i + 1);
             return path3 === ".." || path3 === "." ? "" : path3;
@@ -3947,11 +3637,11 @@ var require_util2 = __commonJS({
     var assert = require("assert");
     var { isUint8Array } = require("util/types");
     var supportedHashes = [];
-    var crypto5;
+    var crypto2;
     try {
-      crypto5 = require("crypto");
+      crypto2 = require("crypto");
       const possibleRelevantHashes = ["sha256", "sha384", "sha512"];
-      supportedHashes = crypto5.getHashes().filter((hash) => possibleRelevantHashes.includes(hash));
+      supportedHashes = crypto2.getHashes().filter((hash) => possibleRelevantHashes.includes(hash));
     } catch {
     }
     function responseURL(response) {
@@ -4172,7 +3862,21 @@ var require_util2 = __commonJS({
           return referrerOrigin;
         }
         case "strict-origin":
+        // eslint-disable-line
+        /**
+           * 1. If referrerURL is a potentially trustworthy URL and
+           * request’s current URL is not a potentially trustworthy URL,
+           * then return no referrer.
+           * 2. Return referrerOrigin
+          */
         case "no-referrer-when-downgrade":
+        // eslint-disable-line
+        /**
+         * 1. If referrerURL is a potentially trustworthy URL and
+         * request’s current URL is not a potentially trustworthy URL,
+         * then return no referrer.
+         * 2. Return referrerOrigin
+        */
         default:
           return isNonPotentiallyTrustWorthy ? "no-referrer" : referrerOrigin;
       }
@@ -4214,7 +3918,7 @@ var require_util2 = __commonJS({
       }
     }
     function bytesMatch(bytes, metadataList) {
-      if (crypto5 === void 0) {
+      if (crypto2 === void 0) {
         return true;
       }
       const parsedMetadata = parseMetadata(metadataList);
@@ -4229,7 +3933,7 @@ var require_util2 = __commonJS({
       for (const item of metadata) {
         const algorithm = item.algo;
         const expectedValue = item.hash;
-        let actualValue = crypto5.createHash(algorithm).update(bytes).digest("base64");
+        let actualValue = crypto2.createHash(algorithm).update(bytes).digest("base64");
         if (actualValue[actualValue.length - 1] === "=") {
           if (actualValue[actualValue.length - 2] === "=") {
             actualValue = actualValue.slice(0, -2);
@@ -6221,41 +5925,41 @@ var require_request = __commonJS({
         return headers;
       }
     };
-    function processHeaderValue(key, val2, skipAppend) {
-      if (val2 && typeof val2 === "object") {
+    function processHeaderValue(key, val, skipAppend) {
+      if (val && typeof val === "object") {
         throw new InvalidArgumentError(`invalid ${key} header`);
       }
-      val2 = val2 != null ? `${val2}` : "";
-      if (headerCharRegex.exec(val2) !== null) {
+      val = val != null ? `${val}` : "";
+      if (headerCharRegex.exec(val) !== null) {
         throw new InvalidArgumentError(`invalid ${key} header`);
       }
-      return skipAppend ? val2 : `${key}: ${val2}\r
+      return skipAppend ? val : `${key}: ${val}\r
 `;
     }
-    function processHeader(request, key, val2, skipAppend = false) {
-      if (val2 && (typeof val2 === "object" && !Array.isArray(val2))) {
+    function processHeader(request, key, val, skipAppend = false) {
+      if (val && (typeof val === "object" && !Array.isArray(val))) {
         throw new InvalidArgumentError(`invalid ${key} header`);
-      } else if (val2 === void 0) {
+      } else if (val === void 0) {
         return;
       }
       if (request.host === null && key.length === 4 && key.toLowerCase() === "host") {
-        if (headerCharRegex.exec(val2) !== null) {
+        if (headerCharRegex.exec(val) !== null) {
           throw new InvalidArgumentError(`invalid ${key} header`);
         }
-        request.host = val2;
+        request.host = val;
       } else if (request.contentLength === null && key.length === 14 && key.toLowerCase() === "content-length") {
-        request.contentLength = parseInt(val2, 10);
+        request.contentLength = parseInt(val, 10);
         if (!Number.isFinite(request.contentLength)) {
           throw new InvalidArgumentError("invalid content-length header");
         }
       } else if (request.contentType === null && key.length === 12 && key.toLowerCase() === "content-type") {
-        request.contentType = val2;
-        if (skipAppend) request.headers[key] = processHeaderValue(key, val2, skipAppend);
-        else request.headers += processHeaderValue(key, val2);
+        request.contentType = val;
+        if (skipAppend) request.headers[key] = processHeaderValue(key, val, skipAppend);
+        else request.headers += processHeaderValue(key, val);
       } else if (key.length === 17 && key.toLowerCase() === "transfer-encoding") {
         throw new InvalidArgumentError("invalid transfer-encoding header");
       } else if (key.length === 10 && key.toLowerCase() === "connection") {
-        const value = typeof val2 === "string" ? val2.toLowerCase() : null;
+        const value = typeof val === "string" ? val.toLowerCase() : null;
         if (value !== "close" && value !== "keep-alive") {
           throw new InvalidArgumentError("invalid connection header");
         } else if (value === "close") {
@@ -6270,18 +5974,18 @@ var require_request = __commonJS({
       } else if (tokenRegExp.exec(key) === null) {
         throw new InvalidArgumentError("invalid header key");
       } else {
-        if (Array.isArray(val2)) {
-          for (let i = 0; i < val2.length; i++) {
+        if (Array.isArray(val)) {
+          for (let i = 0; i < val.length; i++) {
             if (skipAppend) {
-              if (request.headers[key]) request.headers[key] += `,${processHeaderValue(key, val2[i], skipAppend)}`;
-              else request.headers[key] = processHeaderValue(key, val2[i], skipAppend);
+              if (request.headers[key]) request.headers[key] += `,${processHeaderValue(key, val[i], skipAppend)}`;
+              else request.headers[key] = processHeaderValue(key, val[i], skipAppend);
             } else {
-              request.headers += processHeaderValue(key, val2[i]);
+              request.headers += processHeaderValue(key, val[i]);
             }
           }
         } else {
-          if (skipAppend) request.headers[key] = processHeaderValue(key, val2, skipAppend);
-          else request.headers += processHeaderValue(key, val2);
+          if (skipAppend) request.headers[key] = processHeaderValue(key, val, skipAppend);
+          else request.headers += processHeaderValue(key, val);
         }
       }
     }
@@ -11351,7 +11055,7 @@ var require_proxy_agent = __commonJS({
   "node_modules/.pnpm/undici@5.28.4/node_modules/undici/lib/proxy-agent.js"(exports2, module2) {
     "use strict";
     var { kProxy, kClose, kDestroy, kInterceptors } = require_symbols();
-    var { URL: URL3 } = require("url");
+    var { URL: URL2 } = require("url");
     var Agent = require_agent();
     var Pool = require_pool();
     var DispatcherBase = require_dispatcher_base();
@@ -11400,7 +11104,7 @@ var require_proxy_agent = __commonJS({
         this[kRequestTls] = opts.requestTls;
         this[kProxyTls] = opts.proxyTls;
         this[kProxyHeaders] = opts.headers || {};
-        const resolvedUrl = new URL3(opts.uri);
+        const resolvedUrl = new URL2(opts.uri);
         const { origin, port, host, username, password } = resolvedUrl;
         if (opts.auth && opts.token) {
           throw new InvalidArgumentError("opts.auth cannot be used in combination with opts.token");
@@ -11455,7 +11159,7 @@ var require_proxy_agent = __commonJS({
         });
       }
       dispatch(opts, handler) {
-        const { host } = new URL3(opts.origin);
+        const { host } = new URL2(opts.origin);
         const headers = buildHeaders(opts.headers);
         throwIfProxyAuthIsSent(headers);
         return this[kAgent].dispatch(
@@ -12860,8 +12564,8 @@ var require_request2 = __commonJS({
           const headers = init.headers !== void 0 ? init.headers : new HeadersList(headersList);
           headersList.clear();
           if (headers instanceof HeadersList) {
-            for (const [key, val2] of headers) {
-              headersList.append(key, val2);
+            for (const [key, val] of headers) {
+              headersList.append(key, val);
             }
             headersList.cookies = headers.cookies;
           } else {
@@ -14161,24 +13865,24 @@ var require_fetch = __commonJS({
               if (Array.isArray(headersList)) {
                 for (let n = 0; n < headersList.length; n += 2) {
                   const key = headersList[n + 0].toString("latin1");
-                  const val2 = headersList[n + 1].toString("latin1");
+                  const val = headersList[n + 1].toString("latin1");
                   if (key.toLowerCase() === "content-encoding") {
-                    codings = val2.toLowerCase().split(",").map((x) => x.trim());
+                    codings = val.toLowerCase().split(",").map((x) => x.trim());
                   } else if (key.toLowerCase() === "location") {
-                    location = val2;
+                    location = val;
                   }
-                  headers[kHeadersList].append(key, val2);
+                  headers[kHeadersList].append(key, val);
                 }
               } else {
                 const keys = Object.keys(headersList);
                 for (const key of keys) {
-                  const val2 = headersList[key];
+                  const val = headersList[key];
                   if (key.toLowerCase() === "content-encoding") {
-                    codings = val2.toLowerCase().split(",").map((x) => x.trim()).reverse();
+                    codings = val.toLowerCase().split(",").map((x) => x.trim()).reverse();
                   } else if (key.toLowerCase() === "location") {
-                    location = val2;
+                    location = val;
                   }
-                  headers[kHeadersList].append(key, val2);
+                  headers[kHeadersList].append(key, val);
                 }
               }
               this.body = new Readable({ read: resume });
@@ -14245,8 +13949,8 @@ var require_fetch = __commonJS({
               const headers = new Headers();
               for (let n = 0; n < headersList.length; n += 2) {
                 const key = headersList[n + 0].toString("latin1");
-                const val2 = headersList[n + 1].toString("latin1");
-                headers[kHeadersList].append(key, val2);
+                const val = headersList[n + 1].toString("latin1");
+                headers[kHeadersList].append(key, val);
               }
               resolve({
                 status,
@@ -15865,7 +15569,7 @@ var require_util6 = __commonJS({
         throw new Error("Invalid cookie max-age");
       }
     }
-    function stringify2(cookie) {
+    function stringify(cookie) {
       if (cookie.name.length === 0) {
         return null;
       }
@@ -15930,7 +15634,7 @@ var require_util6 = __commonJS({
     }
     module2.exports = {
       isCTLExcludingHtab,
-      stringify: stringify2,
+      stringify,
       getHeadersList
     };
   }
@@ -16081,7 +15785,7 @@ var require_cookies = __commonJS({
   "node_modules/.pnpm/undici@5.28.4/node_modules/undici/lib/cookies/index.js"(exports2, module2) {
     "use strict";
     var { parseSetCookie } = require_parse();
-    var { stringify: stringify2, getHeadersList } = require_util6();
+    var { stringify, getHeadersList } = require_util6();
     var { webidl } = require_webidl();
     var { Headers } = require_headers();
     function getCookies(headers) {
@@ -16123,9 +15827,9 @@ var require_cookies = __commonJS({
       webidl.argumentLengthCheck(arguments, 2, { header: "setCookie" });
       webidl.brandCheck(headers, Headers, { strict: false });
       cookie = webidl.converters.Cookie(cookie);
-      const str = stringify2(cookie);
+      const str = stringify(cookie);
       if (str) {
-        headers.append("Set-Cookie", stringify2(cookie));
+        headers.append("Set-Cookie", stringify(cookie));
       }
     }
     webidl.converters.DeleteCookieAttributes = webidl.dictionaryConverter([
@@ -16621,9 +16325,9 @@ var require_connection = __commonJS({
     channels.open = diagnosticsChannel.channel("undici:websocket:open");
     channels.close = diagnosticsChannel.channel("undici:websocket:close");
     channels.socketError = diagnosticsChannel.channel("undici:websocket:socket_error");
-    var crypto5;
+    var crypto2;
     try {
-      crypto5 = require("crypto");
+      crypto2 = require("crypto");
     } catch {
     }
     function establishWebSocketConnection(url, protocols, ws, onEstablish, options) {
@@ -16642,7 +16346,7 @@ var require_connection = __commonJS({
         const headersList = new Headers(options.headers)[kHeadersList];
         request.headersList = headersList;
       }
-      const keyValue = crypto5.randomBytes(16).toString("base64");
+      const keyValue = crypto2.randomBytes(16).toString("base64");
       request.headersList.append("sec-websocket-key", keyValue);
       request.headersList.append("sec-websocket-version", "13");
       for (const protocol of protocols) {
@@ -16671,7 +16375,7 @@ var require_connection = __commonJS({
             return;
           }
           const secWSAccept = response.headersList.get("Sec-WebSocket-Accept");
-          const digest = crypto5.createHash("sha1").update(keyValue + uid).digest("base64");
+          const digest = crypto2.createHash("sha1").update(keyValue + uid).digest("base64");
           if (secWSAccept !== digest) {
             failWebsocketConnection(ws, "Incorrect hash received in Sec-WebSocket-Accept header.");
             return;
@@ -16751,9 +16455,9 @@ var require_frame = __commonJS({
   "node_modules/.pnpm/undici@5.28.4/node_modules/undici/lib/websocket/frame.js"(exports2, module2) {
     "use strict";
     var { maxUnsigned16Bit } = require_constants5();
-    var crypto5;
+    var crypto2;
     try {
-      crypto5 = require("crypto");
+      crypto2 = require("crypto");
     } catch {
     }
     var WebsocketFrameSend = class {
@@ -16762,7 +16466,7 @@ var require_frame = __commonJS({
        */
       constructor(data) {
         this.frameData = data;
-        this.maskKey = crypto5.randomBytes(4);
+        this.maskKey = crypto2.randomBytes(4);
       }
       createFrame(opcode) {
         const bodyLength = this.frameData?.byteLength ?? 0;
@@ -17583,9 +17287,9 @@ var require_undici = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+http-client@2.2.1/node_modules/@actions/http-client/lib/index.js
+// node_modules/.pnpm/@actions+http-client@2.2.3/node_modules/@actions/http-client/lib/index.js
 var require_lib = __commonJS({
-  "node_modules/.pnpm/@actions+http-client@2.2.1/node_modules/@actions/http-client/lib/index.js"(exports2) {
+  "node_modules/.pnpm/@actions+http-client@2.2.3/node_modules/@actions/http-client/lib/index.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -18125,7 +17829,7 @@ var require_lib = __commonJS({
         }
         const usingSsl = parsedUrl.protocol === "https:";
         proxyAgent = new undici_1.ProxyAgent(Object.assign({ uri: proxyUrl.href, pipelining: !this._keepAlive ? 0 : 1 }, (proxyUrl.username || proxyUrl.password) && {
-          token: `${proxyUrl.username}:${proxyUrl.password}`
+          token: `Basic ${Buffer.from(`${proxyUrl.username}:${proxyUrl.password}`).toString("base64")}`
         }));
         this._proxyAgentDispatcher = proxyAgent;
         if (usingSsl && this._ignoreSslError) {
@@ -18202,9 +17906,9 @@ var require_lib = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+http-client@2.2.1/node_modules/@actions/http-client/lib/auth.js
+// node_modules/.pnpm/@actions+http-client@2.2.3/node_modules/@actions/http-client/lib/auth.js
 var require_auth = __commonJS({
-  "node_modules/.pnpm/@actions+http-client@2.2.1/node_modules/@actions/http-client/lib/auth.js"(exports2) {
+  "node_modules/.pnpm/@actions+http-client@2.2.3/node_modules/@actions/http-client/lib/auth.js"(exports2) {
     "use strict";
     var __awaiter2 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
       function adopt(value) {
@@ -18306,9 +18010,9 @@ var require_auth = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/oidc-utils.js
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/oidc-utils.js
 var require_oidc_utils = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/oidc-utils.js"(exports2) {
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/oidc-utils.js"(exports2) {
     "use strict";
     var __awaiter2 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
       function adopt(value) {
@@ -18390,9 +18094,9 @@ var require_oidc_utils = __commonJS({
               const encodedAudience = encodeURIComponent(audience);
               id_token_url = `${id_token_url}&audience=${encodedAudience}`;
             }
-            core_1.debug(`ID token url is ${id_token_url}`);
+            (0, core_1.debug)(`ID token url is ${id_token_url}`);
             const id_token = yield _OidcClient.getCall(id_token_url);
-            core_1.setSecret(id_token);
+            (0, core_1.setSecret)(id_token);
             return id_token;
           } catch (error2) {
             throw new Error(`Error message: ${error2.message}`);
@@ -18404,9 +18108,9 @@ var require_oidc_utils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/summary.js
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/summary.js
 var require_summary = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/summary.js"(exports2) {
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/summary.js"(exports2) {
     "use strict";
     var __awaiter2 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
       function adopt(value) {
@@ -18698,15 +18402,19 @@ var require_summary = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/path-utils.js
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/path-utils.js
 var require_path_utils = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/path-utils.js"(exports2) {
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/path-utils.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -18720,7 +18428,7 @@ var require_path_utils = __commonJS({
       if (mod && mod.__esModule) return mod;
       var result = {};
       if (mod != null) {
-        for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
+        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
       }
       __setModuleDefault2(result, mod);
       return result;
@@ -18740,230 +18448,6 @@ var require_path_utils = __commonJS({
       return pth.replace(/[/\\]/g, path3.sep);
     }
     exports2.toPlatformPath = toPlatformPath;
-  }
-});
-
-// node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/core.js
-var require_core = __commonJS({
-  "node_modules/.pnpm/@actions+core@1.10.1/node_modules/@actions/core/lib/core.js"(exports2) {
-    "use strict";
-    var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __setModuleDefault2 = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    } : function(o, v) {
-      o["default"] = v;
-    });
-    var __importStar2 = exports2 && exports2.__importStar || function(mod) {
-      if (mod && mod.__esModule) return mod;
-      var result = {};
-      if (mod != null) {
-        for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
-      }
-      __setModuleDefault2(result, mod);
-      return result;
-    };
-    var __awaiter2 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
-      function adopt(value) {
-        return value instanceof P ? value : new P(function(resolve) {
-          resolve(value);
-        });
-      }
-      return new (P || (P = Promise))(function(resolve, reject) {
-        function fulfilled(value) {
-          try {
-            step(generator.next(value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function rejected(value) {
-          try {
-            step(generator["throw"](value));
-          } catch (e) {
-            reject(e);
-          }
-        }
-        function step(result) {
-          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-        }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-      });
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getIDToken = exports2.getState = exports2.saveState = exports2.group = exports2.endGroup = exports2.startGroup = exports2.info = exports2.notice = exports2.warning = exports2.error = exports2.debug = exports2.isDebug = exports2.setFailed = exports2.setCommandEcho = exports2.setOutput = exports2.getBooleanInput = exports2.getMultilineInput = exports2.getInput = exports2.addPath = exports2.setSecret = exports2.exportVariable = exports2.ExitCode = void 0;
-    var command_1 = require_command();
-    var file_command_1 = require_file_command();
-    var utils_1 = require_utils();
-    var os2 = __importStar2(require("os"));
-    var path3 = __importStar2(require("path"));
-    var oidc_utils_1 = require_oidc_utils();
-    var ExitCode;
-    (function(ExitCode2) {
-      ExitCode2[ExitCode2["Success"] = 0] = "Success";
-      ExitCode2[ExitCode2["Failure"] = 1] = "Failure";
-    })(ExitCode = exports2.ExitCode || (exports2.ExitCode = {}));
-    function exportVariable(name, val2) {
-      const convertedVal = utils_1.toCommandValue(val2);
-      process.env[name] = convertedVal;
-      const filePath = process.env["GITHUB_ENV"] || "";
-      if (filePath) {
-        return file_command_1.issueFileCommand("ENV", file_command_1.prepareKeyValueMessage(name, val2));
-      }
-      command_1.issueCommand("set-env", { name }, convertedVal);
-    }
-    exports2.exportVariable = exportVariable;
-    function setSecret(secret) {
-      command_1.issueCommand("add-mask", {}, secret);
-    }
-    exports2.setSecret = setSecret;
-    function addPath2(inputPath) {
-      const filePath = process.env["GITHUB_PATH"] || "";
-      if (filePath) {
-        file_command_1.issueFileCommand("PATH", inputPath);
-      } else {
-        command_1.issueCommand("add-path", {}, inputPath);
-      }
-      process.env["PATH"] = `${inputPath}${path3.delimiter}${process.env["PATH"]}`;
-    }
-    exports2.addPath = addPath2;
-    function getInput2(name, options) {
-      const val2 = process.env[`INPUT_${name.replace(/ /g, "_").toUpperCase()}`] || "";
-      if (options && options.required && !val2) {
-        throw new Error(`Input required and not supplied: ${name}`);
-      }
-      if (options && options.trimWhitespace === false) {
-        return val2;
-      }
-      return val2.trim();
-    }
-    exports2.getInput = getInput2;
-    function getMultilineInput(name, options) {
-      const inputs = getInput2(name, options).split("\n").filter((x) => x !== "");
-      if (options && options.trimWhitespace === false) {
-        return inputs;
-      }
-      return inputs.map((input) => input.trim());
-    }
-    exports2.getMultilineInput = getMultilineInput;
-    function getBooleanInput2(name, options) {
-      const trueValue = ["true", "True", "TRUE"];
-      const falseValue = ["false", "False", "FALSE"];
-      const val2 = getInput2(name, options);
-      if (trueValue.includes(val2))
-        return true;
-      if (falseValue.includes(val2))
-        return false;
-      throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
-Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
-    }
-    exports2.getBooleanInput = getBooleanInput2;
-    function setOutput2(name, value) {
-      const filePath = process.env["GITHUB_OUTPUT"] || "";
-      if (filePath) {
-        return file_command_1.issueFileCommand("OUTPUT", file_command_1.prepareKeyValueMessage(name, value));
-      }
-      process.stdout.write(os2.EOL);
-      command_1.issueCommand("set-output", { name }, utils_1.toCommandValue(value));
-    }
-    exports2.setOutput = setOutput2;
-    function setCommandEcho(enabled) {
-      command_1.issue("echo", enabled ? "on" : "off");
-    }
-    exports2.setCommandEcho = setCommandEcho;
-    function setFailed6(message) {
-      process.exitCode = ExitCode.Failure;
-      error2(message);
-    }
-    exports2.setFailed = setFailed6;
-    function isDebug() {
-      return process.env["RUNNER_DEBUG"] === "1";
-    }
-    exports2.isDebug = isDebug;
-    function debug(message) {
-      command_1.issueCommand("debug", {}, message);
-    }
-    exports2.debug = debug;
-    function error2(message, properties = {}) {
-      command_1.issueCommand("error", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
-    }
-    exports2.error = error2;
-    function warning4(message, properties = {}) {
-      command_1.issueCommand("warning", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
-    }
-    exports2.warning = warning4;
-    function notice(message, properties = {}) {
-      command_1.issueCommand("notice", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
-    }
-    exports2.notice = notice;
-    function info4(message) {
-      process.stdout.write(message + os2.EOL);
-    }
-    exports2.info = info4;
-    function startGroup2(name) {
-      command_1.issue("group", name);
-    }
-    exports2.startGroup = startGroup2;
-    function endGroup2() {
-      command_1.issue("endgroup");
-    }
-    exports2.endGroup = endGroup2;
-    function group(name, fn) {
-      return __awaiter2(this, void 0, void 0, function* () {
-        startGroup2(name);
-        let result;
-        try {
-          result = yield fn();
-        } finally {
-          endGroup2();
-        }
-        return result;
-      });
-    }
-    exports2.group = group;
-    function saveState(name, value) {
-      const filePath = process.env["GITHUB_STATE"] || "";
-      if (filePath) {
-        return file_command_1.issueFileCommand("STATE", file_command_1.prepareKeyValueMessage(name, value));
-      }
-      command_1.issueCommand("save-state", { name }, utils_1.toCommandValue(value));
-    }
-    exports2.saveState = saveState;
-    function getState(name) {
-      return process.env[`STATE_${name}`] || "";
-    }
-    exports2.getState = getState;
-    function getIDToken(aud) {
-      return __awaiter2(this, void 0, void 0, function* () {
-        return yield oidc_utils_1.OidcClient.getIDToken(aud);
-      });
-    }
-    exports2.getIDToken = getIDToken;
-    var summary_1 = require_summary();
-    Object.defineProperty(exports2, "summary", { enumerable: true, get: function() {
-      return summary_1.summary;
-    } });
-    var summary_2 = require_summary();
-    Object.defineProperty(exports2, "markdownSummary", { enumerable: true, get: function() {
-      return summary_2.markdownSummary;
-    } });
-    var path_utils_1 = require_path_utils();
-    Object.defineProperty(exports2, "toPosixPath", { enumerable: true, get: function() {
-      return path_utils_1.toPosixPath;
-    } });
-    Object.defineProperty(exports2, "toWin32Path", { enumerable: true, get: function() {
-      return path_utils_1.toWin32Path;
-    } });
-    Object.defineProperty(exports2, "toPlatformPath", { enumerable: true, get: function() {
-      return path_utils_1.toPlatformPath;
-    } });
   }
 });
 
@@ -19979,6 +19463,354 @@ var require_exec = __commonJS({
   }
 });
 
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/platform.js
+var require_platform = __commonJS({
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/platform.js"(exports2) {
+    "use strict";
+    var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault2 = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar2 = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
+      }
+      __setModuleDefault2(result, mod);
+      return result;
+    };
+    var __awaiter2 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.getDetails = exports2.isLinux = exports2.isMacOS = exports2.isWindows = exports2.arch = exports2.platform = void 0;
+    var os_1 = __importDefault2(require("os"));
+    var exec5 = __importStar2(require_exec());
+    var getWindowsInfo = () => __awaiter2(void 0, void 0, void 0, function* () {
+      const { stdout: version } = yield exec5.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Version"', void 0, {
+        silent: true
+      });
+      const { stdout: name } = yield exec5.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Caption"', void 0, {
+        silent: true
+      });
+      return {
+        name: name.trim(),
+        version: version.trim()
+      };
+    });
+    var getMacOsInfo = () => __awaiter2(void 0, void 0, void 0, function* () {
+      var _a, _b, _c, _d;
+      const { stdout } = yield exec5.getExecOutput("sw_vers", void 0, {
+        silent: true
+      });
+      const version = (_b = (_a = stdout.match(/ProductVersion:\s*(.+)/)) === null || _a === void 0 ? void 0 : _a[1]) !== null && _b !== void 0 ? _b : "";
+      const name = (_d = (_c = stdout.match(/ProductName:\s*(.+)/)) === null || _c === void 0 ? void 0 : _c[1]) !== null && _d !== void 0 ? _d : "";
+      return {
+        name,
+        version
+      };
+    });
+    var getLinuxInfo = () => __awaiter2(void 0, void 0, void 0, function* () {
+      const { stdout } = yield exec5.getExecOutput("lsb_release", ["-i", "-r", "-s"], {
+        silent: true
+      });
+      const [name, version] = stdout.trim().split("\n");
+      return {
+        name,
+        version
+      };
+    });
+    exports2.platform = os_1.default.platform();
+    exports2.arch = os_1.default.arch();
+    exports2.isWindows = exports2.platform === "win32";
+    exports2.isMacOS = exports2.platform === "darwin";
+    exports2.isLinux = exports2.platform === "linux";
+    function getDetails() {
+      return __awaiter2(this, void 0, void 0, function* () {
+        return Object.assign(Object.assign({}, yield exports2.isWindows ? getWindowsInfo() : exports2.isMacOS ? getMacOsInfo() : getLinuxInfo()), {
+          platform: exports2.platform,
+          arch: exports2.arch,
+          isWindows: exports2.isWindows,
+          isMacOS: exports2.isMacOS,
+          isLinux: exports2.isLinux
+        });
+      });
+    }
+    exports2.getDetails = getDetails;
+  }
+});
+
+// node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/core.js
+var require_core = __commonJS({
+  "node_modules/.pnpm/@actions+core@1.11.1/node_modules/@actions/core/lib/core.js"(exports2) {
+    "use strict";
+    var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault2 = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar2 = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding2(result, mod, k);
+      }
+      __setModuleDefault2(result, mod);
+      return result;
+    };
+    var __awaiter2 = exports2 && exports2.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.platform = exports2.toPlatformPath = exports2.toWin32Path = exports2.toPosixPath = exports2.markdownSummary = exports2.summary = exports2.getIDToken = exports2.getState = exports2.saveState = exports2.group = exports2.endGroup = exports2.startGroup = exports2.info = exports2.notice = exports2.warning = exports2.error = exports2.debug = exports2.isDebug = exports2.setFailed = exports2.setCommandEcho = exports2.setOutput = exports2.getBooleanInput = exports2.getMultilineInput = exports2.getInput = exports2.addPath = exports2.setSecret = exports2.exportVariable = exports2.ExitCode = void 0;
+    var command_1 = require_command();
+    var file_command_1 = require_file_command();
+    var utils_1 = require_utils();
+    var os2 = __importStar2(require("os"));
+    var path3 = __importStar2(require("path"));
+    var oidc_utils_1 = require_oidc_utils();
+    var ExitCode;
+    (function(ExitCode2) {
+      ExitCode2[ExitCode2["Success"] = 0] = "Success";
+      ExitCode2[ExitCode2["Failure"] = 1] = "Failure";
+    })(ExitCode || (exports2.ExitCode = ExitCode = {}));
+    function exportVariable(name, val) {
+      const convertedVal = (0, utils_1.toCommandValue)(val);
+      process.env[name] = convertedVal;
+      const filePath = process.env["GITHUB_ENV"] || "";
+      if (filePath) {
+        return (0, file_command_1.issueFileCommand)("ENV", (0, file_command_1.prepareKeyValueMessage)(name, val));
+      }
+      (0, command_1.issueCommand)("set-env", { name }, convertedVal);
+    }
+    exports2.exportVariable = exportVariable;
+    function setSecret(secret) {
+      (0, command_1.issueCommand)("add-mask", {}, secret);
+    }
+    exports2.setSecret = setSecret;
+    function addPath2(inputPath) {
+      const filePath = process.env["GITHUB_PATH"] || "";
+      if (filePath) {
+        (0, file_command_1.issueFileCommand)("PATH", inputPath);
+      } else {
+        (0, command_1.issueCommand)("add-path", {}, inputPath);
+      }
+      process.env["PATH"] = `${inputPath}${path3.delimiter}${process.env["PATH"]}`;
+    }
+    exports2.addPath = addPath2;
+    function getInput2(name, options) {
+      const val = process.env[`INPUT_${name.replace(/ /g, "_").toUpperCase()}`] || "";
+      if (options && options.required && !val) {
+        throw new Error(`Input required and not supplied: ${name}`);
+      }
+      if (options && options.trimWhitespace === false) {
+        return val;
+      }
+      return val.trim();
+    }
+    exports2.getInput = getInput2;
+    function getMultilineInput(name, options) {
+      const inputs = getInput2(name, options).split("\n").filter((x) => x !== "");
+      if (options && options.trimWhitespace === false) {
+        return inputs;
+      }
+      return inputs.map((input) => input.trim());
+    }
+    exports2.getMultilineInput = getMultilineInput;
+    function getBooleanInput2(name, options) {
+      const trueValue = ["true", "True", "TRUE"];
+      const falseValue = ["false", "False", "FALSE"];
+      const val = getInput2(name, options);
+      if (trueValue.includes(val))
+        return true;
+      if (falseValue.includes(val))
+        return false;
+      throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
+Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
+    }
+    exports2.getBooleanInput = getBooleanInput2;
+    function setOutput2(name, value) {
+      const filePath = process.env["GITHUB_OUTPUT"] || "";
+      if (filePath) {
+        return (0, file_command_1.issueFileCommand)("OUTPUT", (0, file_command_1.prepareKeyValueMessage)(name, value));
+      }
+      process.stdout.write(os2.EOL);
+      (0, command_1.issueCommand)("set-output", { name }, (0, utils_1.toCommandValue)(value));
+    }
+    exports2.setOutput = setOutput2;
+    function setCommandEcho(enabled) {
+      (0, command_1.issue)("echo", enabled ? "on" : "off");
+    }
+    exports2.setCommandEcho = setCommandEcho;
+    function setFailed6(message) {
+      process.exitCode = ExitCode.Failure;
+      error2(message);
+    }
+    exports2.setFailed = setFailed6;
+    function isDebug() {
+      return process.env["RUNNER_DEBUG"] === "1";
+    }
+    exports2.isDebug = isDebug;
+    function debug(message) {
+      (0, command_1.issueCommand)("debug", {}, message);
+    }
+    exports2.debug = debug;
+    function error2(message, properties = {}) {
+      (0, command_1.issueCommand)("error", (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
+    }
+    exports2.error = error2;
+    function warning4(message, properties = {}) {
+      (0, command_1.issueCommand)("warning", (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
+    }
+    exports2.warning = warning4;
+    function notice(message, properties = {}) {
+      (0, command_1.issueCommand)("notice", (0, utils_1.toCommandProperties)(properties), message instanceof Error ? message.toString() : message);
+    }
+    exports2.notice = notice;
+    function info4(message) {
+      process.stdout.write(message + os2.EOL);
+    }
+    exports2.info = info4;
+    function startGroup2(name) {
+      (0, command_1.issue)("group", name);
+    }
+    exports2.startGroup = startGroup2;
+    function endGroup2() {
+      (0, command_1.issue)("endgroup");
+    }
+    exports2.endGroup = endGroup2;
+    function group(name, fn) {
+      return __awaiter2(this, void 0, void 0, function* () {
+        startGroup2(name);
+        let result;
+        try {
+          result = yield fn();
+        } finally {
+          endGroup2();
+        }
+        return result;
+      });
+    }
+    exports2.group = group;
+    function saveState(name, value) {
+      const filePath = process.env["GITHUB_STATE"] || "";
+      if (filePath) {
+        return (0, file_command_1.issueFileCommand)("STATE", (0, file_command_1.prepareKeyValueMessage)(name, value));
+      }
+      (0, command_1.issueCommand)("save-state", { name }, (0, utils_1.toCommandValue)(value));
+    }
+    exports2.saveState = saveState;
+    function getState(name) {
+      return process.env[`STATE_${name}`] || "";
+    }
+    exports2.getState = getState;
+    function getIDToken(aud) {
+      return __awaiter2(this, void 0, void 0, function* () {
+        return yield oidc_utils_1.OidcClient.getIDToken(aud);
+      });
+    }
+    exports2.getIDToken = getIDToken;
+    var summary_1 = require_summary();
+    Object.defineProperty(exports2, "summary", { enumerable: true, get: function() {
+      return summary_1.summary;
+    } });
+    var summary_2 = require_summary();
+    Object.defineProperty(exports2, "markdownSummary", { enumerable: true, get: function() {
+      return summary_2.markdownSummary;
+    } });
+    var path_utils_1 = require_path_utils();
+    Object.defineProperty(exports2, "toPosixPath", { enumerable: true, get: function() {
+      return path_utils_1.toPosixPath;
+    } });
+    Object.defineProperty(exports2, "toWin32Path", { enumerable: true, get: function() {
+      return path_utils_1.toWin32Path;
+    } });
+    Object.defineProperty(exports2, "toPlatformPath", { enumerable: true, get: function() {
+      return path_utils_1.toPlatformPath;
+    } });
+    exports2.platform = __importStar2(require_platform());
+  }
+});
+
 // node_modules/.pnpm/@actions+glob@0.1.2/node_modules/@actions/glob/lib/internal-glob-options-helper.js
 var require_internal_glob_options_helper = __commonJS({
   "node_modules/.pnpm/@actions+glob@0.1.2/node_modules/@actions/glob/lib/internal-glob-options-helper.js"(exports2) {
@@ -20676,9 +20508,9 @@ var require_minimatch = __commonJS({
         throw new TypeError("pattern is too long");
       }
     };
-    Minimatch.prototype.parse = parse3;
+    Minimatch.prototype.parse = parse2;
     var SUBPARSE = {};
-    function parse3(pattern, isSub) {
+    function parse2(pattern, isSub) {
       assertValidPattern(pattern);
       var options = this.options;
       if (pattern === "**") {
@@ -20726,6 +20558,7 @@ var require_minimatch = __commonJS({
           continue;
         }
         switch (c) {
+          /* istanbul ignore next */
           case "/": {
             return false;
           }
@@ -20733,6 +20566,8 @@ var require_minimatch = __commonJS({
             clearStateChar();
             escaping = true;
             continue;
+          // the various stateChar values
+          // for the "extglob" stuff.
           case "?":
           case "*":
           case "+":
@@ -20793,6 +20628,7 @@ var require_minimatch = __commonJS({
             clearStateChar();
             re += "|";
             continue;
+          // these are mostly the same in regexp and glob
           case "[":
             clearStateChar();
             if (inClass) {
@@ -21811,74 +21647,74 @@ var require_semver = __commonJS({
       }
     }
     var i;
-    exports2.parse = parse3;
-    function parse3(version2, options) {
+    exports2.parse = parse2;
+    function parse2(version, options) {
       if (!options || typeof options !== "object") {
         options = {
           loose: !!options,
           includePrerelease: false
         };
       }
-      if (version2 instanceof SemVer) {
-        return version2;
+      if (version instanceof SemVer) {
+        return version;
       }
-      if (typeof version2 !== "string") {
+      if (typeof version !== "string") {
         return null;
       }
-      if (version2.length > MAX_LENGTH) {
+      if (version.length > MAX_LENGTH) {
         return null;
       }
       var r = options.loose ? safeRe[t.LOOSE] : safeRe[t.FULL];
-      if (!r.test(version2)) {
+      if (!r.test(version)) {
         return null;
       }
       try {
-        return new SemVer(version2, options);
+        return new SemVer(version, options);
       } catch (er) {
         return null;
       }
     }
     exports2.valid = valid;
-    function valid(version2, options) {
-      var v = parse3(version2, options);
+    function valid(version, options) {
+      var v = parse2(version, options);
       return v ? v.version : null;
     }
     exports2.clean = clean;
-    function clean(version2, options) {
-      var s = parse3(version2.trim().replace(/^[=v]+/, ""), options);
+    function clean(version, options) {
+      var s = parse2(version.trim().replace(/^[=v]+/, ""), options);
       return s ? s.version : null;
     }
     exports2.SemVer = SemVer;
-    function SemVer(version2, options) {
+    function SemVer(version, options) {
       if (!options || typeof options !== "object") {
         options = {
           loose: !!options,
           includePrerelease: false
         };
       }
-      if (version2 instanceof SemVer) {
-        if (version2.loose === options.loose) {
-          return version2;
+      if (version instanceof SemVer) {
+        if (version.loose === options.loose) {
+          return version;
         } else {
-          version2 = version2.version;
+          version = version.version;
         }
-      } else if (typeof version2 !== "string") {
-        throw new TypeError("Invalid Version: " + version2);
+      } else if (typeof version !== "string") {
+        throw new TypeError("Invalid Version: " + version);
       }
-      if (version2.length > MAX_LENGTH) {
+      if (version.length > MAX_LENGTH) {
         throw new TypeError("version is longer than " + MAX_LENGTH + " characters");
       }
       if (!(this instanceof SemVer)) {
-        return new SemVer(version2, options);
+        return new SemVer(version, options);
       }
-      debug("SemVer", version2, options);
+      debug("SemVer", version, options);
       this.options = options;
       this.loose = !!options.loose;
-      var m = version2.trim().match(options.loose ? safeRe[t.LOOSE] : safeRe[t.FULL]);
+      var m = version.trim().match(options.loose ? safeRe[t.LOOSE] : safeRe[t.FULL]);
       if (!m) {
-        throw new TypeError("Invalid Version: " + version2);
+        throw new TypeError("Invalid Version: " + version);
       }
-      this.raw = version2;
+      this.raw = version;
       this.major = +m[1];
       this.minor = +m[2];
       this.patch = +m[3];
@@ -22001,6 +21837,8 @@ var require_semver = __commonJS({
           this.inc("patch", identifier);
           this.inc("pre", identifier);
           break;
+        // If the input is a non-prerelease version, this acts the same as
+        // prepatch.
         case "prerelease":
           if (this.prerelease.length === 0) {
             this.inc("patch", identifier);
@@ -22028,6 +21866,8 @@ var require_semver = __commonJS({
           }
           this.prerelease = [];
           break;
+        // This probably shouldn't be used publicly.
+        // 1.0.0 "pre" would become 1.0.0-0 which is the wrong direction.
         case "pre":
           if (this.prerelease.length === 0) {
             this.prerelease = [0];
@@ -22061,13 +21901,13 @@ var require_semver = __commonJS({
       return this;
     };
     exports2.inc = inc;
-    function inc(version2, release, loose, identifier) {
+    function inc(version, release, loose, identifier) {
       if (typeof loose === "string") {
         identifier = loose;
         loose = void 0;
       }
       try {
-        return new SemVer(version2, loose).inc(release, identifier).version;
+        return new SemVer(version, loose).inc(release, identifier).version;
       } catch (er) {
         return null;
       }
@@ -22077,16 +21917,16 @@ var require_semver = __commonJS({
       if (eq(version1, version2)) {
         return null;
       } else {
-        var v12 = parse3(version1);
-        var v2 = parse3(version2);
+        var v1 = parse2(version1);
+        var v2 = parse2(version2);
         var prefix = "";
-        if (v12.prerelease.length || v2.prerelease.length) {
+        if (v1.prerelease.length || v2.prerelease.length) {
           prefix = "pre";
           var defaultResult = "prerelease";
         }
-        for (var key in v12) {
+        for (var key in v1) {
           if (key === "major" || key === "minor" || key === "patch") {
-            if (v12[key] !== v2[key]) {
+            if (v1[key] !== v2[key]) {
               return prefix + key;
             }
           }
@@ -22258,19 +22098,19 @@ var require_semver = __commonJS({
     Comparator.prototype.toString = function() {
       return this.value;
     };
-    Comparator.prototype.test = function(version2) {
-      debug("Comparator.test", version2, this.options.loose);
-      if (this.semver === ANY || version2 === ANY) {
+    Comparator.prototype.test = function(version) {
+      debug("Comparator.test", version, this.options.loose);
+      if (this.semver === ANY || version === ANY) {
         return true;
       }
-      if (typeof version2 === "string") {
+      if (typeof version === "string") {
         try {
-          version2 = new SemVer(version2, this.options);
+          version = new SemVer(version, this.options);
         } catch (er) {
           return false;
         }
       }
-      return cmp(version2, this.operator, this.semver, this.options);
+      return cmp(version, this.operator, this.semver, this.options);
     };
     Comparator.prototype.intersects = function(comp, options) {
       if (!(comp instanceof Comparator)) {
@@ -22580,31 +22420,31 @@ var require_semver = __commonJS({
       }
       return (from + " " + to).trim();
     }
-    Range.prototype.test = function(version2) {
-      if (!version2) {
+    Range.prototype.test = function(version) {
+      if (!version) {
         return false;
       }
-      if (typeof version2 === "string") {
+      if (typeof version === "string") {
         try {
-          version2 = new SemVer(version2, this.options);
+          version = new SemVer(version, this.options);
         } catch (er) {
           return false;
         }
       }
       for (var i2 = 0; i2 < this.set.length; i2++) {
-        if (testSet(this.set[i2], version2, this.options)) {
+        if (testSet(this.set[i2], version, this.options)) {
           return true;
         }
       }
       return false;
     };
-    function testSet(set, version2, options) {
+    function testSet(set, version, options) {
       for (var i2 = 0; i2 < set.length; i2++) {
-        if (!set[i2].test(version2)) {
+        if (!set[i2].test(version)) {
           return false;
         }
       }
-      if (version2.prerelease.length && !options.includePrerelease) {
+      if (version.prerelease.length && !options.includePrerelease) {
         for (i2 = 0; i2 < set.length; i2++) {
           debug(set[i2].semver);
           if (set[i2].semver === ANY) {
@@ -22612,7 +22452,7 @@ var require_semver = __commonJS({
           }
           if (set[i2].semver.prerelease.length > 0) {
             var allowed = set[i2].semver;
-            if (allowed.major === version2.major && allowed.minor === version2.minor && allowed.patch === version2.patch) {
+            if (allowed.major === version.major && allowed.minor === version.minor && allowed.patch === version.patch) {
               return true;
             }
           }
@@ -22622,13 +22462,13 @@ var require_semver = __commonJS({
       return true;
     }
     exports2.satisfies = satisfies;
-    function satisfies(version2, range, options) {
+    function satisfies(version, range, options) {
       try {
         range = new Range(range, options);
       } catch (er) {
         return false;
       }
-      return range.test(version2);
+      return range.test(version);
     }
     exports2.maxSatisfying = maxSatisfying;
     function maxSatisfying(versions, range, options) {
@@ -22692,6 +22532,7 @@ var require_semver = __commonJS({
                 compver.prerelease.push(0);
               }
               compver.raw = compver.format();
+            /* fallthrough */
             case "":
             case ">=":
               if (!minver || gt(minver, compver)) {
@@ -22701,6 +22542,7 @@ var require_semver = __commonJS({
             case "<":
             case "<=":
               break;
+            /* istanbul ignore next */
             default:
               throw new Error("Unexpected operation: " + comparator.operator);
           }
@@ -22720,16 +22562,16 @@ var require_semver = __commonJS({
       }
     }
     exports2.ltr = ltr;
-    function ltr(version2, range, options) {
-      return outside(version2, range, "<", options);
+    function ltr(version, range, options) {
+      return outside(version, range, "<", options);
     }
     exports2.gtr = gtr;
-    function gtr(version2, range, options) {
-      return outside(version2, range, ">", options);
+    function gtr(version, range, options) {
+      return outside(version, range, ">", options);
     }
     exports2.outside = outside;
-    function outside(version2, range, hilo, options) {
-      version2 = new SemVer(version2, options);
+    function outside(version, range, hilo, options) {
+      version = new SemVer(version, options);
       range = new Range(range, options);
       var gtfn, ltefn, ltfn, comp, ecomp;
       switch (hilo) {
@@ -22750,7 +22592,7 @@ var require_semver = __commonJS({
         default:
           throw new TypeError('Must provide a hilo val of "<" or ">"');
       }
-      if (satisfies(version2, range, options)) {
+      if (satisfies(version, range, options)) {
         return false;
       }
       for (var i2 = 0; i2 < range.set.length; ++i2) {
@@ -22772,17 +22614,17 @@ var require_semver = __commonJS({
         if (high.operator === comp || high.operator === ecomp) {
           return false;
         }
-        if ((!low.operator || low.operator === comp) && ltefn(version2, low.semver)) {
+        if ((!low.operator || low.operator === comp) && ltefn(version, low.semver)) {
           return false;
-        } else if (low.operator === ecomp && ltfn(version2, low.semver)) {
+        } else if (low.operator === ecomp && ltfn(version, low.semver)) {
           return false;
         }
       }
       return true;
     }
     exports2.prerelease = prerelease;
-    function prerelease(version2, options) {
-      var parsed = parse3(version2, options);
+    function prerelease(version, options) {
+      var parsed = parse2(version, options);
       return parsed && parsed.prerelease.length ? parsed.prerelease : null;
     }
     exports2.intersects = intersects;
@@ -22792,23 +22634,23 @@ var require_semver = __commonJS({
       return r1.intersects(r2);
     }
     exports2.coerce = coerce;
-    function coerce(version2, options) {
-      if (version2 instanceof SemVer) {
-        return version2;
+    function coerce(version, options) {
+      if (version instanceof SemVer) {
+        return version;
       }
-      if (typeof version2 === "number") {
-        version2 = String(version2);
+      if (typeof version === "number") {
+        version = String(version);
       }
-      if (typeof version2 !== "string") {
+      if (typeof version !== "string") {
         return null;
       }
       options = options || {};
       var match = null;
       if (!options.rtl) {
-        match = version2.match(safeRe[t.COERCE]);
+        match = version.match(safeRe[t.COERCE]);
       } else {
         var next;
-        while ((next = safeRe[t.COERCERTL].exec(version2)) && (!match || match.index + match[0].length !== version2.length)) {
+        while ((next = safeRe[t.COERCERTL].exec(version)) && (!match || match.index + match[0].length !== version.length)) {
           if (!match || next.index + next[0].length !== match.index + match[0].length) {
             match = next;
           }
@@ -22819,168 +22661,14 @@ var require_semver = __commonJS({
       if (match === null) {
         return null;
       }
-      return parse3(match[2] + "." + (match[3] || "0") + "." + (match[4] || "0"), options);
+      return parse2(match[2] + "." + (match[3] || "0") + "." + (match[4] || "0"), options);
     }
   }
 });
 
-// node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/lib/rng.js
-var require_rng = __commonJS({
-  "node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/lib/rng.js"(exports2, module2) {
-    var crypto5 = require("crypto");
-    module2.exports = function nodeRNG() {
-      return crypto5.randomBytes(16);
-    };
-  }
-});
-
-// node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/lib/bytesToUuid.js
-var require_bytesToUuid = __commonJS({
-  "node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/lib/bytesToUuid.js"(exports2, module2) {
-    var byteToHex2 = [];
-    for (i = 0; i < 256; ++i) {
-      byteToHex2[i] = (i + 256).toString(16).substr(1);
-    }
-    var i;
-    function bytesToUuid(buf, offset) {
-      var i2 = offset || 0;
-      var bth = byteToHex2;
-      return [
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        "-",
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        "-",
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        "-",
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        "-",
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        bth[buf[i2++]],
-        bth[buf[i2++]]
-      ].join("");
-    }
-    module2.exports = bytesToUuid;
-  }
-});
-
-// node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/v1.js
-var require_v1 = __commonJS({
-  "node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/v1.js"(exports2, module2) {
-    var rng2 = require_rng();
-    var bytesToUuid = require_bytesToUuid();
-    var _nodeId2;
-    var _clockseq2;
-    var _lastMSecs2 = 0;
-    var _lastNSecs2 = 0;
-    function v12(options, buf, offset) {
-      var i = buf && offset || 0;
-      var b = buf || [];
-      options = options || {};
-      var node = options.node || _nodeId2;
-      var clockseq = options.clockseq !== void 0 ? options.clockseq : _clockseq2;
-      if (node == null || clockseq == null) {
-        var seedBytes = rng2();
-        if (node == null) {
-          node = _nodeId2 = [
-            seedBytes[0] | 1,
-            seedBytes[1],
-            seedBytes[2],
-            seedBytes[3],
-            seedBytes[4],
-            seedBytes[5]
-          ];
-        }
-        if (clockseq == null) {
-          clockseq = _clockseq2 = (seedBytes[6] << 8 | seedBytes[7]) & 16383;
-        }
-      }
-      var msecs = options.msecs !== void 0 ? options.msecs : (/* @__PURE__ */ new Date()).getTime();
-      var nsecs = options.nsecs !== void 0 ? options.nsecs : _lastNSecs2 + 1;
-      var dt = msecs - _lastMSecs2 + (nsecs - _lastNSecs2) / 1e4;
-      if (dt < 0 && options.clockseq === void 0) {
-        clockseq = clockseq + 1 & 16383;
-      }
-      if ((dt < 0 || msecs > _lastMSecs2) && options.nsecs === void 0) {
-        nsecs = 0;
-      }
-      if (nsecs >= 1e4) {
-        throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-      }
-      _lastMSecs2 = msecs;
-      _lastNSecs2 = nsecs;
-      _clockseq2 = clockseq;
-      msecs += 122192928e5;
-      var tl = ((msecs & 268435455) * 1e4 + nsecs) % 4294967296;
-      b[i++] = tl >>> 24 & 255;
-      b[i++] = tl >>> 16 & 255;
-      b[i++] = tl >>> 8 & 255;
-      b[i++] = tl & 255;
-      var tmh = msecs / 4294967296 * 1e4 & 268435455;
-      b[i++] = tmh >>> 8 & 255;
-      b[i++] = tmh & 255;
-      b[i++] = tmh >>> 24 & 15 | 16;
-      b[i++] = tmh >>> 16 & 255;
-      b[i++] = clockseq >>> 8 | 128;
-      b[i++] = clockseq & 255;
-      for (var n = 0; n < 6; ++n) {
-        b[i + n] = node[n];
-      }
-      return buf ? buf : bytesToUuid(b);
-    }
-    module2.exports = v12;
-  }
-});
-
-// node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/v4.js
-var require_v4 = __commonJS({
-  "node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/v4.js"(exports2, module2) {
-    var rng2 = require_rng();
-    var bytesToUuid = require_bytesToUuid();
-    function v42(options, buf, offset) {
-      var i = buf && offset || 0;
-      if (typeof options == "string") {
-        buf = options === "binary" ? new Array(16) : null;
-        options = null;
-      }
-      options = options || {};
-      var rnds = options.random || (options.rng || rng2)();
-      rnds[6] = rnds[6] & 15 | 64;
-      rnds[8] = rnds[8] & 63 | 128;
-      if (buf) {
-        for (var ii = 0; ii < 16; ++ii) {
-          buf[i + ii] = rnds[ii];
-        }
-      }
-      return buf || bytesToUuid(rnds);
-    }
-    module2.exports = v42;
-  }
-});
-
-// node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/index.js
-var require_uuid = __commonJS({
-  "node_modules/.pnpm/uuid@3.4.0/node_modules/uuid/index.js"(exports2, module2) {
-    var v12 = require_v1();
-    var v42 = require_v4();
-    var uuid = v42;
-    uuid.v1 = v12;
-    uuid.v4 = v42;
-    module2.exports = uuid;
-  }
-});
-
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/constants.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/constants.js
 var require_constants6 = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/constants.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/constants.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.ManifestFilename = exports2.TarFilename = exports2.SystemTarPathOnWindows = exports2.GnuTarPathOnWindows = exports2.SocketTimeout = exports2.DefaultRetryDelay = exports2.DefaultRetryAttempts = exports2.ArchiveToolType = exports2.CompressionMethod = exports2.CacheFilename = void 0;
@@ -23010,9 +22698,9 @@ var require_constants6 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/cacheUtils.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/cacheUtils.js
 var require_cacheUtils = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/cacheUtils.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/cacheUtils.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -23093,11 +22781,11 @@ var require_cacheUtils = __commonJS({
     var exec5 = __importStar2(require_exec());
     var glob = __importStar2(require_glob());
     var io2 = __importStar2(require_io());
+    var crypto2 = __importStar2(require("crypto"));
     var fs = __importStar2(require("fs"));
     var path3 = __importStar2(require("path"));
     var semver3 = __importStar2(require_semver());
     var util = __importStar2(require("util"));
-    var uuid_1 = require_uuid();
     var constants_1 = require_constants6();
     function createTempDirectory() {
       return __awaiter2(this, void 0, void 0, function* () {
@@ -23116,7 +22804,7 @@ var require_cacheUtils = __commonJS({
           }
           tempDirectory = path3.join(baseLocation, "actions", "temp");
         }
-        const dest = path3.join(tempDirectory, (0, uuid_1.v4)());
+        const dest = path3.join(tempDirectory, crypto2.randomUUID());
         yield io2.mkdirP(dest);
         return dest;
       });
@@ -23192,8 +22880,8 @@ var require_cacheUtils = __commonJS({
     function getCompressionMethod() {
       return __awaiter2(this, void 0, void 0, function* () {
         const versionOutput = yield getVersion("zstd", ["--quiet"]);
-        const version2 = semver3.clean(versionOutput);
-        core6.debug(`zstd version: ${version2}`);
+        const version = semver3.clean(versionOutput);
+        core6.debug(`zstd version: ${version}`);
         if (versionOutput === "") {
           return constants_1.CompressionMethod.Gzip;
         } else {
@@ -23234,12 +22922,12 @@ var require_cacheUtils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipeline.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipeline.js
 var require_pipeline = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipeline.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipeline.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createEmptyPipeline = void 0;
+    exports2.createEmptyPipeline = createEmptyPipeline;
     var ValidPhaseNames = /* @__PURE__ */ new Set(["Deserialize", "Serialize", "Retry", "Sign"]);
     var HttpPipeline = class _HttpPipeline {
       constructor(policies) {
@@ -23419,11 +23107,10 @@ var require_pipeline = __commonJS({
     function createEmptyPipeline() {
       return HttpPipeline.create();
     }
-    exports2.createEmptyPipeline = createEmptyPipeline;
   }
 });
 
-// node_modules/.pnpm/tslib@2.6.3/node_modules/tslib/tslib.es6.mjs
+// node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs
 var tslib_es6_exports = {};
 __export(tslib_es6_exports, {
   __addDisposableResource: () => __addDisposableResource,
@@ -23451,6 +23138,7 @@ __export(tslib_es6_exports, {
   __propKey: () => __propKey,
   __read: () => __read,
   __rest: () => __rest,
+  __rewriteRelativeImportExtension: () => __rewriteRelativeImportExtension,
   __runInitializers: () => __runInitializers,
   __setFunctionName: () => __setFunctionName,
   __spread: () => __spread,
@@ -23570,8 +23258,8 @@ function __generator(thisArg, body) {
   var _ = { label: 0, sent: function() {
     if (t[0] & 1) throw t[1];
     return t[1];
-  }, trys: [], ops: [] }, f, y, t, g;
-  return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+  }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+  return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() {
     return this;
   }), g;
   function verb(n) {
@@ -23693,7 +23381,7 @@ function __await(v) {
 function __asyncGenerator(thisArg, _arguments, generator) {
   if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
   var g = generator.apply(thisArg, _arguments || []), i, q = [];
-  return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function() {
+  return i = Object.create((typeof AsyncIterator === "function" ? AsyncIterator : Object).prototype), verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function() {
     return this;
   }, i;
   function awaitReturn(f) {
@@ -23775,7 +23463,7 @@ function __importStar(mod) {
   if (mod && mod.__esModule) return mod;
   var result = {};
   if (mod != null) {
-    for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
   }
   __setModuleDefault(result, mod);
   return result;
@@ -23830,26 +23518,38 @@ function __disposeResources(env2) {
     env2.error = env2.hasError ? new _SuppressedError(e, env2.error, "An error was suppressed during disposal.") : e;
     env2.hasError = true;
   }
+  var r, s = 0;
   function next() {
-    while (env2.stack.length) {
-      var rec = env2.stack.pop();
+    while (r = env2.stack.pop()) {
       try {
-        var result = rec.dispose && rec.dispose.call(rec.value);
-        if (rec.async) return Promise.resolve(result).then(next, function(e) {
-          fail(e);
-          return next();
-        });
+        if (!r.async && s === 1) return s = 0, env2.stack.push(r), Promise.resolve().then(next);
+        if (r.dispose) {
+          var result = r.dispose.call(r.value);
+          if (r.async) return s |= 2, Promise.resolve(result).then(next, function(e) {
+            fail(e);
+            return next();
+          });
+        } else s |= 1;
       } catch (e) {
         fail(e);
       }
     }
+    if (s === 1) return env2.hasError ? Promise.reject(env2.error) : Promise.resolve();
     if (env2.hasError) throw env2.error;
   }
   return next();
 }
-var extendStatics, __assign, __createBinding, __setModuleDefault, _SuppressedError, tslib_es6_default;
+function __rewriteRelativeImportExtension(path3, preserveJsx) {
+  if (typeof path3 === "string" && /^\.\.?\//.test(path3)) {
+    return path3.replace(/\.(tsx)$|((?:\.d)?)((?:\.[^./]+?)?)\.([cm]?)ts$/i, function(m, tsx, d, ext, cm) {
+      return tsx ? preserveJsx ? ".jsx" : ".js" : d && (!ext || !cm) ? m : d + ext + "." + cm.toLowerCase() + "js";
+    });
+  }
+  return path3;
+}
+var extendStatics, __assign, __createBinding, __setModuleDefault, ownKeys, _SuppressedError, tslib_es6_default;
 var init_tslib_es6 = __esm({
-  "node_modules/.pnpm/tslib@2.6.3/node_modules/tslib/tslib.es6.mjs"() {
+  "node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs"() {
     extendStatics = function(d, b) {
       extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
         d2.__proto__ = b2;
@@ -23886,6 +23586,14 @@ var init_tslib_es6 = __esm({
     } : function(o, v) {
       o["default"] = v;
     };
+    ownKeys = function(o) {
+      ownKeys = Object.getOwnPropertyNames || function(o2) {
+        var ar = [];
+        for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
+        return ar;
+      };
+      return ownKeys(o);
+    };
     _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function(error2, suppressed, message) {
       var e = new Error(message);
       return e.name = "SuppressedError", e.error = error2, e.suppressed = suppressed, e;
@@ -23896,6 +23604,10 @@ var init_tslib_es6 = __esm({
       __rest,
       __decorate,
       __param,
+      __esDecorate,
+      __runInitializers,
+      __propKey,
+      __setFunctionName,
       __metadata,
       __awaiter,
       __generator,
@@ -23917,17 +23629,18 @@ var init_tslib_es6 = __esm({
       __classPrivateFieldSet,
       __classPrivateFieldIn,
       __addDisposableResource,
-      __disposeResources
+      __disposeResources,
+      __rewriteRelativeImportExtension
     };
   }
 });
 
-// node_modules/.pnpm/@azure+logger@1.1.2/node_modules/@azure/logger/dist/commonjs/log.js
+// node_modules/.pnpm/@azure+logger@1.1.4/node_modules/@azure/logger/dist/commonjs/log.js
 var require_log = __commonJS({
-  "node_modules/.pnpm/@azure+logger@1.1.2/node_modules/@azure/logger/dist/commonjs/log.js"(exports2) {
+  "node_modules/.pnpm/@azure+logger@1.1.4/node_modules/@azure/logger/dist/commonjs/log.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.log = void 0;
+    exports2.log = log;
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_os_1 = require("node:os");
     var node_util_1 = tslib_1.__importDefault(require("node:util"));
@@ -23935,13 +23648,12 @@ var require_log = __commonJS({
     function log(message, ...args) {
       process3.stderr.write(`${node_util_1.default.format(message, ...args)}${node_os_1.EOL}`);
     }
-    exports2.log = log;
   }
 });
 
-// node_modules/.pnpm/@azure+logger@1.1.2/node_modules/@azure/logger/dist/commonjs/debug.js
+// node_modules/.pnpm/@azure+logger@1.1.4/node_modules/@azure/logger/dist/commonjs/debug.js
 var require_debug = __commonJS({
-  "node_modules/.pnpm/@azure+logger@1.1.2/node_modules/@azure/logger/dist/commonjs/debug.js"(exports2) {
+  "node_modules/.pnpm/@azure+logger@1.1.4/node_modules/@azure/logger/dist/commonjs/debug.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     var log_js_1 = require_log();
@@ -24036,12 +23748,15 @@ var require_debug = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+logger@1.1.2/node_modules/@azure/logger/dist/commonjs/index.js
+// node_modules/.pnpm/@azure+logger@1.1.4/node_modules/@azure/logger/dist/commonjs/index.js
 var require_commonjs = __commonJS({
-  "node_modules/.pnpm/@azure+logger@1.1.2/node_modules/@azure/logger/dist/commonjs/index.js"(exports2) {
+  "node_modules/.pnpm/@azure+logger@1.1.4/node_modules/@azure/logger/dist/commonjs/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createClientLogger = exports2.getLogLevel = exports2.setLogLevel = exports2.AzureLogger = void 0;
+    exports2.AzureLogger = void 0;
+    exports2.setLogLevel = setLogLevel;
+    exports2.getLogLevel = getLogLevel;
+    exports2.createClientLogger = createClientLogger;
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var debug_js_1 = tslib_1.__importDefault(require_debug());
     var registeredLoggers = /* @__PURE__ */ new Set();
@@ -24072,11 +23787,9 @@ var require_commonjs = __commonJS({
       }
       debug_js_1.default.enable(enabledNamespaces.join(","));
     }
-    exports2.setLogLevel = setLogLevel;
     function getLogLevel() {
       return azureLogLevel;
     }
-    exports2.getLogLevel = getLogLevel;
     var levelMap = {
       verbose: 400,
       info: 300,
@@ -24093,7 +23806,6 @@ var require_commonjs = __commonJS({
         verbose: createLogger(clientRootLogger, "verbose")
       };
     }
-    exports2.createClientLogger = createClientLogger;
     function patchLogMethod(parent, child) {
       child.log = (...args) => {
         parent.log(...args);
@@ -24120,9 +23832,9 @@ var require_commonjs = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/log.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/log.js
 var require_log2 = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/log.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/log.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.logger = void 0;
@@ -24160,12 +23872,12 @@ var require_commonjs2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/createAbortablePromise.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/createAbortablePromise.js
 var require_createAbortablePromise = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/createAbortablePromise.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/createAbortablePromise.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createAbortablePromise = void 0;
+    exports2.createAbortablePromise = createAbortablePromise;
     var abort_controller_1 = require_commonjs2();
     function createAbortablePromise(buildPromise, options) {
       const { cleanupBeforeAbort, abortSignal, abortErrorMsg } = options !== null && options !== void 0 ? options : {};
@@ -24198,17 +23910,33 @@ var require_createAbortablePromise = __commonJS({
         abortSignal === null || abortSignal === void 0 ? void 0 : abortSignal.addEventListener("abort", onAbort);
       });
     }
-    exports2.createAbortablePromise = createAbortablePromise;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/delay.js
-var require_delay = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/delay.js"(exports2) {
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/random.js
+var require_random = __commonJS({
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/random.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.delay = void 0;
+    exports2.getRandomIntegerInclusive = getRandomIntegerInclusive;
+    function getRandomIntegerInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      const offset = Math.floor(Math.random() * (max - min + 1));
+      return offset + min;
+    }
+  }
+});
+
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/delay.js
+var require_delay = __commonJS({
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/delay.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.delay = delay;
+    exports2.calculateRetryDelay = calculateRetryDelay;
     var createAbortablePromise_js_1 = require_createAbortablePromise();
+    var random_js_1 = require_random();
     var StandardAbortMessage = "The delay was aborted.";
     function delay(timeInMs, options) {
       let token;
@@ -24221,16 +23949,21 @@ var require_delay = __commonJS({
         abortErrorMsg: abortErrorMsg !== null && abortErrorMsg !== void 0 ? abortErrorMsg : StandardAbortMessage
       });
     }
-    exports2.delay = delay;
+    function calculateRetryDelay(retryAttempt, config) {
+      const exponentialDelay = config.retryDelayInMs * Math.pow(2, retryAttempt);
+      const clampedDelay = Math.min(config.maxRetryDelayInMs, exponentialDelay);
+      const retryAfterInMs = clampedDelay / 2 + (0, random_js_1.getRandomIntegerInclusive)(0, clampedDelay / 2);
+      return { retryAfterInMs };
+    }
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/aborterUtils.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/aborterUtils.js
 var require_aborterUtils = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/aborterUtils.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/aborterUtils.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.cancelablePromiseRace = void 0;
+    exports2.cancelablePromiseRace = cancelablePromiseRace;
     async function cancelablePromiseRace(abortablePromiseBuilders, options) {
       var _a, _b;
       const aborter = new AbortController();
@@ -24245,45 +23978,28 @@ var require_aborterUtils = __commonJS({
         (_b = options === null || options === void 0 ? void 0 : options.abortSignal) === null || _b === void 0 ? void 0 : _b.removeEventListener("abort", abortHandler);
       }
     }
-    exports2.cancelablePromiseRace = cancelablePromiseRace;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/random.js
-var require_random = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/random.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getRandomIntegerInclusive = void 0;
-    function getRandomIntegerInclusive(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      const offset = Math.floor(Math.random() * (max - min + 1));
-      return offset + min;
-    }
-    exports2.getRandomIntegerInclusive = getRandomIntegerInclusive;
-  }
-});
-
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/object.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/object.js
 var require_object = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/object.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/object.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isObject = void 0;
+    exports2.isObject = isObject;
     function isObject(input) {
       return typeof input === "object" && input !== null && !Array.isArray(input) && !(input instanceof RegExp) && !(input instanceof Date);
     }
-    exports2.isObject = isObject;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/error.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/error.js
 var require_error = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/error.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/error.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getErrorMessage = exports2.isError = void 0;
+    exports2.isError = isError;
+    exports2.getErrorMessage = getErrorMessage;
     var object_js_1 = require_object();
     function isError(e) {
       if ((0, object_js_1.isObject)(e)) {
@@ -24293,7 +24009,6 @@ var require_error = __commonJS({
       }
       return false;
     }
-    exports2.isError = isError;
     function getErrorMessage(e) {
       if (isError(e)) {
         return e.message;
@@ -24311,39 +24026,38 @@ var require_error = __commonJS({
         return `Unknown error ${stringified}`;
       }
     }
-    exports2.getErrorMessage = getErrorMessage;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/sha256.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/sha256.js
 var require_sha256 = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/sha256.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/sha256.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.computeSha256Hash = exports2.computeSha256Hmac = void 0;
+    exports2.computeSha256Hmac = computeSha256Hmac;
+    exports2.computeSha256Hash = computeSha256Hash;
     var crypto_1 = require("crypto");
     async function computeSha256Hmac(key, stringToSign, encoding) {
       const decodedKey = Buffer.from(key, "base64");
       return (0, crypto_1.createHmac)("sha256", decodedKey).update(stringToSign).digest(encoding);
     }
-    exports2.computeSha256Hmac = computeSha256Hmac;
     async function computeSha256Hash(content, encoding) {
       return (0, crypto_1.createHash)("sha256").update(content).digest(encoding);
     }
-    exports2.computeSha256Hash = computeSha256Hash;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/typeGuards.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/typeGuards.js
 var require_typeGuards = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/typeGuards.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/typeGuards.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.objectHasProperty = exports2.isObjectWithProperties = exports2.isDefined = void 0;
+    exports2.isDefined = isDefined;
+    exports2.isObjectWithProperties = isObjectWithProperties;
+    exports2.objectHasProperty = objectHasProperty;
     function isDefined(thing) {
       return typeof thing !== "undefined" && thing !== null;
     }
-    exports2.isDefined = isDefined;
     function isObjectWithProperties(thing, properties) {
       if (!isDefined(thing) || typeof thing !== "object") {
         return false;
@@ -24355,33 +24069,30 @@ var require_typeGuards = __commonJS({
       }
       return true;
     }
-    exports2.isObjectWithProperties = isObjectWithProperties;
     function objectHasProperty(thing, property) {
       return isDefined(thing) && typeof thing === "object" && property in thing;
     }
-    exports2.objectHasProperty = objectHasProperty;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/uuidUtils.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/uuidUtils.js
 var require_uuidUtils = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/uuidUtils.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/uuidUtils.js"(exports2) {
     "use strict";
     var _a;
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.randomUUID = void 0;
+    exports2.randomUUID = randomUUID;
     var crypto_1 = require("crypto");
     var uuidFunction = typeof ((_a = globalThis === null || globalThis === void 0 ? void 0 : globalThis.crypto) === null || _a === void 0 ? void 0 : _a.randomUUID) === "function" ? globalThis.crypto.randomUUID.bind(globalThis.crypto) : crypto_1.randomUUID;
     function randomUUID() {
       return uuidFunction();
     }
-    exports2.randomUUID = randomUUID;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/checkEnvironment.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/checkEnvironment.js
 var require_checkEnvironment = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/checkEnvironment.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/checkEnvironment.js"(exports2) {
     "use strict";
     var _a;
     var _b;
@@ -24400,32 +24111,34 @@ var require_checkEnvironment = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/bytesEncoding.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/bytesEncoding.js
 var require_bytesEncoding = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/bytesEncoding.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/bytesEncoding.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.stringToUint8Array = exports2.uint8ArrayToString = void 0;
+    exports2.uint8ArrayToString = uint8ArrayToString;
+    exports2.stringToUint8Array = stringToUint8Array;
     function uint8ArrayToString(bytes, format) {
       return Buffer.from(bytes).toString(format);
     }
-    exports2.uint8ArrayToString = uint8ArrayToString;
     function stringToUint8Array(value, format) {
       return Buffer.from(value, format);
     }
-    exports2.stringToUint8Array = stringToUint8Array;
   }
 });
 
-// node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/index.js
+// node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/index.js
 var require_commonjs3 = __commonJS({
-  "node_modules/.pnpm/@azure+core-util@1.9.0/node_modules/@azure/core-util/dist/commonjs/index.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-util@1.11.0/node_modules/@azure/core-util/dist/commonjs/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.stringToUint8Array = exports2.uint8ArrayToString = exports2.isWebWorker = exports2.isReactNative = exports2.isDeno = exports2.isNodeRuntime = exports2.isNodeLike = exports2.isNode = exports2.isBun = exports2.isBrowser = exports2.randomUUID = exports2.objectHasProperty = exports2.isObjectWithProperties = exports2.isDefined = exports2.computeSha256Hmac = exports2.computeSha256Hash = exports2.getErrorMessage = exports2.isError = exports2.isObject = exports2.getRandomIntegerInclusive = exports2.createAbortablePromise = exports2.cancelablePromiseRace = exports2.delay = void 0;
+    exports2.stringToUint8Array = exports2.uint8ArrayToString = exports2.isWebWorker = exports2.isReactNative = exports2.isDeno = exports2.isNodeRuntime = exports2.isNodeLike = exports2.isNode = exports2.isBun = exports2.isBrowser = exports2.randomUUID = exports2.objectHasProperty = exports2.isObjectWithProperties = exports2.isDefined = exports2.computeSha256Hmac = exports2.computeSha256Hash = exports2.getErrorMessage = exports2.isError = exports2.isObject = exports2.getRandomIntegerInclusive = exports2.createAbortablePromise = exports2.cancelablePromiseRace = exports2.calculateRetryDelay = exports2.delay = void 0;
     var delay_js_1 = require_delay();
     Object.defineProperty(exports2, "delay", { enumerable: true, get: function() {
       return delay_js_1.delay;
+    } });
+    Object.defineProperty(exports2, "calculateRetryDelay", { enumerable: true, get: function() {
+      return delay_js_1.calculateRetryDelay;
     } });
     var aborterUtils_js_1 = require_aborterUtils();
     Object.defineProperty(exports2, "cancelablePromiseRace", { enumerable: true, get: function() {
@@ -24506,9 +24219,9 @@ var require_commonjs3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/sanitizer.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/sanitizer.js
 var require_sanitizer = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/sanitizer.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/sanitizer.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Sanitizer = void 0;
@@ -24590,6 +24303,21 @@ var require_sanitizer = __commonJS({
           return value;
         }, 2);
       }
+      sanitizeUrl(value) {
+        if (typeof value !== "string" || value === null || value === "") {
+          return value;
+        }
+        const url = new URL(value);
+        if (!url.search) {
+          return value;
+        }
+        for (const [key] of url.searchParams) {
+          if (!this.allowedQueryParameters.has(key.toLowerCase())) {
+            url.searchParams.set(key, RedactedString);
+          }
+        }
+        return url.toString();
+      }
       sanitizeHeaders(obj) {
         const sanitized = {};
         for (const key of Object.keys(obj)) {
@@ -24615,32 +24343,18 @@ var require_sanitizer = __commonJS({
         }
         return sanitized;
       }
-      sanitizeUrl(value) {
-        if (typeof value !== "string" || value === null) {
-          return value;
-        }
-        const url = new URL(value);
-        if (!url.search) {
-          return value;
-        }
-        for (const [key] of url.searchParams) {
-          if (!this.allowedQueryParameters.has(key.toLowerCase())) {
-            url.searchParams.set(key, RedactedString);
-          }
-        }
-        return url.toString();
-      }
     };
     exports2.Sanitizer = Sanitizer;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/logPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/logPolicy.js
 var require_logPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/logPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/logPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.logPolicy = exports2.logPolicyName = void 0;
+    exports2.logPolicyName = void 0;
+    exports2.logPolicy = logPolicy;
     var log_js_1 = require_log2();
     var sanitizer_js_1 = require_sanitizer();
     exports2.logPolicyName = "logPolicy";
@@ -24665,16 +24379,16 @@ var require_logPolicy = __commonJS({
         }
       };
     }
-    exports2.logPolicy = logPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/redirectPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/redirectPolicy.js
 var require_redirectPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/redirectPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/redirectPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.redirectPolicy = exports2.redirectPolicyName = void 0;
+    exports2.redirectPolicyName = void 0;
+    exports2.redirectPolicy = redirectPolicy;
     exports2.redirectPolicyName = "redirectPolicy";
     var allowedRedirect = ["GET", "HEAD"];
     function redirectPolicy(options = {}) {
@@ -24687,7 +24401,6 @@ var require_redirectPolicy = __commonJS({
         }
       };
     }
-    exports2.redirectPolicy = redirectPolicy;
     async function handleRedirect(next, response, maxRetries, currentRetries = 0) {
       const { request, status, headers } = response;
       const locationHeader = headers.get("location");
@@ -24708,51 +24421,53 @@ var require_redirectPolicy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgentPlatform.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgentPlatform.js
 var require_userAgentPlatform = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgentPlatform.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgentPlatform.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.setPlatformSpecificData = exports2.getHeaderName = void 0;
+    exports2.getHeaderName = getHeaderName;
+    exports2.setPlatformSpecificData = setPlatformSpecificData;
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var os2 = tslib_1.__importStar(require("node:os"));
     var process3 = tslib_1.__importStar(require("node:process"));
     function getHeaderName() {
       return "User-Agent";
     }
-    exports2.getHeaderName = getHeaderName;
-    function setPlatformSpecificData(map) {
-      const versions = process3.versions;
-      if (versions.bun) {
-        map.set("Bun", versions.bun);
-      } else if (versions.deno) {
-        map.set("Deno", versions.deno);
-      } else if (versions.node) {
-        map.set("Node", versions.node);
+    async function setPlatformSpecificData(map) {
+      if (process3 && process3.versions) {
+        const versions = process3.versions;
+        if (versions.bun) {
+          map.set("Bun", versions.bun);
+        } else if (versions.deno) {
+          map.set("Deno", versions.deno);
+        } else if (versions.node) {
+          map.set("Node", versions.node);
+        }
       }
       map.set("OS", `(${os2.arch()}-${os2.type()}-${os2.release()})`);
     }
-    exports2.setPlatformSpecificData = setPlatformSpecificData;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/constants.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/constants.js
 var require_constants7 = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/constants.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/constants.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.DEFAULT_RETRY_POLICY_COUNT = exports2.SDK_VERSION = void 0;
-    exports2.SDK_VERSION = "1.16.0";
+    exports2.SDK_VERSION = "1.18.1";
     exports2.DEFAULT_RETRY_POLICY_COUNT = 3;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgent.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgent.js
 var require_userAgent = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgent.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/userAgent.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getUserAgentValue = exports2.getUserAgentHeaderName = void 0;
+    exports2.getUserAgentHeaderName = getUserAgentHeaderName;
+    exports2.getUserAgentValue = getUserAgentValue;
     var userAgentPlatform_js_1 = require_userAgentPlatform();
     var constants_js_1 = require_constants7();
     function getUserAgentString(telemetryInfo) {
@@ -24766,25 +24481,24 @@ var require_userAgent = __commonJS({
     function getUserAgentHeaderName() {
       return (0, userAgentPlatform_js_1.getHeaderName)();
     }
-    exports2.getUserAgentHeaderName = getUserAgentHeaderName;
-    function getUserAgentValue(prefix) {
+    async function getUserAgentValue(prefix) {
       const runtimeInfo = /* @__PURE__ */ new Map();
       runtimeInfo.set("core-rest-pipeline", constants_js_1.SDK_VERSION);
-      (0, userAgentPlatform_js_1.setPlatformSpecificData)(runtimeInfo);
+      await (0, userAgentPlatform_js_1.setPlatformSpecificData)(runtimeInfo);
       const defaultAgent = getUserAgentString(runtimeInfo);
       const userAgentValue = prefix ? `${prefix} ${defaultAgent}` : defaultAgent;
       return userAgentValue;
     }
-    exports2.getUserAgentValue = getUserAgentValue;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/userAgentPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/userAgentPolicy.js
 var require_userAgentPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/userAgentPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/userAgentPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.userAgentPolicy = exports2.userAgentPolicyName = void 0;
+    exports2.userAgentPolicyName = void 0;
+    exports2.userAgentPolicy = userAgentPolicy;
     var userAgent_js_1 = require_userAgent();
     var UserAgentHeaderName = (0, userAgent_js_1.getUserAgentHeaderName)();
     exports2.userAgentPolicyName = "userAgentPolicy";
@@ -24794,47 +24508,47 @@ var require_userAgentPolicy = __commonJS({
         name: exports2.userAgentPolicyName,
         async sendRequest(request, next) {
           if (!request.headers.has(UserAgentHeaderName)) {
-            request.headers.set(UserAgentHeaderName, userAgentValue);
+            request.headers.set(UserAgentHeaderName, await userAgentValue);
           }
           return next(request);
         }
       };
     }
-    exports2.userAgentPolicy = userAgentPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/typeGuards.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/typeGuards.js
 var require_typeGuards2 = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/typeGuards.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/typeGuards.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isBlob = exports2.isReadableStream = exports2.isWebReadableStream = exports2.isNodeReadableStream = void 0;
+    exports2.isNodeReadableStream = isNodeReadableStream;
+    exports2.isWebReadableStream = isWebReadableStream;
+    exports2.isReadableStream = isReadableStream;
+    exports2.isBlob = isBlob;
     function isNodeReadableStream(x) {
       return Boolean(x && typeof x["pipe"] === "function");
     }
-    exports2.isNodeReadableStream = isNodeReadableStream;
     function isWebReadableStream(x) {
       return Boolean(x && typeof x.getReader === "function" && typeof x.tee === "function");
     }
-    exports2.isWebReadableStream = isWebReadableStream;
     function isReadableStream(x) {
       return isNodeReadableStream(x) || isWebReadableStream(x);
     }
-    exports2.isReadableStream = isReadableStream;
     function isBlob(x) {
       return typeof x.stream === "function";
     }
-    exports2.isBlob = isBlob;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/file.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/file.js
 var require_file2 = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/file.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/file.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createFile = exports2.createFileFromStream = exports2.getRawContent = void 0;
+    exports2.getRawContent = getRawContent;
+    exports2.createFileFromStream = createFileFromStream;
+    exports2.createFile = createFile;
     var core_util_1 = require_commonjs3();
     var typeGuards_js_1 = require_typeGuards2();
     var unimplementedMethods = {
@@ -24859,7 +24573,6 @@ var require_file2 = __commonJS({
         return blob.stream();
       }
     }
-    exports2.getRawContent = getRawContent;
     function createFileFromStream(stream, name, options = {}) {
       var _a, _b, _c, _d;
       return Object.assign(Object.assign({}, unimplementedMethods), { type: (_a = options.type) !== null && _a !== void 0 ? _a : "", lastModified: (_b = options.lastModified) !== null && _b !== void 0 ? _b : (/* @__PURE__ */ new Date()).getTime(), webkitRelativePath: (_c = options.webkitRelativePath) !== null && _c !== void 0 ? _c : "", size: (_d = options.size) !== null && _d !== void 0 ? _d : -1, name, stream: () => {
@@ -24870,7 +24583,6 @@ var require_file2 = __commonJS({
         return s;
       }, [rawContent]: stream });
     }
-    exports2.createFileFromStream = createFileFromStream;
     function createFile(content, name, options = {}) {
       var _a, _b, _c;
       if (core_util_1.isNodeLike) {
@@ -24879,16 +24591,15 @@ var require_file2 = __commonJS({
         return new File([content], name, options);
       }
     }
-    exports2.createFile = createFile;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/concat.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/concat.js
 var require_concat = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/concat.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/concat.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.concat = void 0;
+    exports2.concat = concat;
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var node_stream_1 = require("node:stream");
     var typeGuards_js_1 = require_typeGuards2();
@@ -24962,16 +24673,16 @@ var require_concat = __commonJS({
         }());
       };
     }
-    exports2.concat = concat;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/multipartPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/multipartPolicy.js
 var require_multipartPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/multipartPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/multipartPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.multipartPolicy = exports2.multipartPolicyName = void 0;
+    exports2.multipartPolicyName = void 0;
+    exports2.multipartPolicy = multipartPolicy;
     var core_util_1 = require_commonjs3();
     var concat_js_1 = require_concat();
     var typeGuards_js_1 = require_typeGuards2();
@@ -25071,16 +24782,16 @@ var require_multipartPolicy = __commonJS({
         }
       };
     }
-    exports2.multipartPolicy = multipartPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/decompressResponsePolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/decompressResponsePolicy.js
 var require_decompressResponsePolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/decompressResponsePolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/decompressResponsePolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.decompressResponsePolicy = exports2.decompressResponsePolicyName = void 0;
+    exports2.decompressResponsePolicyName = void 0;
+    exports2.decompressResponsePolicy = decompressResponsePolicy;
     exports2.decompressResponsePolicyName = "decompressResponsePolicy";
     function decompressResponsePolicy() {
       return {
@@ -25093,16 +24804,16 @@ var require_decompressResponsePolicy = __commonJS({
         }
       };
     }
-    exports2.decompressResponsePolicy = decompressResponsePolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/helpers.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/helpers.js
 var require_helpers = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/helpers.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/helpers.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.parseHeaderValueAsNumber = exports2.delay = void 0;
+    exports2.delay = delay;
+    exports2.parseHeaderValueAsNumber = parseHeaderValueAsNumber;
     var abort_controller_1 = require_commonjs2();
     var StandardAbortMessage = "The operation was aborted.";
     function delay(delayInMs, value, options) {
@@ -25136,7 +24847,6 @@ var require_helpers = __commonJS({
         }
       });
     }
-    exports2.delay = delay;
     function parseHeaderValueAsNumber(response, headerName) {
       const value = response.headers.get(headerName);
       if (!value)
@@ -25146,16 +24856,16 @@ var require_helpers = __commonJS({
         return;
       return valueAsNum;
     }
-    exports2.parseHeaderValueAsNumber = parseHeaderValueAsNumber;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/throttlingRetryStrategy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/throttlingRetryStrategy.js
 var require_throttlingRetryStrategy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/throttlingRetryStrategy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/throttlingRetryStrategy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.throttlingRetryStrategy = exports2.isThrottlingRetryResponse = void 0;
+    exports2.isThrottlingRetryResponse = isThrottlingRetryResponse;
+    exports2.throttlingRetryStrategy = throttlingRetryStrategy;
     var helpers_js_1 = require_helpers();
     var RetryAfterHeader = "Retry-After";
     var AllRetryAfterHeaders = ["retry-after-ms", "x-ms-retry-after-ms", RetryAfterHeader];
@@ -25176,14 +24886,13 @@ var require_throttlingRetryStrategy = __commonJS({
         const date = Date.parse(retryAfterHeader);
         const diff = date - Date.now();
         return Number.isFinite(diff) ? Math.max(0, diff) : void 0;
-      } catch (e) {
+      } catch (_a) {
         return void 0;
       }
     }
     function isThrottlingRetryResponse(response) {
       return Number.isFinite(getRetryAfterInMs(response));
     }
-    exports2.isThrottlingRetryResponse = isThrottlingRetryResponse;
     function throttlingRetryStrategy() {
       return {
         name: "throttlingRetryStrategy",
@@ -25198,16 +24907,17 @@ var require_throttlingRetryStrategy = __commonJS({
         }
       };
     }
-    exports2.throttlingRetryStrategy = throttlingRetryStrategy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/exponentialRetryStrategy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/exponentialRetryStrategy.js
 var require_exponentialRetryStrategy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/exponentialRetryStrategy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/retryStrategies/exponentialRetryStrategy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isSystemError = exports2.isExponentialRetryResponse = exports2.exponentialRetryStrategy = void 0;
+    exports2.exponentialRetryStrategy = exponentialRetryStrategy;
+    exports2.isExponentialRetryResponse = isExponentialRetryResponse;
+    exports2.isSystemError = isSystemError;
     var core_util_1 = require_commonjs3();
     var throttlingRetryStrategy_js_1 = require_throttlingRetryStrategy();
     var DEFAULT_CLIENT_RETRY_INTERVAL = 1e3;
@@ -25216,7 +24926,6 @@ var require_exponentialRetryStrategy = __commonJS({
       var _a, _b;
       const retryInterval = (_a = options.retryDelayInMs) !== null && _a !== void 0 ? _a : DEFAULT_CLIENT_RETRY_INTERVAL;
       const maxRetryInterval = (_b = options.maxRetryDelayInMs) !== null && _b !== void 0 ? _b : DEFAULT_CLIENT_MAX_RETRY_INTERVAL;
-      let retryAfterInMs = retryInterval;
       return {
         name: "exponentialRetryStrategy",
         retry({ retryCount, response, responseError }) {
@@ -25231,34 +24940,31 @@ var require_exponentialRetryStrategy = __commonJS({
           if (responseError && !matchedSystemError && !isExponential) {
             return { errorToThrow: responseError };
           }
-          const exponentialDelay = retryAfterInMs * Math.pow(2, retryCount);
-          const clampedExponentialDelay = Math.min(maxRetryInterval, exponentialDelay);
-          retryAfterInMs = clampedExponentialDelay / 2 + (0, core_util_1.getRandomIntegerInclusive)(0, clampedExponentialDelay / 2);
-          return { retryAfterInMs };
+          return (0, core_util_1.calculateRetryDelay)(retryCount, {
+            retryDelayInMs: retryInterval,
+            maxRetryDelayInMs: maxRetryInterval
+          });
         }
       };
     }
-    exports2.exponentialRetryStrategy = exponentialRetryStrategy;
     function isExponentialRetryResponse(response) {
       return Boolean(response && response.status !== void 0 && (response.status >= 500 || response.status === 408) && response.status !== 501 && response.status !== 505);
     }
-    exports2.isExponentialRetryResponse = isExponentialRetryResponse;
     function isSystemError(err) {
       if (!err) {
         return false;
       }
       return err.code === "ETIMEDOUT" || err.code === "ESOCKETTIMEDOUT" || err.code === "ECONNREFUSED" || err.code === "ECONNRESET" || err.code === "ENOENT" || err.code === "ENOTFOUND";
     }
-    exports2.isSystemError = isSystemError;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/retryPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/retryPolicy.js
 var require_retryPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/retryPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/retryPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.retryPolicy = void 0;
+    exports2.retryPolicy = retryPolicy;
     var helpers_js_1 = require_helpers();
     var logger_1 = require_commonjs();
     var abort_controller_1 = require_commonjs2();
@@ -25346,16 +25052,16 @@ var require_retryPolicy = __commonJS({
         }
       };
     }
-    exports2.retryPolicy = retryPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/defaultRetryPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/defaultRetryPolicy.js
 var require_defaultRetryPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/defaultRetryPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/defaultRetryPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.defaultRetryPolicy = exports2.defaultRetryPolicyName = void 0;
+    exports2.defaultRetryPolicyName = void 0;
+    exports2.defaultRetryPolicy = defaultRetryPolicy;
     var exponentialRetryStrategy_js_1 = require_exponentialRetryStrategy();
     var throttlingRetryStrategy_js_1 = require_throttlingRetryStrategy();
     var retryPolicy_js_1 = require_retryPolicy();
@@ -25370,16 +25076,15 @@ var require_defaultRetryPolicy = __commonJS({
         }).sendRequest
       };
     }
-    exports2.defaultRetryPolicy = defaultRetryPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/httpHeaders.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/httpHeaders.js
 var require_httpHeaders = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/httpHeaders.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/httpHeaders.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createHttpHeaders = void 0;
+    exports2.createHttpHeaders = createHttpHeaders;
     function normalizeName(name) {
       return name.toLowerCase();
     }
@@ -25461,16 +25166,16 @@ var require_httpHeaders = __commonJS({
     function createHttpHeaders(rawHeaders) {
       return new HttpHeadersImpl(rawHeaders);
     }
-    exports2.createHttpHeaders = createHttpHeaders;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/formDataPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/formDataPolicy.js
 var require_formDataPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/formDataPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/formDataPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.formDataPolicy = exports2.formDataPolicyName = void 0;
+    exports2.formDataPolicyName = void 0;
+    exports2.formDataPolicy = formDataPolicy;
     var core_util_1 = require_commonjs3();
     var httpHeaders_js_1 = require_httpHeaders();
     exports2.formDataPolicyName = "formDataPolicy";
@@ -25504,7 +25209,6 @@ var require_formDataPolicy = __commonJS({
         }
       };
     }
-    exports2.formDataPolicy = formDataPolicy;
     function wwwFormUrlEncode(formData) {
       const urlSearchParams = new URLSearchParams();
       for (const [key, value] of Object.entries(formData)) {
@@ -25553,28 +25257,28 @@ var require_formDataPolicy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/ms@2.1.2/node_modules/ms/index.js
+// node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js
 var require_ms = __commonJS({
-  "node_modules/.pnpm/ms@2.1.2/node_modules/ms/index.js"(exports2, module2) {
+  "node_modules/.pnpm/ms@2.1.3/node_modules/ms/index.js"(exports2, module2) {
     var s = 1e3;
     var m = s * 60;
     var h = m * 60;
     var d = h * 24;
     var w = d * 7;
     var y = d * 365.25;
-    module2.exports = function(val2, options) {
+    module2.exports = function(val, options) {
       options = options || {};
-      var type = typeof val2;
-      if (type === "string" && val2.length > 0) {
-        return parse3(val2);
-      } else if (type === "number" && isFinite(val2)) {
-        return options.long ? fmtLong(val2) : fmtShort(val2);
+      var type = typeof val;
+      if (type === "string" && val.length > 0) {
+        return parse2(val);
+      } else if (type === "number" && isFinite(val)) {
+        return options.long ? fmtLong(val) : fmtShort(val);
       }
       throw new Error(
-        "val is not a non-empty string or a valid number. val=" + JSON.stringify(val2)
+        "val is not a non-empty string or a valid number. val=" + JSON.stringify(val)
       );
     };
-    function parse3(str) {
+    function parse2(str) {
       str = String(str);
       if (str.length > 100) {
         return;
@@ -25669,9 +25373,9 @@ var require_ms = __commonJS({
   }
 });
 
-// node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/common.js
+// node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/common.js
 var require_common = __commonJS({
-  "node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/common.js"(exports2, module2) {
+  "node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/common.js"(exports2, module2) {
     function setup(env2) {
       createDebug.debug = createDebug;
       createDebug.default = createDebug;
@@ -25724,8 +25428,8 @@ var require_common = __commonJS({
             index++;
             const formatter = createDebug.formatters[format];
             if (typeof formatter === "function") {
-              const val2 = args[index];
-              match = formatter.call(self2, val2);
+              const val = args[index];
+              match = formatter.call(self2, val);
               args.splice(index, 1);
               index--;
             }
@@ -25772,55 +25476,69 @@ var require_common = __commonJS({
         createDebug.namespaces = namespaces;
         createDebug.names = [];
         createDebug.skips = [];
-        let i;
-        const split = (typeof namespaces === "string" ? namespaces : "").split(/[\s,]+/);
-        const len = split.length;
-        for (i = 0; i < len; i++) {
-          if (!split[i]) {
-            continue;
-          }
-          namespaces = split[i].replace(/\*/g, ".*?");
-          if (namespaces[0] === "-") {
-            createDebug.skips.push(new RegExp("^" + namespaces.slice(1) + "$"));
+        const split = (typeof namespaces === "string" ? namespaces : "").trim().replace(" ", ",").split(",").filter(Boolean);
+        for (const ns of split) {
+          if (ns[0] === "-") {
+            createDebug.skips.push(ns.slice(1));
           } else {
-            createDebug.names.push(new RegExp("^" + namespaces + "$"));
+            createDebug.names.push(ns);
           }
         }
       }
+      function matchesTemplate(search, template) {
+        let searchIndex = 0;
+        let templateIndex = 0;
+        let starIndex = -1;
+        let matchIndex = 0;
+        while (searchIndex < search.length) {
+          if (templateIndex < template.length && (template[templateIndex] === search[searchIndex] || template[templateIndex] === "*")) {
+            if (template[templateIndex] === "*") {
+              starIndex = templateIndex;
+              matchIndex = searchIndex;
+              templateIndex++;
+            } else {
+              searchIndex++;
+              templateIndex++;
+            }
+          } else if (starIndex !== -1) {
+            templateIndex = starIndex + 1;
+            matchIndex++;
+            searchIndex = matchIndex;
+          } else {
+            return false;
+          }
+        }
+        while (templateIndex < template.length && template[templateIndex] === "*") {
+          templateIndex++;
+        }
+        return templateIndex === template.length;
+      }
       function disable() {
         const namespaces = [
-          ...createDebug.names.map(toNamespace),
-          ...createDebug.skips.map(toNamespace).map((namespace) => "-" + namespace)
+          ...createDebug.names,
+          ...createDebug.skips.map((namespace) => "-" + namespace)
         ].join(",");
         createDebug.enable("");
         return namespaces;
       }
       function enabled(name) {
-        if (name[name.length - 1] === "*") {
-          return true;
-        }
-        let i;
-        let len;
-        for (i = 0, len = createDebug.skips.length; i < len; i++) {
-          if (createDebug.skips[i].test(name)) {
+        for (const skip of createDebug.skips) {
+          if (matchesTemplate(name, skip)) {
             return false;
           }
         }
-        for (i = 0, len = createDebug.names.length; i < len; i++) {
-          if (createDebug.names[i].test(name)) {
+        for (const ns of createDebug.names) {
+          if (matchesTemplate(name, ns)) {
             return true;
           }
         }
         return false;
       }
-      function toNamespace(regexp) {
-        return regexp.toString().substring(2, regexp.toString().length - 2).replace(/\.\*\?$/, "*");
-      }
-      function coerce(val2) {
-        if (val2 instanceof Error) {
-          return val2.stack || val2.message;
+      function coerce(val) {
+        if (val instanceof Error) {
+          return val.stack || val.message;
         }
-        return val2;
+        return val;
       }
       function destroy() {
         console.warn("Instance method `debug.destroy()` is deprecated and no longer does anything. It will be removed in the next major version of `debug`.");
@@ -25832,9 +25550,9 @@ var require_common = __commonJS({
   }
 });
 
-// node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/browser.js
+// node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/browser.js
 var require_browser = __commonJS({
-  "node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/browser.js"(exports2, module2) {
+  "node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/browser.js"(exports2, module2) {
     exports2.formatArgs = formatArgs;
     exports2.save = save;
     exports2.load = load;
@@ -25934,10 +25652,11 @@ var require_browser = __commonJS({
       if (typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
         return false;
       }
+      let m;
       return typeof document !== "undefined" && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance || // Is firebug? http://stackoverflow.com/a/398120/376773
       typeof window !== "undefined" && window.console && (window.console.firebug || window.console.exception && window.console.table) || // Is firefox >= v31?
       // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-      typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 || // Double check webkit in userAgent just in case we are in a worker
+      typeof navigator !== "undefined" && navigator.userAgent && (m = navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/)) && parseInt(m[1], 10) >= 31 || // Double check webkit in userAgent just in case we are in a worker
       typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
     }
     function formatArgs(args) {
@@ -26085,10 +25804,10 @@ var require_supports_color = __commonJS({
         return 3;
       }
       if ("TERM_PROGRAM" in env2) {
-        const version2 = parseInt((env2.TERM_PROGRAM_VERSION || "").split(".")[0], 10);
+        const version = parseInt((env2.TERM_PROGRAM_VERSION || "").split(".")[0], 10);
         switch (env2.TERM_PROGRAM) {
           case "iTerm.app":
-            return version2 >= 3 ? 3 : 2;
+            return version >= 3 ? 3 : 2;
           case "Apple_Terminal":
             return 2;
         }
@@ -26116,9 +25835,9 @@ var require_supports_color = __commonJS({
   }
 });
 
-// node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/node.js
+// node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/node.js
 var require_node = __commonJS({
-  "node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/node.js"(exports2, module2) {
+  "node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/node.js"(exports2, module2) {
     var tty2 = require("tty");
     var util = require("util");
     exports2.init = init;
@@ -26223,17 +25942,17 @@ var require_node = __commonJS({
       const prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, (_, k) => {
         return k.toUpperCase();
       });
-      let val2 = process.env[key];
-      if (/^(yes|on|true|enabled)$/i.test(val2)) {
-        val2 = true;
-      } else if (/^(no|off|false|disabled)$/i.test(val2)) {
-        val2 = false;
-      } else if (val2 === "null") {
-        val2 = null;
+      let val = process.env[key];
+      if (/^(yes|on|true|enabled)$/i.test(val)) {
+        val = true;
+      } else if (/^(no|off|false|disabled)$/i.test(val)) {
+        val = false;
+      } else if (val === "null") {
+        val = null;
       } else {
-        val2 = Number(val2);
+        val = Number(val);
       }
-      obj[prop] = val2;
+      obj[prop] = val;
       return obj;
     }, {});
     function useColors() {
@@ -26290,9 +26009,9 @@ var require_node = __commonJS({
   }
 });
 
-// node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/index.js
+// node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/index.js
 var require_src = __commonJS({
-  "node_modules/.pnpm/debug@4.3.5/node_modules/debug/src/index.js"(exports2, module2) {
+  "node_modules/.pnpm/debug@4.4.0/node_modules/debug/src/index.js"(exports2, module2) {
     if (typeof process === "undefined" || process.type === "renderer" || process.browser === true || process.__nwjs) {
       module2.exports = require_browser();
     } else {
@@ -26301,9 +26020,9 @@ var require_src = __commonJS({
   }
 });
 
-// node_modules/.pnpm/agent-base@7.1.1/node_modules/agent-base/dist/helpers.js
+// node_modules/.pnpm/agent-base@7.1.3/node_modules/agent-base/dist/helpers.js
 var require_helpers2 = __commonJS({
-  "node_modules/.pnpm/agent-base@7.1.1/node_modules/agent-base/dist/helpers.js"(exports2) {
+  "node_modules/.pnpm/agent-base@7.1.3/node_modules/agent-base/dist/helpers.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -26371,9 +26090,9 @@ var require_helpers2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/agent-base@7.1.1/node_modules/agent-base/dist/index.js
+// node_modules/.pnpm/agent-base@7.1.3/node_modules/agent-base/dist/index.js
 var require_dist = __commonJS({
-  "node_modules/.pnpm/agent-base@7.1.1/node_modules/agent-base/dist/index.js"(exports2) {
+  "node_modules/.pnpm/agent-base@7.1.3/node_modules/agent-base/dist/index.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -26485,7 +26204,11 @@ var require_dist = __commonJS({
         Promise.resolve().then(() => this.connect(req, connectOpts)).then((socket) => {
           this.decrementSockets(name, fakeSocket);
           if (socket instanceof http2.Agent) {
-            return socket.addRequest(req, connectOpts);
+            try {
+              return socket.addRequest(req, connectOpts);
+            } catch (err) {
+              return cb(err);
+            }
           }
           this[INTERNAL].currentSocket = socket;
           super.createSocket(req, options, cb);
@@ -26523,9 +26246,9 @@ var require_dist = __commonJS({
   }
 });
 
-// node_modules/.pnpm/https-proxy-agent@7.0.4/node_modules/https-proxy-agent/dist/parse-proxy-response.js
+// node_modules/.pnpm/https-proxy-agent@7.0.6/node_modules/https-proxy-agent/dist/parse-proxy-response.js
 var require_parse_proxy_response = __commonJS({
-  "node_modules/.pnpm/https-proxy-agent@7.0.4/node_modules/https-proxy-agent/dist/parse-proxy-response.js"(exports2) {
+  "node_modules/.pnpm/https-proxy-agent@7.0.6/node_modules/https-proxy-agent/dist/parse-proxy-response.js"(exports2) {
     "use strict";
     var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -26619,9 +26342,9 @@ var require_parse_proxy_response = __commonJS({
   }
 });
 
-// node_modules/.pnpm/https-proxy-agent@7.0.4/node_modules/https-proxy-agent/dist/index.js
+// node_modules/.pnpm/https-proxy-agent@7.0.6/node_modules/https-proxy-agent/dist/index.js
 var require_dist2 = __commonJS({
-  "node_modules/.pnpm/https-proxy-agent@7.0.4/node_modules/https-proxy-agent/dist/index.js"(exports2) {
+  "node_modules/.pnpm/https-proxy-agent@7.0.6/node_modules/https-proxy-agent/dist/index.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -26663,6 +26386,15 @@ var require_dist2 = __commonJS({
     var url_1 = require("url");
     var parse_proxy_response_1 = require_parse_proxy_response();
     var debug = (0, debug_1.default)("https-proxy-agent");
+    var setServernameFromNonIpHost = (options) => {
+      if (options.servername === void 0 && options.host && !net.isIP(options.host)) {
+        return {
+          ...options,
+          servername: options.host
+        };
+      }
+      return options;
+    };
     var HttpsProxyAgent = class extends agent_base_1.Agent {
       constructor(proxy, opts) {
         super(opts);
@@ -26692,11 +26424,7 @@ var require_dist2 = __commonJS({
         let socket;
         if (proxy.protocol === "https:") {
           debug("Creating `tls.Socket`: %o", this.connectOpts);
-          const servername = this.connectOpts.servername || this.connectOpts.host;
-          socket = tls.connect({
-            ...this.connectOpts,
-            servername: servername && net.isIP(servername) ? void 0 : servername
-          });
+          socket = tls.connect(setServernameFromNonIpHost(this.connectOpts));
         } else {
           debug("Creating `net.Socket`: %o", this.connectOpts);
           socket = net.connect(this.connectOpts);
@@ -26727,11 +26455,9 @@ var require_dist2 = __commonJS({
           req.once("socket", resume);
           if (opts.secureEndpoint) {
             debug("Upgrading socket connection to TLS");
-            const servername = opts.servername || opts.host;
             return tls.connect({
-              ...omit(opts, "host", "path", "port"),
-              socket,
-              servername: net.isIP(servername) ? void 0 : servername
+              ...omit(setServernameFromNonIpHost(opts), "host", "path", "port"),
+              socket
             });
           }
           return socket;
@@ -26896,12 +26622,15 @@ var require_dist3 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/proxyPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/proxyPolicy.js
 var require_proxyPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/proxyPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/proxyPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.proxyPolicy = exports2.getDefaultProxySettings = exports2.loadNoProxy = exports2.globalNoProxyList = exports2.proxyPolicyName = void 0;
+    exports2.globalNoProxyList = exports2.proxyPolicyName = void 0;
+    exports2.loadNoProxy = loadNoProxy;
+    exports2.getDefaultProxySettings = getDefaultProxySettings;
+    exports2.proxyPolicy = proxyPolicy;
     var https_proxy_agent_1 = require_dist2();
     var http_proxy_agent_1 = require_dist3();
     var log_js_1 = require_log2();
@@ -26965,7 +26694,6 @@ var require_proxyPolicy = __commonJS({
       }
       return [];
     }
-    exports2.loadNoProxy = loadNoProxy;
     function getDefaultProxySettings(proxyUrl) {
       if (!proxyUrl) {
         proxyUrl = loadEnvironmentProxyValue();
@@ -26982,7 +26710,6 @@ var require_proxyPolicy = __commonJS({
         password: parsedUrl.password
       };
     }
-    exports2.getDefaultProxySettings = getDefaultProxySettings;
     function getDefaultProxySettingsInternal() {
       const envProxy = loadEnvironmentProxyValue();
       return envProxy ? new URL(envProxy) : void 0;
@@ -26991,7 +26718,7 @@ var require_proxyPolicy = __commonJS({
       let parsedProxyUrl;
       try {
         parsedProxyUrl = new URL(settings.host);
-      } catch (_error) {
+      } catch (_a) {
         throw new Error(`Expecting a valid host string in proxy settings, but found "${settings.host}".`);
       }
       parsedProxyUrl.port = String(settings.port);
@@ -27044,16 +26771,16 @@ var require_proxyPolicy = __commonJS({
         }
       };
     }
-    exports2.proxyPolicy = proxyPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/setClientRequestIdPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/setClientRequestIdPolicy.js
 var require_setClientRequestIdPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/setClientRequestIdPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/setClientRequestIdPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.setClientRequestIdPolicy = exports2.setClientRequestIdPolicyName = void 0;
+    exports2.setClientRequestIdPolicyName = void 0;
+    exports2.setClientRequestIdPolicy = setClientRequestIdPolicy;
     exports2.setClientRequestIdPolicyName = "setClientRequestIdPolicy";
     function setClientRequestIdPolicy(requestIdHeaderName = "x-ms-client-request-id") {
       return {
@@ -27066,16 +26793,16 @@ var require_setClientRequestIdPolicy = __commonJS({
         }
       };
     }
-    exports2.setClientRequestIdPolicy = setClientRequestIdPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tlsPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tlsPolicy.js
 var require_tlsPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tlsPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tlsPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.tlsPolicy = exports2.tlsPolicyName = void 0;
+    exports2.tlsPolicyName = void 0;
+    exports2.tlsPolicy = tlsPolicy;
     exports2.tlsPolicyName = "tlsPolicy";
     function tlsPolicy(tlsSettings) {
       return {
@@ -27088,16 +26815,16 @@ var require_tlsPolicy = __commonJS({
         }
       };
     }
-    exports2.tlsPolicy = tlsPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/tracingContext.js
+// node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/tracingContext.js
 var require_tracingContext = __commonJS({
-  "node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/tracingContext.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/tracingContext.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.TracingContextImpl = exports2.createTracingContext = exports2.knownContextKeys = void 0;
+    exports2.TracingContextImpl = exports2.knownContextKeys = void 0;
+    exports2.createTracingContext = createTracingContext;
     exports2.knownContextKeys = {
       span: Symbol.for("@azure/core-tracing span"),
       namespace: Symbol.for("@azure/core-tracing namespace")
@@ -27112,7 +26839,6 @@ var require_tracingContext = __commonJS({
       }
       return context;
     }
-    exports2.createTracingContext = createTracingContext;
     var TracingContextImpl = class _TracingContextImpl {
       constructor(initialContext) {
         this._contextMap = initialContext instanceof _TracingContextImpl ? new Map(initialContext._contextMap) : /* @__PURE__ */ new Map();
@@ -27135,9 +26861,9 @@ var require_tracingContext = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/state.js
+// node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/state.js
 var require_state = __commonJS({
-  "node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/state.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/state.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.state = void 0;
@@ -27147,12 +26873,15 @@ var require_state = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/instrumenter.js
+// node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/instrumenter.js
 var require_instrumenter = __commonJS({
-  "node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/instrumenter.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/instrumenter.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getInstrumenter = exports2.useInstrumenter = exports2.createDefaultInstrumenter = exports2.createDefaultTracingSpan = void 0;
+    exports2.createDefaultTracingSpan = createDefaultTracingSpan;
+    exports2.createDefaultInstrumenter = createDefaultInstrumenter;
+    exports2.useInstrumenter = useInstrumenter;
+    exports2.getInstrumenter = getInstrumenter;
     var tracingContext_js_1 = require_tracingContext();
     var state_js_1 = require_state();
     function createDefaultTracingSpan() {
@@ -27165,10 +26894,11 @@ var require_instrumenter = __commonJS({
         setAttribute: () => {
         },
         setStatus: () => {
+        },
+        addEvent: () => {
         }
       };
     }
-    exports2.createDefaultTracingSpan = createDefaultTracingSpan;
     function createDefaultInstrumenter() {
       return {
         createRequestHeaders: () => {
@@ -27188,27 +26918,24 @@ var require_instrumenter = __commonJS({
         }
       };
     }
-    exports2.createDefaultInstrumenter = createDefaultInstrumenter;
     function useInstrumenter(instrumenter) {
       state_js_1.state.instrumenterImplementation = instrumenter;
     }
-    exports2.useInstrumenter = useInstrumenter;
     function getInstrumenter() {
       if (!state_js_1.state.instrumenterImplementation) {
         state_js_1.state.instrumenterImplementation = createDefaultInstrumenter();
       }
       return state_js_1.state.instrumenterImplementation;
     }
-    exports2.getInstrumenter = getInstrumenter;
   }
 });
 
-// node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/tracingClient.js
+// node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/tracingClient.js
 var require_tracingClient = __commonJS({
-  "node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/tracingClient.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/tracingClient.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createTracingClient = void 0;
+    exports2.createTracingClient = createTracingClient;
     var instrumenter_js_1 = require_instrumenter();
     var tracingContext_js_1 = require_tracingContext();
     function createTracingClient(options) {
@@ -27260,13 +26987,12 @@ var require_tracingClient = __commonJS({
         createRequestHeaders
       };
     }
-    exports2.createTracingClient = createTracingClient;
   }
 });
 
-// node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/index.js
+// node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/index.js
 var require_commonjs4 = __commonJS({
-  "node_modules/.pnpm/@azure+core-tracing@1.1.2/node_modules/@azure/core-tracing/dist/commonjs/index.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-tracing@1.2.0/node_modules/@azure/core-tracing/dist/commonjs/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createTracingClient = exports2.useInstrumenter = void 0;
@@ -27281,9 +27007,9 @@ var require_commonjs4 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/inspect.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/inspect.js
 var require_inspect = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/inspect.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/inspect.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.custom = void 0;
@@ -27292,12 +27018,13 @@ var require_inspect = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/restError.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/restError.js
 var require_restError = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/restError.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/restError.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isRestError = exports2.RestError = void 0;
+    exports2.RestError = void 0;
+    exports2.isRestError = isRestError;
     var core_util_1 = require_commonjs3();
     var inspect_js_1 = require_inspect();
     var sanitizer_js_1 = require_sanitizer();
@@ -27308,8 +27035,8 @@ var require_restError = __commonJS({
         this.name = "RestError";
         this.code = options.code;
         this.statusCode = options.statusCode;
-        this.request = options.request;
-        this.response = options.response;
+        Object.defineProperty(this, "request", { value: options.request, enumerable: false });
+        Object.defineProperty(this, "response", { value: options.response, enumerable: false });
         Object.setPrototypeOf(this, _RestError.prototype);
       }
       /**
@@ -27317,7 +27044,7 @@ var require_restError = __commonJS({
        */
       [inspect_js_1.custom]() {
         return `RestError: ${this.message} 
- ${errorSanitizer.sanitize(this)}`;
+ ${errorSanitizer.sanitize(Object.assign(Object.assign({}, this), { request: this.request, response: this.response }))}`;
       }
     };
     exports2.RestError = RestError;
@@ -27329,34 +27056,48 @@ var require_restError = __commonJS({
       }
       return (0, core_util_1.isError)(e) && e.name === "RestError";
     }
-    exports2.isRestError = isRestError;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tracingPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tracingPolicy.js
 var require_tracingPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tracingPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/tracingPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.tracingPolicy = exports2.tracingPolicyName = void 0;
+    exports2.tracingPolicyName = void 0;
+    exports2.tracingPolicy = tracingPolicy;
     var core_tracing_1 = require_commonjs4();
     var constants_js_1 = require_constants7();
     var userAgent_js_1 = require_userAgent();
     var log_js_1 = require_log2();
     var core_util_1 = require_commonjs3();
     var restError_js_1 = require_restError();
+    var sanitizer_js_1 = require_sanitizer();
     exports2.tracingPolicyName = "tracingPolicy";
     function tracingPolicy(options = {}) {
-      const userAgent = (0, userAgent_js_1.getUserAgentValue)(options.userAgentPrefix);
+      const userAgentPromise = (0, userAgent_js_1.getUserAgentValue)(options.userAgentPrefix);
+      const sanitizer = new sanitizer_js_1.Sanitizer({
+        additionalAllowedQueryParameters: options.additionalAllowedQueryParameters
+      });
       const tracingClient = tryCreateTracingClient();
       return {
         name: exports2.tracingPolicyName,
         async sendRequest(request, next) {
-          var _a, _b;
-          if (!tracingClient || !((_a = request.tracingOptions) === null || _a === void 0 ? void 0 : _a.tracingContext)) {
+          var _a;
+          if (!tracingClient) {
             return next(request);
           }
-          const { span, tracingContext } = (_b = tryCreateSpan(tracingClient, request, userAgent)) !== null && _b !== void 0 ? _b : {};
+          const userAgent = await userAgentPromise;
+          const spanAttributes = {
+            "http.url": sanitizer.sanitizeUrl(request.url),
+            "http.method": request.method,
+            "http.user_agent": userAgent,
+            requestId: request.requestId
+          };
+          if (userAgent) {
+            spanAttributes["http.user_agent"] = userAgent;
+          }
+          const { span, tracingContext } = (_a = tryCreateSpan(tracingClient, request, spanAttributes)) !== null && _a !== void 0 ? _a : {};
           if (!span || !tracingContext) {
             return next(request);
           }
@@ -27371,7 +27112,6 @@ var require_tracingPolicy = __commonJS({
         }
       };
     }
-    exports2.tracingPolicy = tracingPolicy;
     function tryCreateTracingClient() {
       try {
         return (0, core_tracing_1.createTracingClient)({
@@ -27384,22 +27124,15 @@ var require_tracingPolicy = __commonJS({
         return void 0;
       }
     }
-    function tryCreateSpan(tracingClient, request, userAgent) {
+    function tryCreateSpan(tracingClient, request, spanAttributes) {
       try {
         const { span, updatedOptions } = tracingClient.startSpan(`HTTP ${request.method}`, { tracingOptions: request.tracingOptions }, {
           spanKind: "client",
-          spanAttributes: {
-            "http.method": request.method,
-            "http.url": request.url,
-            requestId: request.requestId
-          }
+          spanAttributes
         });
         if (!span.isRecording()) {
           span.end();
           return void 0;
-        }
-        if (userAgent) {
-          span.setAttribute("http.user_agent", userAgent);
         }
         const headers = tracingClient.createRequestHeaders(updatedOptions.tracingOptions.tracingContext);
         for (const [key, value] of Object.entries(headers)) {
@@ -27443,12 +27176,12 @@ var require_tracingPolicy = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/createPipelineFromOptions.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/createPipelineFromOptions.js
 var require_createPipelineFromOptions = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/createPipelineFromOptions.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/createPipelineFromOptions.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createPipelineFromOptions = void 0;
+    exports2.createPipelineFromOptions = createPipelineFromOptions;
     var logPolicy_js_1 = require_logPolicy();
     var pipeline_js_1 = require_pipeline();
     var redirectPolicy_js_1 = require_redirectPolicy();
@@ -27477,23 +27210,25 @@ var require_createPipelineFromOptions = __commonJS({
       pipeline.addPolicy((0, setClientRequestIdPolicy_js_1.setClientRequestIdPolicy)((_a = options.telemetryOptions) === null || _a === void 0 ? void 0 : _a.clientRequestIdHeaderName));
       pipeline.addPolicy((0, multipartPolicy_js_1.multipartPolicy)(), { afterPhase: "Deserialize" });
       pipeline.addPolicy((0, defaultRetryPolicy_js_1.defaultRetryPolicy)(options.retryOptions), { phase: "Retry" });
-      pipeline.addPolicy((0, tracingPolicy_js_1.tracingPolicy)(options.userAgentOptions), { afterPhase: "Retry" });
+      pipeline.addPolicy((0, tracingPolicy_js_1.tracingPolicy)(Object.assign(Object.assign({}, options.userAgentOptions), options.loggingOptions)), {
+        afterPhase: "Retry"
+      });
       if (core_util_1.isNodeLike) {
         pipeline.addPolicy((0, redirectPolicy_js_1.redirectPolicy)(options.redirectOptions), { afterPhase: "Retry" });
       }
       pipeline.addPolicy((0, logPolicy_js_1.logPolicy)(options.loggingOptions), { afterPhase: "Sign" });
       return pipeline;
     }
-    exports2.createPipelineFromOptions = createPipelineFromOptions;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/nodeHttpClient.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/nodeHttpClient.js
 var require_nodeHttpClient = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/nodeHttpClient.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/nodeHttpClient.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createNodeHttpClient = exports2.getBodyLength = void 0;
+    exports2.getBodyLength = getBodyLength;
+    exports2.createNodeHttpClient = createNodeHttpClient;
     var tslib_1 = (init_tslib_es6(), __toCommonJS(tslib_es6_exports));
     var http2 = tslib_1.__importStar(require("node:http"));
     var https = tslib_1.__importStar(require("node:https"));
@@ -27508,17 +27243,26 @@ var require_nodeHttpClient = __commonJS({
       return body && typeof body.pipe === "function";
     }
     function isStreamComplete(stream) {
+      if (stream.readable === false) {
+        return Promise.resolve();
+      }
       return new Promise((resolve) => {
-        stream.on("close", resolve);
-        stream.on("end", resolve);
-        stream.on("error", resolve);
+        const handler = () => {
+          resolve();
+          stream.removeListener("close", handler);
+          stream.removeListener("end", handler);
+          stream.removeListener("error", handler);
+        };
+        stream.on("close", handler);
+        stream.on("end", handler);
+        stream.on("error", handler);
       });
     }
     function isArrayBuffer(body) {
       return body && typeof body.byteLength === "number";
     }
     var ReportTransform = class extends node_stream_1.Transform {
-      // eslint-disable-next-line @typescript-eslint/ban-types
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
       _transform(chunk, _encoding, callback) {
         this.push(chunk);
         this.loadedBytes += chunk.length;
@@ -27778,34 +27522,31 @@ var require_nodeHttpClient = __commonJS({
         return null;
       }
     }
-    exports2.getBodyLength = getBodyLength;
     function createNodeHttpClient() {
       return new NodeHttpClient();
     }
-    exports2.createNodeHttpClient = createNodeHttpClient;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/defaultHttpClient.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/defaultHttpClient.js
 var require_defaultHttpClient = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/defaultHttpClient.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/defaultHttpClient.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createDefaultHttpClient = void 0;
+    exports2.createDefaultHttpClient = createDefaultHttpClient;
     var nodeHttpClient_js_1 = require_nodeHttpClient();
     function createDefaultHttpClient() {
       return (0, nodeHttpClient_js_1.createNodeHttpClient)();
     }
-    exports2.createDefaultHttpClient = createDefaultHttpClient;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipelineRequest.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipelineRequest.js
 var require_pipelineRequest = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipelineRequest.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/pipelineRequest.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createPipelineRequest = void 0;
+    exports2.createPipelineRequest = createPipelineRequest;
     var httpHeaders_js_1 = require_httpHeaders();
     var core_util_1 = require_commonjs3();
     var PipelineRequestImpl = class {
@@ -27834,16 +27575,16 @@ var require_pipelineRequest = __commonJS({
     function createPipelineRequest(options) {
       return new PipelineRequestImpl(options);
     }
-    exports2.createPipelineRequest = createPipelineRequest;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/exponentialRetryPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/exponentialRetryPolicy.js
 var require_exponentialRetryPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/exponentialRetryPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/exponentialRetryPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.exponentialRetryPolicy = exports2.exponentialRetryPolicyName = void 0;
+    exports2.exponentialRetryPolicyName = void 0;
+    exports2.exponentialRetryPolicy = exponentialRetryPolicy;
     var exponentialRetryStrategy_js_1 = require_exponentialRetryStrategy();
     var retryPolicy_js_1 = require_retryPolicy();
     var constants_js_1 = require_constants7();
@@ -27856,16 +27597,16 @@ var require_exponentialRetryPolicy = __commonJS({
         maxRetries: (_a = options.maxRetries) !== null && _a !== void 0 ? _a : constants_js_1.DEFAULT_RETRY_POLICY_COUNT
       });
     }
-    exports2.exponentialRetryPolicy = exponentialRetryPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/systemErrorRetryPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/systemErrorRetryPolicy.js
 var require_systemErrorRetryPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/systemErrorRetryPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/systemErrorRetryPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.systemErrorRetryPolicy = exports2.systemErrorRetryPolicyName = void 0;
+    exports2.systemErrorRetryPolicyName = void 0;
+    exports2.systemErrorRetryPolicy = systemErrorRetryPolicy;
     var exponentialRetryStrategy_js_1 = require_exponentialRetryStrategy();
     var retryPolicy_js_1 = require_retryPolicy();
     var constants_js_1 = require_constants7();
@@ -27881,16 +27622,16 @@ var require_systemErrorRetryPolicy = __commonJS({
         }).sendRequest
       };
     }
-    exports2.systemErrorRetryPolicy = systemErrorRetryPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/throttlingRetryPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/throttlingRetryPolicy.js
 var require_throttlingRetryPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/throttlingRetryPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/throttlingRetryPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.throttlingRetryPolicy = exports2.throttlingRetryPolicyName = void 0;
+    exports2.throttlingRetryPolicyName = void 0;
+    exports2.throttlingRetryPolicy = throttlingRetryPolicy;
     var throttlingRetryStrategy_js_1 = require_throttlingRetryStrategy();
     var retryPolicy_js_1 = require_retryPolicy();
     var constants_js_1 = require_constants7();
@@ -27904,16 +27645,16 @@ var require_throttlingRetryPolicy = __commonJS({
         }).sendRequest
       };
     }
-    exports2.throttlingRetryPolicy = throttlingRetryPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/tokenCycler.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/tokenCycler.js
 var require_tokenCycler = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/tokenCycler.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/util/tokenCycler.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createTokenCycler = exports2.DEFAULT_CYCLER_OPTIONS = void 0;
+    exports2.DEFAULT_CYCLER_OPTIONS = void 0;
+    exports2.createTokenCycler = createTokenCycler;
     var helpers_js_1 = require_helpers();
     exports2.DEFAULT_CYCLER_OPTIONS = {
       forcedRefreshWindowInMs: 1e3,
@@ -27964,7 +27705,13 @@ var require_tokenCycler = __commonJS({
          */
         get shouldRefresh() {
           var _a;
-          return !cycler.isRefreshing && ((_a = token === null || token === void 0 ? void 0 : token.expiresOnTimestamp) !== null && _a !== void 0 ? _a : 0) - options.refreshWindowInMs < Date.now();
+          if (cycler.isRefreshing) {
+            return false;
+          }
+          if ((token === null || token === void 0 ? void 0 : token.refreshAfterTimestamp) && token.refreshAfterTimestamp < Date.now()) {
+            return true;
+          }
+          return ((_a = token === null || token === void 0 ? void 0 : token.expiresOnTimestamp) !== null && _a !== void 0 ? _a : 0) - options.refreshWindowInMs < Date.now();
         },
         /**
          * Produces true if the cycler MUST refresh (null or nearly-expired
@@ -27998,51 +27745,83 @@ var require_tokenCycler = __commonJS({
         return refreshWorker;
       }
       return async (scopes, tokenOptions) => {
-        const mustRefresh = tenantId !== tokenOptions.tenantId || Boolean(tokenOptions.claims) || cycler.mustRefresh;
-        if (mustRefresh)
+        const hasClaimChallenge = Boolean(tokenOptions.claims);
+        const tenantIdChanged = tenantId !== tokenOptions.tenantId;
+        if (hasClaimChallenge) {
+          token = null;
+        }
+        const mustRefresh = tenantIdChanged || hasClaimChallenge || cycler.mustRefresh;
+        if (mustRefresh) {
           return refresh(scopes, tokenOptions);
+        }
         if (cycler.shouldRefresh) {
           refresh(scopes, tokenOptions);
         }
         return token;
       };
     }
-    exports2.createTokenCycler = createTokenCycler;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/bearerTokenAuthenticationPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/bearerTokenAuthenticationPolicy.js
 var require_bearerTokenAuthenticationPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/bearerTokenAuthenticationPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/bearerTokenAuthenticationPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.bearerTokenAuthenticationPolicy = exports2.bearerTokenAuthenticationPolicyName = void 0;
+    exports2.bearerTokenAuthenticationPolicyName = void 0;
+    exports2.bearerTokenAuthenticationPolicy = bearerTokenAuthenticationPolicy;
+    exports2.parseChallenges = parseChallenges;
     var tokenCycler_js_1 = require_tokenCycler();
     var log_js_1 = require_log2();
+    var restError_js_1 = require_restError();
     exports2.bearerTokenAuthenticationPolicyName = "bearerTokenAuthenticationPolicy";
+    async function trySendRequest(request, next) {
+      try {
+        return [await next(request), void 0];
+      } catch (e) {
+        if ((0, restError_js_1.isRestError)(e) && e.response) {
+          return [e.response, e];
+        } else {
+          throw e;
+        }
+      }
+    }
     async function defaultAuthorizeRequest(options) {
       const { scopes, getAccessToken, request } = options;
       const getTokenOptions = {
         abortSignal: request.abortSignal,
-        tracingOptions: request.tracingOptions
+        tracingOptions: request.tracingOptions,
+        enableCae: true
       };
       const accessToken = await getAccessToken(scopes, getTokenOptions);
       if (accessToken) {
         options.request.headers.set("Authorization", `Bearer ${accessToken.token}`);
       }
     }
-    function getChallenge(response) {
-      const challenge = response.headers.get("WWW-Authenticate");
-      if (response.status === 401 && challenge) {
-        return challenge;
+    function isChallengeResponse(response) {
+      return response.status === 401 && response.headers.has("WWW-Authenticate");
+    }
+    async function authorizeRequestOnCaeChallenge(onChallengeOptions, caeClaims) {
+      var _a;
+      const { scopes } = onChallengeOptions;
+      const accessToken = await onChallengeOptions.getAccessToken(scopes, {
+        enableCae: true,
+        claims: caeClaims
+      });
+      if (!accessToken) {
+        return false;
       }
-      return;
+      onChallengeOptions.request.headers.set("Authorization", `${(_a = accessToken.tokenType) !== null && _a !== void 0 ? _a : "Bearer"} ${accessToken.token}`);
+      return true;
     }
     function bearerTokenAuthenticationPolicy(options) {
-      var _a;
+      var _a, _b, _c;
       const { credential, scopes, challengeCallbacks } = options;
       const logger = options.logger || log_js_1.logger;
-      const callbacks = Object.assign({ authorizeRequest: (_a = challengeCallbacks === null || challengeCallbacks === void 0 ? void 0 : challengeCallbacks.authorizeRequest) !== null && _a !== void 0 ? _a : defaultAuthorizeRequest, authorizeRequestOnChallenge: challengeCallbacks === null || challengeCallbacks === void 0 ? void 0 : challengeCallbacks.authorizeRequestOnChallenge }, challengeCallbacks);
+      const callbacks = {
+        authorizeRequest: (_b = (_a = challengeCallbacks === null || challengeCallbacks === void 0 ? void 0 : challengeCallbacks.authorizeRequest) === null || _a === void 0 ? void 0 : _a.bind(challengeCallbacks)) !== null && _b !== void 0 ? _b : defaultAuthorizeRequest,
+        authorizeRequestOnChallenge: (_c = challengeCallbacks === null || challengeCallbacks === void 0 ? void 0 : challengeCallbacks.authorizeRequestOnChallenge) === null || _c === void 0 ? void 0 : _c.bind(challengeCallbacks)
+      };
       const getAccessToken = credential ? (0, tokenCycler_js_1.createTokenCycler)(
         credential
         /* , options */
@@ -28074,22 +27853,61 @@ var require_bearerTokenAuthenticationPolicy = __commonJS({
           });
           let response;
           let error2;
-          try {
-            response = await next(request);
-          } catch (err) {
-            error2 = err;
-            response = err.response;
-          }
-          if (callbacks.authorizeRequestOnChallenge && (response === null || response === void 0 ? void 0 : response.status) === 401 && getChallenge(response)) {
-            const shouldSendRequest = await callbacks.authorizeRequestOnChallenge({
-              scopes: Array.isArray(scopes) ? scopes : [scopes],
-              request,
-              response,
-              getAccessToken,
-              logger
-            });
-            if (shouldSendRequest) {
-              return next(request);
+          let shouldSendRequest;
+          [response, error2] = await trySendRequest(request, next);
+          if (isChallengeResponse(response)) {
+            let claims = getCaeChallengeClaims(response.headers.get("WWW-Authenticate"));
+            if (claims) {
+              let parsedClaim;
+              try {
+                parsedClaim = atob(claims);
+              } catch (e) {
+                logger.warning(`The WWW-Authenticate header contains "claims" that cannot be parsed. Unable to perform the Continuous Access Evaluation authentication flow. Unparsable claims: ${claims}`);
+                return response;
+              }
+              shouldSendRequest = await authorizeRequestOnCaeChallenge({
+                scopes: Array.isArray(scopes) ? scopes : [scopes],
+                response,
+                request,
+                getAccessToken,
+                logger
+              }, parsedClaim);
+              if (shouldSendRequest) {
+                [response, error2] = await trySendRequest(request, next);
+              }
+            } else if (callbacks.authorizeRequestOnChallenge) {
+              shouldSendRequest = await callbacks.authorizeRequestOnChallenge({
+                scopes: Array.isArray(scopes) ? scopes : [scopes],
+                request,
+                response,
+                getAccessToken,
+                logger
+              });
+              if (shouldSendRequest) {
+                [response, error2] = await trySendRequest(request, next);
+              }
+              if (isChallengeResponse(response)) {
+                claims = getCaeChallengeClaims(response.headers.get("WWW-Authenticate"));
+                if (claims) {
+                  let parsedClaim;
+                  try {
+                    parsedClaim = atob(claims);
+                  } catch (e) {
+                    logger.warning(`The WWW-Authenticate header contains "claims" that cannot be parsed. Unable to perform the Continuous Access Evaluation authentication flow. Unparsable claims: ${claims}`);
+                    return response;
+                  }
+                  shouldSendRequest = await authorizeRequestOnCaeChallenge({
+                    scopes: Array.isArray(scopes) ? scopes : [scopes],
+                    response,
+                    request,
+                    getAccessToken,
+                    logger
+                  }, parsedClaim);
+                  if (shouldSendRequest) {
+                    [response, error2] = await trySendRequest(request, next);
+                  }
+                }
+              }
             }
           }
           if (error2) {
@@ -28100,16 +27918,41 @@ var require_bearerTokenAuthenticationPolicy = __commonJS({
         }
       };
     }
-    exports2.bearerTokenAuthenticationPolicy = bearerTokenAuthenticationPolicy;
+    function parseChallenges(challenges) {
+      const challengeRegex = /(\w+)\s+((?:\w+=(?:"[^"]*"|[^,]*),?\s*)+)/g;
+      const paramRegex = /(\w+)="([^"]*)"/g;
+      const parsedChallenges = [];
+      let match;
+      while ((match = challengeRegex.exec(challenges)) !== null) {
+        const scheme = match[1];
+        const paramsString = match[2];
+        const params = {};
+        let paramMatch;
+        while ((paramMatch = paramRegex.exec(paramsString)) !== null) {
+          params[paramMatch[1]] = paramMatch[2];
+        }
+        parsedChallenges.push({ scheme, params });
+      }
+      return parsedChallenges;
+    }
+    function getCaeChallengeClaims(challenges) {
+      var _a;
+      if (!challenges) {
+        return;
+      }
+      const parsedChallenges = parseChallenges(challenges);
+      return (_a = parsedChallenges.find((x) => x.scheme === "Bearer" && x.params.claims && x.params.error === "insufficient_claims")) === null || _a === void 0 ? void 0 : _a.params.claims;
+    }
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/ndJsonPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/ndJsonPolicy.js
 var require_ndJsonPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/ndJsonPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/ndJsonPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ndJsonPolicy = exports2.ndJsonPolicyName = void 0;
+    exports2.ndJsonPolicyName = void 0;
+    exports2.ndJsonPolicy = ndJsonPolicy;
     exports2.ndJsonPolicyName = "ndJsonPolicy";
     function ndJsonPolicy() {
       return {
@@ -28125,16 +27968,16 @@ var require_ndJsonPolicy = __commonJS({
         }
       };
     }
-    exports2.ndJsonPolicy = ndJsonPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/auxiliaryAuthenticationHeaderPolicy.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/auxiliaryAuthenticationHeaderPolicy.js
 var require_auxiliaryAuthenticationHeaderPolicy = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/auxiliaryAuthenticationHeaderPolicy.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/policies/auxiliaryAuthenticationHeaderPolicy.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.auxiliaryAuthenticationHeaderPolicy = exports2.auxiliaryAuthenticationHeaderPolicyName = void 0;
+    exports2.auxiliaryAuthenticationHeaderPolicyName = void 0;
+    exports2.auxiliaryAuthenticationHeaderPolicy = auxiliaryAuthenticationHeaderPolicy;
     var tokenCycler_js_1 = require_tokenCycler();
     var log_js_1 = require_log2();
     exports2.auxiliaryAuthenticationHeaderPolicyName = "auxiliaryAuthenticationHeaderPolicy";
@@ -28186,13 +28029,12 @@ var require_auxiliaryAuthenticationHeaderPolicy = __commonJS({
         }
       };
     }
-    exports2.auxiliaryAuthenticationHeaderPolicy = auxiliaryAuthenticationHeaderPolicy;
   }
 });
 
-// node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/index.js
+// node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/index.js
 var require_commonjs5 = __commonJS({
-  "node_modules/.pnpm/@azure+core-rest-pipeline@1.16.0/node_modules/@azure/core-rest-pipeline/dist/commonjs/index.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-rest-pipeline@1.18.1/node_modules/@azure/core-rest-pipeline/dist/commonjs/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createFileFromStream = exports2.createFile = exports2.auxiliaryAuthenticationHeaderPolicyName = exports2.auxiliaryAuthenticationHeaderPolicy = exports2.ndJsonPolicyName = exports2.ndJsonPolicy = exports2.bearerTokenAuthenticationPolicyName = exports2.bearerTokenAuthenticationPolicy = exports2.formDataPolicyName = exports2.formDataPolicy = exports2.tlsPolicyName = exports2.tlsPolicy = exports2.userAgentPolicyName = exports2.userAgentPolicy = exports2.defaultRetryPolicy = exports2.tracingPolicyName = exports2.tracingPolicy = exports2.retryPolicy = exports2.throttlingRetryPolicyName = exports2.throttlingRetryPolicy = exports2.systemErrorRetryPolicyName = exports2.systemErrorRetryPolicy = exports2.redirectPolicyName = exports2.redirectPolicy = exports2.getDefaultProxySettings = exports2.proxyPolicyName = exports2.proxyPolicy = exports2.multipartPolicyName = exports2.multipartPolicy = exports2.logPolicyName = exports2.logPolicy = exports2.setClientRequestIdPolicyName = exports2.setClientRequestIdPolicy = exports2.exponentialRetryPolicyName = exports2.exponentialRetryPolicy = exports2.decompressResponsePolicyName = exports2.decompressResponsePolicy = exports2.isRestError = exports2.RestError = exports2.createPipelineRequest = exports2.createHttpHeaders = exports2.createDefaultHttpClient = exports2.createPipelineFromOptions = exports2.createEmptyPipeline = void 0;
@@ -28356,9 +28198,9 @@ var require_commonjs5 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/azureKeyCredential.js
+// node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/azureKeyCredential.js
 var require_azureKeyCredential = __commonJS({
-  "node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/azureKeyCredential.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/azureKeyCredential.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.AzureKeyCredential = void 0;
@@ -28397,26 +28239,26 @@ var require_azureKeyCredential = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/keyCredential.js
+// node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/keyCredential.js
 var require_keyCredential = __commonJS({
-  "node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/keyCredential.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/keyCredential.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isKeyCredential = void 0;
+    exports2.isKeyCredential = isKeyCredential;
     var core_util_1 = require_commonjs3();
     function isKeyCredential(credential) {
       return (0, core_util_1.isObjectWithProperties)(credential, ["key"]) && typeof credential.key === "string";
     }
-    exports2.isKeyCredential = isKeyCredential;
   }
 });
 
-// node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/azureNamedKeyCredential.js
+// node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/azureNamedKeyCredential.js
 var require_azureNamedKeyCredential = __commonJS({
-  "node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/azureNamedKeyCredential.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/azureNamedKeyCredential.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isNamedKeyCredential = exports2.AzureNamedKeyCredential = void 0;
+    exports2.AzureNamedKeyCredential = void 0;
+    exports2.isNamedKeyCredential = isNamedKeyCredential;
     var core_util_1 = require_commonjs3();
     var AzureNamedKeyCredential = class {
       /**
@@ -28466,16 +28308,16 @@ var require_azureNamedKeyCredential = __commonJS({
     function isNamedKeyCredential(credential) {
       return (0, core_util_1.isObjectWithProperties)(credential, ["name", "key"]) && typeof credential.key === "string" && typeof credential.name === "string";
     }
-    exports2.isNamedKeyCredential = isNamedKeyCredential;
   }
 });
 
-// node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/azureSASCredential.js
+// node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/azureSASCredential.js
 var require_azureSASCredential = __commonJS({
-  "node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/azureSASCredential.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/azureSASCredential.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isSASCredential = exports2.AzureSASCredential = void 0;
+    exports2.AzureSASCredential = void 0;
+    exports2.isSASCredential = isSASCredential;
     var core_util_1 = require_commonjs3();
     var AzureSASCredential = class {
       /**
@@ -28515,27 +28357,33 @@ var require_azureSASCredential = __commonJS({
     function isSASCredential(credential) {
       return (0, core_util_1.isObjectWithProperties)(credential, ["signature"]) && typeof credential.signature === "string";
     }
-    exports2.isSASCredential = isSASCredential;
   }
 });
 
-// node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/tokenCredential.js
+// node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/tokenCredential.js
 var require_tokenCredential = __commonJS({
-  "node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/tokenCredential.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/tokenCredential.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isTokenCredential = void 0;
+    exports2.isBearerToken = isBearerToken;
+    exports2.isPopToken = isPopToken;
+    exports2.isTokenCredential = isTokenCredential;
+    function isBearerToken(accessToken) {
+      return !accessToken.tokenType || accessToken.tokenType === "Bearer";
+    }
+    function isPopToken(accessToken) {
+      return accessToken.tokenType === "pop";
+    }
     function isTokenCredential(credential) {
       const castCredential = credential;
       return castCredential && typeof castCredential.getToken === "function" && (castCredential.signRequest === void 0 || castCredential.getToken.length > 0);
     }
-    exports2.isTokenCredential = isTokenCredential;
   }
 });
 
-// node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/index.js
+// node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/index.js
 var require_commonjs6 = __commonJS({
-  "node_modules/.pnpm/@azure+core-auth@1.7.2/node_modules/@azure/core-auth/dist/commonjs/index.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-auth@1.9.0/node_modules/@azure/core-auth/dist/commonjs/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.isTokenCredential = exports2.isSASCredential = exports2.AzureSASCredential = exports2.isNamedKeyCredential = exports2.AzureNamedKeyCredential = exports2.isKeyCredential = exports2.AzureKeyCredential = void 0;
@@ -29611,7 +29459,7 @@ var require_deserializationPolicy = __commonJS({
       return result;
     }
     async function deserializeResponseBody(jsonContentTypes, xmlContentTypes, response, options, parseXML) {
-      const parsedResponse = await parse3(jsonContentTypes, xmlContentTypes, response, options, parseXML);
+      const parsedResponse = await parse2(jsonContentTypes, xmlContentTypes, response, options, parseXML);
       if (!shouldDeserializeResponse(parsedResponse)) {
         return parsedResponse;
       }
@@ -29713,7 +29561,7 @@ var require_deserializationPolicy = __commonJS({
       }
       return { error: error2, shouldReturnResponse: false };
     }
-    async function parse3(jsonContentTypes, xmlContentTypes, operationResponse, opts, parseXML) {
+    async function parse2(jsonContentTypes, xmlContentTypes, operationResponse, opts, parseXML) {
       var _a;
       if (!((_a = operationResponse.request.streamResponseStatusCodes) === null || _a === void 0 ? void 0 : _a.has(operationResponse.status)) && operationResponse.bodyAsText) {
         const text = operationResponse.bodyAsText;
@@ -30958,9 +30806,9 @@ var require_commonjs8 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/util.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/util.js
 var require_util9 = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/util.js"(exports2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/util.js"(exports2) {
     "use strict";
     var nameStartChar = ":A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD";
     var nameChar = nameStartChar + "\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040";
@@ -31017,9 +30865,9 @@ var require_util9 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/validator.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/validator.js
 var require_validator = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/validator.js"(exports2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/validator.js"(exports2) {
     "use strict";
     var util = require_util9();
     var defaultOptions = {
@@ -31329,9 +31177,9 @@ var require_validator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/OptionsBuilder.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/OptionsBuilder.js
 var require_OptionsBuilder = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/OptionsBuilder.js"(exports2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/OptionsBuilder.js"(exports2) {
     var defaultOptions = {
       preserveOrder: false,
       attributeNamePrefix: "@_",
@@ -31353,11 +31201,11 @@ var require_OptionsBuilder = __commonJS({
         leadingZeros: true,
         eNotation: true
       },
-      tagValueProcessor: function(tagName, val2) {
-        return val2;
+      tagValueProcessor: function(tagName, val) {
+        return val;
       },
-      attributeValueProcessor: function(attrName, val2) {
-        return val2;
+      attributeValueProcessor: function(attrName, val) {
+        return val;
       },
       stopNodes: [],
       //nested tags will not be parsed even for errors
@@ -31384,9 +31232,9 @@ var require_OptionsBuilder = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/xmlNode.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/xmlNode.js
 var require_xmlNode = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/xmlNode.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/xmlNode.js"(exports2, module2) {
     "use strict";
     var XmlNode = class {
       constructor(tagname) {
@@ -31394,9 +31242,9 @@ var require_xmlNode = __commonJS({
         this.child = [];
         this[":@"] = {};
       }
-      add(key, val2) {
+      add(key, val) {
         if (key === "__proto__") key = "#__proto__";
-        this.child.push({ [key]: val2 });
+        this.child.push({ [key]: val });
       }
       addChild(node) {
         if (node.tagname === "__proto__") node.tagname = "#__proto__";
@@ -31411,9 +31259,9 @@ var require_xmlNode = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js
 var require_DocTypeReader = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/DocTypeReader.js"(exports2, module2) {
     var util = require_util9();
     function readDocType(xmlData, i) {
       const entities = {};
@@ -31426,6 +31274,7 @@ var require_DocTypeReader = __commonJS({
           if (xmlData[i] === "<" && !comment) {
             if (hasBody && isEntity(xmlData, i)) {
               i += 7;
+              let entityName, val;
               [entityName, val, i] = readEntityExp(xmlData, i + 1);
               if (val.indexOf("&") === -1)
                 entities[validateEntityName(entityName)] = {
@@ -31466,18 +31315,18 @@ var require_DocTypeReader = __commonJS({
       return { entities, i };
     }
     function readEntityExp(xmlData, i) {
-      let entityName2 = "";
+      let entityName = "";
       for (; i < xmlData.length && (xmlData[i] !== "'" && xmlData[i] !== '"'); i++) {
-        entityName2 += xmlData[i];
+        entityName += xmlData[i];
       }
-      entityName2 = entityName2.trim();
-      if (entityName2.indexOf(" ") !== -1) throw new Error("External entites are not supported");
+      entityName = entityName.trim();
+      if (entityName.indexOf(" ") !== -1) throw new Error("External entites are not supported");
       const startChar = xmlData[i++];
-      let val2 = "";
+      let val = "";
       for (; i < xmlData.length && xmlData[i] !== startChar; i++) {
-        val2 += xmlData[i];
+        val += xmlData[i];
       }
-      return [entityName2, val2, i];
+      return [entityName, val, i];
     }
     function isComment(xmlData, i) {
       if (xmlData[i + 1] === "!" && xmlData[i + 2] === "-" && xmlData[i + 3] === "-") return true;
@@ -31586,14 +31435,40 @@ var require_strnum = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/ignoreAttributes.js
+var require_ignoreAttributes = __commonJS({
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/ignoreAttributes.js"(exports2, module2) {
+    function getIgnoreAttributesFn(ignoreAttributes) {
+      if (typeof ignoreAttributes === "function") {
+        return ignoreAttributes;
+      }
+      if (Array.isArray(ignoreAttributes)) {
+        return (attrName) => {
+          for (const pattern of ignoreAttributes) {
+            if (typeof pattern === "string" && attrName === pattern) {
+              return true;
+            }
+            if (pattern instanceof RegExp && pattern.test(attrName)) {
+              return true;
+            }
+          }
+        };
+      }
+      return () => false;
+    }
+    module2.exports = getIgnoreAttributesFn;
+  }
+});
+
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js
 var require_OrderedObjParser = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/OrderedObjParser.js"(exports2, module2) {
     "use strict";
     var util = require_util9();
     var xmlNode = require_xmlNode();
     var readDocType = require_DocTypeReader();
     var toNumber = require_strnum();
+    var getIgnoreAttributesFn = require_ignoreAttributes();
     var OrderedObjParser = class {
       constructor(options) {
         this.options = options;
@@ -31634,6 +31509,7 @@ var require_OrderedObjParser = __commonJS({
         this.readStopNodeData = readStopNodeData;
         this.saveTextToParentTag = saveTextToParentTag;
         this.addChild = addChild;
+        this.ignoreAttributesFn = getIgnoreAttributesFn(this.options.ignoreAttributes);
       }
     };
     function addExternalEntities(externalEntities) {
@@ -31646,26 +31522,26 @@ var require_OrderedObjParser = __commonJS({
         };
       }
     }
-    function parseTextData(val2, tagName, jPath, dontTrim, hasAttributes, isLeafNode, escapeEntities) {
-      if (val2 !== void 0) {
+    function parseTextData(val, tagName, jPath, dontTrim, hasAttributes, isLeafNode, escapeEntities) {
+      if (val !== void 0) {
         if (this.options.trimValues && !dontTrim) {
-          val2 = val2.trim();
+          val = val.trim();
         }
-        if (val2.length > 0) {
-          if (!escapeEntities) val2 = this.replaceEntitiesValue(val2);
-          const newval = this.options.tagValueProcessor(tagName, val2, jPath, hasAttributes, isLeafNode);
+        if (val.length > 0) {
+          if (!escapeEntities) val = this.replaceEntitiesValue(val);
+          const newval = this.options.tagValueProcessor(tagName, val, jPath, hasAttributes, isLeafNode);
           if (newval === null || newval === void 0) {
-            return val2;
-          } else if (typeof newval !== typeof val2 || newval !== val2) {
+            return val;
+          } else if (typeof newval !== typeof val || newval !== val) {
             return newval;
           } else if (this.options.trimValues) {
-            return parseValue(val2, this.options.parseTagValue, this.options.numberParseOptions);
+            return parseValue(val, this.options.parseTagValue, this.options.numberParseOptions);
           } else {
-            const trimmedVal = val2.trim();
-            if (trimmedVal === val2) {
-              return parseValue(val2, this.options.parseTagValue, this.options.numberParseOptions);
+            const trimmedVal = val.trim();
+            if (trimmedVal === val) {
+              return parseValue(val, this.options.parseTagValue, this.options.numberParseOptions);
             } else {
-              return val2;
+              return val;
             }
           }
         }
@@ -31686,12 +31562,15 @@ var require_OrderedObjParser = __commonJS({
     }
     var attrsRegx = new RegExp(`([^\\s=]+)\\s*(=\\s*(['"])([\\s\\S]*?)\\3)?`, "gm");
     function buildAttributesMap(attrStr, jPath, tagName) {
-      if (!this.options.ignoreAttributes && typeof attrStr === "string") {
+      if (this.options.ignoreAttributes !== true && typeof attrStr === "string") {
         const matches = util.getAllMatches(attrStr, attrsRegx);
         const len = matches.length;
         const attrs = {};
         for (let i = 0; i < len; i++) {
           const attrName = this.resolveNameSpace(matches[i][1]);
+          if (this.ignoreAttributesFn(attrName, jPath)) {
+            continue;
+          }
           let oldVal = matches[i][4];
           let aName = this.options.attributeNamePrefix + attrName;
           if (attrName.length) {
@@ -31801,12 +31680,12 @@ var require_OrderedObjParser = __commonJS({
             const closeIndex = findClosingIndex(xmlData, "]]>", i, "CDATA is not closed.") - 2;
             const tagExp = xmlData.substring(i + 9, closeIndex);
             textData = this.saveTextToParentTag(textData, currentNode, jPath);
-            let val2 = this.parseTextData(tagExp, currentNode.tagname, jPath, true, false, true, true);
-            if (val2 == void 0) val2 = "";
+            let val = this.parseTextData(tagExp, currentNode.tagname, jPath, true, false, true, true);
+            if (val == void 0) val = "";
             if (this.options.cdataPropName) {
               currentNode.add(this.options.cdataPropName, [{ [this.options.textNodeName]: tagExp }]);
             } else {
-              currentNode.add(this.options.textNodeName, val2);
+              currentNode.add(this.options.textNodeName, val);
             }
             i = closeIndex + 2;
           } else {
@@ -31908,25 +31787,25 @@ var require_OrderedObjParser = __commonJS({
         currentNode.addChild(childNode);
       }
     }
-    var replaceEntitiesValue = function(val2) {
+    var replaceEntitiesValue = function(val) {
       if (this.options.processEntities) {
-        for (let entityName2 in this.docTypeEntities) {
-          const entity = this.docTypeEntities[entityName2];
-          val2 = val2.replace(entity.regx, entity.val);
+        for (let entityName in this.docTypeEntities) {
+          const entity = this.docTypeEntities[entityName];
+          val = val.replace(entity.regx, entity.val);
         }
-        for (let entityName2 in this.lastEntities) {
-          const entity = this.lastEntities[entityName2];
-          val2 = val2.replace(entity.regex, entity.val);
+        for (let entityName in this.lastEntities) {
+          const entity = this.lastEntities[entityName];
+          val = val.replace(entity.regex, entity.val);
         }
         if (this.options.htmlEntities) {
-          for (let entityName2 in this.htmlEntities) {
-            const entity = this.htmlEntities[entityName2];
-            val2 = val2.replace(entity.regex, entity.val);
+          for (let entityName in this.htmlEntities) {
+            const entity = this.htmlEntities[entityName];
+            val = val.replace(entity.regex, entity.val);
           }
         }
-        val2 = val2.replace(this.ampEntity.regex, this.ampEntity.val);
+        val = val.replace(this.ampEntity.regex, this.ampEntity.val);
       }
-      return val2;
+      return val;
     };
     function saveTextToParentTag(textData, currentNode, jPath, isLeafNode) {
       if (textData) {
@@ -32058,15 +31937,15 @@ var require_OrderedObjParser = __commonJS({
         }
       }
     }
-    function parseValue(val2, shouldParse, options) {
-      if (shouldParse && typeof val2 === "string") {
-        const newval = val2.trim();
+    function parseValue(val, shouldParse, options) {
+      if (shouldParse && typeof val === "string") {
+        const newval = val.trim();
         if (newval === "true") return true;
         else if (newval === "false") return false;
-        else return toNumber(val2, options);
+        else return toNumber(val, options);
       } else {
-        if (util.isExist(val2)) {
-          return val2;
+        if (util.isExist(val)) {
+          return val;
         } else {
           return "";
         }
@@ -32076,9 +31955,9 @@ var require_OrderedObjParser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/node2json.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/node2json.js
 var require_node2json = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/node2json.js"(exports2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/node2json.js"(exports2) {
     "use strict";
     function prettify(node, options) {
       return compress(node, options);
@@ -32098,26 +31977,26 @@ var require_node2json = __commonJS({
         } else if (property === void 0) {
           continue;
         } else if (tagObj[property]) {
-          let val2 = compress(tagObj[property], options, newJpath);
-          const isLeaf = isLeafTag(val2, options);
+          let val = compress(tagObj[property], options, newJpath);
+          const isLeaf = isLeafTag(val, options);
           if (tagObj[":@"]) {
-            assignAttributes(val2, tagObj[":@"], newJpath, options);
-          } else if (Object.keys(val2).length === 1 && val2[options.textNodeName] !== void 0 && !options.alwaysCreateTextNode) {
-            val2 = val2[options.textNodeName];
-          } else if (Object.keys(val2).length === 0) {
-            if (options.alwaysCreateTextNode) val2[options.textNodeName] = "";
-            else val2 = "";
+            assignAttributes(val, tagObj[":@"], newJpath, options);
+          } else if (Object.keys(val).length === 1 && val[options.textNodeName] !== void 0 && !options.alwaysCreateTextNode) {
+            val = val[options.textNodeName];
+          } else if (Object.keys(val).length === 0) {
+            if (options.alwaysCreateTextNode) val[options.textNodeName] = "";
+            else val = "";
           }
           if (compressedObj[property] !== void 0 && compressedObj.hasOwnProperty(property)) {
             if (!Array.isArray(compressedObj[property])) {
               compressedObj[property] = [compressedObj[property]];
             }
-            compressedObj[property].push(val2);
+            compressedObj[property].push(val);
           } else {
             if (options.isArray(property, newJpath, isLeaf)) {
-              compressedObj[property] = [val2];
+              compressedObj[property] = [val];
             } else {
-              compressedObj[property] = val2;
+              compressedObj[property] = val;
             }
           }
         }
@@ -32163,9 +32042,9 @@ var require_node2json = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/XMLParser.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/XMLParser.js
 var require_XMLParser = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlparser/XMLParser.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlparser/XMLParser.js"(exports2, module2) {
     var { buildOptions } = require_OptionsBuilder();
     var OrderedObjParser = require_OrderedObjParser();
     var { prettify } = require_node2json();
@@ -32221,9 +32100,9 @@ var require_XMLParser = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js
 var require_orderedJs2Xml = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlbuilder/orderedJs2Xml.js"(exports2, module2) {
     var EOL = "\n";
     function toXml(jArray, options) {
       let indentation = "";
@@ -32346,11 +32225,12 @@ var require_orderedJs2Xml = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js
 var require_json2xml = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/xmlbuilder/json2xml.js"(exports2, module2) {
     "use strict";
     var buildFromOrderedJs = require_orderedJs2Xml();
+    var getIgnoreAttributesFn = require_ignoreAttributes();
     var defaultOptions = {
       attributeNamePrefix: "@_",
       attributesGroupName: false,
@@ -32387,11 +32267,12 @@ var require_json2xml = __commonJS({
     };
     function Builder(options) {
       this.options = Object.assign({}, defaultOptions, options);
-      if (this.options.ignoreAttributes || this.options.attributesGroupName) {
+      if (this.options.ignoreAttributes === true || this.options.attributesGroupName) {
         this.isAttribute = function() {
           return false;
         };
       } else {
+        this.ignoreAttributesFn = getIgnoreAttributesFn(this.options.ignoreAttributes);
         this.attrPrefixLen = this.options.attributeNamePrefix.length;
         this.isAttribute = isAttribute;
       }
@@ -32417,63 +32298,75 @@ var require_json2xml = __commonJS({
             [this.options.arrayNodeName]: jObj
           };
         }
-        return this.j2x(jObj, 0).val;
+        return this.j2x(jObj, 0, []).val;
       }
     };
-    Builder.prototype.j2x = function(jObj, level) {
+    Builder.prototype.j2x = function(jObj, level, ajPath) {
       let attrStr = "";
-      let val2 = "";
+      let val = "";
+      const jPath = ajPath.join(".");
       for (let key in jObj) {
         if (!Object.prototype.hasOwnProperty.call(jObj, key)) continue;
         if (typeof jObj[key] === "undefined") {
           if (this.isAttribute(key)) {
-            val2 += "";
+            val += "";
           }
         } else if (jObj[key] === null) {
           if (this.isAttribute(key)) {
-            val2 += "";
+            val += "";
           } else if (key[0] === "?") {
-            val2 += this.indentate(level) + "<" + key + "?" + this.tagEndChar;
+            val += this.indentate(level) + "<" + key + "?" + this.tagEndChar;
           } else {
-            val2 += this.indentate(level) + "<" + key + "/" + this.tagEndChar;
+            val += this.indentate(level) + "<" + key + "/" + this.tagEndChar;
           }
         } else if (jObj[key] instanceof Date) {
-          val2 += this.buildTextValNode(jObj[key], key, "", level);
+          val += this.buildTextValNode(jObj[key], key, "", level);
         } else if (typeof jObj[key] !== "object") {
           const attr = this.isAttribute(key);
-          if (attr) {
+          if (attr && !this.ignoreAttributesFn(attr, jPath)) {
             attrStr += this.buildAttrPairStr(attr, "" + jObj[key]);
-          } else {
+          } else if (!attr) {
             if (key === this.options.textNodeName) {
               let newval = this.options.tagValueProcessor(key, "" + jObj[key]);
-              val2 += this.replaceEntitiesValue(newval);
+              val += this.replaceEntitiesValue(newval);
             } else {
-              val2 += this.buildTextValNode(jObj[key], key, "", level);
+              val += this.buildTextValNode(jObj[key], key, "", level);
             }
           }
         } else if (Array.isArray(jObj[key])) {
           const arrLen = jObj[key].length;
           let listTagVal = "";
+          let listTagAttr = "";
           for (let j = 0; j < arrLen; j++) {
             const item = jObj[key][j];
             if (typeof item === "undefined") {
             } else if (item === null) {
-              if (key[0] === "?") val2 += this.indentate(level) + "<" + key + "?" + this.tagEndChar;
-              else val2 += this.indentate(level) + "<" + key + "/" + this.tagEndChar;
+              if (key[0] === "?") val += this.indentate(level) + "<" + key + "?" + this.tagEndChar;
+              else val += this.indentate(level) + "<" + key + "/" + this.tagEndChar;
             } else if (typeof item === "object") {
               if (this.options.oneListGroup) {
-                listTagVal += this.j2x(item, level + 1).val;
+                const result = this.j2x(item, level + 1, ajPath.concat(key));
+                listTagVal += result.val;
+                if (this.options.attributesGroupName && item.hasOwnProperty(this.options.attributesGroupName)) {
+                  listTagAttr += result.attrStr;
+                }
               } else {
-                listTagVal += this.processTextOrObjNode(item, key, level);
+                listTagVal += this.processTextOrObjNode(item, key, level, ajPath);
               }
             } else {
-              listTagVal += this.buildTextValNode(item, key, "", level);
+              if (this.options.oneListGroup) {
+                let textValue = this.options.tagValueProcessor(key, item);
+                textValue = this.replaceEntitiesValue(textValue);
+                listTagVal += textValue;
+              } else {
+                listTagVal += this.buildTextValNode(item, key, "", level);
+              }
             }
           }
           if (this.options.oneListGroup) {
-            listTagVal = this.buildObjectNode(listTagVal, key, "", level);
+            listTagVal = this.buildObjectNode(listTagVal, key, listTagAttr, level);
           }
-          val2 += listTagVal;
+          val += listTagVal;
         } else {
           if (this.options.attributesGroupName && key === this.options.attributesGroupName) {
             const Ks = Object.keys(jObj[key]);
@@ -32482,29 +32375,29 @@ var require_json2xml = __commonJS({
               attrStr += this.buildAttrPairStr(Ks[j], "" + jObj[key][Ks[j]]);
             }
           } else {
-            val2 += this.processTextOrObjNode(jObj[key], key, level);
+            val += this.processTextOrObjNode(jObj[key], key, level, ajPath);
           }
         }
       }
-      return { attrStr, val: val2 };
+      return { attrStr, val };
     };
-    Builder.prototype.buildAttrPairStr = function(attrName, val2) {
-      val2 = this.options.attributeValueProcessor(attrName, "" + val2);
-      val2 = this.replaceEntitiesValue(val2);
-      if (this.options.suppressBooleanAttributes && val2 === "true") {
+    Builder.prototype.buildAttrPairStr = function(attrName, val) {
+      val = this.options.attributeValueProcessor(attrName, "" + val);
+      val = this.replaceEntitiesValue(val);
+      if (this.options.suppressBooleanAttributes && val === "true") {
         return " " + attrName;
-      } else return " " + attrName + '="' + val2 + '"';
+      } else return " " + attrName + '="' + val + '"';
     };
-    function processTextOrObjNode(object2, key, level) {
-      const result = this.j2x(object2, level + 1);
+    function processTextOrObjNode(object2, key, level, ajPath) {
+      const result = this.j2x(object2, level + 1, ajPath.concat(key));
       if (object2[this.options.textNodeName] !== void 0 && Object.keys(object2).length === 1) {
         return this.buildTextValNode(object2[this.options.textNodeName], key, result.attrStr, level);
       } else {
         return this.buildObjectNode(result.val, key, result.attrStr, level);
       }
     }
-    Builder.prototype.buildObjectNode = function(val2, key, attrStr, level) {
-      if (val2 === "") {
+    Builder.prototype.buildObjectNode = function(val, key, attrStr, level) {
+      if (val === "") {
         if (key[0] === "?") return this.indentate(level) + "<" + key + attrStr + "?" + this.tagEndChar;
         else {
           return this.indentate(level) + "<" + key + attrStr + this.closeTag(key) + this.tagEndChar;
@@ -32516,12 +32409,12 @@ var require_json2xml = __commonJS({
           piClosingChar = "?";
           tagEndExp = "";
         }
-        if ((attrStr || attrStr === "") && val2.indexOf("<") === -1) {
-          return this.indentate(level) + "<" + key + attrStr + piClosingChar + ">" + val2 + tagEndExp;
+        if ((attrStr || attrStr === "") && val.indexOf("<") === -1) {
+          return this.indentate(level) + "<" + key + attrStr + piClosingChar + ">" + val + tagEndExp;
         } else if (this.options.commentPropName !== false && key === this.options.commentPropName && piClosingChar.length === 0) {
-          return this.indentate(level) + `<!--${val2}-->` + this.newLine;
+          return this.indentate(level) + `<!--${val}-->` + this.newLine;
         } else {
-          return this.indentate(level) + "<" + key + attrStr + piClosingChar + this.tagEndChar + val2 + this.indentate(level) + tagEndExp;
+          return this.indentate(level) + "<" + key + attrStr + piClosingChar + this.tagEndChar + val + this.indentate(level) + tagEndExp;
         }
       }
     };
@@ -32536,15 +32429,15 @@ var require_json2xml = __commonJS({
       }
       return closeTag;
     };
-    Builder.prototype.buildTextValNode = function(val2, key, attrStr, level) {
+    Builder.prototype.buildTextValNode = function(val, key, attrStr, level) {
       if (this.options.cdataPropName !== false && key === this.options.cdataPropName) {
-        return this.indentate(level) + `<![CDATA[${val2}]]>` + this.newLine;
+        return this.indentate(level) + `<![CDATA[${val}]]>` + this.newLine;
       } else if (this.options.commentPropName !== false && key === this.options.commentPropName) {
-        return this.indentate(level) + `<!--${val2}-->` + this.newLine;
+        return this.indentate(level) + `<!--${val}-->` + this.newLine;
       } else if (key[0] === "?") {
         return this.indentate(level) + "<" + key + attrStr + "?" + this.tagEndChar;
       } else {
-        let textValue = this.options.tagValueProcessor(key, val2);
+        let textValue = this.options.tagValueProcessor(key, val);
         textValue = this.replaceEntitiesValue(textValue);
         if (textValue === "") {
           return this.indentate(level) + "<" + key + attrStr + this.closeTag(key) + this.tagEndChar;
@@ -32576,9 +32469,9 @@ var require_json2xml = __commonJS({
   }
 });
 
-// node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/fxp.js
+// node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/fxp.js
 var require_fxp = __commonJS({
-  "node_modules/.pnpm/fast-xml-parser@4.4.0/node_modules/fast-xml-parser/src/fxp.js"(exports2, module2) {
+  "node_modules/.pnpm/fast-xml-parser@4.5.1/node_modules/fast-xml-parser/src/fxp.js"(exports2, module2) {
     "use strict";
     var validator = require_validator();
     var XMLParser = require_XMLParser();
@@ -32591,9 +32484,9 @@ var require_fxp = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-xml@1.4.2/node_modules/@azure/core-xml/dist/commonjs/xml.common.js
+// node_modules/.pnpm/@azure+core-xml@1.4.4/node_modules/@azure/core-xml/dist/commonjs/xml.common.js
 var require_xml_common = __commonJS({
-  "node_modules/.pnpm/@azure+core-xml@1.4.2/node_modules/@azure/core-xml/dist/commonjs/xml.common.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-xml@1.4.4/node_modules/@azure/core-xml/dist/commonjs/xml.common.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.XML_CHARKEY = exports2.XML_ATTRKEY = void 0;
@@ -32602,12 +32495,13 @@ var require_xml_common = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+core-xml@1.4.2/node_modules/@azure/core-xml/dist/commonjs/xml.js
+// node_modules/.pnpm/@azure+core-xml@1.4.4/node_modules/@azure/core-xml/dist/commonjs/xml.js
 var require_xml = __commonJS({
-  "node_modules/.pnpm/@azure+core-xml@1.4.2/node_modules/@azure/core-xml/dist/commonjs/xml.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-xml@1.4.4/node_modules/@azure/core-xml/dist/commonjs/xml.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.parseXML = exports2.stringifyXML = void 0;
+    exports2.stringifyXML = stringifyXML;
+    exports2.parseXML = parseXML;
     var fast_xml_parser_1 = require_fxp();
     var xml_common_js_1 = require_xml_common();
     function getCommonOptions(options) {
@@ -32633,7 +32527,6 @@ var require_xml = __commonJS({
       const xmlData = j2x.build(node);
       return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>${xmlData}`.replace(/\n/g, "");
     }
-    exports2.stringifyXML = stringifyXML;
     async function parseXML(str, opts = {}) {
       if (!str) {
         throw new Error("Document is empty");
@@ -32655,13 +32548,12 @@ var require_xml = __commonJS({
       }
       return parsedXml;
     }
-    exports2.parseXML = parseXML;
   }
 });
 
-// node_modules/.pnpm/@azure+core-xml@1.4.2/node_modules/@azure/core-xml/dist/commonjs/index.js
+// node_modules/.pnpm/@azure+core-xml@1.4.4/node_modules/@azure/core-xml/dist/commonjs/index.js
 var require_commonjs9 = __commonJS({
-  "node_modules/.pnpm/@azure+core-xml@1.4.2/node_modules/@azure/core-xml/dist/commonjs/index.js"(exports2) {
+  "node_modules/.pnpm/@azure+core-xml@1.4.4/node_modules/@azure/core-xml/dist/commonjs/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.XML_CHARKEY = exports2.XML_ATTRKEY = exports2.parseXML = exports2.stringifyXML = void 0;
@@ -32679,150 +32571,6 @@ var require_commonjs9 = __commonJS({
     Object.defineProperty(exports2, "XML_CHARKEY", { enumerable: true, get: function() {
       return xml_common_js_1.XML_CHARKEY;
     } });
-  }
-});
-
-// node_modules/.pnpm/@azure+abort-controller@1.1.0/node_modules/@azure/abort-controller/dist/index.js
-var require_dist4 = __commonJS({
-  "node_modules/.pnpm/@azure+abort-controller@1.1.0/node_modules/@azure/abort-controller/dist/index.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    var listenersMap = /* @__PURE__ */ new WeakMap();
-    var abortedMap = /* @__PURE__ */ new WeakMap();
-    var AbortSignal2 = class _AbortSignal {
-      constructor() {
-        this.onabort = null;
-        listenersMap.set(this, []);
-        abortedMap.set(this, false);
-      }
-      /**
-       * Status of whether aborted or not.
-       *
-       * @readonly
-       */
-      get aborted() {
-        if (!abortedMap.has(this)) {
-          throw new TypeError("Expected `this` to be an instance of AbortSignal.");
-        }
-        return abortedMap.get(this);
-      }
-      /**
-       * Creates a new AbortSignal instance that will never be aborted.
-       *
-       * @readonly
-       */
-      static get none() {
-        return new _AbortSignal();
-      }
-      /**
-       * Added new "abort" event listener, only support "abort" event.
-       *
-       * @param _type - Only support "abort" event
-       * @param listener - The listener to be added
-       */
-      addEventListener(_type, listener) {
-        if (!listenersMap.has(this)) {
-          throw new TypeError("Expected `this` to be an instance of AbortSignal.");
-        }
-        const listeners = listenersMap.get(this);
-        listeners.push(listener);
-      }
-      /**
-       * Remove "abort" event listener, only support "abort" event.
-       *
-       * @param _type - Only support "abort" event
-       * @param listener - The listener to be removed
-       */
-      removeEventListener(_type, listener) {
-        if (!listenersMap.has(this)) {
-          throw new TypeError("Expected `this` to be an instance of AbortSignal.");
-        }
-        const listeners = listenersMap.get(this);
-        const index = listeners.indexOf(listener);
-        if (index > -1) {
-          listeners.splice(index, 1);
-        }
-      }
-      /**
-       * Dispatches a synthetic event to the AbortSignal.
-       */
-      dispatchEvent(_event) {
-        throw new Error("This is a stub dispatchEvent implementation that should not be used.  It only exists for type-checking purposes.");
-      }
-    };
-    function abortSignal(signal) {
-      if (signal.aborted) {
-        return;
-      }
-      if (signal.onabort) {
-        signal.onabort.call(signal);
-      }
-      const listeners = listenersMap.get(signal);
-      if (listeners) {
-        listeners.slice().forEach((listener) => {
-          listener.call(signal, { type: "abort" });
-        });
-      }
-      abortedMap.set(signal, true);
-    }
-    var AbortError = class extends Error {
-      constructor(message) {
-        super(message);
-        this.name = "AbortError";
-      }
-    };
-    var AbortController2 = class {
-      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-      constructor(parentSignals) {
-        this._signal = new AbortSignal2();
-        if (!parentSignals) {
-          return;
-        }
-        if (!Array.isArray(parentSignals)) {
-          parentSignals = arguments;
-        }
-        for (const parentSignal of parentSignals) {
-          if (parentSignal.aborted) {
-            this.abort();
-          } else {
-            parentSignal.addEventListener("abort", () => {
-              this.abort();
-            });
-          }
-        }
-      }
-      /**
-       * The AbortSignal associated with this controller that will signal aborted
-       * when the abort method is called on this controller.
-       *
-       * @readonly
-       */
-      get signal() {
-        return this._signal;
-      }
-      /**
-       * Signal that any operations passed this controller's associated abort signal
-       * to cancel any remaining work and throw an `AbortError`.
-       */
-      abort() {
-        abortSignal(this._signal);
-      }
-      /**
-       * Creates a new AbortSignal instance that will abort after the provided ms.
-       * @param ms - Elapsed time in milliseconds to trigger an abort.
-       */
-      static timeout(ms) {
-        const signal = new AbortSignal2();
-        const timer = setTimeout(abortSignal, ms, signal);
-        if (typeof timer.unref === "function") {
-          timer.unref();
-        }
-        return signal;
-      }
-    };
-    exports2.AbortController = AbortController2;
-    exports2.AbortError = AbortError;
-    exports2.AbortSignal = AbortSignal2;
   }
 });
 
@@ -33983,9 +33731,9 @@ var require_commonjs10 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@azure+storage-blob@12.23.0/node_modules/@azure/storage-blob/dist/index.js
-var require_dist5 = __commonJS({
-  "node_modules/.pnpm/@azure+storage-blob@12.23.0/node_modules/@azure/storage-blob/dist/index.js"(exports2) {
+// node_modules/.pnpm/@azure+storage-blob@12.26.0/node_modules/@azure/storage-blob/dist/index.js
+var require_dist4 = __commonJS({
+  "node_modules/.pnpm/@azure+storage-blob@12.26.0/node_modules/@azure/storage-blob/dist/index.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     var coreRestPipeline = require_commonjs5();
@@ -33996,8 +33744,8 @@ var require_dist5 = __commonJS({
     var coreClient = require_commonjs7();
     var coreXml = require_commonjs9();
     var logger$1 = require_commonjs();
-    var abortController = require_dist4();
-    var crypto5 = require("crypto");
+    var abortController = require_commonjs2();
+    var crypto2 = require("crypto");
     var coreTracing = require_commonjs4();
     var stream = require("stream");
     var coreLro = require_commonjs10();
@@ -34054,8 +33802,8 @@ var require_dist5 = __commonJS({
         this._options.log(logLevel, message);
       }
     };
-    var SDK_VERSION = "12.23.0";
-    var SERVICE_VERSION = "2024-05-04";
+    var SDK_VERSION = "12.26.0";
+    var SERVICE_VERSION = "2025-01-05";
     var BLOCK_BLOB_MAX_UPLOAD_BLOB_BYTES = 256 * 1024 * 1024;
     var BLOCK_BLOB_MAX_STAGE_BLOCK_BYTES = 4e3 * 1024 * 1024;
     var BLOCK_BLOB_MAX_BLOCKS = 5e4;
@@ -34103,7 +33851,8 @@ var require_dist5 = __commonJS({
       X_MS_COPY_SOURCE: "x-ms-copy-source",
       X_MS_DATE: "x-ms-date",
       X_MS_ERROR_CODE: "x-ms-error-code",
-      X_MS_VERSION: "x-ms-version"
+      X_MS_VERSION: "x-ms-version",
+      X_MS_CopySourceErrorCode: "x-ms-copy-source-error-code"
     };
     var ETagNone = "";
     var ETagAny = "*";
@@ -34207,6 +33956,8 @@ var require_dist5 = __commonJS({
       "x-ms-source-if-unmodified-since",
       "x-ms-tag-count",
       "x-ms-encryption-key-sha256",
+      "x-ms-copy-source-error-code",
+      "x-ms-copy-source-status-code",
       "x-ms-if-tags",
       "x-ms-source-if-tags"
     ];
@@ -34924,6 +34675,429 @@ var require_dist5 = __commonJS({
         return request;
       }
     };
+    var table_lv0 = new Uint32Array([
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1820,
+      0,
+      1823,
+      1825,
+      1827,
+      1829,
+      0,
+      0,
+      0,
+      1837,
+      2051,
+      0,
+      0,
+      1843,
+      0,
+      3331,
+      3354,
+      3356,
+      3358,
+      3360,
+      3362,
+      3364,
+      3366,
+      3368,
+      3370,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      3586,
+      3593,
+      3594,
+      3610,
+      3617,
+      3619,
+      3621,
+      3628,
+      3634,
+      3637,
+      3638,
+      3656,
+      3665,
+      3696,
+      3708,
+      3710,
+      3721,
+      3722,
+      3729,
+      3737,
+      3743,
+      3746,
+      3748,
+      3750,
+      3751,
+      3753,
+      0,
+      0,
+      0,
+      1859,
+      1860,
+      1864,
+      3586,
+      3593,
+      3594,
+      3610,
+      3617,
+      3619,
+      3621,
+      3628,
+      3634,
+      3637,
+      3638,
+      3656,
+      3665,
+      3696,
+      3708,
+      3710,
+      3721,
+      3722,
+      3729,
+      3737,
+      3743,
+      3746,
+      3748,
+      3750,
+      3751,
+      3753,
+      0,
+      1868,
+      0,
+      1872,
+      0
+    ]);
+    var table_lv2 = new Uint32Array([
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      18,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]);
+    var table_lv4 = new Uint32Array([
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      32786,
+      0,
+      0,
+      0,
+      0,
+      0,
+      33298,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]);
+    function compareHeader(lhs, rhs) {
+      if (isLessThan(lhs, rhs))
+        return -1;
+      return 1;
+    }
+    function isLessThan(lhs, rhs) {
+      const tables = [table_lv0, table_lv2, table_lv4];
+      let curr_level = 0;
+      let i = 0;
+      let j = 0;
+      while (curr_level < tables.length) {
+        if (curr_level === tables.length - 1 && i !== j) {
+          return i > j;
+        }
+        const weight1 = i < lhs.length ? tables[curr_level][lhs[i].charCodeAt(0)] : 1;
+        const weight2 = j < rhs.length ? tables[curr_level][rhs[j].charCodeAt(0)] : 1;
+        if (weight1 === 1 && weight2 === 1) {
+          i = 0;
+          j = 0;
+          ++curr_level;
+        } else if (weight1 === weight2) {
+          ++i;
+          ++j;
+        } else if (weight1 === 0) {
+          ++i;
+        } else if (weight2 === 0) {
+          ++j;
+        } else {
+          return weight1 < weight2;
+        }
+      }
+      return false;
+    }
     var StorageSharedKeyCredentialPolicy = class extends CredentialPolicy {
       /**
        * Creates an instance of StorageSharedKeyCredentialPolicy.
@@ -34998,7 +35172,7 @@ var require_dist5 = __commonJS({
           return value.name.toLowerCase().startsWith(HeaderConstants.PREFIX_FOR_STORAGE);
         });
         headersArray.sort((a, b) => {
-          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+          return compareHeader(a.name.toLowerCase(), b.name.toLowerCase());
         });
         headersArray = headersArray.filter((value, index, array) => {
           if (index > 0 && value.name.toLowerCase() === array[index - 1].name.toLowerCase()) {
@@ -35079,7 +35253,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param stringToSign -
        */
       computeHMACSHA256(stringToSign) {
-        return crypto5.createHmac("sha256", this.accountKey).update(stringToSign, "utf8").digest("base64");
+        return crypto2.createHmac("sha256", this.accountKey).update(stringToSign, "utf8").digest("base64");
       }
     };
     var AnonymousCredentialPolicy = class extends CredentialPolicy {
@@ -35277,7 +35451,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           getHeaderValueToSign(request, HeaderConstants.IF_UNMODIFIED_SINCE),
           getHeaderValueToSign(request, HeaderConstants.RANGE)
         ].join("\n") + "\n" + getCanonicalizedHeadersString(request) + getCanonicalizedResourceString(request);
-        const signature = crypto5.createHmac("sha256", options.accountKey).update(stringToSign, "utf8").digest("base64");
+        const signature = crypto2.createHmac("sha256", options.accountKey).update(stringToSign, "utf8").digest("base64");
         request.headers.set(HeaderConstants.AUTHORIZATION, `SharedKey ${options.accountName}:${signature}`);
       }
       function getHeaderValueToSign(request, headerName) {
@@ -35298,7 +35472,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           }
         }
         headersArray.sort((a, b) => {
-          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+          return compareHeader(a.name.toLowerCase(), b.name.toLowerCase());
         });
         headersArray = headersArray.filter((value, index, array) => {
           if (index > 0 && value.name.toLowerCase() === array[index - 1].name.toLowerCase()) {
@@ -35383,6 +35557,21 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         return new StorageBrowserPolicy(nextPolicy, options);
       }
     };
+    var storageCorrectContentLengthPolicyName = "StorageCorrectContentLengthPolicy";
+    function storageCorrectContentLengthPolicy() {
+      function correctContentLength(request) {
+        if (request.body && (typeof request.body === "string" || Buffer.isBuffer(request.body)) && request.body.length > 0) {
+          request.headers.set(HeaderConstants.CONTENT_LENGTH, Buffer.byteLength(request.body));
+        }
+      }
+      return {
+        name: storageCorrectContentLengthPolicyName,
+        async sendRequest(request, next) {
+          correctContentLength(request);
+          return next(request);
+        }
+      };
+    }
     function isPipelineLike(pipeline) {
       if (!pipeline || typeof pipeline !== "object") {
         return false;
@@ -35485,6 +35674,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         } }));
         corePipeline.removePolicy({ phase: "Retry" });
         corePipeline.removePolicy({ name: coreRestPipeline.decompressResponsePolicyName });
+        corePipeline.addPolicy(storageCorrectContentLengthPolicy());
         corePipeline.addPolicy(storageRetryPolicy(restOptions.retryOptions), { phase: "Retry" });
         corePipeline.addPolicy(storageBrowserPolicy());
         const downlevelResults = processDownlevelPipeline(pipeline);
@@ -35880,6 +36070,13 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           code: {
             serializedName: "Code",
             xmlName: "Code",
+            type: {
+              name: "String"
+            }
+          },
+          authenticationErrorDetail: {
+            serializedName: "AuthenticationErrorDetail",
+            xmlName: "AuthenticationErrorDetail",
             type: {
               name: "String"
             }
@@ -39327,6 +39524,13 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 "BlockBlobStorage"
               ]
             }
+          },
+          isHierarchicalNamespaceEnabled: {
+            serializedName: "x-ms-is-hns-enabled",
+            xmlName: "x-ms-is-hns-enabled",
+            type: {
+              name: "Boolean"
+            }
           }
         }
       }
@@ -41490,6 +41694,13 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 "FileStorage",
                 "BlockBlobStorage"
               ]
+            }
+          },
+          isHierarchicalNamespaceEnabled: {
+            serializedName: "x-ms-is-hns-enabled",
+            xmlName: "x-ms-is-hns-enabled",
+            type: {
+              name: "Boolean"
             }
           }
         }
@@ -44038,10 +44249,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
       }
     };
-    var version2 = {
+    var version = {
       parameterPath: "version",
       mapper: {
-        defaultValue: "2024-05-04",
+        defaultValue: "2025-01-05",
         isConstant: true,
         serializedName: "x-ms-version",
         type: {
@@ -45671,7 +45882,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       headerParameters: [
         contentType,
         accept,
-        version2,
+        version,
         requestId
       ],
       isXML: true,
@@ -45699,7 +45910,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -45726,7 +45937,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -45756,7 +45967,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -45786,7 +45997,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       headerParameters: [
         contentType,
         accept,
-        version2,
+        version,
         requestId
       ],
       isXML: true,
@@ -45806,9 +46017,17 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           headersMapper: ServiceGetAccountInfoExceptionHeaders
         }
       },
-      queryParameters: [comp, restype1],
+      queryParameters: [
+        comp,
+        timeoutInSeconds,
+        restype1
+      ],
       urlParameters: [url],
-      headerParameters: [version2, accept1],
+      headerParameters: [
+        version,
+        requestId,
+        accept1
+      ],
       isXML: true,
       serializer: xmlSerializer$5
     };
@@ -45833,7 +46052,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       urlParameters: [url],
       headerParameters: [
         accept,
-        version2,
+        version,
         requestId,
         contentLength,
         multipartContentType
@@ -45865,7 +46084,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -46053,7 +46272,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, restype2],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         metadata,
@@ -46079,7 +46298,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, restype2],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId
@@ -46102,7 +46321,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, restype2],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -46131,7 +46350,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         metadata,
@@ -46172,7 +46391,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId
@@ -46202,7 +46421,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       headerParameters: [
         contentType,
         accept,
-        version2,
+        version,
         requestId,
         access,
         leaseId,
@@ -46233,7 +46452,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         deletedContainerName,
@@ -46261,7 +46480,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         sourceContainerName,
@@ -46295,7 +46514,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       urlParameters: [url],
       headerParameters: [
         accept,
-        version2,
+        version,
         requestId,
         contentLength,
         multipartContentType
@@ -46328,7 +46547,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -46354,7 +46573,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -46385,7 +46604,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -46415,7 +46634,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -46445,7 +46664,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -46475,7 +46694,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -46511,7 +46730,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -46543,7 +46762,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -46562,9 +46781,17 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           headersMapper: ContainerGetAccountInfoExceptionHeaders
         }
       },
-      queryParameters: [comp, restype1],
+      queryParameters: [
+        comp,
+        timeoutInSeconds,
+        restype1
+      ],
       urlParameters: [url],
-      headerParameters: [version2, accept1],
+      headerParameters: [
+        version,
+        requestId,
+        accept1
+      ],
       isXML: true,
       serializer: xmlSerializer$4
     };
@@ -46825,7 +47052,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -46863,7 +47090,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -46899,7 +47126,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -46928,7 +47155,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp8],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -46950,7 +47177,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp11],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         expiryOptions,
@@ -46974,7 +47201,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [comp, timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47005,10 +47232,15 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           headersMapper: BlobSetImmutabilityPolicyExceptionHeaders
         }
       },
-      queryParameters: [timeoutInSeconds, comp12],
+      queryParameters: [
+        timeoutInSeconds,
+        snapshot,
+        versionId,
+        comp12
+      ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifUnmodifiedSince,
@@ -47030,10 +47262,15 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           headersMapper: BlobDeleteImmutabilityPolicyExceptionHeaders
         }
       },
-      queryParameters: [timeoutInSeconds, comp12],
+      queryParameters: [
+        timeoutInSeconds,
+        snapshot,
+        versionId,
+        comp12
+      ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1
       ],
@@ -47052,10 +47289,15 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           headersMapper: BlobSetLegalHoldExceptionHeaders
         }
       },
-      queryParameters: [timeoutInSeconds, comp13],
+      queryParameters: [
+        timeoutInSeconds,
+        snapshot,
+        versionId,
+        comp13
+      ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         legalHold
@@ -47078,7 +47320,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp6],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         metadata,
@@ -47111,7 +47353,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp10],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -47141,7 +47383,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp10],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -47170,7 +47412,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp10],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -47199,7 +47441,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp10],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -47229,7 +47471,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp10],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -47258,7 +47500,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp14],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         metadata,
@@ -47291,7 +47533,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         metadata,
@@ -47333,7 +47575,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         metadata,
@@ -47381,7 +47623,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47413,7 +47655,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47436,9 +47678,17 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           headersMapper: BlobGetAccountInfoExceptionHeaders
         }
       },
-      queryParameters: [comp, restype1],
+      queryParameters: [
+        comp,
+        timeoutInSeconds,
+        restype1
+      ],
       urlParameters: [url],
-      headerParameters: [version2, accept1],
+      headerParameters: [
+        version,
+        requestId,
+        accept1
+      ],
       isXML: true,
       serializer: xmlSerializer$3
     };
@@ -47475,7 +47725,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       headerParameters: [
         contentType,
         accept,
-        version2,
+        version,
         requestId,
         leaseId,
         ifModifiedSince,
@@ -47513,7 +47763,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47544,7 +47794,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       headerParameters: [
         contentType,
         accept,
-        version2,
+        version,
         requestId,
         leaseId,
         ifTags,
@@ -47676,7 +47926,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -47725,7 +47975,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp19],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         contentLength,
         leaseId,
@@ -47768,7 +48018,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp19],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -47806,7 +48056,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp19],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -47860,7 +48110,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47897,7 +48147,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47927,7 +48177,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [comp, timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47960,7 +48210,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [comp, timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -47990,7 +48240,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp21],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         ifModifiedSince,
@@ -48071,7 +48321,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -48117,7 +48367,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp22],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         contentLength,
         leaseId,
@@ -48157,7 +48407,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp22],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -48202,7 +48452,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds, comp23],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -48322,7 +48572,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         contentLength,
         metadata,
@@ -48373,7 +48623,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       queryParameters: [timeoutInSeconds],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -48432,7 +48682,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         contentLength,
         leaseId,
@@ -48469,7 +48719,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         contentLength,
@@ -48509,7 +48759,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       headerParameters: [
         contentType,
         accept,
-        version2,
+        version,
         requestId,
         metadata,
         leaseId,
@@ -48562,7 +48812,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       ],
       urlParameters: [url],
       headerParameters: [
-        version2,
+        version,
         requestId,
         accept1,
         leaseId,
@@ -48589,14 +48839,14 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         const defaults = {
           requestContentType: "application/json; charset=utf-8"
         };
-        const packageDetails = `azsdk-js-azure-storage-blob/12.23.0`;
+        const packageDetails = `azsdk-js-azure-storage-blob/12.26.0`;
         const userAgentPrefix = options.userAgentOptions && options.userAgentOptions.userAgentPrefix ? `${options.userAgentOptions.userAgentPrefix} ${packageDetails}` : `${packageDetails}`;
         const optionsWithDefaults = Object.assign(Object.assign(Object.assign({}, defaults), options), { userAgentOptions: {
           userAgentPrefix
         }, endpoint: (_b = (_a = options.endpoint) !== null && _a !== void 0 ? _a : options.baseUri) !== null && _b !== void 0 ? _b : "{url}" });
         super(optionsWithDefaults);
         this.url = url2;
-        this.version = options.version || "2023-11-03";
+        this.version = options.version || "2025-01-05";
         this.service = new ServiceImpl(this);
         this.container = new ContainerImpl(this);
         this.blob = new BlobImpl(this);
@@ -48975,7 +49225,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
        * @param stringToSign -
        */
       computeHMACSHA256(stringToSign) {
-        return crypto5.createHmac("sha256", this.key).update(stringToSign, "utf8").digest("base64");
+        return crypto2.createHmac("sha256", this.key).update(stringToSign, "utf8").digest("base64");
       }
     };
     function ipRangeToString(ipRange) {
@@ -49001,8 +49251,8 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }
         return void 0;
       }
-      constructor(version3, signature, permissionsOrOptions, services, resourceTypes, protocol, startsOn, expiresOn2, ipRange, identifier, resource, cacheControl, contentDisposition, contentEncoding, contentLanguage, contentType2, userDelegationKey, preauthorizedAgentObjectId, correlationId, encryptionScope2) {
-        this.version = version3;
+      constructor(version2, signature, permissionsOrOptions, services, resourceTypes, protocol, startsOn, expiresOn2, ipRange, identifier, resource, cacheControl, contentDisposition, contentEncoding, contentLanguage, contentType2, userDelegationKey, preauthorizedAgentObjectId, correlationId, encryptionScope2) {
+        this.version = version2;
         this.signature = signature;
         if (permissionsOrOptions !== void 0 && typeof permissionsOrOptions !== "string") {
           this.permissions = permissionsOrOptions.permissions;
@@ -49197,7 +49447,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       }
     };
     function generateBlobSASQueryParameters(blobSASSignatureValues, sharedKeyCredentialOrUserDelegationKey, accountName) {
-      const version3 = blobSASSignatureValues.version ? blobSASSignatureValues.version : SERVICE_VERSION;
+      return generateBlobSASQueryParametersInternal(blobSASSignatureValues, sharedKeyCredentialOrUserDelegationKey, accountName).sasQueryParameters;
+    }
+    function generateBlobSASQueryParametersInternal(blobSASSignatureValues, sharedKeyCredentialOrUserDelegationKey, accountName) {
+      const version2 = blobSASSignatureValues.version ? blobSASSignatureValues.version : SERVICE_VERSION;
       const sharedKeyCredential = sharedKeyCredentialOrUserDelegationKey instanceof StorageSharedKeyCredential ? sharedKeyCredentialOrUserDelegationKey : void 0;
       let userDelegationKeyCredential;
       if (sharedKeyCredential === void 0 && accountName !== void 0) {
@@ -49206,25 +49459,25 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       if (sharedKeyCredential === void 0 && userDelegationKeyCredential === void 0) {
         throw TypeError("Invalid sharedKeyCredential, userDelegationKey or accountName.");
       }
-      if (version3 >= "2020-12-06") {
+      if (version2 >= "2020-12-06") {
         if (sharedKeyCredential !== void 0) {
           return generateBlobSASQueryParameters20201206(blobSASSignatureValues, sharedKeyCredential);
         } else {
           return generateBlobSASQueryParametersUDK20201206(blobSASSignatureValues, userDelegationKeyCredential);
         }
       }
-      if (version3 >= "2018-11-09") {
+      if (version2 >= "2018-11-09") {
         if (sharedKeyCredential !== void 0) {
           return generateBlobSASQueryParameters20181109(blobSASSignatureValues, sharedKeyCredential);
         } else {
-          if (version3 >= "2020-02-10") {
+          if (version2 >= "2020-02-10") {
             return generateBlobSASQueryParametersUDK20200210(blobSASSignatureValues, userDelegationKeyCredential);
           } else {
             return generateBlobSASQueryParametersUDK20181109(blobSASSignatureValues, userDelegationKeyCredential);
           }
         }
       }
-      if (version3 >= "2015-04-05") {
+      if (version2 >= "2015-04-05") {
         if (sharedKeyCredential !== void 0) {
           return generateBlobSASQueryParameters20150405(blobSASSignatureValues, sharedKeyCredential);
         } else {
@@ -49266,7 +49519,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         blobSASSignatureValues.contentType ? blobSASSignatureValues.contentType : ""
       ].join("\n");
       const signature = sharedKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType);
+      return {
+        sasQueryParameters: new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType),
+        stringToSign
+      };
     }
     function generateBlobSASQueryParameters20181109(blobSASSignatureValues, sharedKeyCredential) {
       blobSASSignatureValues = SASSignatureValuesSanityCheckAndAutofill(blobSASSignatureValues);
@@ -49310,7 +49566,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         blobSASSignatureValues.contentType ? blobSASSignatureValues.contentType : ""
       ].join("\n");
       const signature = sharedKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType);
+      return {
+        sasQueryParameters: new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType),
+        stringToSign
+      };
     }
     function generateBlobSASQueryParameters20201206(blobSASSignatureValues, sharedKeyCredential) {
       blobSASSignatureValues = SASSignatureValuesSanityCheckAndAutofill(blobSASSignatureValues);
@@ -49355,7 +49614,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         blobSASSignatureValues.contentType ? blobSASSignatureValues.contentType : ""
       ].join("\n");
       const signature = sharedKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, void 0, void 0, void 0, blobSASSignatureValues.encryptionScope);
+      return {
+        sasQueryParameters: new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, void 0, void 0, void 0, blobSASSignatureValues.encryptionScope),
+        stringToSign
+      };
     }
     function generateBlobSASQueryParametersUDK20181109(blobSASSignatureValues, userDelegationKeyCredential) {
       blobSASSignatureValues = SASSignatureValuesSanityCheckAndAutofill(blobSASSignatureValues);
@@ -49404,7 +49666,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         blobSASSignatureValues.contentType
       ].join("\n");
       const signature = userDelegationKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, userDelegationKeyCredential.userDelegationKey);
+      return {
+        sasQueryParameters: new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, userDelegationKeyCredential.userDelegationKey),
+        stringToSign
+      };
     }
     function generateBlobSASQueryParametersUDK20200210(blobSASSignatureValues, userDelegationKeyCredential) {
       blobSASSignatureValues = SASSignatureValuesSanityCheckAndAutofill(blobSASSignatureValues);
@@ -49457,7 +49722,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         blobSASSignatureValues.contentType
       ].join("\n");
       const signature = userDelegationKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, userDelegationKeyCredential.userDelegationKey, blobSASSignatureValues.preauthorizedAgentObjectId, blobSASSignatureValues.correlationId);
+      return {
+        sasQueryParameters: new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, userDelegationKeyCredential.userDelegationKey, blobSASSignatureValues.preauthorizedAgentObjectId, blobSASSignatureValues.correlationId),
+        stringToSign
+      };
     }
     function generateBlobSASQueryParametersUDK20201206(blobSASSignatureValues, userDelegationKeyCredential) {
       blobSASSignatureValues = SASSignatureValuesSanityCheckAndAutofill(blobSASSignatureValues);
@@ -49511,7 +49779,10 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         blobSASSignatureValues.contentType
       ].join("\n");
       const signature = userDelegationKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, userDelegationKeyCredential.userDelegationKey, blobSASSignatureValues.preauthorizedAgentObjectId, blobSASSignatureValues.correlationId, blobSASSignatureValues.encryptionScope);
+      return {
+        sasQueryParameters: new SASQueryParameters(blobSASSignatureValues.version, signature, verifiedPermissions, void 0, void 0, blobSASSignatureValues.protocol, blobSASSignatureValues.startsOn, blobSASSignatureValues.expiresOn, blobSASSignatureValues.ipRange, blobSASSignatureValues.identifier, resource, blobSASSignatureValues.cacheControl, blobSASSignatureValues.contentDisposition, blobSASSignatureValues.contentEncoding, blobSASSignatureValues.contentLanguage, blobSASSignatureValues.contentType, userDelegationKeyCredential.userDelegationKey, blobSASSignatureValues.preauthorizedAgentObjectId, blobSASSignatureValues.correlationId, blobSASSignatureValues.encryptionScope),
+        stringToSign
+      };
     }
     function getCanonicalName(accountName, containerName, blobName) {
       const elements = [`/blob/${accountName}/${containerName}`];
@@ -49521,44 +49792,44 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       return elements.join("");
     }
     function SASSignatureValuesSanityCheckAndAutofill(blobSASSignatureValues) {
-      const version3 = blobSASSignatureValues.version ? blobSASSignatureValues.version : SERVICE_VERSION;
-      if (blobSASSignatureValues.snapshotTime && version3 < "2018-11-09") {
+      const version2 = blobSASSignatureValues.version ? blobSASSignatureValues.version : SERVICE_VERSION;
+      if (blobSASSignatureValues.snapshotTime && version2 < "2018-11-09") {
         throw RangeError("'version' must be >= '2018-11-09' when providing 'snapshotTime'.");
       }
       if (blobSASSignatureValues.blobName === void 0 && blobSASSignatureValues.snapshotTime) {
         throw RangeError("Must provide 'blobName' when providing 'snapshotTime'.");
       }
-      if (blobSASSignatureValues.versionId && version3 < "2019-10-10") {
+      if (blobSASSignatureValues.versionId && version2 < "2019-10-10") {
         throw RangeError("'version' must be >= '2019-10-10' when providing 'versionId'.");
       }
       if (blobSASSignatureValues.blobName === void 0 && blobSASSignatureValues.versionId) {
         throw RangeError("Must provide 'blobName' when providing 'versionId'.");
       }
-      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.setImmutabilityPolicy && version3 < "2020-08-04") {
+      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.setImmutabilityPolicy && version2 < "2020-08-04") {
         throw RangeError("'version' must be >= '2020-08-04' when provided 'i' permission.");
       }
-      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.deleteVersion && version3 < "2019-10-10") {
+      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.deleteVersion && version2 < "2019-10-10") {
         throw RangeError("'version' must be >= '2019-10-10' when providing 'x' permission.");
       }
-      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.permanentDelete && version3 < "2019-10-10") {
+      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.permanentDelete && version2 < "2019-10-10") {
         throw RangeError("'version' must be >= '2019-10-10' when providing 'y' permission.");
       }
-      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.tag && version3 < "2019-12-12") {
+      if (blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.tag && version2 < "2019-12-12") {
         throw RangeError("'version' must be >= '2019-12-12' when providing 't' permission.");
       }
-      if (version3 < "2020-02-10" && blobSASSignatureValues.permissions && (blobSASSignatureValues.permissions.move || blobSASSignatureValues.permissions.execute)) {
+      if (version2 < "2020-02-10" && blobSASSignatureValues.permissions && (blobSASSignatureValues.permissions.move || blobSASSignatureValues.permissions.execute)) {
         throw RangeError("'version' must be >= '2020-02-10' when providing the 'm' or 'e' permission.");
       }
-      if (version3 < "2021-04-10" && blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.filterByTags) {
+      if (version2 < "2021-04-10" && blobSASSignatureValues.permissions && blobSASSignatureValues.permissions.filterByTags) {
         throw RangeError("'version' must be >= '2021-04-10' when providing the 'f' permission.");
       }
-      if (version3 < "2020-02-10" && (blobSASSignatureValues.preauthorizedAgentObjectId || blobSASSignatureValues.correlationId)) {
+      if (version2 < "2020-02-10" && (blobSASSignatureValues.preauthorizedAgentObjectId || blobSASSignatureValues.correlationId)) {
         throw RangeError("'version' must be >= '2020-02-10' when providing 'preauthorizedAgentObjectId' or 'correlationId'.");
       }
-      if (blobSASSignatureValues.encryptionScope && version3 < "2020-12-06") {
+      if (blobSASSignatureValues.encryptionScope && version2 < "2020-12-06") {
         throw RangeError("'version' must be >= '2020-12-06' when provided 'encryptionScope' in SAS.");
       }
-      blobSASSignatureValues.version = version3;
+      blobSASSignatureValues.version = version2;
       return blobSASSignatureValues;
     }
     var BlobLeaseClient = class {
@@ -50419,6 +50690,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       /**
        * Determines the AvroType from the Avro Schema.
        */
+      // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
       static fromSchema(schema) {
         if (typeof schema === "string") {
           return _AvroType.fromStringSchema(schema);
@@ -50450,7 +50722,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         const type = schema.type;
         try {
           return _AvroType.fromStringSchema(type);
-        } catch (err) {
+        } catch (_a) {
         }
         switch (type) {
           case AvroComplex.RECORD:
@@ -50482,7 +50754,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
             }
             return new AvroMapType(_AvroType.fromSchema(schema.values));
           case AvroComplex.ARRAY:
+          // Unused today
           case AvroComplex.FIXED:
+          // Unused today
           default:
             throw new Error(`Unexpected Avro type ${type} in ${schema}`);
         }
@@ -50493,6 +50767,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._primitive = primitive;
       }
+      // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
       read(stream2, options = {}) {
         switch (this._primitive) {
           case AvroPrimitive.NULL:
@@ -50521,6 +50796,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._symbols = symbols;
       }
+      // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
       async read(stream2, options = {}) {
         const value = await AvroParser.readInt(stream2, options);
         return this._symbols[value];
@@ -50541,6 +50817,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         super();
         this._itemType = itemType;
       }
+      // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
       read(stream2, options = {}) {
         const readItemMethod = (s, opts) => {
           return this._itemType.read(s, opts);
@@ -50554,6 +50831,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         this._fields = fields;
         this._name = name;
       }
+      // eslint-disable-next-line @typescript-eslint/no-wrapper-object-types
       async read(stream2, options = {}) {
         const record = {};
         record["$schema"] = this._name;
@@ -50654,7 +50932,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
                 this._itemsRemainingInBlock = yield tslib.__await(AvroParser.readLong(this._dataStream, {
                   abortSignal: options.abortSignal
                 }));
-              } catch (err) {
+              } catch (_a) {
                 this._itemsRemainingInBlock = 0;
               }
               if (this._itemsRemainingInBlock > 0) {
@@ -52661,6 +52939,56 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         });
       }
       /**
+       * Only available for BlobClient constructed with a shared key credential.
+       *
+       * Generates string to sign for a Blob Service Shared Access Signature (SAS) URI based on
+       * the client properties and parameters passed in. The SAS is signed by the shared key credential of the client.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+       *
+       * @param options - Optional parameters.
+       * @returns The SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      /* eslint-disable-next-line @azure/azure-sdk/ts-naming-options*/
+      generateSasStringToSign(options) {
+        if (!(this.credential instanceof StorageSharedKeyCredential)) {
+          throw new RangeError("Can only generate the SAS when the client is initialized with a shared key credential");
+        }
+        return generateBlobSASQueryParametersInternal(Object.assign({ containerName: this._containerName, blobName: this._name, snapshotTime: this._snapshot, versionId: this._versionId }, options), this.credential).stringToSign;
+      }
+      /**
+       *
+       * Generates a Blob Service Shared Access Signature (SAS) URI based on
+       * the client properties and parameters passed in. The SAS is signed by the input user delegation key.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+       *
+       * @param options - Optional parameters.
+       * @param userDelegationKey -  Return value of `blobServiceClient.getUserDelegationKey()`
+       * @returns The SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      generateUserDelegationSasUrl(options, userDelegationKey) {
+        return new Promise((resolve) => {
+          const sas = generateBlobSASQueryParameters(Object.assign({ containerName: this._containerName, blobName: this._name, snapshotTime: this._snapshot, versionId: this._versionId }, options), userDelegationKey, this.accountName).toString();
+          resolve(appendToURLQuery(this.url, sas));
+        });
+      }
+      /**
+       * Only available for BlobClient constructed with a shared key credential.
+       *
+       * Generates string to sign for a Blob Service Shared Access Signature (SAS) URI based on
+       * the client properties and parameters passed in. The SAS is signed by the input user delegation key.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+       *
+       * @param options - Optional parameters.
+       * @param userDelegationKey -  Return value of `blobServiceClient.getUserDelegationKey()`
+       * @returns The SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      generateUserDelegationSasStringToSign(options, userDelegationKey) {
+        return generateBlobSASQueryParametersInternal(Object.assign({ containerName: this._containerName, blobName: this._name, snapshotTime: this._snapshot, versionId: this._versionId }, options), userDelegationKey, this.accountName).stringToSign;
+      }
+      /**
        * Delete the immutablility policy on the blob.
        *
        * @param options - Optional options to delete immutability policy on the blob.
@@ -52694,6 +53022,24 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       async setLegalHold(legalHoldEnabled, options = {}) {
         return tracingClient.withSpan("BlobClient-setLegalHold", options, async (updatedOptions) => {
           return assertResponse(await this.blobContext.setLegalHold(legalHoldEnabled, {
+            tracingOptions: updatedOptions.tracingOptions
+          }));
+        });
+      }
+      /**
+       * The Get Account Information operation returns the sku name and account kind
+       * for the specified account.
+       * The Get Account Information operation is available on service versions beginning
+       * with version 2018-03-28.
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-account-information
+       *
+       * @param options - Options to the Service Get Account Info operation.
+       * @returns Response data for the Service Get Account Info operation.
+       */
+      async getAccountInfo(options = {}) {
+        return tracingClient.withSpan("BlobClient-getAccountInfo", options, async (updatedOptions) => {
+          return assertResponse(await this.blobContext.getAccountInfo({
+            abortSignal: options.abortSignal,
             tracingOptions: updatedOptions.tracingOptions
           }));
         });
@@ -53440,6 +53786,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
               blockList.push(blockID);
               blockNum++;
               await this.stageBlock(blockID, body2, length, {
+                customerProvidedKey: options.customerProvidedKey,
                 conditions: options.conditions,
                 encryptionScope: options.encryptionScope,
                 tracingOptions: updatedOptions.tracingOptions
@@ -55676,6 +56023,24 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           }
         };
       }
+      /**
+       * The Get Account Information operation returns the sku name and account kind
+       * for the specified account.
+       * The Get Account Information operation is available on service versions beginning
+       * with version 2018-03-28.
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-account-information
+       *
+       * @param options - Options to the Service Get Account Info operation.
+       * @returns Response data for the Service Get Account Info operation.
+       */
+      async getAccountInfo(options = {}) {
+        return tracingClient.withSpan("ContainerClient-getAccountInfo", options, async (updatedOptions) => {
+          return assertResponse(await this.containerContext.getAccountInfo({
+            abortSignal: options.abortSignal,
+            tracingOptions: updatedOptions.tracingOptions
+          }));
+        });
+      }
       getContainerNameFromUrl() {
         let containerName;
         try {
@@ -55715,6 +56080,53 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           const sas = generateBlobSASQueryParameters(Object.assign({ containerName: this._containerName }, options), this.credential).toString();
           resolve(appendToURLQuery(this.url, sas));
         });
+      }
+      /**
+       * Only available for ContainerClient constructed with a shared key credential.
+       *
+       * Generates string to sign for a Blob Container Service Shared Access Signature (SAS) URI
+       * based on the client properties and parameters passed in. The SAS is signed by the shared key credential of the client.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+       *
+       * @param options - Optional parameters.
+       * @returns The SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      /* eslint-disable-next-line @azure/azure-sdk/ts-naming-options*/
+      generateSasStringToSign(options) {
+        if (!(this.credential instanceof StorageSharedKeyCredential)) {
+          throw new RangeError("Can only generate the SAS when the client is initialized with a shared key credential");
+        }
+        return generateBlobSASQueryParametersInternal(Object.assign({ containerName: this._containerName }, options), this.credential).stringToSign;
+      }
+      /**
+       * Generates a Blob Container Service Shared Access Signature (SAS) URI based on the client properties
+       * and parameters passed in. The SAS is signed by the input user delegation key.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+       *
+       * @param options - Optional parameters.
+       * @param userDelegationKey -  Return value of `blobServiceClient.getUserDelegationKey()`
+       * @returns The SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      generateUserDelegationSasUrl(options, userDelegationKey) {
+        return new Promise((resolve) => {
+          const sas = generateBlobSASQueryParameters(Object.assign({ containerName: this._containerName }, options), userDelegationKey, this.accountName).toString();
+          resolve(appendToURLQuery(this.url, sas));
+        });
+      }
+      /**
+       * Generates string to sign for a Blob Container Service Shared Access Signature (SAS) URI
+       * based on the client properties and parameters passed in. The SAS is signed by the input user delegation key.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+       *
+       * @param options - Optional parameters.
+       * @param userDelegationKey -  Return value of `blobServiceClient.getUserDelegationKey()`
+       * @returns The SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      generateUserDelegationSasStringToSign(options, userDelegationKey) {
+        return generateBlobSASQueryParametersInternal(Object.assign({ containerName: this._containerName }, options), userDelegationKey, this.accountName).stringToSign;
       }
       /**
        * Creates a BlobBatchClient object to conduct batch operations.
@@ -56008,30 +56420,33 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
       }
     };
     function generateAccountSASQueryParameters(accountSASSignatureValues, sharedKeyCredential) {
-      const version3 = accountSASSignatureValues.version ? accountSASSignatureValues.version : SERVICE_VERSION;
-      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.setImmutabilityPolicy && version3 < "2020-08-04") {
+      return generateAccountSASQueryParametersInternal(accountSASSignatureValues, sharedKeyCredential).sasQueryParameters;
+    }
+    function generateAccountSASQueryParametersInternal(accountSASSignatureValues, sharedKeyCredential) {
+      const version2 = accountSASSignatureValues.version ? accountSASSignatureValues.version : SERVICE_VERSION;
+      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.setImmutabilityPolicy && version2 < "2020-08-04") {
         throw RangeError("'version' must be >= '2020-08-04' when provided 'i' permission.");
       }
-      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.deleteVersion && version3 < "2019-10-10") {
+      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.deleteVersion && version2 < "2019-10-10") {
         throw RangeError("'version' must be >= '2019-10-10' when provided 'x' permission.");
       }
-      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.permanentDelete && version3 < "2019-10-10") {
+      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.permanentDelete && version2 < "2019-10-10") {
         throw RangeError("'version' must be >= '2019-10-10' when provided 'y' permission.");
       }
-      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.tag && version3 < "2019-12-12") {
+      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.tag && version2 < "2019-12-12") {
         throw RangeError("'version' must be >= '2019-12-12' when provided 't' permission.");
       }
-      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.filter && version3 < "2019-12-12") {
+      if (accountSASSignatureValues.permissions && accountSASSignatureValues.permissions.filter && version2 < "2019-12-12") {
         throw RangeError("'version' must be >= '2019-12-12' when provided 'f' permission.");
       }
-      if (accountSASSignatureValues.encryptionScope && version3 < "2020-12-06") {
+      if (accountSASSignatureValues.encryptionScope && version2 < "2020-12-06") {
         throw RangeError("'version' must be >= '2020-12-06' when provided 'encryptionScope' in SAS.");
       }
       const parsedPermissions = AccountSASPermissions.parse(accountSASSignatureValues.permissions.toString());
       const parsedServices = AccountSASServices.parse(accountSASSignatureValues.services).toString();
       const parsedResourceTypes = AccountSASResourceTypes.parse(accountSASSignatureValues.resourceTypes).toString();
       let stringToSign;
-      if (version3 >= "2020-12-06") {
+      if (version2 >= "2020-12-06") {
         stringToSign = [
           sharedKeyCredential.accountName,
           parsedPermissions,
@@ -56041,7 +56456,7 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           truncatedISO8061Date(accountSASSignatureValues.expiresOn, false),
           accountSASSignatureValues.ipRange ? ipRangeToString(accountSASSignatureValues.ipRange) : "",
           accountSASSignatureValues.protocol ? accountSASSignatureValues.protocol : "",
-          version3,
+          version2,
           accountSASSignatureValues.encryptionScope ? accountSASSignatureValues.encryptionScope : "",
           ""
           // Account SAS requires an additional newline character
@@ -56056,13 +56471,16 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
           truncatedISO8061Date(accountSASSignatureValues.expiresOn, false),
           accountSASSignatureValues.ipRange ? ipRangeToString(accountSASSignatureValues.ipRange) : "",
           accountSASSignatureValues.protocol ? accountSASSignatureValues.protocol : "",
-          version3,
+          version2,
           ""
           // Account SAS requires an additional newline character
         ].join("\n");
       }
       const signature = sharedKeyCredential.computeHMACSHA256(stringToSign);
-      return new SASQueryParameters(version3, signature, parsedPermissions.toString(), parsedServices, parsedResourceTypes, accountSASSignatureValues.protocol, accountSASSignatureValues.startsOn, accountSASSignatureValues.expiresOn, accountSASSignatureValues.ipRange, void 0, void 0, void 0, void 0, void 0, void 0, void 0, void 0, void 0, void 0, accountSASSignatureValues.encryptionScope);
+      return {
+        sasQueryParameters: new SASQueryParameters(version2, signature, parsedPermissions.toString(), parsedServices, parsedResourceTypes, accountSASSignatureValues.protocol, accountSASSignatureValues.startsOn, accountSASSignatureValues.expiresOn, accountSASSignatureValues.ipRange, void 0, void 0, void 0, void 0, void 0, void 0, void 0, void 0, void 0, void 0, accountSASSignatureValues.encryptionScope),
+        stringToSign
+      };
     }
     var BlobServiceClient = class _BlobServiceClient extends StorageClient {
       /**
@@ -56718,6 +57136,35 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
         }, options), this.credential).toString();
         return appendToURLQuery(this.url, sas);
       }
+      /**
+       * Only available for BlobServiceClient constructed with a shared key credential.
+       *
+       * Generates string to sign for a Blob account Shared Access Signature (SAS) URI based on
+       * the client properties and parameters passed in. The SAS is signed by the shared key credential of the client.
+       *
+       * @see https://docs.microsoft.com/en-us/rest/api/storageservices/create-account-sas
+       *
+       * @param expiresOn - Optional. The time at which the shared access signature becomes invalid. Default to an hour later if not provided.
+       * @param permissions - Specifies the list of permissions to be associated with the SAS.
+       * @param resourceTypes - Specifies the resource types associated with the shared access signature.
+       * @param options - Optional parameters.
+       * @returns An account SAS URI consisting of the URI to the resource represented by this client, followed by the generated SAS token.
+       */
+      generateSasStringToSign(expiresOn2, permissions = AccountSASPermissions.parse("r"), resourceTypes = "sco", options = {}) {
+        if (!(this.credential instanceof StorageSharedKeyCredential)) {
+          throw RangeError("Can only generate the account SAS when the client is initialized with a shared key credential");
+        }
+        if (expiresOn2 === void 0) {
+          const now = /* @__PURE__ */ new Date();
+          expiresOn2 = new Date(now.getTime() + 3600 * 1e3);
+        }
+        return generateAccountSASQueryParametersInternal(Object.assign({
+          permissions,
+          expiresOn: expiresOn2,
+          resourceTypes,
+          services: AccountSASServices.parse("b").toString()
+        }, options), this.credential).stringToSign;
+      }
     };
     exports2.KnownEncryptionAlgorithmType = void 0;
     (function(KnownEncryptionAlgorithmType) {
@@ -56766,9 +57213,9 @@ ${key}:${decodeURIComponent(lowercaseQueries[key])}`;
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/requestUtils.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/requestUtils.js
 var require_requestUtils = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/requestUtils.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/requestUtils.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -56934,9 +57381,153 @@ var require_requestUtils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/downloadUtils.js
+// node_modules/.pnpm/@azure+abort-controller@1.1.0/node_modules/@azure/abort-controller/dist/index.js
+var require_dist5 = __commonJS({
+  "node_modules/.pnpm/@azure+abort-controller@1.1.0/node_modules/@azure/abort-controller/dist/index.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    var listenersMap = /* @__PURE__ */ new WeakMap();
+    var abortedMap = /* @__PURE__ */ new WeakMap();
+    var AbortSignal2 = class _AbortSignal {
+      constructor() {
+        this.onabort = null;
+        listenersMap.set(this, []);
+        abortedMap.set(this, false);
+      }
+      /**
+       * Status of whether aborted or not.
+       *
+       * @readonly
+       */
+      get aborted() {
+        if (!abortedMap.has(this)) {
+          throw new TypeError("Expected `this` to be an instance of AbortSignal.");
+        }
+        return abortedMap.get(this);
+      }
+      /**
+       * Creates a new AbortSignal instance that will never be aborted.
+       *
+       * @readonly
+       */
+      static get none() {
+        return new _AbortSignal();
+      }
+      /**
+       * Added new "abort" event listener, only support "abort" event.
+       *
+       * @param _type - Only support "abort" event
+       * @param listener - The listener to be added
+       */
+      addEventListener(_type, listener) {
+        if (!listenersMap.has(this)) {
+          throw new TypeError("Expected `this` to be an instance of AbortSignal.");
+        }
+        const listeners = listenersMap.get(this);
+        listeners.push(listener);
+      }
+      /**
+       * Remove "abort" event listener, only support "abort" event.
+       *
+       * @param _type - Only support "abort" event
+       * @param listener - The listener to be removed
+       */
+      removeEventListener(_type, listener) {
+        if (!listenersMap.has(this)) {
+          throw new TypeError("Expected `this` to be an instance of AbortSignal.");
+        }
+        const listeners = listenersMap.get(this);
+        const index = listeners.indexOf(listener);
+        if (index > -1) {
+          listeners.splice(index, 1);
+        }
+      }
+      /**
+       * Dispatches a synthetic event to the AbortSignal.
+       */
+      dispatchEvent(_event) {
+        throw new Error("This is a stub dispatchEvent implementation that should not be used.  It only exists for type-checking purposes.");
+      }
+    };
+    function abortSignal(signal) {
+      if (signal.aborted) {
+        return;
+      }
+      if (signal.onabort) {
+        signal.onabort.call(signal);
+      }
+      const listeners = listenersMap.get(signal);
+      if (listeners) {
+        listeners.slice().forEach((listener) => {
+          listener.call(signal, { type: "abort" });
+        });
+      }
+      abortedMap.set(signal, true);
+    }
+    var AbortError = class extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "AbortError";
+      }
+    };
+    var AbortController2 = class {
+      // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+      constructor(parentSignals) {
+        this._signal = new AbortSignal2();
+        if (!parentSignals) {
+          return;
+        }
+        if (!Array.isArray(parentSignals)) {
+          parentSignals = arguments;
+        }
+        for (const parentSignal of parentSignals) {
+          if (parentSignal.aborted) {
+            this.abort();
+          } else {
+            parentSignal.addEventListener("abort", () => {
+              this.abort();
+            });
+          }
+        }
+      }
+      /**
+       * The AbortSignal associated with this controller that will signal aborted
+       * when the abort method is called on this controller.
+       *
+       * @readonly
+       */
+      get signal() {
+        return this._signal;
+      }
+      /**
+       * Signal that any operations passed this controller's associated abort signal
+       * to cancel any remaining work and throw an `AbortError`.
+       */
+      abort() {
+        abortSignal(this._signal);
+      }
+      /**
+       * Creates a new AbortSignal instance that will abort after the provided ms.
+       * @param ms - Elapsed time in milliseconds to trigger an abort.
+       */
+      static timeout(ms) {
+        const signal = new AbortSignal2();
+        const timer = setTimeout(abortSignal, ms, signal);
+        if (typeof timer.unref === "function") {
+          timer.unref();
+        }
+        return signal;
+      }
+    };
+    exports2.AbortController = AbortController2;
+    exports2.AbortError = AbortError;
+    exports2.AbortSignal = AbortSignal2;
+  }
+});
+
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/downloadUtils.js
 var require_downloadUtils = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/downloadUtils.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/downloadUtils.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -56996,7 +57587,7 @@ var require_downloadUtils = __commonJS({
     exports2.downloadCacheStorageSDK = exports2.downloadCacheHttpClientConcurrent = exports2.downloadCacheHttpClient = exports2.DownloadProgress = void 0;
     var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
-    var storage_blob_1 = require_dist5();
+    var storage_blob_1 = require_dist4();
     var buffer = __importStar2(require("buffer"));
     var fs = __importStar2(require("fs"));
     var stream = __importStar2(require("stream"));
@@ -57004,7 +57595,7 @@ var require_downloadUtils = __commonJS({
     var utils = __importStar2(require_cacheUtils());
     var constants_1 = require_constants6();
     var requestUtils_1 = require_requestUtils();
-    var abort_controller_1 = require_dist4();
+    var abort_controller_1 = require_dist5();
     function pipeResponseToStream(response, output) {
       return __awaiter2(this, void 0, void 0, function* () {
         const pipeline = util.promisify(stream.pipeline);
@@ -57294,9 +57885,9 @@ var require_downloadUtils = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/options.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/options.js
 var require_options = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/options.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/options.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -57391,9 +57982,9 @@ var require_options = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/cacheHttpClient.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/cacheHttpClient.js
 var require_cacheHttpClient = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/cacheHttpClient.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/cacheHttpClient.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -57454,7 +58045,7 @@ var require_cacheHttpClient = __commonJS({
     var core6 = __importStar2(require_core());
     var http_client_1 = require_lib();
     var auth_1 = require_auth();
-    var crypto5 = __importStar2(require("crypto"));
+    var crypto2 = __importStar2(require("crypto"));
     var fs = __importStar2(require("fs"));
     var url_1 = require("url");
     var utils = __importStar2(require_cacheUtils());
@@ -57496,20 +58087,20 @@ var require_cacheHttpClient = __commonJS({
         components.push("windows-only");
       }
       components.push(versionSalt);
-      return crypto5.createHash("sha256").update(components.join("|")).digest("hex");
+      return crypto2.createHash("sha256").update(components.join("|")).digest("hex");
     }
     exports2.getCacheVersion = getCacheVersion;
     function getCacheEntry(keys, paths, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const httpClient = createHttpClient();
-        const version2 = getCacheVersion(paths, options === null || options === void 0 ? void 0 : options.compressionMethod, options === null || options === void 0 ? void 0 : options.enableCrossOsArchive);
-        const resource = `cache?keys=${encodeURIComponent(keys.join(","))}&version=${version2}`;
+        const version = getCacheVersion(paths, options === null || options === void 0 ? void 0 : options.compressionMethod, options === null || options === void 0 ? void 0 : options.enableCrossOsArchive);
+        const resource = `cache?keys=${encodeURIComponent(keys.join(","))}&version=${version}`;
         const response = yield (0, requestUtils_1.retryTypedResponse)("getCacheEntry", () => __awaiter2(this, void 0, void 0, function* () {
           return httpClient.getJson(getCacheApiUrl(resource));
         }));
         if (response.statusCode === 204) {
           if (core6.isDebug()) {
-            yield printCachesListForDiagnostics(keys[0], httpClient, version2);
+            yield printCachesListForDiagnostics(keys[0], httpClient, version);
           }
           return null;
         }
@@ -57528,7 +58119,7 @@ var require_cacheHttpClient = __commonJS({
       });
     }
     exports2.getCacheEntry = getCacheEntry;
-    function printCachesListForDiagnostics(key, httpClient, version2) {
+    function printCachesListForDiagnostics(key, httpClient, version) {
       return __awaiter2(this, void 0, void 0, function* () {
         const resource = `caches?key=${encodeURIComponent(key)}`;
         const response = yield (0, requestUtils_1.retryTypedResponse)("listCache", () => __awaiter2(this, void 0, void 0, function* () {
@@ -57538,7 +58129,7 @@ var require_cacheHttpClient = __commonJS({
           const cacheListResult = response.result;
           const totalCount = cacheListResult === null || cacheListResult === void 0 ? void 0 : cacheListResult.totalCount;
           if (totalCount && totalCount > 0) {
-            core6.debug(`No matching cache found for cache key '${key}', version '${version2} and scope ${process.env["GITHUB_REF"]}. There exist one or more cache(s) with similar key but they have different version or scope. See more info on cache matching here: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key 
+            core6.debug(`No matching cache found for cache key '${key}', version '${version} and scope ${process.env["GITHUB_REF"]}. There exist one or more cache(s) with similar key but they have different version or scope. See more info on cache matching here: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#matching-a-cache-key 
 Other caches with similar key:`);
             for (const cacheEntry of (cacheListResult === null || cacheListResult === void 0 ? void 0 : cacheListResult.artifactCaches) || []) {
               core6.debug(`Cache Key: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheKey}, Cache Version: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.cacheVersion}, Cache Scope: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.scope}, Cache Created: ${cacheEntry === null || cacheEntry === void 0 ? void 0 : cacheEntry.creationTime}`);
@@ -57568,10 +58159,10 @@ Other caches with similar key:`);
     function reserveCache(key, paths, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const httpClient = createHttpClient();
-        const version2 = getCacheVersion(paths, options === null || options === void 0 ? void 0 : options.compressionMethod, options === null || options === void 0 ? void 0 : options.enableCrossOsArchive);
+        const version = getCacheVersion(paths, options === null || options === void 0 ? void 0 : options.compressionMethod, options === null || options === void 0 ? void 0 : options.enableCrossOsArchive);
         const reserveCacheRequest = {
           key,
-          version: version2,
+          version,
           cacheSize: options === null || options === void 0 ? void 0 : options.cacheSize
         };
         const response = yield (0, requestUtils_1.retryTypedResponse)("reserveCache", () => __awaiter2(this, void 0, void 0, function* () {
@@ -57660,9 +58251,9 @@ Other caches with similar key:`);
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/tar.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/tar.js
 var require_tar = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/internal/tar.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/internal/tar.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -57903,9 +58494,9 @@ var require_tar = __commonJS({
   }
 });
 
-// node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/cache.js
+// node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/cache.js
 var require_cache2 = __commonJS({
-  "node_modules/.pnpm/@actions+cache@3.2.4/node_modules/@actions/cache/lib/cache.js"(exports2) {
+  "node_modules/.pnpm/@actions+cache@3.3.0/node_modules/@actions/cache/lib/cache.js"(exports2) {
     "use strict";
     var __createBinding2 = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
@@ -58123,9 +58714,9 @@ var require_cache2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/constants.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/constants.js
 var require_constants9 = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/constants.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/constants.js"(exports2, module2) {
     var SEMVER_SPEC_VERSION = "2.0.0";
     var MAX_LENGTH = 256;
     var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
@@ -58154,18 +58745,18 @@ var require_constants9 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/debug.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/debug.js
 var require_debug2 = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/debug.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/debug.js"(exports2, module2) {
     var debug = typeof process === "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
     };
     module2.exports = debug;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/re.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/re.js
 var require_re = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/re.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/re.js"(exports2, module2) {
     var {
       MAX_SAFE_COMPONENT_LENGTH,
       MAX_SAFE_BUILD_LENGTH,
@@ -58248,9 +58839,9 @@ var require_re = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/parse-options.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/parse-options.js
 var require_parse_options = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/parse-options.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/parse-options.js"(exports2, module2) {
     var looseOption = Object.freeze({ loose: true });
     var emptyOpts = Object.freeze({});
     var parseOptions = (options) => {
@@ -58266,9 +58857,9 @@ var require_parse_options = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/identifiers.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/identifiers.js
 var require_identifiers = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/identifiers.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/identifiers.js"(exports2, module2) {
     var numeric = /^[0-9]+$/;
     var compareIdentifiers = (a, b) => {
       const anum = numeric.test(a);
@@ -58287,40 +58878,40 @@ var require_identifiers = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/classes/semver.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/classes/semver.js
 var require_semver2 = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/classes/semver.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/classes/semver.js"(exports2, module2) {
     var debug = require_debug2();
     var { MAX_LENGTH, MAX_SAFE_INTEGER } = require_constants9();
     var { safeRe: re, t } = require_re();
     var parseOptions = require_parse_options();
     var { compareIdentifiers } = require_identifiers();
     var SemVer = class _SemVer {
-      constructor(version2, options) {
+      constructor(version, options) {
         options = parseOptions(options);
-        if (version2 instanceof _SemVer) {
-          if (version2.loose === !!options.loose && version2.includePrerelease === !!options.includePrerelease) {
-            return version2;
+        if (version instanceof _SemVer) {
+          if (version.loose === !!options.loose && version.includePrerelease === !!options.includePrerelease) {
+            return version;
           } else {
-            version2 = version2.version;
+            version = version.version;
           }
-        } else if (typeof version2 !== "string") {
-          throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version2}".`);
+        } else if (typeof version !== "string") {
+          throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version}".`);
         }
-        if (version2.length > MAX_LENGTH) {
+        if (version.length > MAX_LENGTH) {
           throw new TypeError(
             `version is longer than ${MAX_LENGTH} characters`
           );
         }
-        debug("SemVer", version2, options);
+        debug("SemVer", version, options);
         this.options = options;
         this.loose = !!options.loose;
         this.includePrerelease = !!options.includePrerelease;
-        const m = version2.trim().match(options.loose ? re[t.LOOSE] : re[t.FULL]);
+        const m = version.trim().match(options.loose ? re[t.LOOSE] : re[t.FULL]);
         if (!m) {
-          throw new TypeError(`Invalid Version: ${version2}`);
+          throw new TypeError(`Invalid Version: ${version}`);
         }
-        this.raw = version2;
+        this.raw = version;
         this.major = +m[1];
         this.minor = +m[2];
         this.patch = +m[3];
@@ -58451,6 +59042,8 @@ var require_semver2 = __commonJS({
             this.inc("patch", identifier, identifierBase);
             this.inc("pre", identifier, identifierBase);
             break;
+          // If the input is a non-prerelease version, this acts the same as
+          // prepatch.
           case "prerelease":
             if (this.prerelease.length === 0) {
               this.inc("patch", identifier, identifierBase);
@@ -58478,6 +59071,8 @@ var require_semver2 = __commonJS({
             }
             this.prerelease = [];
             break;
+          // This probably shouldn't be used publicly.
+          // 1.0.0 'pre' would become 1.0.0-0 which is the wrong direction.
           case "pre": {
             const base = Number(identifierBase) ? 1 : 0;
             if (!identifier && identifierBase === false) {
@@ -58529,16 +59124,16 @@ var require_semver2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/parse.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/parse.js
 var require_parse2 = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/parse.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/parse.js"(exports2, module2) {
     var SemVer = require_semver2();
-    var parse3 = (version2, options, throwErrors = false) => {
-      if (version2 instanceof SemVer) {
-        return version2;
+    var parse2 = (version, options, throwErrors = false) => {
+      if (version instanceof SemVer) {
+        return version;
       }
       try {
-        return new SemVer(version2, options);
+        return new SemVer(version, options);
       } catch (er) {
         if (!throwErrors) {
           return null;
@@ -58546,39 +59141,39 @@ var require_parse2 = __commonJS({
         throw er;
       }
     };
-    module2.exports = parse3;
+    module2.exports = parse2;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/valid.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/valid.js
 var require_valid = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/valid.js"(exports2, module2) {
-    var parse3 = require_parse2();
-    var valid = (version2, options) => {
-      const v = parse3(version2, options);
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/valid.js"(exports2, module2) {
+    var parse2 = require_parse2();
+    var valid = (version, options) => {
+      const v = parse2(version, options);
       return v ? v.version : null;
     };
     module2.exports = valid;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/clean.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/clean.js
 var require_clean = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/clean.js"(exports2, module2) {
-    var parse3 = require_parse2();
-    var clean = (version2, options) => {
-      const s = parse3(version2.trim().replace(/^[=v]+/, ""), options);
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/clean.js"(exports2, module2) {
+    var parse2 = require_parse2();
+    var clean = (version, options) => {
+      const s = parse2(version.trim().replace(/^[=v]+/, ""), options);
       return s ? s.version : null;
     };
     module2.exports = clean;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/inc.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/inc.js
 var require_inc = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/inc.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/inc.js"(exports2, module2) {
     var SemVer = require_semver2();
-    var inc = (version2, release, options, identifier, identifierBase) => {
+    var inc = (version, release, options, identifier, identifierBase) => {
       if (typeof options === "string") {
         identifierBase = identifier;
         identifier = options;
@@ -58586,7 +59181,7 @@ var require_inc = __commonJS({
       }
       try {
         return new SemVer(
-          version2 instanceof SemVer ? version2.version : version2,
+          version instanceof SemVer ? version.version : version,
           options
         ).inc(release, identifier, identifierBase).version;
       } catch (er) {
@@ -58597,20 +59192,20 @@ var require_inc = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/diff.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/diff.js
 var require_diff = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/diff.js"(exports2, module2) {
-    var parse3 = require_parse2();
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/diff.js"(exports2, module2) {
+    var parse2 = require_parse2();
     var diff = (version1, version2) => {
-      const v12 = parse3(version1, null, true);
-      const v2 = parse3(version2, null, true);
-      const comparison = v12.compare(v2);
+      const v1 = parse2(version1, null, true);
+      const v2 = parse2(version2, null, true);
+      const comparison = v1.compare(v2);
       if (comparison === 0) {
         return null;
       }
       const v1Higher = comparison > 0;
-      const highVersion = v1Higher ? v12 : v2;
-      const lowVersion = v1Higher ? v2 : v12;
+      const highVersion = v1Higher ? v1 : v2;
+      const lowVersion = v1Higher ? v2 : v1;
       const highHasPre = !!highVersion.prerelease.length;
       const lowHasPre = !!lowVersion.prerelease.length;
       if (lowHasPre && !highHasPre) {
@@ -58626,13 +59221,13 @@ var require_diff = __commonJS({
         return "major";
       }
       const prefix = highHasPre ? "pre" : "";
-      if (v12.major !== v2.major) {
+      if (v1.major !== v2.major) {
         return prefix + "major";
       }
-      if (v12.minor !== v2.minor) {
+      if (v1.minor !== v2.minor) {
         return prefix + "minor";
       }
-      if (v12.patch !== v2.patch) {
+      if (v1.patch !== v2.patch) {
         return prefix + "patch";
       }
       return "prerelease";
@@ -58641,75 +59236,75 @@ var require_diff = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/major.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/major.js
 var require_major = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/major.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/major.js"(exports2, module2) {
     var SemVer = require_semver2();
     var major = (a, loose) => new SemVer(a, loose).major;
     module2.exports = major;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/minor.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/minor.js
 var require_minor = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/minor.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/minor.js"(exports2, module2) {
     var SemVer = require_semver2();
     var minor = (a, loose) => new SemVer(a, loose).minor;
     module2.exports = minor;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/patch.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/patch.js
 var require_patch = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/patch.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/patch.js"(exports2, module2) {
     var SemVer = require_semver2();
     var patch = (a, loose) => new SemVer(a, loose).patch;
     module2.exports = patch;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/prerelease.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/prerelease.js
 var require_prerelease = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/prerelease.js"(exports2, module2) {
-    var parse3 = require_parse2();
-    var prerelease = (version2, options) => {
-      const parsed = parse3(version2, options);
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/prerelease.js"(exports2, module2) {
+    var parse2 = require_parse2();
+    var prerelease = (version, options) => {
+      const parsed = parse2(version, options);
       return parsed && parsed.prerelease.length ? parsed.prerelease : null;
     };
     module2.exports = prerelease;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/compare.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/compare.js
 var require_compare = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/compare.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/compare.js"(exports2, module2) {
     var SemVer = require_semver2();
     var compare = (a, b, loose) => new SemVer(a, loose).compare(new SemVer(b, loose));
     module2.exports = compare;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/rcompare.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/rcompare.js
 var require_rcompare = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/rcompare.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/rcompare.js"(exports2, module2) {
     var compare = require_compare();
     var rcompare = (a, b, loose) => compare(b, a, loose);
     module2.exports = rcompare;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/compare-loose.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/compare-loose.js
 var require_compare_loose = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/compare-loose.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/compare-loose.js"(exports2, module2) {
     var compare = require_compare();
     var compareLoose = (a, b) => compare(a, b, true);
     module2.exports = compareLoose;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/compare-build.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/compare-build.js
 var require_compare_build = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/compare-build.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/compare-build.js"(exports2, module2) {
     var SemVer = require_semver2();
     var compareBuild = (a, b, loose) => {
       const versionA = new SemVer(a, loose);
@@ -58720,81 +59315,81 @@ var require_compare_build = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/sort.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/sort.js
 var require_sort = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/sort.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/sort.js"(exports2, module2) {
     var compareBuild = require_compare_build();
     var sort = (list, loose) => list.sort((a, b) => compareBuild(a, b, loose));
     module2.exports = sort;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/rsort.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/rsort.js
 var require_rsort = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/rsort.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/rsort.js"(exports2, module2) {
     var compareBuild = require_compare_build();
     var rsort = (list, loose) => list.sort((a, b) => compareBuild(b, a, loose));
     module2.exports = rsort;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/gt.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/gt.js
 var require_gt = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/gt.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/gt.js"(exports2, module2) {
     var compare = require_compare();
     var gt = (a, b, loose) => compare(a, b, loose) > 0;
     module2.exports = gt;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/lt.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/lt.js
 var require_lt = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/lt.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/lt.js"(exports2, module2) {
     var compare = require_compare();
     var lt = (a, b, loose) => compare(a, b, loose) < 0;
     module2.exports = lt;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/eq.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/eq.js
 var require_eq = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/eq.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/eq.js"(exports2, module2) {
     var compare = require_compare();
     var eq = (a, b, loose) => compare(a, b, loose) === 0;
     module2.exports = eq;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/neq.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/neq.js
 var require_neq = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/neq.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/neq.js"(exports2, module2) {
     var compare = require_compare();
     var neq = (a, b, loose) => compare(a, b, loose) !== 0;
     module2.exports = neq;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/gte.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/gte.js
 var require_gte = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/gte.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/gte.js"(exports2, module2) {
     var compare = require_compare();
     var gte = (a, b, loose) => compare(a, b, loose) >= 0;
     module2.exports = gte;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/lte.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/lte.js
 var require_lte = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/lte.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/lte.js"(exports2, module2) {
     var compare = require_compare();
     var lte = (a, b, loose) => compare(a, b, loose) <= 0;
     module2.exports = lte;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/cmp.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/cmp.js
 var require_cmp = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/cmp.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/cmp.js"(exports2, module2) {
     var eq = require_eq();
     var neq = require_neq();
     var gt = require_gt();
@@ -58841,30 +59436,30 @@ var require_cmp = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/coerce.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/coerce.js
 var require_coerce = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/coerce.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/coerce.js"(exports2, module2) {
     var SemVer = require_semver2();
-    var parse3 = require_parse2();
+    var parse2 = require_parse2();
     var { safeRe: re, t } = require_re();
-    var coerce = (version2, options) => {
-      if (version2 instanceof SemVer) {
-        return version2;
+    var coerce = (version, options) => {
+      if (version instanceof SemVer) {
+        return version;
       }
-      if (typeof version2 === "number") {
-        version2 = String(version2);
+      if (typeof version === "number") {
+        version = String(version);
       }
-      if (typeof version2 !== "string") {
+      if (typeof version !== "string") {
         return null;
       }
       options = options || {};
       let match = null;
       if (!options.rtl) {
-        match = version2.match(options.includePrerelease ? re[t.COERCEFULL] : re[t.COERCE]);
+        match = version.match(options.includePrerelease ? re[t.COERCEFULL] : re[t.COERCE]);
       } else {
         const coerceRtlRegex = options.includePrerelease ? re[t.COERCERTLFULL] : re[t.COERCERTL];
         let next;
-        while ((next = coerceRtlRegex.exec(version2)) && (!match || match.index + match[0].length !== version2.length)) {
+        while ((next = coerceRtlRegex.exec(version)) && (!match || match.index + match[0].length !== version.length)) {
           if (!match || next.index + next[0].length !== match.index + match[0].length) {
             match = next;
           }
@@ -58880,15 +59475,15 @@ var require_coerce = __commonJS({
       const patch = match[4] || "0";
       const prerelease = options.includePrerelease && match[5] ? `-${match[5]}` : "";
       const build = options.includePrerelease && match[6] ? `+${match[6]}` : "";
-      return parse3(`${major}.${minor}.${patch}${prerelease}${build}`, options);
+      return parse2(`${major}.${minor}.${patch}${prerelease}${build}`, options);
     };
     module2.exports = coerce;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/lrucache.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/lrucache.js
 var require_lrucache = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/internal/lrucache.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/internal/lrucache.js"(exports2, module2) {
     var LRUCache = class {
       constructor() {
         this.max = 1e3;
@@ -58923,9 +59518,10 @@ var require_lrucache = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/classes/range.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/classes/range.js
 var require_range = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/classes/range.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/classes/range.js"(exports2, module2) {
+    var SPACE_CHARACTERS = /\s+/g;
     var Range = class _Range {
       constructor(range, options) {
         options = parseOptions(options);
@@ -58939,13 +59535,13 @@ var require_range = __commonJS({
         if (range instanceof Comparator) {
           this.raw = range.value;
           this.set = [[range]];
-          this.format();
+          this.formatted = void 0;
           return this;
         }
         this.options = options;
         this.loose = !!options.loose;
         this.includePrerelease = !!options.includePrerelease;
-        this.raw = range.trim().split(/\s+/).join(" ");
+        this.raw = range.trim().replace(SPACE_CHARACTERS, " ");
         this.set = this.raw.split("||").map((r) => this.parseRange(r.trim())).filter((c) => c.length);
         if (!this.set.length) {
           throw new TypeError(`Invalid SemVer Range: ${this.raw}`);
@@ -58964,10 +59560,27 @@ var require_range = __commonJS({
             }
           }
         }
-        this.format();
+        this.formatted = void 0;
+      }
+      get range() {
+        if (this.formatted === void 0) {
+          this.formatted = "";
+          for (let i = 0; i < this.set.length; i++) {
+            if (i > 0) {
+              this.formatted += "||";
+            }
+            const comps = this.set[i];
+            for (let k = 0; k < comps.length; k++) {
+              if (k > 0) {
+                this.formatted += " ";
+              }
+              this.formatted += comps[k].toString().trim();
+            }
+          }
+        }
+        return this.formatted;
       }
       format() {
-        this.range = this.set.map((comps) => comps.join(" ").trim()).join("||").trim();
         return this.range;
       }
       toString() {
@@ -59028,19 +59641,19 @@ var require_range = __commonJS({
         });
       }
       // if ANY of the sets match ALL of its comparators, then pass
-      test(version2) {
-        if (!version2) {
+      test(version) {
+        if (!version) {
           return false;
         }
-        if (typeof version2 === "string") {
+        if (typeof version === "string") {
           try {
-            version2 = new SemVer(version2, this.options);
+            version = new SemVer(version, this.options);
           } catch (er) {
             return false;
           }
         }
         for (let i = 0; i < this.set.length; i++) {
-          if (testSet(this.set[i], version2, this.options)) {
+          if (testSet(this.set[i], version, this.options)) {
             return true;
           }
         }
@@ -59254,13 +59867,13 @@ var require_range = __commonJS({
       }
       return `${from} ${to}`.trim();
     };
-    var testSet = (set, version2, options) => {
+    var testSet = (set, version, options) => {
       for (let i = 0; i < set.length; i++) {
-        if (!set[i].test(version2)) {
+        if (!set[i].test(version)) {
           return false;
         }
       }
-      if (version2.prerelease.length && !options.includePrerelease) {
+      if (version.prerelease.length && !options.includePrerelease) {
         for (let i = 0; i < set.length; i++) {
           debug(set[i].semver);
           if (set[i].semver === Comparator.ANY) {
@@ -59268,7 +59881,7 @@ var require_range = __commonJS({
           }
           if (set[i].semver.prerelease.length > 0) {
             const allowed = set[i].semver;
-            if (allowed.major === version2.major && allowed.minor === version2.minor && allowed.patch === version2.patch) {
+            if (allowed.major === version.major && allowed.minor === version.minor && allowed.patch === version.patch) {
               return true;
             }
           }
@@ -59280,9 +59893,9 @@ var require_range = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/classes/comparator.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/classes/comparator.js
 var require_comparator = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/classes/comparator.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/classes/comparator.js"(exports2, module2) {
     var ANY = Symbol("SemVer ANY");
     var Comparator = class _Comparator {
       static get ANY() {
@@ -59328,19 +59941,19 @@ var require_comparator = __commonJS({
       toString() {
         return this.value;
       }
-      test(version2) {
-        debug("Comparator.test", version2, this.options.loose);
-        if (this.semver === ANY || version2 === ANY) {
+      test(version) {
+        debug("Comparator.test", version, this.options.loose);
+        if (this.semver === ANY || version === ANY) {
           return true;
         }
-        if (typeof version2 === "string") {
+        if (typeof version === "string") {
           try {
-            version2 = new SemVer(version2, this.options);
+            version = new SemVer(version, this.options);
           } catch (er) {
             return false;
           }
         }
-        return cmp(version2, this.operator, this.semver, this.options);
+        return cmp(version, this.operator, this.semver, this.options);
       }
       intersects(comp, options) {
         if (!(comp instanceof _Comparator)) {
@@ -59392,34 +60005,34 @@ var require_comparator = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/satisfies.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/satisfies.js
 var require_satisfies = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/functions/satisfies.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/functions/satisfies.js"(exports2, module2) {
     var Range = require_range();
-    var satisfies = (version2, range, options) => {
+    var satisfies = (version, range, options) => {
       try {
         range = new Range(range, options);
       } catch (er) {
         return false;
       }
-      return range.test(version2);
+      return range.test(version);
     };
     module2.exports = satisfies;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/to-comparators.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/to-comparators.js
 var require_to_comparators = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/to-comparators.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/to-comparators.js"(exports2, module2) {
     var Range = require_range();
     var toComparators = (range, options) => new Range(range, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
     module2.exports = toComparators;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/max-satisfying.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/max-satisfying.js
 var require_max_satisfying = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/max-satisfying.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/max-satisfying.js"(exports2, module2) {
     var SemVer = require_semver2();
     var Range = require_range();
     var maxSatisfying = (versions, range, options) => {
@@ -59445,9 +60058,9 @@ var require_max_satisfying = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/min-satisfying.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/min-satisfying.js
 var require_min_satisfying = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/min-satisfying.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/min-satisfying.js"(exports2, module2) {
     var SemVer = require_semver2();
     var Range = require_range();
     var minSatisfying = (versions, range, options) => {
@@ -59473,9 +60086,9 @@ var require_min_satisfying = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/min-version.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/min-version.js
 var require_min_version = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/min-version.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/min-version.js"(exports2, module2) {
     var SemVer = require_semver2();
     var Range = require_range();
     var gt = require_gt();
@@ -59503,6 +60116,7 @@ var require_min_version = __commonJS({
                 compver.prerelease.push(0);
               }
               compver.raw = compver.format();
+            /* fallthrough */
             case "":
             case ">=":
               if (!setMin || gt(compver, setMin)) {
@@ -59512,6 +60126,7 @@ var require_min_version = __commonJS({
             case "<":
             case "<=":
               break;
+            /* istanbul ignore next */
             default:
               throw new Error(`Unexpected operation: ${comparator.operator}`);
           }
@@ -59529,9 +60144,9 @@ var require_min_version = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/valid.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/valid.js
 var require_valid2 = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/valid.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/valid.js"(exports2, module2) {
     var Range = require_range();
     var validRange2 = (range, options) => {
       try {
@@ -59544,9 +60159,9 @@ var require_valid2 = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/outside.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/outside.js
 var require_outside = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/outside.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/outside.js"(exports2, module2) {
     var SemVer = require_semver2();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
@@ -59556,8 +60171,8 @@ var require_outside = __commonJS({
     var lt = require_lt();
     var lte = require_lte();
     var gte = require_gte();
-    var outside = (version2, range, hilo, options) => {
-      version2 = new SemVer(version2, options);
+    var outside = (version, range, hilo, options) => {
+      version = new SemVer(version, options);
       range = new Range(range, options);
       let gtfn, ltefn, ltfn, comp, ecomp;
       switch (hilo) {
@@ -59578,7 +60193,7 @@ var require_outside = __commonJS({
         default:
           throw new TypeError('Must provide a hilo val of "<" or ">"');
       }
-      if (satisfies(version2, range, options)) {
+      if (satisfies(version, range, options)) {
         return false;
       }
       for (let i = 0; i < range.set.length; ++i) {
@@ -59600,9 +60215,9 @@ var require_outside = __commonJS({
         if (high.operator === comp || high.operator === ecomp) {
           return false;
         }
-        if ((!low.operator || low.operator === comp) && ltefn(version2, low.semver)) {
+        if ((!low.operator || low.operator === comp) && ltefn(version, low.semver)) {
           return false;
-        } else if (low.operator === ecomp && ltfn(version2, low.semver)) {
+        } else if (low.operator === ecomp && ltfn(version, low.semver)) {
           return false;
         }
       }
@@ -59612,27 +60227,27 @@ var require_outside = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/gtr.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/gtr.js
 var require_gtr = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/gtr.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/gtr.js"(exports2, module2) {
     var outside = require_outside();
-    var gtr = (version2, range, options) => outside(version2, range, ">", options);
+    var gtr = (version, range, options) => outside(version, range, ">", options);
     module2.exports = gtr;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/ltr.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/ltr.js
 var require_ltr = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/ltr.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/ltr.js"(exports2, module2) {
     var outside = require_outside();
-    var ltr = (version2, range, options) => outside(version2, range, "<", options);
+    var ltr = (version, range, options) => outside(version, range, "<", options);
     module2.exports = ltr;
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/intersects.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/intersects.js
 var require_intersects = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/intersects.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/intersects.js"(exports2, module2) {
     var Range = require_range();
     var intersects = (r1, r2, options) => {
       r1 = new Range(r1, options);
@@ -59643,9 +60258,9 @@ var require_intersects = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/simplify.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/simplify.js
 var require_simplify = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/simplify.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/simplify.js"(exports2, module2) {
     var satisfies = require_satisfies();
     var compare = require_compare();
     module2.exports = (versions, range, options) => {
@@ -59653,12 +60268,12 @@ var require_simplify = __commonJS({
       let first = null;
       let prev = null;
       const v = versions.sort((a, b) => compare(a, b, options));
-      for (const version2 of v) {
-        const included = satisfies(version2, range, options);
+      for (const version of v) {
+        const included = satisfies(version, range, options);
         if (included) {
-          prev = version2;
+          prev = version;
           if (!first) {
-            first = version2;
+            first = version;
           }
         } else {
           if (prev) {
@@ -59692,9 +60307,9 @@ var require_simplify = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/subset.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/subset.js
 var require_subset = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/ranges/subset.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/ranges/subset.js"(exports2, module2) {
     var Range = require_range();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
@@ -59853,14 +60468,14 @@ var require_subset = __commonJS({
   }
 });
 
-// node_modules/.pnpm/semver@7.6.2/node_modules/semver/index.js
+// node_modules/.pnpm/semver@7.6.3/node_modules/semver/index.js
 var require_semver3 = __commonJS({
-  "node_modules/.pnpm/semver@7.6.2/node_modules/semver/index.js"(exports2, module2) {
+  "node_modules/.pnpm/semver@7.6.3/node_modules/semver/index.js"(exports2, module2) {
     var internalRe = require_re();
     var constants = require_constants9();
     var SemVer = require_semver2();
     var identifiers = require_identifiers();
-    var parse3 = require_parse2();
+    var parse2 = require_parse2();
     var valid = require_valid();
     var clean = require_clean();
     var inc = require_inc();
@@ -59898,7 +60513,7 @@ var require_semver3 = __commonJS({
     var simplifyRange = require_simplify();
     var subset = require_subset();
     module2.exports = {
-      parse: parse3,
+      parse: parse2,
       valid,
       clean,
       inc,
@@ -59953,7 +60568,7 @@ var io = __toESM(require_io());
 var cache = __toESM(require_cache2());
 var import_node_path2 = __toESM(require("node:path"));
 
-// node_modules/.pnpm/chalk@5.3.0/node_modules/chalk/source/vendor/ansi-styles/index.js
+// node_modules/.pnpm/chalk@5.4.1/node_modules/chalk/source/vendor/ansi-styles/index.js
 var ANSI_BACKGROUND_OFFSET = 10;
 var wrapAnsi16 = (offset = 0) => (code) => `\x1B[${code + offset}m`;
 var wrapAnsi256 = (offset = 0) => (code) => `\x1B[${38 + offset};5;${code}m`;
@@ -60139,7 +60754,7 @@ function assembleStyles() {
 var ansiStyles = assembleStyles();
 var ansi_styles_default = ansiStyles;
 
-// node_modules/.pnpm/chalk@5.3.0/node_modules/chalk/source/vendor/supports-color/index.js
+// node_modules/.pnpm/chalk@5.4.1/node_modules/chalk/source/vendor/supports-color/index.js
 var import_node_process = __toESM(require("node:process"), 1);
 var import_node_os = __toESM(require("node:os"), 1);
 var import_node_tty = __toESM(require("node:tty"), 1);
@@ -60213,10 +60828,10 @@ function _supportsColor(haveStream, { streamIsTTY, sniffFlags = true } = {}) {
     return 1;
   }
   if ("CI" in env) {
-    if ("GITHUB_ACTIONS" in env || "GITEA_ACTIONS" in env) {
+    if (["GITHUB_ACTIONS", "GITEA_ACTIONS", "CIRCLECI"].some((key) => key in env)) {
       return 3;
     }
-    if (["TRAVIS", "CIRCLECI", "APPVEYOR", "GITLAB_CI", "BUILDKITE", "DRONE"].some((sign) => sign in env) || env.CI_NAME === "codeship") {
+    if (["TRAVIS", "APPVEYOR", "GITLAB_CI", "BUILDKITE", "DRONE"].some((sign) => sign in env) || env.CI_NAME === "codeship") {
       return 1;
     }
     return min;
@@ -60231,10 +60846,10 @@ function _supportsColor(haveStream, { streamIsTTY, sniffFlags = true } = {}) {
     return 3;
   }
   if ("TERM_PROGRAM" in env) {
-    const version2 = Number.parseInt((env.TERM_PROGRAM_VERSION || "").split(".")[0], 10);
+    const version = Number.parseInt((env.TERM_PROGRAM_VERSION || "").split(".")[0], 10);
     switch (env.TERM_PROGRAM) {
       case "iTerm.app": {
-        return version2 >= 3 ? 3 : 2;
+        return version >= 3 ? 3 : 2;
       }
       case "Apple_Terminal": {
         return 2;
@@ -60265,7 +60880,7 @@ var supportsColor = {
 };
 var supports_color_default = supportsColor;
 
-// node_modules/.pnpm/chalk@5.3.0/node_modules/chalk/source/utilities.js
+// node_modules/.pnpm/chalk@5.4.1/node_modules/chalk/source/utilities.js
 function stringReplaceAll(string2, substring, replacer) {
   let index = string2.indexOf(substring);
   if (index === -1) {
@@ -60295,7 +60910,7 @@ function stringEncaseCRLFWithFirstIndex(string2, prefix, postfix, index) {
   return returnValue;
 }
 
-// node_modules/.pnpm/chalk@5.3.0/node_modules/chalk/source/index.js
+// node_modules/.pnpm/chalk@5.4.1/node_modules/chalk/source/index.js
 var { stdout: stdoutColor, stderr: stderrColor } = supports_color_default;
 var GENERATOR = Symbol("GENERATOR");
 var STYLER = Symbol("STYLER");
@@ -60451,7 +61066,7 @@ var core = __toESM(require_core());
 var exec = __toESM(require_exec());
 var import_node_path = __toESM(require("node:path"));
 var import_node_crypto = __toESM(require("node:crypto"));
-async function getInstallSettings(input, version2) {
+async function getInstallSettings(input, version) {
   const homePath = process.env.HOME ?? process.env.USERPROFILE;
   if (homePath === void 0 || homePath === "") {
     core.setFailed(
@@ -60460,7 +61075,7 @@ async function getInstallSettings(input, version2) {
     process.exit(1);
   }
   const installPath = import_node_path.default.join(homePath, ".cargo-install", input.crate);
-  const cacheKey = await getCacheKey(input, version2);
+  const cacheKey = await getCacheKey(input, version);
   return {
     path: installPath,
     cacheKey
@@ -60495,7 +61110,7 @@ async function getOsVersion() {
     return `${major.stdout.trim()}.${minor.stdout.trim()}`;
   }
 }
-async function getCacheKey(input, version2) {
+async function getCacheKey(input, version) {
   const runnerOs = process.env.RUNNER_OS;
   const runnerArch = process.env.RUNNER_ARCH;
   const jobId = process.env.GITHUB_JOB;
@@ -60525,15 +61140,15 @@ async function getCacheKey(input, version2) {
     hashKey += input.cacheKey;
   }
   const hash = import_node_crypto.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 20);
-  const versionKey = "version" in version2 ? version2.version : version2.commit.slice(0, 7);
+  const versionKey = "version" in version ? version.version : version.commit.slice(0, 7);
   return `cargo-install-${input.crate}-${versionKey}-${hash}`;
 }
-async function runCargoInstall(input, version2, install) {
+async function runCargoInstall(input, version, install) {
   let commandArgs = ["install", input.crate, "--force", "--root", install.path];
-  if ("version" in version2) {
-    commandArgs.push("--version", version2.version);
+  if ("version" in version) {
+    commandArgs.push("--version", version.version);
   } else {
-    commandArgs.push("--git", version2.repository, "--rev", version2.commit);
+    commandArgs.push("--git", version.repository, "--rev", version.commit);
   }
   if (input.source.type === "registry" && input.source.registry !== void 0) {
     commandArgs.push("--registry", input.source.registry);
@@ -60599,8 +61214,8 @@ function parseInput() {
   if (locked) {
     parsedArgs.push("--locked");
   }
-  const version2 = core2.getInput("version", { required: true });
-  if (version2 !== "latest" && semver.validRange(version2) === null) {
+  const version = core2.getInput("version", { required: true });
+  if (version !== "latest" && semver.validRange(version) === null) {
     core2.setFailed(
       'Invalid version provided. Must be a valid semver range or "latest".'
     );
@@ -60624,14 +61239,14 @@ function parseInput() {
     source.tag = tag !== "" ? tag : void 0;
     source.commit = commit !== "" ? commit : rev !== "" ? rev : void 0;
   } else {
-    source = { type: "registry", version: version2 };
+    source = { type: "registry", version };
     source.registry = registry !== "" ? registry : void 0;
     source.index = index !== "" ? index : void 0;
   }
   if (repository === "" && (branch !== "" || tag !== "" || commit !== "" || rev !== "")) {
     core2.warning("Ignoring branch, tag, and commit since git is not provided.");
   }
-  if (repository !== "" && version2 !== "latest") {
+  if (repository !== "" && version !== "latest") {
     core2.warning("Ignoring version since git is provided.");
   }
   return {
@@ -60838,7 +61453,7 @@ function string(message) {
     }
   };
 }
-function parse2(schema, input, config2) {
+function parse(schema, input, config2) {
   const dataset = schema._run(
     { typed: false, value: input },
     getGlobalConfig(config2)
@@ -60875,8 +61490,8 @@ var CrateVersionSchema = object({
   ),
   yanked: boolean()
 });
-async function resolveRegistryVersion(crate, { version: version2, registry, index }) {
-  const isVersionRange = import_semver.default.valid(version2) === null;
+async function resolveRegistryVersion(crate, { version, registry, index }) {
+  const isVersionRange = import_semver.default.valid(version) === null;
   const registryIndex = index !== void 0 ? parseRegistryIndex(index) : { sparse: true, url: "https://index.crates.io/" };
   const nonSparseIndex = registry !== void 0 || !registryIndex.sparse;
   if (isVersionRange && nonSparseIndex) {
@@ -60885,9 +61500,9 @@ async function resolveRegistryVersion(crate, { version: version2, registry, inde
   }
   if (!isVersionRange && nonSparseIndex) {
     core3.info("Using non-sparse index, skipping version resolution");
-    return { version: version2 };
+    return { version };
   }
-  return await resolveCrateVersion(crate, version2, registryIndex);
+  return await resolveCrateVersion(crate, version, registryIndex);
 }
 function parseRegistryIndex(input) {
   const sparseProtocol = "sparse+";
@@ -60895,19 +61510,19 @@ function parseRegistryIndex(input) {
   const url = sparse ? input.slice(sparseProtocol.length) : input;
   return { sparse, url };
 }
-async function resolveCrateVersion(crate, version2, index) {
+async function resolveCrateVersion(crate, version, index) {
   core3.info(`Fetching information for ${crate} from index ...`);
   const versions = await fetchIndex(crate, index.url);
   const sortedVersions = versions.sort((a, b) => import_semver.default.compare(a.vers, b.vers)).reverse();
   const latest = sortedVersions.find((ver) => !ver.yanked && !import_semver.default.prerelease(ver.vers)) ?? sortedVersions[0];
-  if (version2 === "latest") {
+  if (version === "latest") {
     return { version: latest.vers };
   }
   const resolved = sortedVersions.filter(
-    (ver) => import_semver.default.satisfies(ver.vers, version2)
+    (ver) => import_semver.default.satisfies(ver.vers, version)
   );
   if (resolved.length === 0) {
-    core3.setFailed(`No version found for ${crate} that satisfies ${version2}`);
+    core3.setFailed(`No version found for ${crate} that satisfies ${version}`);
     core3.info(
       `Available versions: ${versions.map((ver) => ver.vers).join(", ")}`
     );
@@ -60938,7 +61553,7 @@ async function fetchIndex(crate, indexUrl) {
     process.exit(1);
   }
   const body = await response.readBody();
-  return body.split("\n").filter((line) => line.length > 0).map((line) => parse2(CrateVersionSchema, JSON.parse(line)));
+  return body.split("\n").filter((line) => line.length > 0).map((line) => parse(CrateVersionSchema, JSON.parse(line)));
 }
 function getIndexPath(crate) {
   const name = crate.toLowerCase();
@@ -61026,14 +61641,14 @@ var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
   core5.startGroup(chalk2.bold(`Installing ${input.crate}...`));
-  const version2 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source) : await resolveGitCommit(input.source);
-  const install = await getInstallSettings(input, version2);
+  const version = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source) : await resolveGitCommit(input.source);
+  const install = await getInstallSettings(input, version);
   core5.info("Installation settings:");
-  if ("version" in version2) {
-    core5.info(`   version: ${version2.version}`);
+  if ("version" in version) {
+    core5.info(`   version: ${version.version}`);
   } else {
-    core5.info(`   repository: ${version2.repository}`);
-    core5.info(`   commit: ${version2.commit}`);
+    core5.info(`   repository: ${version.repository}`);
+    core5.info(`   commit: ${version.commit}`);
   }
   core5.info(`   path: ${install.path}`);
   core5.info(`   key: ${install.cacheKey}`);
@@ -61048,7 +61663,7 @@ async function run() {
     core5.startGroup(
       `No cached version found, installing ${input.crate} using cargo...`
     );
-    await runCargoInstall(input, version2, install);
+    await runCargoInstall(input, version, install);
     try {
       await cache.saveCache([install.path], install.cacheKey);
     } catch (error2) {
@@ -61062,18 +61677,18 @@ async function run() {
   }
   core5.addPath(import_node_path2.default.join(install.path, "bin"));
   core5.info(`Added ${install.path}/bin to PATH.`);
-  if ("version" in version2) {
-    core5.info(chalk2.green(`Installed ${input.crate} ${version2.version}.`));
+  if ("version" in version) {
+    core5.info(chalk2.green(`Installed ${input.crate} ${version.version}.`));
   } else {
     core5.info(
       chalk2.green(
-        `Installed ${input.crate} from ${version2.repository} at ${version2.commit.slice(0, 7)}.`
+        `Installed ${input.crate} from ${version.repository} at ${version.commit.slice(0, 7)}.`
       )
     );
   }
   core5.setOutput(
     "version",
-    "version" in version2 ? version2.version : version2.commit
+    "version" in version ? version.version : version.commit
   );
   core5.setOutput("cache-hit", cacheHit);
 }
