@@ -3,22 +3,21 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/baptiste0928/cargo-install)
 [![CI](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml/badge.svg)](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml)
 
-This action enables you to run `cargo install` in your GitHub workflows, and
-automatically caches the resulting binaries to speed up subsequent builds.
-
-> [!WARNING]
+> [!IMPORTANT]
 >
 > **Versions prior to v3.2 will stop working on February 1st, 2025**, due to
-> GitHub changing their cache service APIs. See also the [`@actions/cache`
-> package deprecation warning](https://github.com/actions/toolkit/discussions/1890).
+> GitHub changing their cache service APIs. See the [`@actions/cache`
+> package deprecation notice](https://github.com/actions/toolkit/discussions/1890).
+
+A GitHub Action that runs `cargo install` and automatically caches the resulting binaries to speed up subsequent builds.
 
 ## Features
 
-- Install any Rust binary crate from [crates.io], a git repository or an
-  alternate registry.
-- Automatically cache installed binaries to avoid compiling them each run.
-- Keep crates updated, with an optional version range to avoid breakages.
-- Works on Linux, Windows and MacOS runners.
+- Install any Rust binary crate from [crates.io], git repositories or custom
+  registries
+- Automatically cache binaries to avoid repeated compilations
+- Version range support to keep crates updated
+- Works on Linux, Windows and MacOS runners
 
 ## Usage
 
@@ -30,7 +29,7 @@ crates. Read [Quickstart for GitHub Actions] to learn more about Actions usage.
   uses: baptiste0928/cargo-install@v3
   with:
     crate: cargo-hack
-    version: '^0.5' # You can specify any semver range
+    version: '^0.5' # optional semver range (defaults to latest)
 
 - name: Install cargo-sort from git
   uses: baptiste0928/cargo-install@v3
@@ -49,77 +48,57 @@ unexpected dependencies updates.
 
 ### Input parameters
 
-- `crate` _(required)_: Name of the crate to install.
-- `version`: Version to install (defaults to the latest version). Supports any
-  semver range. Only used when installing from crates.io, see below for git
-  installation.
-- `features`: Space or comma-separated list of crate features to enable.
-- `locked`: Use the crate `Cargo.lock` if available (enabled by default). This
-  adds `--locked` to the install command arguments.
-- `args`: Additional arguments to pass to `cargo install`.
-- `cache-key`: Additional string added to the cache key used to manually
-  invalidate the cache.
+- `crate` _(required)_: Name of the crate to install
+- `version`: Version to install, supports semver range (default: latest)
+- `features`: Space or comma-separated list of crate features to enable
+- `locked`: Adds `--locked` flag to (default: true)
+- `args`: Extra arguments for `cargo install`
+- `cache-key`: Custom string added to the cache key to force-invalidate the
+  cache
 
 #### Git parameters
 
-- `git`: URL of the git repository to install from.
-- `branch`: Branch to install from.
-- `tag`: Tag to install from.
-- `commit`/`rev`: Commit hash to install from.
+When installing from a git repository, the `version` parameter is ignored.
+
+- `git`: URL of the git repository
+- `branch`: git branch to install from
+- `tag`: git tag to install from
+- `commit`/`rev`: commit hash to install from
 
 `branch`, `tag` and `commit`/`rev` are mutually exclusive. If none of them are
 specified, the latest commit of the default branch will be used.
 
-#### Alternate registry parameters
+#### Custom registry parameters
 
-- `registry`: Registry name from the Cargo configuration. See
-  [Using an alternate registry](https://doc.rust-lang.org/nightly/cargo/reference/registries.html#using-an-alternate-registry)
-  on the Cargo Book.
-- `index`: URL of the registry index.
+Version range resolution is only supported when using a sparse registry index with the `index` parameter. Otherwise, only exact versions can be used.
 
-`registry` and `index` are mutually exclusive. Only sparse `index` support
-version range resolution, you'll need to specify an exact version when using
-`registry` or a non-sparse `index`.
+- `index`: Registry index URL
+- `registry`: Registry name from the Cargo configuration (see
+  [Using an alternate registry](https://doc.rust-lang.org/nightly/cargo/reference/registries.html#using-an-alternate-registry) on the Cargo Book)
+
+`registry` and `index` are mutually exclusive.
 
 ### Outputs
 
-- `version`: The version of the crate that has been installed.
-- `cache-hit`: A boolean indicating whether the crate was restored from cache.
+- `version`: Installed crate version (or commit hash for git installations)
+- `cache-hit`: Boolean indicating whether the crate was restored from cache
 
 ## Caching
 
-Compiled binaries of installed crates are automatically cached. If a cached
-version is present when the action is executed, it will be used. This allows the
-installation of the crate to be almost instant in most cases.
+Compiled binaries are cached in `~/.cargo-install/<crate-name>`. The cache key contains a hash derived from the installation context (command arguments and os version).
 
-Cached binaries will be automatically removed by GitHub if they have not been
-accessed in the last 7 days. Read [Caching dependencies to speed up workflows]
-to learn more about caching with GitHub Actions.
-
-<details>
-  <summary><strong>Cache key details</strong></summary>
-
-The `~/.cargo-install/<crate-name>` folder is cached with a cache key that
-follows the following pattern:
-
-```
-cargo-install-<crate>-<version or commit>-<hash>
-```
-
-The hash is derived from the action job and runner os name, os version and the
-installation arguments. The `cache-key` value is added to the hashed string
-if provided.
-
-</details>
+Cache entries expire after 7 days of inactivity. For more details, see [GitHub's caching documentation](https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows).
 
 ## Security
 
-Crates are installed using `cargo install` and the latest version is retrieved
-from the [crates.io] sparse index. You can ask to install a specific version by
-not using any semver range operator.
+Installation is done using the `cargo` binary installed in the runner.
 
-If using a git repository, the action will use [`git ls-remote`] to retrieve
-the commit hash. The repository is cloned by `cargo install`.
+When installing from [crates.io] or a custom sparse registry, the action
+resolves the latest version prior to installation. It is recommended to pin
+exact versions for sensitive workflows.
+
+If using a git repository, the action uses [`git ls-remote`] to resolve the
+commit hash. The repository is cloned by `cargo install`.
 
 ## Contributing
 
@@ -133,4 +112,3 @@ issue before.
 [`cargo-sort`]: https://crates.io/crates/cargo-sort
 [`git ls-remote`]: https://git-scm.com/docs/git-ls-remote
 [Quickstart for GitHub Actions]: https://docs.github.com/en/actions/quickstart
-[Caching dependencies to speed up workflows]: https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows
