@@ -29,11 +29,15 @@
     "esbuild": "^0.24.2",
     "eslint": "^9.17.0",
     "prettier": "^3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2"
   },
   "prettier": {
     "arrowParens": "avoid",
-    "singleQuote": true
+    "singleQuote": true,
+    "plugins": [
+      "prettier-plugin-organize-imports"
+    ]
   }
 }

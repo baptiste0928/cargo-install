@@ -1,8 +1,8 @@
-import * as exec from '@actions/exec';
 import * as core from '@actions/core';
+import * as exec from '@actions/exec';
 
-import type { GitSource } from '../parse';
 import type { ResolvedVersion } from '../install';
+import type { GitSource } from '../parse';
 
 interface GitRemoteCommits {
   head: string;

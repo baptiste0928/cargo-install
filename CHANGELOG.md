@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Removed the job id from the cache key. This allows the same cache to be used
+  accross multiple jobs if the installation arguments are the same.
+- Improved the cache key generation logic.
+
 ## [3.2.0] - 2024-12-26
 
 ### Changed

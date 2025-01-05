@@ -1,17 +1,15 @@
-import * as core from '@actions/core';
-import * as io from '@actions/io';
 import * as cache from '@actions/cache';
-import path from 'node:path';
-import { Chalk } from 'chalk';
+import * as core from '@actions/core';
+import * as exec from '@actions/exec';
+import * as io from '@actions/io';
 
-import {
-  type ResolvedVersion,
-  getInstallSettings,
-  runCargoInstall,
-} from './install';
+import { Chalk } from 'chalk';
+import path from 'node:path';
+
+import { type ResolvedVersion, getInstallSettings } from './install';
 import { parseInput } from './parse';
-import { resolveRegistryVersion } from './resolve/registry';
 import { resolveGitCommit } from './resolve/git';
+import { resolveRegistryVersion } from './resolve/registry';
 
 const chalk = new Chalk({ level: 3 });
 
@@ -35,6 +33,7 @@ async function run(): Promise<void> {
   }
   core.info(`   path: ${install.path}`);
   core.info(`   key: ${install.cacheKey}`);
+  core.info(`   command: cargo ${install.args.join(' ')}`);
 
   await io.mkdirP(install.path);
   const restored = await cache.restoreCache([install.path], install.cacheKey);
@@ -50,7 +49,7 @@ async function run(): Promise<void> {
     core.startGroup(
       `No cached version found, installing ${input.crate} using cargo...`,
     );
-    await runCargoInstall(input, version, install);
+    await exec.exec('cargo', install.args);
 
     try {
       await cache.saveCache([install.path], install.cacheKey);
@@ -58,7 +57,7 @@ async function run(): Promise<void> {
       if (error instanceof Error) {
         core.warning(error.message);
       } else {
-        core.warning('An error occurred while saving the cache.');
+        core.warning('An unknown error occurred while saving the cache.');
       }
     }
 

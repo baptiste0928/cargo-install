@@ -1,17 +1,17 @@
-import * as http from '@actions/http-client';
 import * as core from '@actions/core';
+import * as http from '@actions/http-client';
 import semver from 'semver';
 
-import type { ResolvedVersion } from '../install';
 import {
   InferOutput,
   boolean,
   check,
   object,
   parse,
-  string,
   pipe,
+  string,
 } from 'valibot';
+import type { ResolvedVersion } from '../install';
 import { RegistrySource } from '../parse';
 
 const CrateVersionSchema = object({

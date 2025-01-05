@@ -19414,7 +19414,7 @@ var require_exec = __commonJS({
     exports2.getExecOutput = exports2.exec = void 0;
     var string_decoder_1 = require("string_decoder");
     var tr = __importStar2(require_toolrunner());
-    function exec5(commandLine, args, options) {
+    function exec6(commandLine, args, options) {
       return __awaiter2(this, void 0, void 0, function* () {
         const commandArgs = tr.argStringToArray(commandLine);
         if (commandArgs.length === 0) {
@@ -19426,7 +19426,7 @@ var require_exec = __commonJS({
         return runner.exec();
       });
     }
-    exports2.exec = exec5;
+    exports2.exec = exec6;
     function getExecOutput2(commandLine, args, options) {
       var _a, _b;
       return __awaiter2(this, void 0, void 0, function* () {
@@ -19449,7 +19449,7 @@ var require_exec = __commonJS({
           }
         };
         const listeners = Object.assign(Object.assign({}, options === null || options === void 0 ? void 0 : options.listeners), { stdout: stdOutListener, stderr: stdErrListener });
-        const exitCode = yield exec5(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
+        const exitCode = yield exec6(commandLine, args, Object.assign(Object.assign({}, options), { listeners }));
         stdout += stdoutDecoder.end();
         stderr += stderrDecoder.end();
         return {
@@ -19527,12 +19527,12 @@ var require_platform = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.getDetails = exports2.isLinux = exports2.isMacOS = exports2.isWindows = exports2.arch = exports2.platform = void 0;
     var os_1 = __importDefault2(require("os"));
-    var exec5 = __importStar2(require_exec());
+    var exec6 = __importStar2(require_exec());
     var getWindowsInfo = () => __awaiter2(void 0, void 0, void 0, function* () {
-      const { stdout: version } = yield exec5.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Version"', void 0, {
+      const { stdout: version } = yield exec6.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Version"', void 0, {
         silent: true
       });
-      const { stdout: name } = yield exec5.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Caption"', void 0, {
+      const { stdout: name } = yield exec6.getExecOutput('powershell -command "(Get-CimInstance -ClassName Win32_OperatingSystem).Caption"', void 0, {
         silent: true
       });
       return {
@@ -19542,7 +19542,7 @@ var require_platform = __commonJS({
     });
     var getMacOsInfo = () => __awaiter2(void 0, void 0, void 0, function* () {
       var _a, _b, _c, _d;
-      const { stdout } = yield exec5.getExecOutput("sw_vers", void 0, {
+      const { stdout } = yield exec6.getExecOutput("sw_vers", void 0, {
         silent: true
       });
       const version = (_b = (_a = stdout.match(/ProductVersion:\s*(.+)/)) === null || _a === void 0 ? void 0 : _a[1]) !== null && _b !== void 0 ? _b : "";
@@ -19553,7 +19553,7 @@ var require_platform = __commonJS({
       };
     });
     var getLinuxInfo = () => __awaiter2(void 0, void 0, void 0, function* () {
-      const { stdout } = yield exec5.getExecOutput("lsb_release", ["-i", "-r", "-s"], {
+      const { stdout } = yield exec6.getExecOutput("lsb_release", ["-i", "-r", "-s"], {
         silent: true
       });
       const [name, version] = stdout.trim().split("\n");
@@ -22779,7 +22779,7 @@ var require_cacheUtils = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.getRuntimeToken = exports2.getCacheVersion = exports2.assertDefined = exports2.getGnuTarPathOnWindows = exports2.getCacheFileName = exports2.getCompressionMethod = exports2.unlinkFile = exports2.resolvePaths = exports2.getArchiveFileSizeInBytes = exports2.createTempDirectory = void 0;
     var core6 = __importStar2(require_core());
-    var exec5 = __importStar2(require_exec());
+    var exec6 = __importStar2(require_exec());
     var glob = __importStar2(require_glob());
     var io2 = __importStar2(require_io());
     var crypto2 = __importStar2(require("crypto"));
@@ -22863,7 +22863,7 @@ var require_cacheUtils = __commonJS({
         additionalArgs.push("--version");
         core6.debug(`Checking ${app} ${additionalArgs.join(" ")}`);
         try {
-          yield exec5.exec(`${app}`, additionalArgs, {
+          yield exec6.exec(`${app}`, additionalArgs, {
             ignoreReturnCode: true,
             silent: true,
             listeners: {
@@ -68818,10 +68818,10 @@ var require_semver3 = __commonJS({
 });
 
 // src/index.ts
-var core5 = __toESM(require_core());
-var io = __toESM(require_io());
 var cache = __toESM(require_cache3());
-var import_node_path2 = __toESM(require("node:path"));
+var core5 = __toESM(require_core());
+var exec4 = __toESM(require_exec());
+var io = __toESM(require_io());
 
 // node_modules/.pnpm/chalk@5.4.1/node_modules/chalk/source/vendor/ansi-styles/index.js
 var ANSI_BACKGROUND_OFFSET = 10;
@@ -69316,25 +69316,62 @@ Object.defineProperties(createChalk.prototype, styles2);
 var chalk = createChalk();
 var chalkStderr = createChalk({ level: stderrColor ? stderrColor.level : 0 });
 
+// src/index.ts
+var import_node_path2 = __toESM(require("node:path"));
+
 // src/install.ts
 var core = __toESM(require_core());
 var exec = __toESM(require_exec());
-var import_node_path = __toESM(require("node:path"));
 var import_node_crypto = __toESM(require("node:crypto"));
+var import_node_path = __toESM(require("node:path"));
 async function getInstallSettings(input, version) {
   const homePath = process.env.HOME ?? process.env.USERPROFILE;
   if (homePath === void 0 || homePath === "") {
-    core.setFailed(
-      "Could not determine home directory (missing HOME and USERPROFILE environement variables)"
-    );
+    core.setFailed("Could not determine home directory");
     process.exit(1);
   }
   const installPath = import_node_path.default.join(homePath, ".cargo-install", input.crate);
-  const cacheKey = await getCacheKey(input, version);
+  const args = getInstallArgs(input, version, installPath);
+  const cacheKey = await getCacheKey(input, version, args);
   return {
     path: installPath,
+    args,
     cacheKey
   };
+}
+function getInstallArgs(input, version, installPath) {
+  let args = ["install", input.crate, "--force", "--root", installPath];
+  if ("version" in version) {
+    args.push("--version", version.version);
+  } else {
+    args.push("--git", version.repository, "--rev", version.commit);
+  }
+  if (input.source.type === "registry" && input.source.registry) {
+    args.push("--registry", input.source.registry);
+  }
+  if (input.source.type === "registry" && input.source.index) {
+    args.push("--index", input.source.index);
+  }
+  if (input.features.length > 0) {
+    args.push("--features", input.features.join(","));
+  }
+  if (input.args.length > 0) {
+    args = args.concat(input.args);
+  }
+  return args;
+}
+async function getCacheKey(input, version, args) {
+  const runnerOs = process.env.RUNNER_OS;
+  const runnerArch = process.env.RUNNER_ARCH;
+  const osVersion = await getOsVersion();
+  if (runnerOs === void 0 || runnerArch === void 0) {
+    core.setFailed("Could not determine runner OS or runner arch");
+    process.exit(1);
+  }
+  const hashKey = runnerOs + runnerArch + (osVersion ?? "") + args.join(" ") + (input.cacheKey ?? "");
+  const hash = import_node_crypto.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 24);
+  const versionKey = "version" in version ? version.version : version.commit.slice(0, 7);
+  return `cargo-install-${input.crate}-${versionKey}-${hash}`;
 }
 async function getOsVersion() {
   const runnerOs = process.env.RUNNER_OS;
@@ -69364,60 +69401,6 @@ async function getOsVersion() {
     );
     return `${major.stdout.trim()}.${minor.stdout.trim()}`;
   }
-}
-async function getCacheKey(input, version) {
-  const runnerOs = process.env.RUNNER_OS;
-  const runnerArch = process.env.RUNNER_ARCH;
-  const jobId = process.env.GITHUB_JOB;
-  const osVersion = await getOsVersion();
-  if (runnerOs === void 0 || runnerArch === void 0 || jobId === void 0) {
-    core.setFailed("Could not determine runner OS, runner arch or job ID");
-    process.exit(1);
-  }
-  let hashKey = jobId + runnerOs + runnerArch + (osVersion ?? "");
-  hashKey += input.source.type;
-  if (input.source.type === "registry") {
-    hashKey += input.source.registry ?? "";
-    hashKey += input.source.index ?? "";
-  } else {
-    hashKey += input.source.repository;
-    hashKey += input.source.branch ?? "";
-    hashKey += input.source.tag ?? "";
-    hashKey += input.source.commit ?? "";
-  }
-  for (const feature of input.features) {
-    hashKey += feature;
-  }
-  for (const arg of input.args) {
-    hashKey += arg;
-  }
-  if (input.cacheKey?.length > 0) {
-    hashKey += input.cacheKey;
-  }
-  const hash = import_node_crypto.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 20);
-  const versionKey = "version" in version ? version.version : version.commit.slice(0, 7);
-  return `cargo-install-${input.crate}-${versionKey}-${hash}`;
-}
-async function runCargoInstall(input, version, install) {
-  let commandArgs = ["install", input.crate, "--force", "--root", install.path];
-  if ("version" in version) {
-    commandArgs.push("--version", version.version);
-  } else {
-    commandArgs.push("--git", version.repository, "--rev", version.commit);
-  }
-  if (input.source.type === "registry" && input.source.registry !== void 0) {
-    commandArgs.push("--registry", input.source.registry);
-  }
-  if (input.source.type === "registry" && input.source.index !== void 0) {
-    commandArgs.push("--index", input.source.index);
-  }
-  if (input.features.length > 0) {
-    commandArgs.push("--features", input.features.join(","));
-  }
-  if (input.args.length > 0) {
-    commandArgs = commandArgs.concat(input.args);
-  }
-  await exec.exec("cargo", commandArgs);
 }
 
 // src/parse.ts
@@ -69513,9 +69496,76 @@ function parseInput() {
   };
 }
 
-// src/resolve/registry.ts
-var http = __toESM(require_lib());
+// src/resolve/git.ts
 var core3 = __toESM(require_core());
+var exec2 = __toESM(require_exec());
+async function resolveGitCommit(git) {
+  core3.info(`Fetching git commits for ${git.repository}...`);
+  const commits = await fetchGitRemote(git.repository);
+  if (git.commit !== void 0) {
+    core3.info(`Using explicit commit ${git.commit} for ${git.repository}`);
+    return { repository: git.repository, commit: git.commit };
+  }
+  if (git.tag !== void 0) {
+    const commit = commits.tags[git.tag];
+    if (commit === void 0) {
+      core3.setFailed(`Failed to resolve tag ${git.tag} for ${git.repository}`);
+      process.exit(1);
+    }
+    core3.info(`Resolved tag ${git.tag} to commit ${commit}`);
+    return { repository: git.repository, commit };
+  }
+  if (git.branch !== void 0) {
+    const commit = commits.branches[git.branch];
+    if (commit === void 0) {
+      core3.setFailed(
+        `Failed to resolve branch ${git.branch} for ${git.repository}`
+      );
+      process.exit(1);
+    }
+    core3.info(`Resolved branch ${git.branch} to commit ${commit}`);
+    return { repository: git.repository, commit };
+  }
+  core3.info(`Resolved HEAD to commit ${commits.head}`);
+  return { repository: git.repository, commit: commits.head };
+}
+async function fetchGitRemote(repository) {
+  const chunks = [];
+  await exec2.exec("git", ["ls-remote", repository], {
+    listeners: { stdout: (data) => chunks.push(data) },
+    silent: true
+  });
+  const output = Buffer.concat(chunks).toString("utf-8");
+  const commits = { head: "", tags: {}, branches: {} };
+  for (const line of output.split("\n")) {
+    const [commit, ref] = line.split("	");
+    if (commit === "" || ref === "" || ref === void 0) {
+      continue;
+    }
+    if (ref === "HEAD") {
+      commits.head = commit;
+    }
+    const tagMatch = "refs/tags/";
+    if (ref.startsWith(tagMatch)) {
+      const tag = ref.slice(tagMatch.length);
+      commits.tags[tag] = commit;
+    }
+    const branchMatch = "refs/heads/";
+    if (ref.startsWith(branchMatch)) {
+      const branch = ref.slice(branchMatch.length);
+      commits.branches[branch] = commit;
+    }
+  }
+  if (commits.head === "") {
+    core3.setFailed(`Failed to fetch HEAD commit for ${repository}`);
+    process.exit(1);
+  }
+  return commits;
+}
+
+// src/resolve/registry.ts
+var core4 = __toESM(require_core());
+var http = __toESM(require_lib());
 var import_semver = __toESM(require_semver3());
 
 // node_modules/.pnpm/valibot@0.33.3/node_modules/valibot/dist/index.js
@@ -69750,11 +69800,11 @@ async function resolveRegistryVersion(crate, { version, registry, index }) {
   const registryIndex = index !== void 0 ? parseRegistryIndex(index) : { sparse: true, url: "https://index.crates.io/" };
   const nonSparseIndex = registry !== void 0 || !registryIndex.sparse;
   if (isVersionRange && nonSparseIndex) {
-    core3.error("Version ranges can only be used with sparse indexes");
+    core4.error("Version ranges can only be used with sparse indexes");
     process.exit(1);
   }
   if (!isVersionRange && nonSparseIndex) {
-    core3.info("Using non-sparse index, skipping version resolution");
+    core4.info("Using non-sparse index, skipping version resolution");
     return { version };
   }
   return await resolveCrateVersion(crate, version, registryIndex);
@@ -69766,7 +69816,7 @@ function parseRegistryIndex(input) {
   return { sparse, url };
 }
 async function resolveCrateVersion(crate, version, index) {
-  core3.info(`Fetching information for ${crate} from index ...`);
+  core4.info(`Fetching information for ${crate} from index ...`);
   const versions = await fetchIndex(crate, index.url);
   const sortedVersions = versions.sort((a, b) => import_semver.default.compare(a.vers, b.vers)).reverse();
   const latest = sortedVersions.find((ver) => !ver.yanked && !import_semver.default.prerelease(ver.vers)) ?? sortedVersions[0];
@@ -69777,17 +69827,17 @@ async function resolveCrateVersion(crate, version, index) {
     (ver) => import_semver.default.satisfies(ver.vers, version)
   );
   if (resolved.length === 0) {
-    core3.setFailed(`No version found for ${crate} that satisfies ${version}`);
-    core3.info(
+    core4.setFailed(`No version found for ${crate} that satisfies ${version}`);
+    core4.info(
       `Available versions: ${versions.map((ver) => ver.vers).join(", ")}`
     );
     process.exit(1);
   }
   const resolvedVersion = resolved.find((ver) => !ver.yanked) ?? resolved[0];
   if (resolvedVersion.yanked) {
-    core3.warning(`Using yanked version ${resolvedVersion.vers} for ${crate}`);
+    core4.warning(`Using yanked version ${resolvedVersion.vers} for ${crate}`);
   } else if (resolvedVersion.vers !== latest.vers) {
-    core3.warning(
+    core4.warning(
       `New version for ${crate} available: ${sortedVersions[0].vers}`
     );
   }
@@ -69798,11 +69848,11 @@ async function fetchIndex(crate, indexUrl) {
   const client = new http.HttpClient("cargo-install-action");
   const response = await client.get(url.toString());
   if (response.message.statusCode === 404) {
-    core3.setFailed(`Crate ${crate} not found on crates.io index`);
+    core4.setFailed(`Crate ${crate} not found on crates.io index`);
     process.exit(1);
   } else if (response.message.statusCode !== 200) {
-    core3.setFailed(`Failed to fetch crate ${crate} on crates.io index`);
-    core3.info(
+    core4.setFailed(`Failed to fetch crate ${crate} on crates.io index`);
+    core4.info(
       `Error: ${response.message.statusMessage ?? ""} (${response.message.statusCode ?? ""})`
     );
     process.exit(1);
@@ -69824,73 +69874,6 @@ function getIndexPath(crate) {
   return `${name.slice(0, 2)}/${name.slice(2, 4)}/${name}`;
 }
 
-// src/resolve/git.ts
-var exec3 = __toESM(require_exec());
-var core4 = __toESM(require_core());
-async function resolveGitCommit(git) {
-  core4.info(`Fetching git commits for ${git.repository}...`);
-  const commits = await fetchGitRemote(git.repository);
-  if (git.commit !== void 0) {
-    core4.info(`Using explicit commit ${git.commit} for ${git.repository}`);
-    return { repository: git.repository, commit: git.commit };
-  }
-  if (git.tag !== void 0) {
-    const commit = commits.tags[git.tag];
-    if (commit === void 0) {
-      core4.setFailed(`Failed to resolve tag ${git.tag} for ${git.repository}`);
-      process.exit(1);
-    }
-    core4.info(`Resolved tag ${git.tag} to commit ${commit}`);
-    return { repository: git.repository, commit };
-  }
-  if (git.branch !== void 0) {
-    const commit = commits.branches[git.branch];
-    if (commit === void 0) {
-      core4.setFailed(
-        `Failed to resolve branch ${git.branch} for ${git.repository}`
-      );
-      process.exit(1);
-    }
-    core4.info(`Resolved branch ${git.branch} to commit ${commit}`);
-    return { repository: git.repository, commit };
-  }
-  core4.info(`Resolved HEAD to commit ${commits.head}`);
-  return { repository: git.repository, commit: commits.head };
-}
-async function fetchGitRemote(repository) {
-  const chunks = [];
-  await exec3.exec("git", ["ls-remote", repository], {
-    listeners: { stdout: (data) => chunks.push(data) },
-    silent: true
-  });
-  const output = Buffer.concat(chunks).toString("utf-8");
-  const commits = { head: "", tags: {}, branches: {} };
-  for (const line of output.split("\n")) {
-    const [commit, ref] = line.split("	");
-    if (commit === "" || ref === "" || ref === void 0) {
-      continue;
-    }
-    if (ref === "HEAD") {
-      commits.head = commit;
-    }
-    const tagMatch = "refs/tags/";
-    if (ref.startsWith(tagMatch)) {
-      const tag = ref.slice(tagMatch.length);
-      commits.tags[tag] = commit;
-    }
-    const branchMatch = "refs/heads/";
-    if (ref.startsWith(branchMatch)) {
-      const branch = ref.slice(branchMatch.length);
-      commits.branches[branch] = commit;
-    }
-  }
-  if (commits.head === "") {
-    core4.setFailed(`Failed to fetch HEAD commit for ${repository}`);
-    process.exit(1);
-  }
-  return commits;
-}
-
 // src/index.ts
 var chalk2 = new Chalk({ level: 3 });
 async function run() {
@@ -69907,6 +69890,7 @@ async function run() {
   }
   core5.info(`   path: ${install.path}`);
   core5.info(`   key: ${install.cacheKey}`);
+  core5.info(`   command: cargo ${install.args.join(" ")}`);
   await io.mkdirP(install.path);
   const restored = await cache.restoreCache([install.path], install.cacheKey);
   core5.endGroup();
@@ -69918,14 +69902,14 @@ async function run() {
     core5.startGroup(
       `No cached version found, installing ${input.crate} using cargo...`
     );
-    await runCargoInstall(input, version, install);
+    await exec4.exec("cargo", install.args);
     try {
       await cache.saveCache([install.path], install.cacheKey);
     } catch (error2) {
       if (error2 instanceof Error) {
         core5.warning(error2.message);
       } else {
-        core5.warning("An error occurred while saving the cache.");
+        core5.warning("An unknown error occurred while saving the cache.");
       }
     }
     core5.endGroup();
