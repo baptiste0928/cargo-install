@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The `CARGO_INSTALL_ROOT` environment variable is set when running `cargo install`.
+  This allows sub-processed using the `cargo install` command (such as
+  [yazi's build script](https://github.com/sxyazi/yazi/blob/c27ef58116794de7f559bca74e60e6e13ae92051/yazi-build/build.rs#L37))
+  to use the right installation path.
+
 ## [3.3.1] - 2025-06-17
 
 ### Changed

@@ -12,6 +12,7 @@ export type ResolvedVersion =
 export interface InstallSettings {
   path: string;
   args: string[];
+  env: Record<string, string>;
   cacheKey: string;
 }
 
@@ -29,11 +30,13 @@ export async function getInstallSettings(
 
   const installPath = path.join(homePath, '.cargo-install', input.crate);
   const args = getInstallArgs(input, version, installPath);
+  const env = { CARGO_INSTALL_ROOT: installPath };
   const cacheKey = await getCacheKey(input, version, args);
 
   return {
     path: installPath,
     args,
+    env,
     cacheKey,
   };
 }

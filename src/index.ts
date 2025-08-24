@@ -49,7 +49,9 @@ async function run(): Promise<void> {
     core.startGroup(
       `No cached version found, installing ${input.crate} using cargo...`,
     );
-    await exec.exec('cargo', install.args);
+
+    const env = { ...process.env, ...install.env } as Record<string, string>;
+    await exec.exec('cargo', install.args, { env });
 
     try {
       await cache.saveCache([install.path], install.cacheKey);
