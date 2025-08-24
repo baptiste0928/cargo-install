@@ -67596,10 +67596,12 @@ async function getInstallSettings(input, version) {
   }
   const installPath = import_node_path.default.join(homePath, ".cargo-install", input.crate);
   const args = getInstallArgs(input, version, installPath);
+  const env2 = { CARGO_INSTALL_ROOT: installPath };
   const cacheKey = await getCacheKey(input, version, args);
   return {
     path: installPath,
     args,
+    env: env2,
     cacheKey
   };
 }
@@ -68246,7 +68248,8 @@ async function run() {
     core5.startGroup(
       `No cached version found, installing ${input.crate} using cargo...`
     );
-    await exec4.exec("cargo", install.args);
+    const env2 = { ...process.env, ...install.env };
+    await exec4.exec("cargo", install.args, { env: env2 });
     try {
       await cache.saveCache([install.path], install.cacheKey);
     } catch (error2) {
