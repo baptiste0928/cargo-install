@@ -7,7 +7,7 @@
   "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b",
   "scripts": {
     "check": "tsc",
-    "lint": "eslint src",
+    "lint": "oxlint --type-aware",
     "format": "prettier . !pnpm-lock.yaml !dist --write",
     "format:check": "prettier . !pnpm-lock.yaml !dist --check",
     "package": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.js"
@@ -24,15 +24,14 @@
     "valibot": "^1.1.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
     "@types/node": "^24.3.0",
     "@types/semver": "^7.7.0",
     "esbuild": "^0.25.9",
-    "eslint": "^9.34.0",
+    "oxlint": "^1.12.0",
+    "oxlint-tsgolint": "^0.0.4",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript": "^5.9.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
