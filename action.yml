@@ -54,7 +54,7 @@ outputs:
   cache-hit:
     description: 'A boolean indicating whether the crate was restored from cache.'
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
 branding:
   color: 'yellow'
