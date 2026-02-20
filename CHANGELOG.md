@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-02-22
+
+### Changed
+
+- Upgraded the action runtime to Node.js 24.
+- Updated dependencies.
+
+### Fixed
+
+- The new version available warning could sometimes suggest a pre-release
+  version.
+
 ## [3.1.2] - 2025-08-24
 
 ### Changed
@@ -151,8 +163,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of `cargo-install` action.
 
-[Unreleased]: https://github.com/baptiste0928/cargo-install/compare/v3.3.2...HEAD
-[3.3.1]: https://github.com/baptiste0928/cargo-install/compare/v3.3.1...v3.3.2
+[Unreleased]: https://github.com/baptiste0928/cargo-install/compare/v3.4.0...HEAD
+[3.4.0]: https://github.com/baptiste0928/cargo-install/compare/v3.3.2...v3.4.0
+[3.3.2]: https://github.com/baptiste0928/cargo-install/compare/v3.3.1...v3.3.2
 [3.3.1]: https://github.com/baptiste0928/cargo-install/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/baptiste0928/cargo-install/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/baptiste0928/cargo-install/compare/v3.1.1...v3.2.0
