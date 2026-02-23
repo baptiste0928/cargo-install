@@ -94,10 +94,8 @@ async function resolveCrateVersion(
   const resolvedVersion = resolved.find(ver => !ver.yanked) ?? resolved[0];
   if (resolvedVersion.yanked) {
     core.warning(`Using yanked version ${resolvedVersion.vers} for ${crate}`);
-  } else if (resolvedVersion.vers !== latest.vers) {
-    core.warning(
-      `New version for ${crate} available: ${sortedVersions[0].vers}`,
-    );
+  } else if (semver.gt(latest.vers, resolvedVersion.vers)) {
+    core.warning(`New version for ${crate} available: ${latest.vers}`);
   }
 
   return { version: resolvedVersion.vers };
