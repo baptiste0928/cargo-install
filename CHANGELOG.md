@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.0] - 2026-09-14
+
+### Added
+
+- Multiple crates can now be installed in a single action run by using the `crate@version`
+  syntax in the `crate` input. (issue #36)
+
+### Changed
+
+- Updated dependencies.
+
 ## [3.4.0] - 2026-02-22
 
 ### Changed
@@ -163,7 +174,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of `cargo-install` action.
 
-[Unreleased]: https://github.com/baptiste0928/cargo-install/compare/v3.4.0...HEAD
+[Unreleased]: https://github.com/baptiste0928/cargo-install/compare/v3.5.0...HEAD
+[3.5.0]: https://github.com/baptiste0928/cargo-install/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/baptiste0928/cargo-install/compare/v3.3.2...v3.4.0
 [3.3.2]: https://github.com/baptiste0928/cargo-install/compare/v3.3.1...v3.3.2
 [3.3.1]: https://github.com/baptiste0928/cargo-install/compare/v3.3.0...v3.3.1
