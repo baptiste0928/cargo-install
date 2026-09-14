@@ -6,8 +6,7 @@ import path from 'node:path';
 import type { ActionInput } from './parse';
 
 export type ResolvedVersion =
-  | { version: string }
-  | { repository: string; commit: string };
+  { version: string } | { repository: string; commit: string };
 
 export interface InstallSettings {
   path: string;

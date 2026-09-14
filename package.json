@@ -4,7 +4,6 @@
   "description": "GitHub action for cache-efficient Rust crates installation",
   "author": "baptiste0928",
   "license": "ISC",
-  "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b",
   "scripts": {
     "check": "tsc",
     "lint": "oxlint --type-aware",
@@ -13,36 +12,31 @@
     "package": "esbuild src/index.ts --bundle --platform=node --target=node24 --outfile=dist/index.js"
   },
   "dependencies": {
-    "@actions/cache": "^6.0.0",
-    "@actions/core": "^3.0.0",
+    "@actions/cache": "^6.2.0",
+    "@actions/core": "^3.0.1",
     "@actions/exec": "^3.0.0",
-    "@actions/http-client": "^4.0.0",
+    "@actions/http-client": "^4.0.1",
     "@actions/io": "^3.0.2",
-    "chalk": "^5.6.2",
-    "semver": "^7.7.4",
+    "chalk": "^6.0.0",
+    "semver": "^7.8.5",
     "string-argv": "^0.3.2",
-    "valibot": "^1.2.0"
+    "valibot": "^1.5.0"
   },
   "devDependencies": {
-    "@types/node": "^24.10.13",
-    "@types/semver": "^7.7.1",
-    "esbuild": "^0.27.3",
-    "oxlint": "^1.49.0",
-    "oxlint-tsgolint": "^0.14.2",
-    "prettier": "^3.8.1",
+    "@types/node": "^24.13.4",
+    "@types/semver": "^7.8.0",
+    "esbuild": "^0.28.2",
+    "oxlint": "^1.82.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "singleQuote": true,
-    "plugins": [
-      "prettier-plugin-organize-imports"
-    ]
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.25.0",
+      "onFail": "download"
+    }
   }
 }

@@ -1,0 +1,6 @@
+update:
+  # pin github actions with pnpm
+  githubActions: true
+
+allowBuilds:
+  esbuild: true
