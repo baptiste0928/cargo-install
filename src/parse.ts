@@ -4,11 +4,15 @@ import stringArgv from 'string-argv';
 
 // Action input parameters
 export interface ActionInput {
-  crate: string;
-  source: RegistrySource | GitSource;
-  features: string[];
+  crates: Crate[];
   args: string[];
   cacheKey: string;
+}
+
+export interface Crate {
+  name: string;
+  source: RegistrySource | GitSource;
+  features: string[];
 }
 
 export interface RegistrySource {
@@ -29,33 +33,69 @@ export interface GitSource {
 // Parse and validate action input
 export function parseInput(): ActionInput {
   // Global parameters
-  const crate = core.getInput('crate', { required: true });
-  const features = core.getInput('features', { required: false });
+  const specs = parseCrateSpecs(core.getInput('crate', { required: true }));
   const locked = core.getBooleanInput('locked', { required: false });
   const args = core.getInput('args', { required: false });
   const cacheKey = core.getInput('cache-key', { required: false });
 
   const parsedArgs = stringArgv(args);
-  const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
   if (locked) {
     parsedArgs.push('--locked');
   }
 
-  // Crate version (always provided, defaults to 'latest')
-  const version = core.getInput('version', { required: true });
-  if (version !== 'latest' && semver.validRange(version) === null) {
-    core.setFailed(
-      'Invalid version provided. Must be a valid semver range or "latest".',
-    );
-    process.exit(1);
+  const crates =
+    specs.length === 1
+      ? [parseSingleCrate(specs[0])]
+      : parseMultipleCrates(specs);
+
+  return { crates, args: parsedArgs, cacheKey };
+}
+
+// Crate name with optional version, using the `name@version` syntax
+interface CrateSpec {
+  name: string;
+  version?: string;
+}
+
+function parseCrateSpecs(input: string): CrateSpec[] {
+  const specs = input
+    .split(/[\s,]+/)
+    .filter(Boolean)
+    .map(entry => {
+      const [name, version, ...rest] = entry.split('@');
+      if (name === '' || version === '' || rest.length > 0) {
+        fail(`Invalid crate "${entry}". Expected "name" or "name@version".`);
+      }
+      if (version !== undefined) {
+        validateVersion(version);
+      }
+      return { name, version };
+    });
+
+  if (specs.length === 0) {
+    fail('No crate provided.');
   }
+  return specs;
+}
+
+// Single crate: all inputs are supported
+function parseSingleCrate(spec: CrateSpec): Crate {
+  const features = core.getInput('features', { required: false });
+  const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
+
+  // Crate version (always provided, defaults to 'latest')
+  const versionInput = core.getInput('version', { required: true });
+  validateVersion(versionInput);
+  if (spec.version !== undefined && versionInput !== 'latest') {
+    fail('Cannot provide both a version in crate and the version input.');
+  }
+  const version = spec.version ?? versionInput;
 
   // Custom registry source
   const registry = core.getInput('registry', { required: false });
   const index = core.getInput('index', { required: false });
   if (registry !== '' && index !== '') {
-    core.setFailed('Cannot provide both registry and index.');
-    process.exit(1);
+    fail('Cannot provide both registry and index.');
   }
 
   // Git source (optional, overrides Crates.io version if provided)
@@ -88,11 +128,46 @@ export function parseInput(): ActionInput {
     core.warning('Ignoring version since git is provided.');
   }
 
-  return {
-    crate,
-    source,
-    features: parsedFeatures,
-    args: parsedArgs,
-    cacheKey,
-  };
+  return { name: spec.name, source, features: parsedFeatures };
+}
+
+// Multiple crates: only crates.io installation with inline versions
+function parseMultipleCrates(specs: CrateSpec[]): Crate[] {
+  const unsupported = [
+    'features',
+    'registry',
+    'index',
+    'git',
+    'branch',
+    'tag',
+    'commit',
+    'rev',
+  ].filter(name => core.getInput(name, { required: false }) !== '');
+  if (core.getInput('version', { required: false }) !== 'latest') {
+    unsupported.unshift('version');
+  }
+  if (unsupported.length > 0) {
+    fail(
+      `Inputs ${unsupported.join(', ')} are not supported when installing multiple crates.`,
+    );
+  }
+
+  return specs.map(spec => ({
+    name: spec.name,
+    source: { type: 'registry', version: spec.version ?? 'latest' },
+    features: [],
+  }));
+}
+
+function validateVersion(version: string): void {
+  if (version !== 'latest' && semver.validRange(version) === null) {
+    fail(
+      `Invalid version "${version}". Must be a valid semver range or "latest".`,
+    );
+  }
+}
+
+function fail(message: string): never {
+  core.setFailed(message);
+  process.exit(1);
 }

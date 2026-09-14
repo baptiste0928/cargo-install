@@ -68762,16 +68762,16 @@ var import_node_path2 = __toESM(require("node:path"));
 // src/install.ts
 var import_node_crypto4 = __toESM(require("node:crypto"));
 var import_node_path = __toESM(require("node:path"));
-async function getInstallSettings(input, version3) {
+async function getInstallSettings(crate, input, version3) {
   const homePath = process.env.HOME ?? process.env.USERPROFILE;
   if (homePath === void 0 || homePath === "") {
     setFailed("Could not determine home directory");
     process.exit(1);
   }
-  const installPath = import_node_path.default.join(homePath, ".cargo-install", input.crate);
-  const args = getInstallArgs(input, version3, installPath);
+  const installPath = import_node_path.default.join(homePath, ".cargo-install", crate.name);
+  const args = getInstallArgs(crate, input, version3, installPath);
   const env2 = { CARGO_INSTALL_ROOT: installPath };
-  const cacheKey = await getCacheKey(input, version3, args);
+  const cacheKey = await getCacheKey(crate, input, version3, args);
   return {
     path: installPath,
     args,
@@ -68779,28 +68779,28 @@ async function getInstallSettings(input, version3) {
     cacheKey
   };
 }
-function getInstallArgs(input, version3, installPath) {
-  let args = ["install", input.crate, "--force", "--root", installPath];
+function getInstallArgs(crate, input, version3, installPath) {
+  let args = ["install", crate.name, "--force", "--root", installPath];
   if ("version" in version3) {
     args.push("--version", version3.version);
   } else {
     args.push("--git", version3.repository, "--rev", version3.commit);
   }
-  if (input.source.type === "registry" && input.source.registry) {
-    args.push("--registry", input.source.registry);
+  if (crate.source.type === "registry" && crate.source.registry) {
+    args.push("--registry", crate.source.registry);
   }
-  if (input.source.type === "registry" && input.source.index) {
-    args.push("--index", input.source.index);
+  if (crate.source.type === "registry" && crate.source.index) {
+    args.push("--index", crate.source.index);
   }
-  if (input.features.length > 0) {
-    args.push("--features", input.features.join(","));
+  if (crate.features.length > 0) {
+    args.push("--features", crate.features.join(","));
   }
   if (input.args.length > 0) {
     args = args.concat(input.args);
   }
   return args;
 }
-async function getCacheKey(input, version3, args) {
+async function getCacheKey(crate, input, version3, args) {
   const runnerOs = process.env.RUNNER_OS;
   const runnerArch = process.env.RUNNER_ARCH;
   const osVersion = await getOsVersion();
@@ -68811,7 +68811,7 @@ async function getCacheKey(input, version3, args) {
   const hashKey = runnerOs + runnerArch + (osVersion ?? "") + args.join(" ") + (input.cacheKey ?? "");
   const hash = import_node_crypto4.default.createHash("sha256").update(hashKey).digest("hex").slice(0, 24);
   const versionKey = "version" in version3 ? version3.version : version3.commit.slice(0, 7);
-  return `cargo-install-${input.crate}-${versionKey}-${hash}`;
+  return `cargo-install-${crate.name}-${versionKey}-${hash}`;
 }
 async function getOsVersion() {
   const runnerOs = process.env.RUNNER_OS;
@@ -68881,28 +68881,46 @@ function firstString() {
 
 // src/parse.ts
 function parseInput() {
-  const crate = getInput("crate", { required: true });
-  const features = getInput("features", { required: false });
+  const specs = parseCrateSpecs(getInput("crate", { required: true }));
   const locked = getBooleanInput("locked", { required: false });
   const args = getInput("args", { required: false });
   const cacheKey = getInput("cache-key", { required: false });
   const parsedArgs = parseArgsStringToArgv(args);
-  const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
   if (locked) {
     parsedArgs.push("--locked");
   }
-  const version3 = getInput("version", { required: true });
-  if (version3 !== "latest" && semver2.validRange(version3) === null) {
-    setFailed(
-      'Invalid version provided. Must be a valid semver range or "latest".'
-    );
-    process.exit(1);
+  const crates = specs.length === 1 ? [parseSingleCrate(specs[0])] : parseMultipleCrates(specs);
+  return { crates, args: parsedArgs, cacheKey };
+}
+function parseCrateSpecs(input) {
+  const specs = input.split(/[\s,]+/).filter(Boolean).map((entry) => {
+    const [name, version3, ...rest] = entry.split("@");
+    if (name === "" || version3 === "" || rest.length > 0) {
+      fail(`Invalid crate "${entry}". Expected "name" or "name@version".`);
+    }
+    if (version3 !== void 0) {
+      validateVersion(version3);
+    }
+    return { name, version: version3 };
+  });
+  if (specs.length === 0) {
+    fail("No crate provided.");
   }
+  return specs;
+}
+function parseSingleCrate(spec) {
+  const features = getInput("features", { required: false });
+  const parsedFeatures = features.split(/[ ,]+/).filter(Boolean);
+  const versionInput = getInput("version", { required: true });
+  validateVersion(versionInput);
+  if (spec.version !== void 0 && versionInput !== "latest") {
+    fail("Cannot provide both a version in crate and the version input.");
+  }
+  const version3 = spec.version ?? versionInput;
   const registry = getInput("registry", { required: false });
   const index = getInput("index", { required: false });
   if (registry !== "" && index !== "") {
-    setFailed("Cannot provide both registry and index.");
-    process.exit(1);
+    fail("Cannot provide both registry and index.");
   }
   const repository = getInput("git", { required: false });
   const branch = getInput("branch", { required: false });
@@ -68926,13 +68944,43 @@ function parseInput() {
   if (repository !== "" && version3 !== "latest") {
     warning("Ignoring version since git is provided.");
   }
-  return {
-    crate,
-    source,
-    features: parsedFeatures,
-    args: parsedArgs,
-    cacheKey
-  };
+  return { name: spec.name, source, features: parsedFeatures };
+}
+function parseMultipleCrates(specs) {
+  const unsupported = [
+    "features",
+    "registry",
+    "index",
+    "git",
+    "branch",
+    "tag",
+    "commit",
+    "rev"
+  ].filter((name) => getInput(name, { required: false }) !== "");
+  if (getInput("version", { required: false }) !== "latest") {
+    unsupported.unshift("version");
+  }
+  if (unsupported.length > 0) {
+    fail(
+      `Inputs ${unsupported.join(", ")} are not supported when installing multiple crates.`
+    );
+  }
+  return specs.map((spec) => ({
+    name: spec.name,
+    source: { type: "registry", version: spec.version ?? "latest" },
+    features: []
+  }));
+}
+function validateVersion(version3) {
+  if (version3 !== "latest" && semver2.validRange(version3) === null) {
+    fail(
+      `Invalid version "${version3}". Must be a valid semver range or "latest".`
+    );
+  }
+}
+function fail(message) {
+  setFailed(message);
+  process.exit(1);
 }
 
 // src/resolve/git.ts
@@ -69320,9 +69368,21 @@ function getIndexPath(crate) {
 var chalk2 = new Chalk({ level: 3 });
 async function run() {
   const input = parseInput();
-  startGroup(chalk2.bold(`Installing ${input.crate}...`));
-  const version3 = input.source.type === "registry" ? await resolveRegistryVersion(input.crate, input.source) : await resolveGitCommit(input.source);
-  const install = await getInstallSettings(input, version3);
+  const installed = [];
+  for (const crate of input.crates) {
+    installed.push(await installCrate(crate, input));
+  }
+  const version3 = input.crates.length === 1 ? installed[0].version : input.crates.map((crate, i) => `${crate.name}@${installed[i].version}`).join("\n");
+  setOutput("version", version3);
+  setOutput(
+    "cache-hit",
+    installed.every((crate) => crate.cacheHit)
+  );
+}
+async function installCrate(crate, input) {
+  startGroup(chalk2.bold(`Installing ${crate.name}...`));
+  const version3 = crate.source.type === "registry" ? await resolveRegistryVersion(crate.name, crate.source) : await resolveGitCommit(crate.source);
+  const install = await getInstallSettings(crate, input, version3);
   info("Installation settings:");
   if ("version" in version3) {
     info(`   version: ${version3.version}`);
@@ -69338,11 +69398,11 @@ async function run() {
   endGroup();
   let cacheHit = false;
   if (restored !== void 0) {
-    info(`Restored ${input.crate} from cache.`);
+    info(`Restored ${crate.name} from cache.`);
     cacheHit = true;
   } else {
     startGroup(
-      `No cached version found, installing ${input.crate} using cargo...`
+      `No cached version found, installing ${crate.name} using cargo...`
     );
     const env2 = { ...process.env, ...install.env };
     await exec("cargo", install.args, { env: env2 });
@@ -69360,19 +69420,15 @@ async function run() {
   addPath(import_node_path2.default.join(install.path, "bin"));
   info(`Added ${install.path}/bin to PATH.`);
   if ("version" in version3) {
-    info(chalk2.green(`Installed ${input.crate} ${version3.version}.`));
-  } else {
-    info(
-      chalk2.green(
-        `Installed ${input.crate} from ${version3.repository} at ${version3.commit.slice(0, 7)}.`
-      )
-    );
+    info(chalk2.green(`Installed ${crate.name} ${version3.version}.`));
+    return { version: version3.version, cacheHit };
   }
-  setOutput(
-    "version",
-    "version" in version3 ? version3.version : version3.commit
+  info(
+    chalk2.green(
+      `Installed ${crate.name} from ${version3.repository} at ${version3.commit.slice(0, 7)}.`
+    )
   );
-  setOutput("cache-hit", cacheHit);
+  return { version: version3.commit, cacheHit };
 }
 run().catch((error2) => {
   setFailed(error2.message);

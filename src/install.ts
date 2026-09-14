@@ -3,7 +3,7 @@ import * as exec from '@actions/exec';
 import crypto from 'node:crypto';
 import path from 'node:path';
 
-import type { ActionInput } from './parse';
+import type { ActionInput, Crate } from './parse';
 
 export type ResolvedVersion =
   { version: string } | { repository: string; commit: string };
@@ -17,6 +17,7 @@ export interface InstallSettings {
 
 // Get the installation settings for the crate (path, arguments and cache key)
 export async function getInstallSettings(
+  crate: Crate,
   input: ActionInput,
   version: ResolvedVersion,
 ): Promise<InstallSettings> {
@@ -27,10 +28,10 @@ export async function getInstallSettings(
     process.exit(1);
   }
 
-  const installPath = path.join(homePath, '.cargo-install', input.crate);
-  const args = getInstallArgs(input, version, installPath);
+  const installPath = path.join(homePath, '.cargo-install', crate.name);
+  const args = getInstallArgs(crate, input, version, installPath);
   const env = { CARGO_INSTALL_ROOT: installPath };
-  const cacheKey = await getCacheKey(input, version, args);
+  const cacheKey = await getCacheKey(crate, input, version, args);
 
   return {
     path: installPath,
@@ -42,11 +43,12 @@ export async function getInstallSettings(
 
 // Generate the arguments that will be passed to `cargo` to install the crate.
 function getInstallArgs(
+  crate: Crate,
   input: ActionInput,
   version: ResolvedVersion,
   installPath: string,
 ): string[] {
-  let args = ['install', input.crate, '--force', '--root', installPath];
+  let args = ['install', crate.name, '--force', '--root', installPath];
 
   if ('version' in version) {
     args.push('--version', version.version);
@@ -54,15 +56,15 @@ function getInstallArgs(
     args.push('--git', version.repository, '--rev', version.commit);
   }
 
-  if (input.source.type === 'registry' && input.source.registry) {
-    args.push('--registry', input.source.registry);
+  if (crate.source.type === 'registry' && crate.source.registry) {
+    args.push('--registry', crate.source.registry);
   }
-  if (input.source.type === 'registry' && input.source.index) {
-    args.push('--index', input.source.index);
+  if (crate.source.type === 'registry' && crate.source.index) {
+    args.push('--index', crate.source.index);
   }
 
-  if (input.features.length > 0) {
-    args.push('--features', input.features.join(','));
+  if (crate.features.length > 0) {
+    args.push('--features', crate.features.join(','));
   }
 
   if (input.args.length > 0) {
@@ -73,6 +75,7 @@ function getInstallArgs(
 }
 
 async function getCacheKey(
+  crate: Crate,
   input: ActionInput,
   version: ResolvedVersion,
   args: string[],
@@ -115,7 +118,7 @@ async function getCacheKey(
   const versionKey =
     'version' in version ? version.version : version.commit.slice(0, 7);
 
-  return `cargo-install-${input.crate}-${versionKey}-${hash}`;
+  return `cargo-install-${crate.name}-${versionKey}-${hash}`;
 }
 
 async function getOsVersion(): Promise<string | undefined> {

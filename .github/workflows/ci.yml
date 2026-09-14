@@ -67,8 +67,21 @@ jobs:
           git: https://github.com/devinr528/cargo-sort
           tag: v1.0.9
 
+      - name: Install several crates
+        uses: ./
+        with:
+          crate: |
+            cargo-expand@1.0.100
+            cargo-audit
+
       - name: Print cargo hack version
         run: cargo hack --version
+
+      - name: Print cargo expand version
+        run: cargo expand --version
+
+      - name: Print cargo audit version
+        run: cargo audit --version
 
       - name: Print cargo sort version
         run: cargo sort --version

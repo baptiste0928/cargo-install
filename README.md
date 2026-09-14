@@ -3,12 +3,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/baptiste0928/cargo-install)
 [![CI](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml/badge.svg)](https://github.com/baptiste0928/cargo-install/actions/workflows/ci.yml)
 
-> [!IMPORTANT]
->
-> **Versions prior to v3.2 will stop working on February 1st, 2025**, due to
-> GitHub changing their cache service APIs. See the [`@actions/cache`
-> package deprecation notice](https://github.com/actions/toolkit/discussions/1890).
-
 A GitHub Action that runs `cargo install` and automatically caches the resulting binaries to speed up subsequent builds.
 
 ## Features
@@ -30,6 +24,14 @@ crates. Read [Quickstart for GitHub Actions] to learn more about Actions usage.
   with:
     crate: cargo-hack
     version: '^0.5' # optional semver range (defaults to latest)
+
+- name: Install several crates from crates.io
+  uses: baptiste0928/cargo-install@v3
+  with:
+    # multiple crates with `name@version` syntax (works on a single line too)
+    crate: |
+      cargo-hack@^0.5
+      cargo-sort
 
 - name: Install cargo-sort from git
   uses: baptiste0928/cargo-install@v3
@@ -56,6 +58,15 @@ unexpected dependencies updates.
 - `cache-key`: Custom string added to the cache key to force-invalidate the
   cache
 
+#### Multiple crates
+
+Several crates can be installed in a single step by separating them with
+spaces or newlines in the `crate` parameter. Versions can be specified with the
+`name@version` syntax.
+
+Only installation from [crates.io] is supported in this mode.
+Each crate is cached independently.
+
 #### Git parameters
 
 When installing from a git repository, the `version` parameter is ignored.
@@ -80,7 +91,8 @@ Version range resolution is only supported when using a sparse registry index wi
 
 ### Outputs
 
-- `version`: Installed crate version (or commit hash for git installations)
+- `version`: Installed crate version (or commit hash for git installations).
+  With multiple crates, one `name@version` per line
 - `cache-hit`: Boolean indicating whether the crate was restored from cache
 
 ## Caching
